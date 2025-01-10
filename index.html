@@ -52,7 +52,8 @@
         reader.onload = () => {
           try {
             const json = JSON.parse(reader.result);
-            output.textContent = "JSON accepted! parsing..."
+            output.textContent = "JSON accepted! parsing...";
+            checkLocations(json);
           } catch (err) {
             output.textContent = 'Error parsing JSON: ' + err.message;
           }
@@ -64,12 +65,72 @@
     });
 
     // Now I just need to figure out how the fuck I'm ever going to implement this, this is going to sucks.
+    const childOnlyEntrances = [
+        "Hyrule Field -> HF Open Grotto",
+        "Lon Lon Ranch -> LLR Grotto",
+        "Market -> Market Bazaar",
+        "Market -> Market Mask Shop",
+        "Market -> Market Shooting Gallery",
+        "Market -> Market Bombchu Bowling",
+        "Market -> Market Treasure Chest Game",
+        "Market -> Market Potion Shop",
+        "Hyrule Castle Grounds -> HC Great Fairy Fountain",
+        "Hyrule Castle Grounds -> HC Storms Grotto"
+
+
+    ];
+
+    const adultOnlyEntrances = [
+        "Kak Backyard -> Kak Potion Shop Back",
+        "The Graveyard -> Graveyard Dampes Grave",
+        "Ganon's Castle Grounds -> OGC Great Fairy Fountain",
+        "Ganon's Castle Ledge -> Ganon's Castle Entryway",
+        "Gerudo Fortress -> GF Storms Grotto",
+        "GV Fortress Side -> GV Storms Grotto"
+    ];
+
+    const questionableEntrances = [
+        "Market Back Alley -> Market Man in Green House",
+        "Market Back Alley -> Market Bombchu Shop"
+
+    ];
+
+    var errorState = false;
+
     function checkItems(file) {
         return;
     }
 
     function checkLocations(file) {
-        return;
+
+        
+        const locations = file.entrancesMap["sphere 00"];
+        // console.log(locations);
+
+        // Ganon Castle check
+        ganonCastleLocationCheck(locations);
+        if (!errorState) {
+            output.textContent = "You're all good!";
+        }
+    }
+
+    function ganonCastleLocationCheck(locations) {
+        for (const x in locations) {
+            // console.log(x);
+            // console.log(locations[x]);
+            if (locations[x] == "Ganon's Castle Entryway from Ganon's Castle Ledge") {
+                if (childOnlyEntrances.includes(x.toString())) {
+                    console.log("found!");
+                    output.textContent = "found an impossibility: Ganon's Castle is in a Child Only Entrance.";
+                    errorState = true;
+                }
+                if (questionableEntrances.includes(x.toString())) {
+                    console.log("found?");
+                    output.textContent = "found an impossibility: Ganon's Castle is in a potentially impossible location.";
+                    errorState = true;
+                }
+            }
+        }
     }
 
     
