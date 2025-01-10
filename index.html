@@ -1,0 +1,78 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop JSON Import</title>
+  <style>
+    #drop-area {
+      width: 300px;
+      height: 200px;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="drop-area">Drop your JSON file here</div>
+  <pre id="output"></pre>
+
+  <script>
+
+    // Select the drop area and output elements
+    const dropArea = document.getElementById('drop-area');
+    const output = document.getElementById('output');
+    
+    // Prevent default behaviors for drag events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
+      dropArea.addEventListener(event, e => e.preventDefault());
+      dropArea.addEventListener(event, e => e.stopPropagation());
+    });
+    
+    // Highlight drop area when file is dragged over it
+    ['dragenter', 'dragover'].forEach(event => {
+      dropArea.addEventListener(event, () => dropArea.style.borderColor = '#00f');
+    });
+    
+    ['dragleave', 'drop'].forEach(event => {
+      dropArea.addEventListener(event, () => dropArea.style.borderColor = '#ccc');
+    });
+    
+    // Handle dropped file
+    dropArea.addEventListener('drop', event => {
+      const file = event.dataTransfer.files[0]; // Get the first file
+      if (file && file.type === 'application/json') {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const json = JSON.parse(reader.result);
+            output.textContent = "JSON accepted! parsing..."
+          } catch (err) {
+            output.textContent = 'Error parsing JSON: ' + err.message;
+          }
+        };
+        reader.readAsText(file); // Read the file as text
+      } else {
+        output.textContent = 'Please drop a valid JSON file.';
+      }
+    });
+
+    // Now I just need to figure out how the fuck I'm ever going to implement this, this is going to sucks.
+    function checkItems(file) {
+        return;
+    }
+
+    function checkLocations(file) {
+        return;
+    }
+
+    
+    </script>
+</body>
+</html>
