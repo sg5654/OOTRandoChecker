@@ -5961,9 +5961,21 @@
       }
 
       var tempFileStorage;
+
+      function resetEverything() {
+            inventory.bottleables - [];
+            inventory.Child_start = "",
+            inventory.Adult_start = "",
+            inventory.entered = [],
+            inventory.accessible = [],
+            inventory.requirements = [],
+            inventory.items = [],
+            inventory.ages = [],
+            inventory.collected = []
+      }
     function checkLocations(file) {
 
-        
+        resetEverything()
         // console.log(locations);
 
         // Ganon Castle check
