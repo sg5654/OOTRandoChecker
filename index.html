@@ -68,7 +68,7 @@
         output.textContent = 'Please drop a valid JSON file.';
       }
     });
-
+    var file;
     var inventory = {
 
       bottleables: [],
@@ -177,17 +177,27 @@
 
     var GanonBKLACS = [0,1,2,3,4,5,6,7,8,9]
     var Settings = {
-      LACS: ["Default", GanonBKLACS]
+      LACS: ["Default", GanonBKLACS],
+      GanonBKShuffle: true,
+      bossesNeeded: 0,
+      stonesNeeded: 0,
+      medallionsNeeded: 0,
+      rewardsNeeded: 0,
+      tokensNeeded: 0
     }
     class Conditional {
-      locations;
-      related = [inventory.accessible]
-      requirements;
-      age;
-      needsAll = false;
+      constructor(locations, requirements, age, needsAll, collected) {
+            this.locations = locations;
+            this.requirements = requirements;
+            this.age = age;
+            this.needsAll = needsAll;
+            this.collected = collected;
+      }
     }
 
     const Requirements = {
+      Silver_Boulder: {explanation: "Has the ability to bypass a Silver Boulder for a grotto", unlocked_if_all: ["Strength2", "Weirdslide"]},
+      Weirdslide: {explanation: "Has the ability to perform a weirdslide", unlocked_if_all: ["FP_Item", "Explosive", "Adult_Shield"]},
       Child_Access: {explanation: "Has access to child", related: [inventory.ages], ages: ["Child"]},
       Adult_Access: {explanation: "Has access to adult", related: [inventory.ages], ages: ["Adult"]},
       Horse_Race: {explanation: "Requires having beaten Malon's Obstacle course using Epona", related: [inventory.items, inventory.ages, inventory.entered], items: ["Epona's Song"], ages: ["Adult"], stages: ["Lon Lon Ranch"] },
@@ -234,6 +244,7 @@
       Magic: {explanation: "Requires having a Magic Upgrade", related: [inventory.items], items: ["Progressive Magic Meter"]},
       Scrubbable: {     explanation: 'Requires having any of the items necessary to interact with deku scrubs', 
                         unlocked_if: ["Nuts", "Melee", "Hammer", "Hookshot", "Boomerang", "Slingshot", "Shield", "Explosive"]},
+      Biggoron_Sword: {explanation: "Requires having specifically Biggoron's Sword", related: [inventory.items], items: ["Biggoron's Sword"]},
       Cojiro: {explanation: "Requires having Cojiro", related: [inventory.items], items: ["Cojiro"]},
       Odd_Potion: {explanation: "Requires having the Odd Potion", related: [inventory.items], items: ["Odd Potion"]},
       Odd_Mushroom: {explanation: "Requires having the Odd Mushroom", related: [inventory.items], items: ["Odd Mushroom"]},
@@ -604,8 +615,8 @@
                     [Requirements.Longshot],
                     [Requirements.Bombs, Requirements.Shield, Requirements.Melee]
       ],
-      Gohma: [  [Requirements.Nuts, Requirements.Melee, Requirements.Burnable, Requirements.Shield],
-                [Requirements.Slingshot, Requirements.Melee, Requirements.Burnable, Requirements.Shield]
+      Gohma: [  [Requirements.Nuts, Requirements.Melee_Either],
+                [Requirements.Slingshot, Requirements.Child_Melee, Requirements.Child_Access]
       ],
       MQ_Deku_Beyond_Switch: [  [ Requirements.Weapon],
                                 [ Requirements.Slingshot]
@@ -823,6 +834,63 @@
       ],
       Volvagia_Entrance: [    [Requirements.Adult_Access, Requirements.Fire_BK],
                               [Requirements.Child_Shield, Requirements.Explosive, Requirements.Fire_BK]
+      ],
+      Freezard_Kill: [        [Requirements.Master_Sword],
+                              [Requirements.Stick],
+                              [Requirements.Biggoron_Sword],
+                              [Requirements.Explosive]
+      ],
+      Ice_Cavern_Back: [      [Requirements.Adult_Access],
+                              [Requirements.Bomb_Hovering_Child]
+      ],
+      Ice_Cavern_Blue_Fire_Skip: [  [Requirements.Melee_Either],
+                                    [Requirements.Blue_Fire, Requirements.Bottle],
+                                    [Requirements.Explosive, Requirements.Shield]
+      ],
+      DMC_Great_Fairy_Fountain: [   [Requirements.Hover_boots, Requirements.Adult_Melee],
+                                    [Requirements.Explosive, Requirements.Child_Access, Requirements.Child_Shield],
+                                    [Requirements.Explosive, Requirements.Adult_Access, Requirements.Adult_Shield],
+                                    [Requirements.Hammer]
+      ],
+      // SOH doesn't support child weirdslide
+      Hammer_Or_Weirdslide: [       [Requirements.Hammer],
+                                    [Requirements.Explosive, Requirements.Adult_Shield, Requirements.FP_Item]
+      ],
+      DMC_Upper_To_Lower: [         [Requirements.Adult_Access],
+                                    [Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Access]
+      ],
+      DMC_Central_To_Lower: [       [Requirements.Hover_boots, Requirements.Adult_Access],
+                                    [Requirements.Hookshot, Requirements.Adult_Access],
+                                    [Requirements.Hook_Or_Hover],
+                                    [Requirements.Bean_Planted, Requirements.Adult_Access]
+      ],
+      DMC_Lower_To_Central: [       [Requirements.Hookshot],
+                                    [Requirements.Hover_boots],
+                                    [Requirements.Adult_Shield, Requirements.Adult_Access],
+                                    [Requirements.Child_Shield, Requirements.Explosive]
+      ],
+      LW_Bridge_Above: [            [Requirements.Master_Sword],
+                                    [Requirements.Hover_boots],
+                                    [Requirements.Bean_Planted, Requirements.Adult_Access],
+                                    [Requirements.Hookshot],
+                                    [Requirements.Explosive, Requirements.Adult_Shield, Requirements.Adult_Access],
+                                    [Requirements.Explosive, Requirements.Child_Access, Requirements.Child_Shield]
+      ],
+      LW_Bridge_Escape: [           [Requirements.Explosive, Requirements.Adult_Access],
+                                    [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive]
+      ],
+      GC_Shop: [                    [Requirements.Mudwall, Requirements.Child_Access],
+                                    [Requirements.Bow, Requirements.Adult_Access],
+                                    [Requirements.Strength1, Requirements.Adult_Access],
+                                    [Requirements.Explosive]
+      ],
+      Darunia_Statue: [             [Requirements.Adult_Access],
+                                    [Requirements.Child_Shield, Requirements.Child_Access],
+                                    [Requirements.Explosive, Requirements.Stick, Requirements.Child_Access]
+      ],
+      Forest_Escape: [              [Requirements.Adult_Melee, Requirements.Adult_access],
+                                    [Requirements.Scale],
+                                    [Requirements.Child_Melee, Requirements.Child_Access]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -833,39 +901,49 @@
       // ]
 
     }
+    const LocationType = {
+      Grotto: ("This area is a grotto"),
+      Overworld: ("This area exists in the overworld"),
+      Ganon: ("This area is Ganon's Castle"),
+      TOT: ("This area is Temple of Time"),
+      Interior: ("This area is an interior"),
+      Dungeon: ("This area is a Dungeon"),
+      Mixed: ("Dampe's Grave: contains both a grotto and an Interior"),
+      Boss: ("This area is a boss room")
+    }
 
         // Now I just need to figure out how the fuck I'm ever going to implement this, this is going to sucks.
         var Locations = {
-      Kak_Redead_Grotto: {name: "Kak Redead Grotto"},
-      TOT: {name: "Temple of Time", unlocksAges: true},
-      KF: {name: "Kokiri Forest"},
+      Kak_Redead_Grotto: {name: "Kak Redead Grotto", type: LocationType.Grotto},
+      TOT: {name: "Temple of Time", unlocksAges: true, type: LocationType.TOT},
+      KF: {name: "Kokiri Forest", type: LocationType.Overworld},
       // TODO: Conditional: DMT gate
-      Kakariko: {name: "Kakariko Village", bottleables: ["Bugs"]},
+      Kakariko: {name: "Kakariko Village", bottleables: ["Bugs"], type: LocationType.Overworld},
       // Conditional:
       //    - HF -> ZR: Bombawa
       //    - ZR -> ZD: Waterfall
-      ZR: {name: "Zora's River"},
+      ZR: {name: "Zora's River", type: LocationType.Overworld},
       // Conditional:
       //    - ZD -> ZF: King zora
       //    - ZD -> LH: Dive/Ice
       //    - ZD -> ZD shop: Red Ice
-      ZD: {name: "Zora's Domain", requirements: [Requirements.Child_Access], unlocks: ["Buy Deku Nut (5)", "Buy Deku Stick (1)"]},
+      ZD: {name: "Zora's Domain", requirements: [Requirements.Child_Access], unlocks: ["Buy Deku Nut (5)", "Buy Deku Stick (1)"], type: LocationType.Overworld},
       // Conditional:
       //    - ZF -> Ice Cavern: Hovering as child
-      ZF: {name: "Zora's Fountain"},
-      HF: {name: "Hyrule Field", unlocks: ["Buy Deku Nut (5)"]},
+      ZF: {name: "Zora's Fountain", type: LocationType.Overworld},
+      HF: {name: "Hyrule Field", unlocks: ["Buy Deku Nut (5)"], type: LocationType.Overworld},
       // TODO: Conditional:
       //    - LH -> ZD: Ice block/Dive
       //    - LH -> Fishing pond as adult
-      LH: {name: "Lake Hylia"},
+      LH: {name: "Lake Hylia", type: LocationType.Overworld},
       // Conditional:
       //    Crossing bridge
-      GV: {name: "Gerudo Valley", related: [inventory.accessible], accessible:["Gerudo Valley -> Hyrule Field"] ,bottleables: ["Bugs"], linkedLocation: ["LH"]},
+      GV: {name: "Gerudo Valley", related: [inventory.accessible], accessible:["Gerudo Valley -> Hyrule Field"] ,bottleables: ["Bugs"], linkedLocation: ["LH"], type: LocationType.Overworld},
       // Conditional:
       //    Gate
-      GF: {name: "Gerudo Fortress"},
-      HW: {name: "Haunted Wasteland"},
-      DC: {name: "Desert Colossus", bottleables: ["Bugs"]},
+      GF: {name: "Gerudo Fortress", type: LocationType.Overworld},
+      HW: {name: "Haunted Wasteland", type: LocationType.Overworld},
+      DC: {name: "Desert Colossus", bottleables: ["Bugs"]}, type: LocationType.Overworld,
       // Conditional:
       //    Bombawa path to DMC
       DMT: {name: "Death Mountain Trail", 
@@ -876,125 +954,125 @@
                               "Death Mountain Summit -> DMT Great Fairy Fountain",
                               "DMT Owl Flight -> Kak Impas Rooftop"
             ], 
-            bottleables: ["Bugs"]},
+            bottleables: ["Bugs"], type: LocationType.Overworld},
       // Conditional:
       //    Fire temple to upper, upper to fire temple
-      DMC: {name: "Death Mountain Crater"},
+      DMC: {name: "Death Mountain Crater", type: LocationType.Overworld},
       // Conditional:
       //    Lost woods bridge, ZR dive
-      LW: {name: "Lost Woods", bottleables: ["Bugs"]},
+      LW: {name: "Lost Woods", bottleables: ["Bugs"], type: LocationType.Overworld},
       // Conditional:
       //    Alleyway as adult
-      Market: {name: "Market", linkedLocation: ["Alleyway"]},
-      HC: {name: "Hyrule Castle"},
-      OGC: {name: "Outside Ganon's Castle"},
-      LLR: {name: "Lon Lon Ranch"},
+      Market: {name: "Market", linkedLocation: ["Alleyway"], type: LocationType.Overworld},
+      HC: {name: "Hyrule Castle", type: LocationType.Overworld},
+      OGC: {name: "Outside Ganon's Castle", type: LocationType.Overworld},
+      LLR: {name: "Lon Lon Ranch", type: LocationType.Overworld},
       // Conditional:
       //    Wolfos gate, Forest hookshot
-      SFM: {name: "Sacred Forest Meadow"},
+      SFM: {name: "Sacred Forest Meadow", type: LocationType.Overworld},
       // Conditional:
       //    Shadow temple, dampes hut
-      GY: {name: "Graveyard", bottleables: ["Bugs"]},
+      GY: {name: "Graveyard", bottleables: ["Bugs"], type: LocationType.Overworld},
       // Conditional:
       //    Scrub grotto, Darunia chamber
-      GC: {name: "Goron City", unlocks: ["Buy Deku Stick (1)"]},
-      Deku_Tree: {name: "Deku Tree"},
-      Dodongos_Cavern: {name: "Dodongo's Cavern"},
-      Jabu: {name: "Jabu Jabu's Belly"},
-      Forest: {name: "Forest Temple"},
-      Fire: {name: "Fire Temple"},
-      Water: {name: "Water Temple"},
-      Shadow: {name: "Shadow Temple"},
-      Spirit: {name: "Spirit Temple"},
-      BOTW: {name: "Bottom Of The Well"},
-      Ice_Cavern: {name: "Ice Cavern"},
-      LW_Scrubs_Grotto: {name: "LW Scrubs Grotto"},
-      Interior: {name: "Interior"},
-      GY_HP_Grave: {name: "Graveyard Heart Piece Grave"},
-      KF_Storms_Grotto: {name: "KF Storms Grotto", bottleables: ["Bugs"]},
-      Market_Guard_House: {name: "Market Guard House"},
-      DC_Grotto: {name: "Colossus Grotto"},
-      GY_Dampes_House: {name: "Dampe's House"},
-      GC_Grotto: {name: "GC Grotto"},
-      ZF_Great_Fairy_Fountain: {name: "ZF Great Fairy Fountain"},
-      LLR_Stables: {name: "LLR Stables"},
-      LW_Near_Shortcuts_Grotto: {name: "LW Near Shortcut grotto", bottleables: ["Bugs"]},
-      KF_Links_House: {name: "KF Link's House"},
-      HF_Near_Market_Grotto: {name: "HF Near Market Grotto", bottleables: ["Bugs"]},
-      DMT_Great_Fairy_Fountain: {name: "DMT Great Fairy Fountain"},
-      GV_Storms_Grotto: {name: "GV Storms Grotto"},
-      GY_Composer_Grave: {name: "Composer Grave"},
-      Market_Shooting_Gallery: {name: "Market Shooting Gallery"},
-      GY_Shield_Grave: {name: "Shield Grave"},
-      SFM_Storms_Grotto: {name: "SFM Storms Grotto"},
-      Kak_Grannys_Potion_Shop: {name: "Kak Granny's Potion Shop"},
-      GF_Storms_Grotto: {name: "GF Storms Grotto"},
-      Deku_Theater: {name: "Deku Theater"},
-      LLR_Grotto: {name: "LLR Grotto"},
-      HF_Open_Grotto: {name: "HF Open Grotto", bottleables: ["Bugs"]},
-      Kak_Shooting_Gallery: {name: "Kak Shooting Gallery"},
-      HF_Tektite_Grotto: {name: "HF Tektite Grotto"},
-      Market_Potion_Shop: {name: "Market Potion Shop"},
-      Kak_Bazaar: {name: "Kak Bazaar"},
-      LH_Grotto: {name: "LH Grotto"},
-      Kak_Potion_Shop: {name: "Kak Potion Shop"},
-      GY_Dampes_Grave: {name: "Dampe's Grave"},
-      KF_Sarias_House: {name: "KF Saria's House"},
-      DC_Great_Fairy_Fountain: {name: "Collosus Great Fairy Fountain"},
-      HF_Inside_Fence_Grotto: {name: "HF Inside Fence Grotto"},
-      DMT_Cow_Grotto: {name: "DMT Cow Grotto"},
-      KF_Midos_House: {name: "KF Mido's House"},
-      LLR_Tower: {name: "LLR Tower"},
-      Market_Man_In_Green_House: {name: "Market Man In Green House"},
-      Kak_Skulltula_House: {name: "Kak House of Skulltula"},
-      Kak_Carpenter_Boss_House: {name: "Kak Carpenter Boss House"},
-      ZR_Open_Grotto: {name: "ZR Open Grotto", bottleables: ["Bugs"]},
-      GV_Carpenter_Tent: {name: "GV Carpenter Tent"},
-      LLR_Talons_House: {name: "LLR Talons House"},
-      KF_Know_It_All_House: {name: "KF Know it all House"},
-      SFM_Fairy_Grotto: {name: "SFM Fairy Grotto"},
-      SFM_Wolfos_Grotto: {name: "SFM Wolfos Grotto"},
-      Market_Bombchu_Bowling: {name: "Market Bombchu Bowling"},
-      Market_Mask_Shop: {name: "Market Mask Shop"},
-      DMT_Storms_Grotto: {name: "DMT Storms Grotto", bottleables: ["Bugs"]},
-      Market_Bombchu_Shop: {name: "Market Bombchu Shop"},
-      GV_Octorok_Grotto: {name: "GV Octorok Grotto"},
-      HF_Fairy_Grotto: {name: "HF Fairy Grotto"},
-      GC_Shop: {name: "GC Shop"},
-      ZD_Storms_Grotto: {name: "ZD Storms Grotto"},
-      Market_Bazaar: {name: "Market Bazaar"},
-      HF_Near_Kak_Grotto: {name: "HF near Kak Grotto"},
-      KF_Shop: {name: "KF Shop"},
-      Market_Treasure_Game: {name: "Market Treasure Chest Game"},
-      ZR_Storms_Grotto: {name: "ZR Storms Grotto"},
-      HF_SE_Grotto: {name: "HF Southeast Grotto"},
-      Kak_Open_Grotto: {name: "Kak Open Grotto", bottleables: ["Bugs"]},
-      LH_Lab: {name: "LH Lab"},
-      Fishing_Hole: {name: "Fishing Hole"},
-      DMC_Great_Fairy_Fountain: {name: "DMC Great Fairy Fountain"},
-      OGC_Great_Fairy_Fountain: {name: "OGC Great Fairy Fountain"},
-      HC_Storms_Grotto: {name: "HC Storms Grotto"},
-      ZR_Fairy_Grotto: {name: "ZR Fairy Grotto"},
-      ZD_Shop: {name: "ZD Shop"},
-      HC_Great_Fairy_Fountain: {name: "HC Great Fairy Fountain"},
-      KF_House_Of_Twins: {name: "KF House of Twins"},
-      DMC_Hammer_Grotto: {name: "DMC Hammer Grotto"},
-      DMC_Upper_Grotto: {name: "DMC Upper Grotto"},
-      Kak_Impas_House: {name: "Kak Impas House"},
-      HF_Cow_Grotto: {name: "HF Cow Grotto"},
-      TOT_Enrance: {name: "Temple of Time entrance"},
-      Alleyway: {name: "Alleyway", linkedLocation: ["Market"]},
-      Market_Entrance: {name: "Market Entrance"},
-      GTG: {name: "Gerudo Training Grounds"},
-      Ganon: {name: "Ganon's Castle"},
-      Gohma: {name: "Gohma's Bossroom"},
-      King_Dodongo: {name: "King Dodongo's Bossroom"},
-      Barinade: {name: "Barinade's Bossroom"},
-      Phantom_Ganon: {name: "Phantom Ganon's Bossroom"},
-      Volvagia: {name: "Volvagia's Bossroom"},
-      Morpha: {name: "Morpha's Bossroom"},
-      Bongo_Bongo: {name: "Bongo_Bongo's Bossroom"},
-      Twinrova: {name: "Twinrova's Bossroom"}
+      GC: {name: "Goron City", unlocks: ["Buy Deku Stick (1)"], type: LocationType.Overworld},
+      Deku_Tree: {name: "Deku Tree", type: LocationType.Dungeon},
+      Dodongos_Cavern: {name: "Dodongo's Cavern", type: LocationType.Dungeon},
+      Jabu: {name: "Jabu Jabu's Belly", type: LocationType.Dungeon},
+      Forest: {name: "Forest Temple", type: LocationType.Dungeon},
+      Fire: {name: "Fire Temple", type: LocationType.Dungeon},
+      Water: {name: "Water Temple", type: LocationType.Dungeon},
+      Shadow: {name: "Shadow Temple", type: LocationType.Dungeon},
+      Spirit: {name: "Spirit Temple", type: LocationType.Dungeon},
+      BOTW: {name: "Bottom Of The Well", type: LocationType.Dungeon},
+      Ice_Cavern: {name: "Ice Cavern", type: LocationType.Dungeon},
+      LW_Scrubs_Grotto: {name: "LW Scrubs Grotto", type: LocationType.Grotto},
+      Interior: {name: "Interior", type: LocationType.Interior},
+      GY_HP_Grave: {name: "Graveyard Heart Piece Grave", type: LocationType.Grotto},
+      KF_Storms_Grotto: {name: "KF Storms Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      Market_Guard_House: {name: "Market Guard House", type: LocationType.Interior},
+      DC_Grotto: {name: "Colossus Grotto", type: LocationType.Grotto},
+      GY_Dampes_House: {name: "Dampe's House", type: LocationType.Interior},
+      GC_Grotto: {name: "GC Grotto", type: LocationType.Grotto},
+      ZF_Great_Fairy_Fountain: {name: "ZF Great Fairy Fountain", type: LocationType.Interior},
+      LLR_Stables: {name: "LLR Stables", type: LocationType.Interior},
+      LW_Near_Shortcuts_Grotto: {name: "LW Near Shortcut grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      KF_Links_House: {name: "KF Link's House", type: LocationType.Interior},
+      HF_Near_Market_Grotto: {name: "HF Near Market Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      DMT_Great_Fairy_Fountain: {name: "DMT Great Fairy Fountain", type: LocationType.Interior},
+      GV_Storms_Grotto: {name: "GV Storms Grotto", type: LocationType.Grotto},
+      GY_Composer_Grave: {name: "Composer Grave", type: LocationType.Grotto},
+      Market_Shooting_Gallery: {name: "Market Shooting Gallery", type: LocationType.Interior},
+      GY_Shield_Grave: {name: "Shield Grave", type: LocationType.Grotto},
+      SFM_Storms_Grotto: {name: "SFM Storms Grotto", type: LocationType.Grotto},
+      Kak_Grannys_Potion_Shop: {name: "Kak Granny's Potion Shop", type: LocationType.Interior},
+      GF_Storms_Grotto: {name: "GF Storms Grotto", type: LocationType.Grotto},
+      Deku_Theater: {name: "Deku Theater", type: LocationType.Grotto},
+      LLR_Grotto: {name: "LLR Grotto", type: LocationType.Grotto},
+      HF_Open_Grotto: {name: "HF Open Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      Kak_Shooting_Gallery: {name: "Kak Shooting Gallery", type: LocationType.Interior},
+      HF_Tektite_Grotto: {name: "HF Tektite Grotto", type: LocationType.Grotto},
+      Market_Potion_Shop: {name: "Market Potion Shop"}, type: LocationType.Interior,
+      Kak_Bazaar: {name: "Kak Bazaar", type: LocationType.Interior},
+      LH_Grotto: {name: "LH Grotto", type: LocationType.Grotto},
+      Kak_Potion_Shop: {name: "Kak Potion Shop", type: LocationType.Interior},
+      GY_Dampes_Grave: {name: "Dampe's Grave", type: LocationType.Mixed},
+      KF_Sarias_House: {name: "KF Saria's House", type: LocationType.Interior},
+      DC_Great_Fairy_Fountain: {name: "Collosus Great Fairy Fountain", type: LocationType.Interior},
+      HF_Inside_Fence_Grotto: {name: "HF Inside Fence Grotto", type: LocationType.Grotto},
+      DMT_Cow_Grotto: {name: "DMT Cow Grotto", type: LocationType.Grotto},
+      KF_Midos_House: {name: "KF Mido's House", type: LocationType.Interior},
+      LLR_Tower: {name: "LLR Tower", type: LocationType.Interior},
+      Market_Man_In_Green_House: {name: "Market Man In Green House", type: LocationType.Interior},
+      Kak_Skulltula_House: {name: "Kak House of Skulltula", type: LocationType.Interior},
+      Kak_Carpenter_Boss_House: {name: "Kak Carpenter Boss House", type: LocationType.Interior},
+      ZR_Open_Grotto: {name: "ZR Open Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      GV_Carpenter_Tent: {name: "GV Carpenter Tent", type: LocationType.Interior},
+      LLR_Talons_House: {name: "LLR Talons House", type: LocationType.Interior},
+      KF_Know_It_All_House: {name: "KF Know it all House", type: LocationType.Interior},
+      SFM_Fairy_Grotto: {name: "SFM Fairy Grotto", type: LocationType.Grotto},
+      SFM_Wolfos_Grotto: {name: "SFM Wolfos Grotto", type: LocationType.Grotto},
+      Market_Bombchu_Bowling: {name: "Market Bombchu Bowling", type: LocationType.Interior},
+      Market_Mask_Shop: {name: "Market Mask Shop", type: LocationType.Interior},
+      DMT_Storms_Grotto: {name: "DMT Storms Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      Market_Bombchu_Shop: {name: "Market Bombchu Shop", type: LocationType.Interior},
+      GV_Octorok_Grotto: {name: "GV Octorok Grotto", type: LocationType.Grotto},
+      HF_Fairy_Grotto: {name: "HF Fairy Grotto", type: LocationType.Grotto},
+      GC_Shop: {name: "GC Shop", type: LocationType.Interior},
+      ZD_Storms_Grotto: {name: "ZD Storms Grotto", type: LocationType.Grotto},
+      Market_Bazaar: {name: "Market Bazaar", type: LocationType.Interior},
+      HF_Near_Kak_Grotto: {name: "HF near Kak Grotto", type: LocationType.Grotto},
+      KF_Shop: {name: "KF Shop", type: LocationType.Interior},
+      Market_Treasure_Game: {name: "Market Treasure Chest Game", type: LocationType.Interior},
+      ZR_Storms_Grotto: {name: "ZR Storms Grotto", type: LocationType.Grotto},
+      HF_SE_Grotto: {name: "HF Southeast Grotto", type: LocationType.Grotto},
+      Kak_Open_Grotto: {name: "Kak Open Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
+      LH_Lab: {name: "LH Lab", type: LocationType.Interior},
+      Fishing_Hole: {name: "Fishing Hole", type: LocationType.Interior},
+      DMC_Great_Fairy_Fountain: {name: "DMC Great Fairy Fountain", type: LocationType.Interior},
+      OGC_Great_Fairy_Fountain: {name: "OGC Great Fairy Fountain", type: LocationType.Interior},
+      HC_Storms_Grotto: {name: "HC Storms Grotto", type: LocationType.Grotto},
+      ZR_Fairy_Grotto: {name: "ZR Fairy Grotto", type: LocationType.Grotto},
+      ZD_Shop: {name: "ZD Shop", type: LocationType.Interior},
+      HC_Great_Fairy_Fountain: {name: "HC Great Fairy Fountain"}, type: LocationType.Interior,
+      KF_House_Of_Twins: {name: "KF House of Twins", type: LocationType.Interior},
+      DMC_Hammer_Grotto: {name: "DMC Hammer Grotto", type: LocationType.Grotto},
+      DMC_Upper_Grotto: {name: "DMC Upper Grotto", type: LocationType.Grotto},
+      Kak_Impas_House: {name: "Kak Impas House", type: LocationType.Interior},
+      HF_Cow_Grotto: {name: "HF Cow Grotto"}, type: LocationType.Grotto,
+      TOT_Enrance: {name: "Temple of Time entrance", type: LocationType.Overworld},
+      Alleyway: {name: "Alleyway", linkedLocation: ["Market"], type: LocationType.Overworld},
+      Market_Entrance: {name: "Market Entrance", type: LocationType.Overworld},
+      GTG: {name: "Gerudo Training Grounds", type: LocationType.Dungeon},
+      Ganon: {name: "Ganon's Castle", type: LocationType.Ganon},
+      Gohma: {name: "Gohma's Bossroom", type: LocationType.Boss},
+      King_Dodongo: {name: "King Dodongo's Bossroom", type: LocationType.Boss},
+      Barinade: {name: "Barinade's Bossroom", type: LocationType.Boss},
+      Phantom_Ganon: {name: "Phantom Ganon's Bossroom", type: LocationType.Boss},
+      Volvagia: {name: "Volvagia's Bossroom", type: LocationType.Boss},
+      Morpha: {name: "Morpha's Bossroom", type: LocationType.Boss},
+      Bongo_Bongo: {name: "Bongo_Bongo's Bossroom", type: LocationType.Boss},
+      Twinrova: {name: "Twinrova's Bossroom", type: LocationType.Boss}
     };
 
     const Times = {
@@ -1041,7 +1119,7 @@
     var entrancesMap = {
             "Kak Impas Rooftop -> DMT Owl Flight": {
                   requirements: "",
-                  location: Locations.Kakariko
+                  location: Locations.Interior
             },
             "Sacred Forest Meadow -> Minuet of Forest Warp": {
                   requirements: "",
@@ -1069,34 +1147,66 @@
             },
             "DMC Lower Local -> DMC Great Fairy Fountain": 
             {
-                  requirements: "",
+                  requirements: [MultiplePossibleRequirements.DMC_Great_Fairy_Fountain],
                   location: Locations.DMC,
-                  to: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "Death Mountain Summit -> DMC Upper Nearby": 
             {
                   requirements: "",
                   location: Locations.DMT,
-                  to: ""
+                  conditional: [new Conditional(locations = [     "Death Mountain Summit -> DMC Upper Nearby",
+                                                                  "Death Mountain Summit -> DMC Upper Local",
+                                                                  "Death Mountain Summit -> DMT Cow Grotto",
+                                                                  "DMT Owl Flight -> Kak Impas Rooftop",
+                                                                  "Death Mountain Summit -> DMT Great Fairy Fountain"
+                  ]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])
+            ]
             },
             "DMC Lower Local -> DMC Hammer Grotto": 
             {
-                  requirements: "",
+                  requirements: [MultiplePossibleRequirements.Hammer_Or_Weirdslide],
                   location: Locations.DMC,
-                  to: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "Lake Hylia -> GV Lower Stream": 
             {
                   requirements: "",
-                  location: Locations.LH,
-                  to: ""
+                  location: Locations.LH
+                  
             },
             "LW Bridge From Forest -> Kokiri Forest": 
             {
                   requirements: "",
                   location: Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
+                                    new Conditional(locations = ["LW Bridge -> Hyrule Field", "LW Bridge -> Kokiri Forest"])
+            ]
             },
             "DMC Upper Grotto -> DMC Upper Nearby": 
             {
@@ -1120,22 +1230,38 @@
             {
                   requirements: "",
                   location: Locations.GF,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])
+            ]
             },
             "GC Darunias Chamber -> DMC Lower Nearby": 
             {
-                  requirements: "",
+                  requirements: [MultiplePossibleRequirements.Darunia_Statue],
                   location: Locations.GC,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bow], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Zeldas_Lullaby], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Child_Shield], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Strength1], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Fire], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Nearby", "GC Darunias Chamber -> DMC Lower Local"])
+                              ]
             },
             "LW Beyond Mido -> LW Scrubs Grotto": 
             {
                   requirements: [Requirements.Explosive_Or_Hammer],
                   location: Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             // Todo: Add nighttime behaviour as child
             "Market Entrance -> Hyrule Field": 
@@ -1250,8 +1376,19 @@
             "DMC Upper Nearby -> Death Mountain Summit":{
                   requirements: "",
                   location: Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber",
+                                                                  "DMC Upper Local -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> DMC Upper Grotto",
+                                                                  "DMC Upper Local -> DMC Upper Grotto"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "SFM Entryway -> LW Beyond Mido":{
                   requirements: "",
@@ -1302,10 +1439,13 @@
                   conditional: ""
             },
             "GV Grotto Ledge -> GV Octorok Grotto":{
-                  requirements: "",
+                  requirements: [Requirements.Silver_Boulder],
                   location: Locations.GV,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                        new Conditional(locations = ["GV Grotto Ledge -> GV Octorok Grotto", "Gerudo Valley -> Hyrule Field"]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Bomb_Hovering_Adult, Requirements.Eponas_Song]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive])
+                  ]
             },
             "Market -> Market Entrance":{
                   requirements: "",
@@ -1331,8 +1471,14 @@
             {
                   requirements: "",
                   location: Locations.GC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [     "Goron City -> Death Mountain", 
+                                                                  "GC Darunias Chamber -> DMC Lower Nearby", 
+                                                                  "GC Darunias Chamber -> DMC Lower Local", 
+                                                                  "Goron City -> GC Shop",
+                                                                  "GC Grotto Platform -> GC Grotto"]),
+                                    new Conditional(locations = ["GC Woods Warp -> Lost Woods"], requirements = [Requirements.Explosive_Or_Hammer], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["GC Woods Warp -> Lost Woods"], requirements = [Requirements.Dins], age = undefined, needsAll = true)
+                  ]
                   
             },
             "Desert Colossus From Spirit Entryway -> Spirit Temple Entryway":
@@ -1360,8 +1506,11 @@
             {
                   requirements: "",
                   location: Locations.GV,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                        new Conditional(locations = ["GV Grotto Ledge -> GV Octorok Grotto", "Gerudo Valley -> Hyrule Field"]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Bomb_Hovering_Adult, Requirements.Eponas_Song]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true)
+                  ]
             },
             "HC Storms Grotto -> Castle Grounds":
             {
@@ -1402,14 +1551,33 @@
             {
                   requirements: "",
                   location: Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             "DMC Lower Local -> GC Darunias Chamber": {
                   requirements: "",
                   location: Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "Desert Colossus -> Wasteland Near Colossus": {
                   requirements: "",
@@ -1476,9 +1644,9 @@
                   to: "",
                   conditional: ""
             },
-            "Castle Grounds From Ganon's Castle":
+            "Castle Grounds -> Ganon's Castle":
             {  requirements  : "",
-                location      : Locations.Ganon,
+                location      : Locations.OGC,
                   to: "",
                   conditional: ""
             },
@@ -1557,14 +1725,9 @@
             "LW Bridge -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
-            },
-            "LW Bridge -> Hyrule Field":
-            {  requirements  : "",
-                location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
+                                    new Conditional(locations = ["LW Bridge -> Hyrule Field", "LW Bridge -> Kokiri Forest"])
+            ]
             },
             "Jabu Jabus Belly Entryway -> Zoras Fountain":
             {  requirements  : "",
@@ -1651,8 +1814,16 @@
             "LW Forest Exit -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             "KF Mido's House -> Kokiri Forest":
             {  requirements  : "",
@@ -1790,8 +1961,15 @@
             "GC Darunias Chamber -> DMC Lower Local":
             {  requirements  : "",
                 location      : Locations.GC,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bow], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Zeldas_Lullaby], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Child_Shield], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Strength1], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Fire], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Nearby", "GC Darunias Chamber -> DMC Lower Local"])
+                              ]
             },
             "GF Storms Grotto -> Gerudo Fortress":
             {  requirements  : "",
@@ -1862,8 +2040,11 @@
             "GC Woods Warp -> Lost Woods":
             {  requirements  : "",
                 location      : Locations.GC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [ "GC Woods Warp -> Lost Woods"]),    
+                                    new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Local"], requirements = [Requirements.Stick], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Nearby",], requirements = [Requirements.Stick], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Strength1, Requirements.Fire, Requirements.Bow, Requirements.Explosive_Or_Hammer])
+                  ]
             },
             "GV Lower Stream -> Lake Hylia":
             {  requirements  : "",
@@ -1946,8 +2127,10 @@
             "Lake Hylia -> Zoras Domain": 
             {  requirements  : "",
                 location      : Locations.LH,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access], age = undefined, needsAll = true, collected = ["Morpha"] ),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Explosive], age = undefined, needsAll = true)
+            ]
             },
             "Lake Hylia -> LH Lab": 
             {  requirements  : "",
@@ -2123,14 +2306,14 @@
             "Gerudo Fortress -> Gerudo Training Grounds Entryway": 
             {  requirements  : [ MultiplePossibleRequirements.GTG_Entrance],
                 location      : Locations.GF,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])]
             },
             "Gerudo Fortress -> GF Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
                 location      : Locations.GF,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])]
             },
             "KF Outside Deku Tree -> Deku Tree Entryway": 
             // TODO: Implement dynamic options for dungeon randomisation
@@ -2148,8 +2331,14 @@
             "LH Fishing Island -> LH Fishing Hole": 
             {  requirements  : "",
                 location      : Locations.LH,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                              new Conditional(locations = ["LH Fishing Island -> LH Fishing Hole"]),
+                              new Conditional(locations = undefined, requirements = undefined, age = undefined, needsAll = false, collected = ["Morpha"]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Instrument], age = undefined, needsAll = true),
+                              new Conditional(locations = undefined, requirements = [Requirements.Bean_Planted, Requirements.Adult_Access], age = undefined, needsAll = true),
+                              new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+            
+            ]
             },
             "Lon Lon Ranch -> LLR Talons House": 
             {  requirements  : "",
@@ -2286,28 +2475,72 @@
             "DMC Upper Nearby -> DMC Upper Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber",
+                                                                  "DMC Upper Local -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> DMC Upper Grotto",
+                                                                  "DMC Upper Local -> DMC Upper Grotto"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "DMC Lower Nearby -> GC Darunias Chamber": 
             {  requirements  : "",
                 location      : Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "DMC Lower Nearby -> DMC Great Fairy Fountain": 
             // TODO: Implement red rock skip behaviour
             {  requirements  : "",
                 location      : Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "DMC Lower Nearby -> DMC Hammer Grotto": 
             // TODO: Implement red rock/weirdslide behaviour
             {  requirements  : "",
                 location      : Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "Zora River -> ZR Fairy Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -2337,39 +2570,68 @@
             "DMC Upper Local -> Death Mountain Summit": 
             {  requirements  : "",
                 location      : Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber",
+                                                                  "DMC Upper Local -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> DMC Upper Grotto",
+                                                                  "DMC Upper Local -> DMC Upper Grotto"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
             },
             "Death Mountain Summit -> DMC Upper Local": 
             {  requirements  : "",
                 location      : Locations.DMT,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = [     "Death Mountain Summit -> DMC Upper Nearby",
+                                                                  "Death Mountain Summit -> DMC Upper Local",
+                                                                  "Death Mountain Summit -> DMT Cow Grotto",
+                                                                  "DMT Owl Flight -> Kak Impas Rooftop",
+                                                                  "Death Mountain Summit -> DMT Great Fairy Fountain"
+                  ]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
             },
             "Death Mountain Summit -> DMT Cow Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.DMT,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = [     "Death Mountain Summit -> DMC Upper Nearby",
+                                                                  "Death Mountain Summit -> DMC Upper Local",
+                                                                  "Death Mountain Summit -> DMT Cow Grotto",
+                                                                  "DMT Owl Flight -> Kak Impas Rooftop",
+                                                                  "Death Mountain Summit -> DMT Great Fairy Fountain"
+                  ]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
             },
             "Death Mountain Summit -> DMT Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.DMT,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = [     "Death Mountain Summit -> DMC Upper Nearby",
+                                                                  "Death Mountain Summit -> DMC Upper Local",
+                                                                  "Death Mountain Summit -> DMT Cow Grotto",
+                                                                  "DMT Owl Flight -> Kak Impas Rooftop",
+                                                                  "Death Mountain Summit -> DMT Great Fairy Fountain"
+                  ]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
             },
             "GF Outside Gate -> Wasteland Near Fortress": 
             {  requirements  : "",
                 location      : Locations.GF,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
+                              new Conditional(locations = ["GF Outside Gate -> Wasteland Near Fortress"])]
             },
             "Goron City -> GC Shop": 
             // TODO: Implement behaviour for adult opening up shop without explosives or burnables
             {  requirements  : "",
                 location      : Locations.GC,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.GC_Shop]),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Fire]),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Stick, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Child_Access], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Stick, Requirements.Bombs, Requirements.Child_Shield, Requirements.Adult_Access], age = undefined, needsAll = true)
+                  ]
             },
             "Zoras Fountain -> Jabu Jabus Belly Entryway": 
             // TODO: Implement behaviour for Jabu skips as both child and adult
@@ -2493,8 +2755,10 @@
             "DMC Central Local -> Fire Temple Entryway": 
             {  requirements  : "",
                 location      : Locations.DMC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = [  "DMC Central Local -> Bolero of Fire Warp", 
+                                                                  "DMC Central Local -> Fire Temple Entryway"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central])
+                  ]
             },
             "ZR Behind Waterfall -> Zoras Domain": 
             {  requirements  : "",
@@ -2505,20 +2769,26 @@
             "Sacred Forest Meadow -> Forest Temple Entryway": 
             {  requirements  : "",
                 location      : Locations.SFM,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = ["Sacred Forest Meadow -> Forest Temple Entryway"]),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access, Requirements.Weapon], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access], age = undefined, needsAll = true)
+            ]
             },
             "Sacred Forest Meadow -> SFM Fairy Grotto": 
             {  requirements  : "",
                 location      : Locations.SFM,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = ["Sacred Forest Meadow -> Forest Temple Entryway", "Sacred Forest Meadow -> SFM Fairy Grotto", "Sacred Forest Meadow -> SFM Storms Grotto"]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)
+            ]
             },
             "Sacred Forest Meadow -> SFM Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.SFM,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = ["Sacred Forest Meadow -> Forest Temple Entryway", "Sacred Forest Meadow -> SFM Fairy Grotto", "Sacred Forest Meadow -> SFM Storms Grotto"]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)]
             },
             "Market Entrance -> Market": 
             {  requirements  : "",
@@ -2535,8 +2805,13 @@
             "DMT Owl Flight -> Kak Impas Rooftop": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.DMT,
-                  to: "",
-                  conditional: ""
+                  conditional: [new Conditional(locations = [     "Death Mountain Summit -> DMC Upper Nearby",
+                                                                  "Death Mountain Summit -> DMC Upper Local",
+                                                                  "Death Mountain Summit -> DMT Cow Grotto",
+                                                                  "DMT Owl Flight -> Kak Impas Rooftop",
+                                                                  "Death Mountain Summit -> DMT Great Fairy Fountain"
+                  ]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
             },
             "Desert Colossus -> Colossus Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive],
@@ -2560,8 +2835,12 @@
             "GC Grotto Platform -> GC Grotto": 
             {  requirements  : "",
                 location      : Locations.GC,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = ["GC Grotto Platform -> GC Grotto"]),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Adult_Access], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Child_Melee, Requirements.Child_Shield, Requirements.Child_Access], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Adult_Melee, Requirements.Adult_Shield, Requirements.Adult_Access], age = undefined, needsAll = true)
+                  ]
             },
             "Market Back Alley -> Market Bombchu Shop": 
             {  requirements  : "",
@@ -2637,40 +2916,86 @@
             "Lost Woods -> GC Woods Warp": 
             {  requirements  : "",
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             "Lost Woods -> Zora River": 
             // TODO: Implement dive/forest escape behaviour
-            {  requirements  : "",
+            {  requirements  : [MultiplePossibleRequirements.Forest_Escape],
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             "Lost Woods -> LW Near Shortcuts Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.LW,
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
+            },
+            "Water Temple Boss Entryway -> Water Temple Boss Room": 
+            {  requirements  : [Requirements.Water_BK],
+                location      : Locations.Water,
                   to: "",
                   conditional: ""
             },
-            "Water Temple Boss Entryway -> Water Temple Boss Room": "",
             "LW Beyond Mido -> SFM Entryway": 
             {  requirements  : "",
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             "LW Beyond Mido -> Deku Theater": 
             {  requirements  : "",
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
+                                    new Conditional(locations = [ "LW Beyond Mido -> Deku Theater", 
+                                                                  "LW Beyond Mido -> SFM Entryway",
+                                                                  "Lost Woods -> LW Near Shortcuts Grotto",
+                                                                  "Lost Woods -> Zora River",
+                                                                  "Lost Woods -> GC Woods Warp",
+                                                                  "LW Forest Exit -> Kokiri Forest",
+                                                                  "Lost Woods -> Kokiri Forest",
+                                                                  "LW Beyond Mido -> LW Scrubs Grotto"])
+            ]
             },
             "LW Bridge -> Hyrule Field": 
             {  requirements  : "",
                 location      : Locations.LW,
-                  to: "",
-                  conditional: ""
+                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
+                                    new Conditional(locations = ["LW Bridge -> Hyrule Field", "LW Bridge -> Kokiri Forest", "LW Bridge From Forest -> Kokiri Forest"])
+            ]
             },
             "Wasteland Near Colossus -> Desert Colossus": 
             {  requirements  : "",
@@ -2678,24 +3003,47 @@
                   to: "",
                   conditional: ""
             },
-            "Jabu Jabus Belly Boss Entryway -> Jabu Jabus Belly Boss Room": "",
+            "Jabu Jabus Belly Boss Entryway -> Jabu Jabus Belly Boss Room": 
+            {  requirements  : "",
+                location      : Locations.Jabu,
+                  to: "",
+                  conditional: ""
+            },
             "GV Fortress Side -> Gerudo Fortress": 
             {  requirements  : "",
                 location      : Locations.GV,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                        new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress", "GV Fortress Side -> GV Carpenter Tent", "GV Fortress Side -> GV Storms Grotto"]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+                  ]
             },
             "GV Fortress Side -> GV Carpenter Tent": 
             {  requirements  : "",
                 location      : Locations.GV,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                        new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress", "GV Fortress Side -> GV Carpenter Tent", "GV Fortress Side -> GV Storms Grotto"]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+                  ]
             },
             "GV Fortress Side -> GV Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
                 location      : Locations.GV,
-                  to: "",
-                  conditional: ""
+                  conditional: [
+                        new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress", "GV Fortress Side -> GV Carpenter Tent", "GV Fortress Side -> GV Storms Grotto"]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+                  ]
             },
             "Kak Redead Grotto -> Kakariko Village":
             {  requirements  : "",
@@ -2901,52 +3249,61 @@
         },
         "LW Gift From Saria": 
           {  requirements  : "",
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["LW Bridge From Forest -> Kokiri Forest"])]
         },
         "LW Skull Kid": 
           {  requirements  : [ Requirements.Instrument,
                                 Requirements.Sarias_Song, Requirements.Child_Access
               ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Trade Cojiro": 
           {  requirements  : [ Requirements.Cojiro, Requirements.Adult_Access
               ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Trade Odd Potion": 
           {  requirements  : [ Requirements.Odd_Potion, Requirements.Adult_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Ocarina Memory Game": 
           {  requirements  : [ Requirements.Instrument, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Target in Woods": 
           {  requirements  : [ Requirements.Slingshot, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Deku Scrub Near Deku Theater Right":
           {  requirements  : [ Requirements.Scrubbable, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Deku Scrub Near Deku Theater Left": 
           {  requirements  : [ Requirements.Scrubbable, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Deku Scrub Near Bridge": 
           {  requirements  : [ Requirements.Scrubbable, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW Near Shortcuts Grotto Chest": 
           {  requirements  : "",
-              location      : Locations.LW_Near_Shortcuts_Grotto,
+              location      : Locations.LW_Near_Shortcuts_Grotto
         },
         "LW Deku Scrub Grotto Rear": 
           {  requirements  : [ Requirements.Scrubbable
@@ -2971,7 +3328,8 @@
         "Song from Saria": 
           {  requirements  : [ Requirements.Talon_Woken, Requirements.Child_Access
           ],
-              location      : Locations.SFM
+              location      : Locations.SFM,
+              conditional: [new Conditional(locations = ["Sacred Forest Meadow -> SFM Fairy Grotto"])]
         },
         "Sheik in Forest": 
           {  requirements  : [Requirements.Adult_Access],
@@ -2995,18 +3353,21 @@
         "LW GS Bean Patch Near Bridge": 
           {  requirements  : [ Requirements.Bugs, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW GS Bean Patch Near Theater": 
           {  requirements  : [ Requirements.Bugs, Requirements.Child_Access
           ],
-              location      : Locations.LW
+              location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "LW GS Above Theater": 
           {  requirements  : [ MultiplePossibleRequirements.Theater_GS, Requirements.Adult_Access
           ],
               location      : Locations.LW,
-              time          : Times.Night
+              time          : Times.Night,
+              conditional: [new Conditional(locations = ["Lost Woods -> Kokiri Forest"])]
         },
         "SFM GS": {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Adult_Access
           ],
@@ -3325,7 +3686,7 @@
               location      : Locations.Kakariko
         },
         "Kak Redead Grotto Chest": 
-          {  requirements  : [ Requirements.Melee
+          {  requirements  : [ Requirements.Melee_Either
           ],
               location      : Locations.Kak_Redead_Grotto
         },
@@ -3391,21 +3752,25 @@
         },
         "Kak Trade Pocket Cucco": 
         {  requirements  : [Requirements.Adult_Access],
-              location      : Locations.Kakariko
+              location      : Locations.Kakariko,
+              conditional     : [new Conditional(locations = ["Kak Carpenter Boss House -> Kakariko Village"])]
         },
         "Kak Impas House Freestanding PoH": 
           {  requirements  : "",
               location      : Locations.Kak_Impas_House,
+              conditional     : [new Conditional(locations = ["Kak Impas House Back -> Kak Impas Ledge"])]
         },
         "Kak Windmill Freestanding PoH": 
           {  requirements  : [ MultiplePossibleRequirements.Windmill_POH
           ],
               location      : Locations.GY_Dampes_Grave,
+              conditional     : [new Conditional(locations = ["Kak Windmill -> Kakariko Village"])]
         },
         "Song from Windmill": 
           {  requirements  : [ Requirements.Instrument, Requirements.Adult_Access     
           ],
-              location      : Locations.GY_Dampes_Grave
+              location      : Locations.GY_Dampes_Grave,
+              conditional     : [new Conditional(locations = ["Kak Windmill -> Kakariko Village"])]
         },
         "Kak Impas House Cow": 
           {  requirements  : [ Requirements.Instrument,
@@ -3504,6 +3869,7 @@
         "GY Dampe Race Freestanding PoH": 
         {  requirements  : "",
               location      : Locations.GY_Dampes_Grave,
+              conditional     : [new Conditional(locations = ["Kak Windmill -> Kakariko Village"])]
         },
         "GY Dampe Gravedigging Tour": 
           {  requirements  : [Requirements.Child_Access],
@@ -3755,7 +4121,7 @@
         },
         "Shadow Temple Bongo Bongo Heart Container": {
             requirements: "",
-            location: Locations.Shadow
+            location: Locations.Bongo_Bongo
         },
         "Shadow Temple MQ Compass Chest": {
             requirements: "",
@@ -3861,7 +4227,10 @@
             requirements: "",
             location: Locations.Shadow
         },
-        "Bongo Bongo": "Red Rupee",
+        "Bongo Bongo": {
+            requirements: "",
+            location: Locations.Bongo_Bongo
+        },
         "DMT Chest": 
         {  requirements  : [ MultiplePossibleRequirements.DMT_Chest],
               location      : Locations.DMT
@@ -3873,17 +4242,20 @@
         "DMT Trade Broken Sword": 
         {  requirements  : [ Requirements.Broken_Sword],
               location      : Locations.DMT,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["Death Mountain Summit -> DMC Upper Local"])]
         },
         "DMT Trade Eyedrops": 
         {  requirements  : [ Requirements.Eyedrops],
               location      : Locations.DMT,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["Death Mountain Summit -> DMC Upper Local"])]
         },
         "DMT Trade Claim Check": 
         {  requirements  : [ Requirements.Claim_Check],
               location      : Locations.DMT,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["Death Mountain Summit -> DMC Upper Local"])]
         },
         "DMT Great Fairy Reward": 
         {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby],
@@ -3903,21 +4275,25 @@
         },
         "DMC Wall Freestanding PoH": 
         {  requirements  : "",
-              location      : Locations.DMC
+              location      : Locations.DMC,
+              conditional   : [new Conditional(locations = ["DMC Upper Local -> Death Mountain Summit"])]
         },
         "DMC Volcano Freestanding PoH": 
         {  requirements  : [ MultiplePossibleRequirements.DMC_POH],
-              location      : Locations.DMC
+              location      : Locations.DMC,
+              conditional   : [new Conditional(locations = ["DMC Lower Local -> GC Darunias Chamber"])]
         },
         "Sheik in Crater": 
         {  requirements  : "",
               location      : Locations.DMC,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["DMC Central Local -> Fire Temple Entryway"])]
         },
         "DMC Deku Scrub": 
         {  requirements  : [ Requirements.Scrubbable],
               location      : Locations.DMC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["DMC Upper Local -> Death Mountain Summit"])]
         },
         "DMC Great Fairy Reward": 
         {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby],
@@ -3938,12 +4314,14 @@
         "DMC GS Bean Patch": 
         {  requirements  : [ Requirements.Bugs, Requirements.Weapon],
               location      : Locations.DMC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["DMC Central Local -> Fire Temple Entryway"])]
         },
         "DMC GS Crate": 
         {  requirements  : [ Requirements.Weapon],
               location      : Locations.DMC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["DMC Upper Local -> Death Mountain Summit"])]
         },
         "DMT GS Bean Patch": 
         {  requirements  : [ Requirements.Weapon, Requirements.Bugs],
@@ -3966,36 +4344,43 @@
         },
         "GC Maze Left Chest": 
         {  requirements  : [ MultiplePossibleRequirements.GC_Left_Maze],
-              location      : Locations.GC
+              location      : Locations.GC,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Maze Center Chest": 
         {  requirements  : [ MultiplePossibleRequirements.GC_Maze],
-              location      : Locations.GC
+              location      : Locations.GC,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Maze Right Chest": 
         {  requirements  : [ MultiplePossibleRequirements.GC_Maze],
-              location      : Locations.GC
+              location      : Locations.GC,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Rolling Goron as Child": 
         {  requirements  : [ Requirements.Explosive],
               location      : Locations.GC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Rolling Goron as Adult": 
           {  requirements  : [ MultiplePossibleRequirements.Rolling_Goron_Adult],
               location      : Locations.GC,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Darunias Joy": 
         // TODO: Implement behaviour for coming from different entrances
         {  requirements  : [ Requirements.Instrument, Requirements.Sarias_Song],
               location      : Locations.GC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Local"])]
         },
         "GC Pot Freestanding PoH":
         {  requirements  : [ Requirements.Explosive_Or_Strength],
               location      : Locations.GC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Deku Scrub Grotto Left": 
         {  requirements  : [ Requirements.Scrubbable],
@@ -4012,7 +4397,8 @@
         "GC Medigoron": 
         {  requirements  : [ Requirements.Wallet1],
               location      : Locations.GC,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC Shop Item 1": 
         {  requirements  : [ Requirements.PriceCheck],
@@ -4049,12 +4435,14 @@
         "GC GS Center Platform": 
         {  requirements  : [ Requirements.Weapon],
               location      : Locations.GC,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "GC GS Boulder Maze": 
         {  requirements  : [ MultiplePossibleRequirements.GC_Maze],
               location      : Locations.GC,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional   : [new Conditional(locations = ["Goron City -> Death Mountain"])]
         },
         "Dodongos Cavern Map Chest":{
             requirements: [Requirements.Mudwall_Or_Strength],
@@ -4341,7 +4729,7 @@
             location: Locations.Fire
         },
         "Volvagia": {
-            requirements: "",
+            requirements: [Requirements.Hammer],
             location: Locations.Volvagia
         },
         "ZR Open Grotto Chest": 
@@ -4619,31 +5007,31 @@
             location: Locations.Jabu
         },
         "Ice Cavern Map Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Back],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern Compass Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern Iron Boots Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern Freestanding PoH": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern GS Push Block Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip, Requirements.Ranged_Retrieval],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern GS Spinning Scythe Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, Requirements.Ranged_Retrieval],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern GS Heart Piece Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip, Requirements.Ranged_Retrieval],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern MQ Iron Boots Chest": {
@@ -4965,19 +5353,21 @@
             location: Locations.Water
         },
         "Morpha": {
-            requirements: "",
+            requirements: [Requirements.Hookshot],
             location: Locations.Morpha
         },
         // TODO: Implement ways to bypass red rock, include the one with just hookshot
         "GV Chest": 
         {  requirements  : "",
               location      : Locations.GV,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional: [new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"])]
         },
         "GV Trade Saw": 
         {  requirements  : [ Requirements.Poacher_Saw],
               location      : Locations.GV,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional: [new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"])]
         },
         "GV Waterfall Freestanding PoH": 
         {  requirements  : "",
@@ -4986,7 +5376,12 @@
         // TODO: Add ways for adult to get this
         "GV Crate Freestanding PoH": 
         {  requirements  : "",
-              location      : Locations.GV
+              location      : Locations.GV,
+              conditional: [new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"], requirements = [Requirements.Adult_Shield, Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
+                  new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Longshot]),
+                  new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true)
+            ]
         },
         "GV Deku Scrub Grotto Rear": 
         {  requirements  : [ Requirements.Scrubbable],
@@ -5071,17 +5466,20 @@
         "GV GS Small Bridge": 
         {  requirements  : [ Requirements.Ranged_Retrieval],
               location      : Locations.GV,
-              age           : Ages.Child
+              age           : Ages.Child,
+              conditional: [new Conditional(locations = ["Gerudo Valley -> Hyrule Field"])]
         },
         "GV GS Pillar": 
         {  requirements  : [ Requirements.Ranged_Retrieval],
               location      : Locations.GV,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional: [new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"])]
         },
         "GV GS Behind Tent": 
         {  requirements  : [ Requirements.Ranged_Retrieval],
               location      : Locations.GV,
-              age           : Ages.Adult
+              age           : Ages.Adult,
+              conditional: [new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"])]
         },
         "GF GS Archery Range": 
         {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Membership],
@@ -5182,20 +5580,21 @@
             requirements: "",
             location: Locations.GTG
         },
+        // TODO: Implement heavy block skip and superslide past fire wall
         "Gerudo Training Grounds Heavy Block First Chest": {
-            requirements: "",
+            requirements: [Requirements.Strength2, Requirements.Hookshot],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Heavy Block Second Chest": {
-            requirements: "",
+            requirements: [Requirements.Strength2, Requirements.Hookshot],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Heavy Block Third Chest": {
-            requirements: "",
+            requirements: [Requirements.Strength2, Requirements.Hookshot],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Heavy Block Fourth Chest": {
-            requirements: "",
+            requirements: [Requirements.Strength2, Requirements.Hookshot],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Freestanding Key": {
@@ -5469,7 +5868,7 @@
             location: Locations.Spirit
         },
         "Spirit Temple MQ GS Sun Block Room": {
-            requirements: "",
+            requirements: [Requirements.Ranged_Retrieval],
             location: Locations.Spirit
         },
         "Twinrova": 
@@ -5494,13 +5893,13 @@
               location      : Locations.Market_Bombchu_Bowling
         },
         "MK Lost Dog": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.Alleyway,
               age           : Ages.Child,
               time          : Times.Night
         },
         "MK Shooting Gallery": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.Market_Shooting_Gallery,
               age           : Ages.Child
         },
@@ -5743,15 +6142,15 @@
               location      : Locations.Ganon
         },
         "Ganon's Castle MQ Water Trial Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Eye Switch Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Projectile],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Frozen Eye Switch Chest": {
-            requirements: "",
+            requirements: [Requirements.Adult_Melee, Requirements.Fire_Arrow],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Light Trial Lullaby Chest": {
@@ -5771,47 +6170,47 @@
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Back Right Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Hammer, Requirements.Light_Arrow],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Back Left Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Hammer, Requirements.Light_Arrow],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Front Left Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Hammer, Requirements.Light_Arrow],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial First Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Hammer],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Invisible Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Hammer, Requirements.Bombchu],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Freestanding Key": {
-            requirements: "",
+            requirements: [Requirements.Ranged_Retrieval, Requirements.Melee_Either],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Right": {
-            requirements: "",
+            requirements: [Requirements.Scrubbable, Requirements.Melee_Either],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center-Left": {
-            requirements: "",
+            requirements: [Requirements.Scrubbable, Requirements.Melee_Either],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center": {
-            requirements: "",
+            requirements: [Requirements.Scrubbable, Requirements.Melee_Either],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center-Right": {
-            requirements: "",
+            requirements: [Requirements.Scrubbable, Requirements.Melee_Either],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Left": {
-            requirements: "",
+            requirements: [Requirements.Scrubbable, Requirements.Melee_Either],
             location: Locations.Ganon
         },
         // TODO: Implement Trial skip
@@ -5824,10 +6223,19 @@
 
       function validateItems(locations) {
             var pass = true;
-            var bossesNeeded = 6;
-            if (inventory.items.includes("Greg the Green Rupee")) {
-                  bossesNeeded--;
+            var gregModifier = 0;
+            
+            if (Settings.gregModifier && inventory.items.includes("Greg the Green Rupee")) {
+                  gregModifier = 1;
             }
+            if (Settings.GanonBKShuffle == true) {
+                  if (!inventory.items.includes("Ganon's Castle Boss Key")) {
+                  console.log("Ganon's Boss Key wasn't found");
+            }
+            }
+            // if (inventory.items.includes("Greg the Green Rupee")) {
+            //       bossesNeeded--;
+            // }
             if (!inventory.entered.includes(Locations.Ganon.name)) {
                   pass = false;
                   console.log("Ganon wasn't reached");
@@ -5839,10 +6247,65 @@
             var bosses = [    Locations.Gohma.name, Locations.King_Dodongo.name, Locations.Barinade.name, Locations.Phantom_Ganon.name,
                               Locations.Volvagia.name, Locations.Morpha.name, Locations.Bongo_Bongo.name, Locations.Twinrova.name
             ];
-            if (!inventory.entered.filter(e => bosses.includes(e).length < bossesNeeded)) {
-                  pass = false;
-                  console.log("Not enough bosses were reached")
+            var stones = ["Goron's Ruby", "Zora's Sapphire", "Kokiri Emerald"];
+            var medallions = ["Light Medallion", "Forest Medallion", "Fire Medallion", "Water Medallion", "Shadow Medallion", "Spirit Medallion"];
+            var rewards = stones.concat(medallions);
+            var tempList = [];
+            console.log(bosses);
+            console.log(stones);
+            console.log(medallions);
+            console.log(rewards);
+            console.log(bosses.includes("Barinade's Bossroom"));
+            console.log(inventory.entered.filter(e => bosses.includes(e)).length);
+            console.log(Settings.bossesNeeded - gregModifier);
+            // TODO: expand to check hammer, boomerang, ranged wep etc
+            if (Settings.bossesNeeded) {
+                  tempList = inventory.entered.filter(e => bosses.includes(e));
+                  if (!inventory.items.includes("Megaton Hammer")) {
+                        tempList = tempList.filter(e => e != Locations.Volvagia.name);
+                  }
+                  if (!inventory.items.includes("Mirror Shield")) {
+                        tempList = tempList.filter(e => e != Locations.Twinrova.name);
+                  }
+                  if (!inventory.items.includes("Progressive Hookshot")) {
+                        tempList = tempList.filter(e => e != Locations.Morpha.name);
+                  }
+                  if (!inventory.items.includes("Boomerang")) {
+                        tempList = tempList.filter(e => e != Locations.Barinade.name);
+                  }
+                  if (tempList.length < (Settings.bossesNeeded - gregModifier)) {
+                        pass = false;
+                        console.log("Not enough bosses were reached");
+                  }
             }
+            if (Settings.stonesNeeded) {
+                  if (inventory.items.filter(e => stones.includes(e)).length < (Settings.stonesNeeded - gregModifier)) {
+                        pass = false;
+                        console.log("Not enough stones were collected");
+                  }
+            }
+            if (Settings.medallionsNeeded) {
+                  if (inventory.items.filter(e => medallions.includes(e)).length < (Settings.medallionsNeeded - gregModifier)) {
+                        pass = false;
+                        console.log("Not enough medallions were collected");
+                  }
+            }
+            if (Settings.rewardsNeeded) {
+                  if (inventory.items.filter(e => rewards.includes(e)).length < (Settings.rewardsNeeded - gregModifier)) {
+                        pass = false;
+                        console.log("Not enough rewards were collected");
+                  }
+            }
+            if (Settings.tokensNeeded) {
+                  if (inventory.items.filter(e == "Gold Skulltula Token").length < (Settings.tokensNeeded - gregModifier)) {
+                        pass = false;
+                        console.log("Not enough tokens were collected");
+                  }
+            }
+            // if (!inventory.entered.filter(e => bosses.includes(e).length < bossesNeeded)) {
+            //       pass = false;
+            //       console.log("Not enough bosses were reached")
+            // }
             if (!inventory.requirements.includes(Requirements.Bow)) {
                   pass = false;
                   console.log("Bow hasn't been acquired or cannot be used");
@@ -5948,22 +6411,295 @@
 //       return;
 //     }
 
+      function exploreArea(type) {
+            var reqCheck = true;
+            var multCheck = true;
+            var condCheck = true;
+            var needsAllCheck = true;
+            var innerMultCheck = false;
+            var ageCheck = true;
+            var collectCheck = true;
+            for (var key in type) {
+                  //console.log(key);
+                  if (!type[key].location) {
+                        continue;
+                  }
+                  if (inventory.entered.includes(type[key]["location"].name)) {
+                        reqCheck = true;
+                        multCheck = true;
+                        condCheck = true;
+                        needsAllCheck = true;
+                        ageCheck = true;
+                        collectCheck = true;
+                        if (type[key].requirements) {
+                              type[key].requirements.forEach(element => {
+                                    // single req
+                                    //console.log(element);
+                                    if (element.explanation) {
+                                          if (inventory.requirements.includes(element)) {
+
+                                          }
+                                          else {
+                                                reqCheck = false;
+                                          }
+                                    }
+                                    // mult req
+                                    else {
+                                          multCheck = false;
+                                          element.forEach(requirement => {
+                                                if (!multCheck) {
+                                                      multCheck = true;
+                                                      if (inventory.requirements.includes(requirement)) {
+
+                                                      }
+                                                      else {
+                                                            multCheck = false;
+                                                      }
+                                                }
+                                          })
+                                    }
+                              })
+                        }
+                        if (type[key].conditional) {
+
+                              condCheck = false;
+                              //console.log(key)
+                              type[key]["conditional"].forEach(condition => {
+                                    //console.log(condition);
+                                    //console.log(condCheck);
+                                    if (!condCheck) {
+                                          if (condition.needsAll) {
+                                                needsAllCheck = true;
+                                                if (condition.locations) {
+                                                      //console.log(condition.locations);
+                                                      condition.locations.forEach(entrance => {
+                                                            if (inventory.accessible.includes(entrance)) {
+                                                                  condCheck = true;
+                                                            }
+                                                            else {
+                                                                  needsAllCheck = false;
+                                                      }
+                                                      });
+                                                      //console.log(condCheck);
+                                                }
+                                                if (condition.requirements) {
+                                                      //console.log(condition.requirements);
+                                                      condition.requirements.forEach(element => {
+                                                      if (element.explanation) {
+                                                            if (inventory.requirements.includes(element)) {
+                                                                  condCheck = true;
+                                                            }
+                                                            else {
+                                                                  needsAllCheck = false;
+                                                            }
+                                                      }
+                                                      // mult req
+                                                      else {
+                                                            //console.log("multReq");
+                                                            element.forEach(requirementList => {
+                                                                  if (!innerMultCheck) {
+                                                                        requirementList.forEach(requirement => {
+                                                                              innerMultCheck = true;
+                                                                              //console.log(requirement);
+                                                                              if (inventory.requirements.includes(requirement)) {
+                                                                                    //console.log("matched!");
+                                                                              }
+                                                                              else {
+                                                                                    //console.log("unmatched");
+                                                                                    innerMultCheck = false;
+                                                                              }
+                                                                        })
+                                                                  }
+                                                            })
+                                                            condCheck = innerMultCheck;
+                                                            needsAllCheck = innerMultCheck;
+                                                      }
+                                                      
+                                                      //console.log(condCheck);
+                                                })};
+                                                if (condition.collected) {
+                                                      condition["collected"].forEach(coll => {
+                                                            if (inventory.collected.includes(coll)) {
+
+                                                            }
+                                                            else {
+                                                                  collectCheck = false;
+                                                                  needsAllCheck = false;
+                                                            }
+                                                      })
+                                                }
+                                                if (condition.age) {
+                                                      if (inventory.ages.includes(condition["age"])) {
+
+                                                      }
+                                                      else {
+                                                            ageCheck = false;
+                                                            needsAllCheck = false;
+                                                      }
+                                                }
+                                          }
+                                          else {
+                                                if (condition.locations) {
+                                                      //console.log(condition.locations);
+                                                      condition.locations.forEach(entrance => {
+                                                            if (inventory.accessible.includes(entrance)) {
+                                                                  condCheck = true;
+                                                            }
+                                                            else {
+
+                                                      }
+                                                      });
+                                                      //console.log(condCheck);
+                                                }
+                                                if (condition.requirements) {
+                                                      //console.log(condition.requirements);
+                                                      condition.requirements.forEach(element => {
+                                                      if (element.explanation) {
+                                                            if (inventory.requirements.includes(element)) {
+                                                                  condCheck = true;
+                                                            }
+                                                            else {
+
+                                                            }
+                                                      }
+                                                      // mult req
+                                                      else {
+                                                            //console.log("multReq");
+                                                            element.forEach(requirementList => {
+                                                                  if (!innerMultCheck) {
+                                                                        requirementList.forEach(requirement => {
+                                                                              innerMultCheck = true;
+                                                                              console.log(requirement);
+                                                                              if (inventory.requirements.includes(requirement)) {
+                                                                                    //console.log("matched!");
+                                                                              }
+                                                                              else {
+                                                                                    //console.log("unmatched");
+                                                                                    innerMultCheck = false;
+                                                                              }
+                                                                        })
+                                                                  }
+                                                            })
+                                                            condCheck = innerMultCheck;
+                                                      }
+                                                      
+                                                      //console.log(condCheck);
+                                                })};
+                                                if (condition.collected) {
+                                                      condition["collected"].forEach(coll => {
+                                                            if (inventory.collected.includes(coll)) {
+
+                                                            }
+                                                            else {
+                                                                  collectCheck = false;
+                                                            }
+                                                      })
+                                                }
+                                                if (condition.age) {
+                                                      if (inventory.ages.includes(condition["age"])) {
+
+                                                      }
+                                                      else {
+                                                            ageCheck = false;
+                                                      }
+                                                }
+                                          }
+                                          
+                                    }
+                              })
+                        }
+                        if (reqCheck && multCheck && condCheck && ageCheck && collectCheck && needsAllCheck) {
+                              if (type == entrancesMap) {
+                                    inventory.accessible.push(key);
+                                    delete entrancesMap[key];
+                              }
+                              if (type == itemLocations) {
+                                    if (file.locations[key]) {
+                                          inventory.collected.push(key);
+                                          // console.log(key);
+                                          // console.log(file);
+                                          if (file.locations[key].item) {
+                                                inventory.items.push(file.locations[key].item);
+                                          }
+                                          else {
+                                                inventory.items.push(file.locations[key]);
+                                          }
+                                          delete itemLocations[key];
+                                          delete file.locations[key];
+                                    }
+                                    else {
+
+                                    }
+                                    
+                              }
+                        }
+                  }
+            }
+      }
+
+      function newUpdateRequirements() {
+
+      }
+
+      function advanceAreas() {
+            var keyName;
+            var valueName;
+            var tempName;
+            inventory.accessible.forEach(entrance => {
+                  keyName = entrance;
+                  valueName = entrance.replace("->", "from");
+                  for (var key in randomizedEntrances) {
+                        if (key == keyName) {
+                              tempName = randomizedEntrances[key].replace("from", "->");
+                              //console.log(tempName);
+                              if (!inventory.accessible.includes(tempName)) {
+                                    inventory.accessible.push(tempName);
+                                    if (!inventory.entered.includes(entrancesMap[tempName]["location"].name)) {
+                                          inventory.entered.push(entrancesMap[tempName]["location"].name);
+                                    }
+                                    unlockEntrance(entrancesMap[tempName]["location"]);
+                                    delete randomizedEntrances[key];
+                              }
+                        }
+                        if (randomizedEntrances[key] == valueName) {
+                              //console.log(key);
+                              if (!inventory.accessible.includes(key)) {
+                                    inventory.accessible.push(key);
+                                    if (!inventory.entered.includes(entrancesMap[key]["location"].name)) {
+                                          inventory.entered.push(entrancesMap[key]["location"].name);
+                                    }
+                                    unlockEntrance(entrancesMap[key]["location"]);
+                                    delete randomizedEntrances[key];
+                              }
+                        }
+                  }
+            })
+      }
       function tempTrigger() {
-            checkCurrentAvailableItems(tempFileStorage);
-            checkCurrentlyAvailableLocations(tempFileStorage);
-            updateRequirements(tempFileStorage);
-            updateAvailableLocations(tempFileStorage);
+            // checkCurrentAvailableItems(tempFileStorage);
+            // checkCurrentlyAvailableLocations(tempFileStorage);
+            
+            // updateAvailableLocations(tempFileStorage);
+            exploreArea(entrancesMap, file);
+            exploreArea(itemLocations, file);
+            //newUpdateRequirements();
+            updateRequirements();
+            advanceAreas();
             inventory.items.sort();
             inventory.collected.sort();
             inventory.entered.sort();
             inventory.requirements.sort();
 
-            console.log(tempFileStorage);
-            console.log(inventory)
-            validateItems(tempFileStorage.locations)
+            console.log(file);
+            console.log(randomizedEntrances);
+            console.log(entrancesMap);
+            console.log(itemLocations);
+            console.log(inventory);
+            validateItems();
       }
 
       var tempFileStorage;
+      var randomizedEntrances = {};
 
       function resetEverything() {
             inventory.bottleables - [];
@@ -5976,9 +6712,148 @@
             inventory.ages = [],
             inventory.collected = []
       }
-    function checkLocations(file) {
 
-        resetEverything()
+      function adjustSettings() {
+            // Adding default entrances
+            console.log("adjusting file settings...")
+
+            // Ganon's BK settings
+            if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"].includes("LACS")) {
+                  Settings.GanonBKShuffle = false;
+                  if (file.settings["Shuffle Dungeon Items:LACS Reward Options"] == "Greg as Wildcard") {
+                        Settings.gregModifier = true;
+                  }
+                  if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Vanilla") {
+
+                  }
+                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Stones") {
+                        Settings.stonesNeeded = file.settings["Shuffle Dungeon Items:Stone Count"];
+                  }
+                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Medallions") {
+                        Settings.medallionsNeeded = file.settings["Shuffle Dungeon Items:Medallion Count"];
+                  }
+                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Rewards") {
+                        Settings.rewardsNeeded = file.settings["Shuffle Dungeon Items:Reward Count"];
+                  }
+                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Dungeons") {
+                        Settings.bossesNeeded = file.settings["Shuffle Dungeon Items:Dungeon Count"];
+                  }
+                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Tokens") {
+                        Settings.tokensNeeded = file.settings["Shuffle Dungeon Items:Token Count"];
+                  }
+
+            }
+
+            if (file.settings["World Settings:Shuffle Entrances"] == "Off") {
+                  console.log("Entrance rando was off");
+                  //file.entrancesMap = {};
+                  // for (var location in Locations ) {
+                  //       //console.log("Adding entrances of location: " + Locations[location]);
+                  //       for (entrance in entrancesMap) {
+                  //             if (entrancesMap[entrance].location == Locations[location]) {
+                  //                   file.entrancesMap[entrance] = entrance;
+                  //             }
+                  //       }
+                  // }
+                  for (var entrance in entrancesMap) {
+                        randomizedEntrances[entrance] = entrance.toString();
+                  }
+            } 
+            else {
+                  for (var sphere in file.entrancesMap) {
+                        for (var key in file.entrancesMap[sphere]) {
+                              randomizedEntrances[key] = file.entrancesMap[sphere][key];
+                        }
+                  }
+                  // Adding dungeons and Ganon
+                  if (file.settings["World Settings:Dungeon Entrances"] == "On + Ganon") {
+
+                  }
+                  else if (file.settings["World Settings:Dungeon Entrances"] == "On") {
+                        //console.log("Ganon isn't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location == Locations["Ganon"]) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+                  else if (file.settings["World Settings:Dungeon Entrances"] == "Off") {
+                        //console.log("Ganon nor dungeons are randomized");
+                        for (entrance in entrancesMap) {
+                              //console.log(entrance);
+                              if (entrancesMap[entrance].location == Locations["Ganon"]) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                              if (entrancesMap[entrance].location.type == LocationType.Dungeon) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+
+                  // Adding bosses
+                  if (file.settings["World Settings:Boss Entrances"] == "Off") {
+                        //console.log("Boss rooms aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Boss) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+
+                  // Adding overworld entrances
+                  if (file.settings["World Settings:Overworld Entrances"] == "Off") {
+                        //console.log("Overworld isn't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Overworld) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+
+                  if (file.settings["World Settings:Interior Entrances"] == "Off") {
+                        //console.log("Interiors aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Interior) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+
+                  if (file.settings["World Settings:Grottos Entrances"] == "Off") {
+                        //console.log("Grottos aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Grotto) {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+
+                  if (file.settings["World Settings:Owl Drops"] == "Off") {
+                        //console.log("Owl drops aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrance == "DMT Owl Flight -> Kak Impas Rooftop" || entrance == "LH Owl Flight -> Hyrule Field") {
+                                    //console.log("match found: " + entrance);
+                                    randomizedEntrances[entrance] = entrance.toString();
+                              }
+                        }
+                  }
+
+            }
+            console.log(file);
+            console.log(Settings);
+      }
+    function checkLocations(tempFile) {
+
+      file = tempFile;
+        resetEverything();
+        adjustSettings(file);
         // console.log(locations);
 
         // Ganon Castle check
@@ -5995,30 +6870,53 @@
             searchString = "Adult Spawn -> Temple of Time"
         }
 
-        for (var sphere in file.entrancesMap) {
-            //console.log(sphere);
-            for (var item in file.entrancesMap[sphere]) {
-                  //console.log(item);
-                  if (item.toString() == searchString) {
-                        console.log("Found starting point")
-                        if (inventory.ages.includes("Child")) {
-                              console.log(file.entrancesMap[sphere][item]);
-                              inventory.Child_start = file.entrancesMap[sphere][item];
-                              inventory.Child_start = inventory.Child_start.replace("from" , '->');
-                              console.log(inventory.Child_start);
-                              enterArea(entrancesMap[inventory.Child_start].location);
-                        }
-                        else {
-                              console.log(file.entrancesMap[sphere][item]);
-                              inventory.Adult_start = file.entrancesMap[sphere][item];
-                              inventory.Adult_start = inventory.Adult_start.replace("from" , '->');
-                              console.log(inventory.Adult_start);
-                              enterArea(entrancesMap[inventory.Adult_start].location);
-                        }
+        for (var key in randomizedEntrances) {
+            // console.log(key);
+            // console.log(randomizedEntrances[key]);
+            // console.log(searchString);
+            if (key == searchString) {
+                  if (inventory.ages.includes("Child")) {
+                        inventory.Child_start = randomizedEntrances[key].replace("from" , '->');
+                        inventory.accessible.push(inventory.Child_start);
+                        inventory.entered.push(entrancesMap[inventory.Child_start].location.name);
+                        delete entrancesMap[inventory.Child_start];
                   }
+                  else {
+                        inventory.Adult_start = randomizedEntrances[key].replace("from" , '->');
+                        inventory.accessible.push(inventory.Adult_start);
+                        inventory.entered.push(entrancesMap[inventory.Adult_start].location.name);
+                        delete entrancesMap[inventory.Adult_start];
+                        
+                  }
+                  delete randomizedEntrances[key];
             }
-            
         }
+      //   for (var sphere in file.entrancesMap) {
+      //       //console.log(sphere);
+      //       for (var item in file.entrancesMap[sphere]) {
+      //             //console.log(item);
+      //             if (item.toString() == searchString) {
+      //                   console.log("Found starting point")
+      //                   if (inventory.ages.includes("Child")) {
+      //                         console.log(file.entrancesMap[sphere][item]);
+      //                         inventory.Child_start = file.entrancesMap[sphere][item];
+      //                         inventory.Child_start = inventory.Child_start.replace("from" , '->');
+      //                         inventory.accessible.push(inventory.Child_start);
+      //                         console.log(inventory.Child_start);
+      //                         enterArea(entrancesMap[inventory.Child_start].location);
+      //                   }
+      //                   else {
+      //                         console.log(file.entrancesMap[sphere][item]);
+      //                         inventory.Adult_start = file.entrancesMap[sphere][item];
+      //                         inventory.Adult_start = inventory.Adult_start.replace("from" , '->');
+      //                         inventory.accessible.push(inventory.Adult_start);
+      //                         console.log(inventory.Adult_start);
+      //                         enterArea(entrancesMap[inventory.Adult_start].location);
+      //                   }
+      //             }
+      //       }
+            
+      //   }
 
         // Check prices
         var tempRequirement = "";
@@ -6038,14 +6936,72 @@
                   
             }
         }
+        if (file.settings["World Settings:Warp Songs"] == "On") {
+            var tempValue;
+            for (var sphere in file.entrancesMap) {
+                  
+                  if (file.entrancesMap[sphere]["Minuet of Forest Warp -> Sacred Forest Meadow"]) {
+                        tempValue = file.entrancesMap[sphere]["Minuet of Forest Warp -> Sacred Forest Meadow"];
+                        tempValue = tempValue.replace("from" , '->');
+                        entrancesMap["Minuet of Forest Warp -> Sacred Forest Meadow"].location = entrancesMap[tempValue].location;
+                        console.log("Changed location of forest warp to: "+ entrancesMap[tempValue].location.name)
+                  }
+                  if (file.entrancesMap[sphere]["Bolero of Fire Warp -> DMC Central Local"]) {
+                        tempValue = file.entrancesMap[sphere]["Bolero of Fire Warp -> DMC Central Local"];
+                        tempValue = tempValue.replace("from" , '->');
+                        entrancesMap["Bolero of Fire Warp -> DMC Central Local"].location = entrancesMap[tempValue].location;
+                        console.log("Changed location of bolero warp to: "+ entrancesMap[tempValue].location.name)
+                  }
+                  if (file.entrancesMap[sphere]["Serenade of Water Warp -> Lake Hylia"]) {
+                        tempValue = file.entrancesMap[sphere]["Serenade of Water Warp -> Lake Hylia"];
+                        tempValue = tempValue.replace("from" , '->');
+                        entrancesMap["Serenade of Water Warp -> Lake Hylia"].location = entrancesMap[tempValue].location;
+                        console.log("Changed location of serenade warp to: "+ entrancesMap[tempValue].location.name)
+                  }
+                  if (file.entrancesMap[sphere]["Nocturne of Shadow Warp -> Graveyard Warp Pad Region"]) {
+                        tempValue = file.entrancesMap[sphere]["Nocturne of Shadow Warp -> Graveyard Warp Pad Region"];
+                        tempValue = tempValue.replace("from" , '->');
+                        entrancesMap["Nocturne of Shadow Warp -> Graveyard Warp Pad Region"].location = entrancesMap[tempValue].location;
+                        console.log("Changed location of nocturne warp to: "+ entrancesMap[tempValue].location.name)
+                  }
+                  if (file.entrancesMap[sphere]["Requiem of Spirit Warp -> Desert Colossus"]) {
+                        tempValue = file.entrancesMap[sphere]["Requiem of Spirit Warp -> Desert Colossus"];
+                        tempValue = tempValue.replace("from" , '->');
+                        entrancesMap["Requiem of Spirit Warp -> Desert Colossus"].location = entrancesMap[tempValue].location;
+                        console.log("Changed location of requiem warp to: "+ entrancesMap[tempValue].location.name)
+                  }
+                  if (file.entrancesMap[sphere]["Prelude of Light Warp -> Temple of Time"]) {
+                        tempValue = file.entrancesMap[sphere]["Prelude of Light Warp -> Temple of Time"];
+                        tempValue = tempValue.replace("from" , '->');
+                        entrancesMap["Prelude of Light Warp -> Temple of Time"].location = entrancesMap[tempValue].location;
+                        console.log("Changed location of prelude warp to: "+ entrancesMap[tempValue].location.name)
+                  }
+            }
+        }
+        else {
+            entrancesMap["Minuet of Forest Warp -> Sacred Forest Meadow"].location = Locations.SFM;
+            entrancesMap["Bolero of Fire Warp -> DMC Central Local"].location = Locations.DMC;
+            entrancesMap["Serenade of Water Warp -> Lake Hylia"].location = Locations.LH;
+            entrancesMap["Nocturne of Shadow Warp -> Graveyard Warp Pad Region"].location = Locations.GY;
+            entrancesMap["Requiem of Spirit Warp -> Desert Colossus"].location = Locations.DC;
+            entrancesMap["Prelude of Light Warp -> Temple of Time"].location = Locations.TOT;
+            randomizedEntrances["Minuet of Forest Warp -> Sacred Forest Meadow"] = "Minuet of Forest Warp -> Sacred Forest Meadow";
+            randomizedEntrances["Bolero of Fire Warp -> DMC Central Local"] = "Bolero of Fire Warp -> DMC Central Local";
+            randomizedEntrances["Serenade of Water Warp -> Lake Hylia"] = "Serenade of Water Warp -> Lake Hylia";
+            randomizedEntrances["Nocturne of Shadow Warp -> Graveyard Warp Pad Region"] = "Nocturne of Shadow Warp -> Graveyard Warp Pad Region";
+            randomizedEntrances["Requiem of Spirit Warp -> Desert Colossus"] = "Requiem of Spirit Warp -> Desert Colossus";
+            randomizedEntrances["Prelude of Light Warp -> Temple of Time"] = "Prelude of Light Warp -> Temple of Time";
+        }
         // temp
         tempFileStorage = file;
+        console.log(inventory);
+        console.log(randomizedEntrances);
         return;
         for (var i = 0; i < 25; i++) {
-            checkCurrentAvailableItems(file);
-            checkCurrentlyAvailableLocations(file);
-            updateRequirements(file);
-            updateAvailableLocations(file);
+            // checkCurrentAvailableItems(file);
+            // checkCurrentlyAvailableLocations(file);
+            // updateRequirements(file);
+            // updateAvailableLocations(file);
         }
         inventory.items.sort();
         inventory.collected.sort();
@@ -6061,6 +7017,8 @@
       var requirementCheck = true;
       var multipleCheck = true;
       var tempCheck = false;
+      var conditionPass = true;
+      var innerMultCheck = false;
       for (var entrance in entrancesMap) {
             requirementCheck = true;
             multipleCheck = true;
@@ -6071,36 +7029,38 @@
             }
             if (entrancesMap[entrance].location) {
                   // console.log("Checking location: " + entrancesMap[entrance].location.name);
-                  if (inventory.entered.includes(entrancesMap[entrance].location.name) && !inventory.cleared.includes(entrancesMap[entrance].location.name)) {
-                        if (!entrancesMap[entrance].requirements) {
-                                    if (!inventory.accessible.includes(entrance)) {
-                                          inventory.accessible.push(entrance);
+                  if (inventory.entered.includes(entrancesMap[entrance].location.name)) {
+                        // if (!entrancesMap[entrance].requirements && !entrancesMap[entrance].conditional && !entrancesMap[entrance].age) {
+                        //             if (!inventory.accessible.includes(entrance)) {
+                        //                   inventory.accessible.push(entrance);
 
 
-                                    }
-                                    continue;
-                              }
+                        //             }
+                        //             continue;
+                        //       }
                         
-                        //console.log(entrance);
+                        console.log(entrance);
+                        if (entrancesMap[entrance].requirements) {
                         entrancesMap[entrance].requirements.forEach(req => {
                               //console.log(req);
                                                 if(req.explanation) {
                                                       //console.log("This should be a single requirement");
                                                       //console.log(requirement);
-                                                      console.log("Has req?");
-                                                      console.log(inventory.requirements.includes(req));
+                                                      // console.log("Has req?");
+                                                      // console.log(inventory.requirements.includes(req));
                                                             if (inventory.requirements.includes(req)) {
                                                             }
                                                             else {
-                                                                  console.log("turning requirementCheck off");
+                                                                  // console.log("turning requirementCheck off");
                                                                   requirementCheck = false;
                                                             }
                                                 }
                                                 else {
                                                       req.forEach(list => {
                                                             if (!tempCheck) {
+                                                                  tempCheck = true;
                                                                   list.forEach(multReqItem => {
-                                                                        tempCheck = true;
+                                                                        
                                                                         if (inventory.requirements.includes(multReqItem)) {
 
                                                                         }
@@ -6118,19 +7078,163 @@
                                                       
                                                 }
                         });
-                        if (multipleCheck && requirementCheck && !inventory.accessible.includes(entrance)) {
-                              console.log("pushing: ");
-                              console.log(entrance);
+                  }
+                        if (entrancesMap[entrance].conditional && !inventory.entered.includes(entrancesMap[entrance].location)) {
+                              console.log(entrancesMap[entrance].conditional);
+                                          if (entrancesMap[entrance].conditional) {
+                                                conditionPass = false;
+                                                entrancesMap[entrance].conditional.forEach(condition => {
+                                                      if (conditionPass) {
+
+                                                      }
+                                                      else {
+                                                            if (condition.needsAll) {
+                                                      console.log("condition needs all? " + condition.needsAll);
+                                                      conditionPass = true;
+                                                      if (condition.locations) {
+                                                            condition.locations.forEach(location => {
+                                                                  if (inventory.accessible.includes(location)) {
+
+                                                                  }
+                                                                  else {
+                                                                        conditionPass = false;
+                                                                  }
+                                                            })
+
+                                                      }if (condition.requirements) {
+                                                            condition.requirements.forEach(requirement => {
+                                                                  if (!requirement.explanation) {
+                                                                        innerMultCheck = true;
+                                                                        requirement.forEach(multReq => {
+                                                                              if (!innerMultCheck) {
+                                                                                    innerMultCheck = true;
+                                                                                    multReq.forEach(singleReq => {
+                                                                                          if (inventory.requirements.includes(singleReq)) {
+
+                                                                                          }
+                                                                                          else {
+                                                                                                innerMultCheck = false;
+                                                                                          }
+                                                                                    })
+                                                                              }
+                                                                        })
+                                                                        conditionPass = !innerMultCheck;
+                                                                  }
+                                                                  else {
+                                                                        if (inventory.requirements.includes(requirement)) {
+
+                                                                        }
+                                                                        else {
+                                                                              conditionPass = false;
+                                                                        }
+                                                                  }
+                                                            })
+                                                      }if (condition.age) {
+                                                            if (inventory.ages.includes(condition.age)) {
+
+                                                            }
+                                                            else {
+                                                                  conditionPass = false;
+                                                            }
+                                                      }
+                                                      if (condition.collected) {
+                                                            condition.collected.forEach(collect => {
+                                                                  if (inventory.collected.includes(collect)) {
+                                                                        
+                                                                  }
+                                                                  else {
+                                                                        conditionPass = false;
+                                                                  }
+                                                            })
+                                                      }
+                                                }
+                                                else {
+                                                      //console.log("condition only needs one");
+                                                      conditionPass = false;
+                                                      if (condition.locations) {
+                                                            condition.locations.forEach(location => {
+                                                                  //console.log(location);
+                                                                  //console.log(inventory.accessible.includes(location));
+                                                                  if (inventory.accessible.includes(location)) {
+                                                                        conditionPass = true;
+                                                                  }
+                                                                  else {
+                                                                        
+                                                                  }
+                                                            })
+
+                                                      }if (condition.requirements) {
+                                                            condition.requirements.forEach(requirement => {
+                                                                  if (!requirement.explanation) {
+                                                                        console.log("time for that multi shit");
+                                                                        console.log(condition);
+                                                                        console.log(requirement);
+                                                                        requirement.forEach(multReq => {
+                                                                              console.log(multReq);
+                                                                              if (!innerMultCheck) {
+                                                                                    innerMultCheck = true;
+                                                                                    multReq.forEach(singleReq => {
+                                                                                          console.log(singleReq);
+                                                                                          if (inventory.requirements.includes(singleReq)) {
+
+                                                                                          }
+                                                                                          else {
+                                                                                                console.log("rejecting for: ");
+                                                                                                console.log(singleReq);
+                                                                                                innerMultCheck = false;
+                                                                                          }
+                                                                                    })
+                                                                              }
+                                                                        })
+                                                                        conditionPass = !innerMultCheck;
+                                                                  }
+                                                                  else {
+                                                                        if (inventory.requirements.includes(requirement)) {
+
+                                                                        }
+                                                                        else {
+                                                                              conditionPass = false;
+                                                                        }
+                                                                  }
+                                                            })
+                                                      }if (condition.age) {
+                                                            if (inventory.ages.includes(condition.age)) {
+                                                                  conditionPass = true;
+                                                            }
+                                                            else {
+                                                            }
+                                                      }
+                                                      if (condition.collected) {
+                                                            //console.log(entrance);
+                                                            condition.collected.forEach(collect => {
+                                                                  if (inventory.collected.includes(collect)) {
+                                                                        conditionPass = true;
+                                                                  }
+                                                                  else {
+                                                                        
+                                                                  }
+                                                            })
+                                                      }
+                                                }
+                                                      }
+                                                
+                                          });
+                                    }
+                                    //console.log("Did condition pass? : "+ conditionPass);
+                              } 
+                        if (multipleCheck && requirementCheck && conditionPass && !inventory.accessible.includes(entrance)) {
+                              // console.log("pushing: ");
+                              // console.log(entrance);
                               inventory.accessible.push(entrance);
                         }
                         else {
-                              console.log("Rejected: ");
-                              console.log(entrance);
-                              console.log(multipleCheck);
-                              console.log(requirementCheck);
-                              console.log(!inventory.accessible.includes(entrance));
-                              console.log(entrancesMap[entrance].requirements);
-                              console.log(inventory.requirements);
+                              // console.log("Rejected: ");
+                              // console.log(entrance);
+                              // console.log(multipleCheck);
+                              // console.log(requirementCheck);
+                              // console.log(!inventory.accessible.includes(entrance));
+                              // console.log(entrancesMap[entrance].requirements);
+                              // console.log(inventory.requirements);
                         }
                         
                   }
@@ -6143,6 +7247,7 @@
             var requirementCheck = true;
             var multipleCheck = true;
             var tempCheck = false;
+            var conditionPass = true;
             if (item) {
                   if (!file.locations[item]) {
                         continue;
@@ -6171,7 +7276,7 @@
                                           //console.log("Checking item location requirement for: ");
                                           //console.log(itemLocations[item]);
                                           itemLocations[item].requirements.forEach(requirement => {
-                                                console.log(requirement);
+                                                // console.log(requirement);
                                                 if(requirement.explanation) {
                                                       //console.log("This should be a single requirement");
                                                       //console.log(requirement);
@@ -6241,8 +7346,94 @@
                                           // }
                                           //console.log(requirementCheck);
                                     }
-                                    if (itemLocations[item].conditionals){
+                                    if (itemLocations[item].conditional){
+                                          conditionPass = false;
+                                          itemLocations[item].conditional.forEach(condition => {
+                                                if (conditionPass) {
 
+                                                }
+                                                else {
+                                                      if (condition.needsAll) {
+                                                      conditionPass = true;
+                                                      if (condition.locations) {
+                                                            condition.locations.forEach(location => {
+                                                                  if (inventory.accessible.includes(location)) {
+
+                                                                  }
+                                                                  else {
+                                                                        conditionPass = false;
+                                                                  }
+                                                            })
+
+                                                      }if (condition.requirements) {
+                                                            condition.requirements.forEach(requirement => {
+                                                                  if (inventory.requirements.includes(requirement)) {
+
+                                                                  }
+                                                                  else {
+                                                                        conditionPass = false;
+                                                                  }
+                                                            })
+                                                      }if (condition.age) {
+                                                            if (inventory.ages.includes(condition.age)) {
+
+                                                            }
+                                                            else {
+                                                                  conditionPass = false;
+                                                            }
+                                                      }
+                                                      if (condition.collected) {
+                                                            condition.collected.forEach(collect => {
+                                                                  if (inventory.collected.includes(collect)) {
+
+                                                                  }
+                                                                  else {
+                                                                        conditionPass = false;
+                                                                  }
+                                                            })
+                                                      }
+                                                }
+                                                else {
+                                                      conditionPass = false;
+                                                      if (condition.locations) {
+                                                            condition.locations.forEach(location => {
+                                                                  if (inventory.accessible.includes(location)) {
+                                                                        conditionPass = true;
+                                                                  }
+                                                                  else {
+                                                                        
+                                                                  }
+                                                            })
+
+                                                      }if (condition.requirements) {
+                                                            condition.requirements.forEach(requirement => {
+                                                                  if (inventory.requirements.includes(requirement)) {
+                                                                        conditionPass = true;
+                                                                  }
+                                                                  else {
+                                                                  }
+                                                            })
+                                                      }if (condition.age) {
+                                                            if (inventory.ages.includes(condition.age)) {
+                                                                  conditionPass = true;
+                                                            }
+                                                            else {
+                                                            }
+                                                      }
+                                                      if (condition.collected) {
+                                                            condition.collected.forEach(collect => {
+                                                                  if (inventory.collected.includes(collect)) {
+                                                                        conditionPass = true;
+                                                                  }
+                                                                  else {
+                                                                        
+                                                                  }
+                                                            })
+                                                      }
+                                                }
+                                                }
+                                                
+                                          });
                                     }
                                     // console.log("PRE ATTENTION");
                                     // console.log(item);
@@ -6272,7 +7463,7 @@
         }
     }
 
-    function updateRequirements(file) {
+    function updateRequirements() {
       for (var requirement in Requirements) {
             //console.log("Checking requirement...");
             //console.log(Requirements[requirement]);
@@ -6436,18 +7627,25 @@
     function updateAvailableLocations(file) {
 
       var tempName = "";
+      var conditionPass = true;
       inventory.accessible.forEach(e => {
             for (var sphere in file.entrancesMap) {
                   for (var x in file.entrancesMap[sphere]) {
                         if (x == e) {
                               tempName = file.entrancesMap[sphere][x];
                               tempName = tempName.replace("from" , '->');
-                              console.log(tempName);
+                              //console.log(tempName);
+                              if (!inventory.accessible.includes(tempName)) {
+                                    inventory.accessible.push(tempName)
+                              }
                               enterArea(entrancesMap[tempName].location);
                         }
                         else {
                               tempName = e.replace("->", "from");
                               if (file.entrancesMap[sphere][x] == tempName) {
+                                    if (!inventory.accessible.includes(tempName)) {
+                                          inventory.accessible.push(x);
+                                    }
                                     //console.log(x);
                                     enterArea(entrancesMap[x].location);
                               }
@@ -6546,43 +7744,65 @@
             
       //   }
     }
-    function ganonCastleLocationCheck(locations) {
-      for (var sphere in locations){
-        for (var x in locations[sphere]) {
-            // console.log(x);
-            // console.log(sphere[x]);
-            // console.log(locations[sphere][x]);
-            if (locations[sphere][x] == "Ganon's Castle Entryway from Ganon's Castle Ledge") {
-                if (childOnlyEntrances.includes(x.toString())) {
-                    //console.log("found!");
-                    output.textContent = "found an impossibility: Ganon's Castle is in a Child Only Entrance.";
-                    errorState = true;
-                }
-                if (questionableEntrances.includes(x.toString())) {
-                    //console.log("found?");
-                    output.textContent = "found an impossibility: Ganon's Castle is in a potentially impossible location.";
-                    errorState = true;
-                }
-                //console.log("Castle is in: ");
-                //console.log(x);
+    function ganonCastleLocationCheck() {
+      for (let key in randomizedEntrances) {
+            if (randomizedEntrances[key] == "Ganon's Castle Entryway from Ganon's Castle Ledge") {
+                  if (childOnlyEntrances.includes(key)) {
+                        output.textContent = "found an impossibility: Ganon's Castle is in a Child Only Entrance.";
+                        errorState = true;
+                  }
+                  if (questionableEntrances.includes(key)) {
+                        output.textContent = "found an likely impossibility: Ganon's Castle is in the alleyway";
+                        errorState = true;
+                  }
             }
-            if (locations[sphere][x] == "Temple of Time from ToT Entrance") {
-                if (childOnlyEntrances.includes(x.toString())) {
-                    //console.log("found!");
-                    output.textContent = "found an impossibility: Temple of Time is in a Child Only Entrance.";
-                    errorState = true;
-                }
-                if (questionableEntrances.includes(x.toString())) {
-                    //console.log("found?");
-                    output.textContent = "found an impossibility: Temple of time is in a potentially impossible location.";
-                    errorState = true;
-                }
-                //console.log("Temple is in: ");
-                //console.log(x);
+            if (randomizedEntrances[key] == "Temple of Time from ToT Entrance") {
+                  if (childOnlyEntrances.includes(key)) {
+                        output.textContent = "found an impossibility: Temple of Time is in a Child Only Entrance.";
+                        errorState = true;
+                  }
+                  if (adultOnlyEntrances.includes(key)) {
+                        output.textContent = "found an impossibility: Temple of Time is in am Adult Only Entrance.";
+                        errorState = true;
+                  }
             }
-            
-        }
       }
+      // for (var sphere in locations){
+      //   for (var x in locations[sphere]) {
+      //       // console.log(x);
+      //       // console.log(sphere[x]);
+      //       // console.log(locations[sphere][x]);
+      //       if (locations[sphere][x] == "Ganon's Castle Entryway from Ganon's Castle Ledge") {
+      //           if (childOnlyEntrances.includes(x.toString())) {
+      //               //console.log("found!");
+      //               output.textContent = "found an impossibility: Ganon's Castle is in a Child Only Entrance.";
+      //               errorState = true;
+      //           }
+      //           if (questionableEntrances.includes(x.toString())) {
+      //               //console.log("found?");
+      //               output.textContent = "found an impossibility: Ganon's Castle is in a potentially impossible location.";
+      //               errorState = true;
+      //           }
+      //           //console.log("Castle is in: ");
+      //           //console.log(x);
+      //       }
+      //       if (locations[sphere][x] == "Temple of Time from ToT Entrance") {
+      //           if (childOnlyEntrances.includes(x.toString())) {
+      //               //console.log("found!");
+      //               output.textContent = "found an impossibility: Temple of Time is in a Child Only Entrance.";
+      //               errorState = true;
+      //           }
+      //           if (questionableEntrances.includes(x.toString())) {
+      //               //console.log("found?");
+      //               output.textContent = "found an impossibility: Temple of time is in a potentially impossible location.";
+      //               errorState = true;
+      //           }
+      //           //console.log("Temple is in: ");
+      //           //console.log(x);
+      //       }
+            
+      //   }
+      // }
     }
 
     function clearArea(locationCode) {
@@ -6627,7 +7847,10 @@
 
     function enterArea(locationCode) {
       //console.log(locationCode)
-      if (!inventory.entered.includes(locationCode.name)) {
+      if (locationCode == Locations.Interior) {
+
+      }
+      else if (!inventory.entered.includes(locationCode.name)) {
             if (locationCode[0]) {
                   if (!inventory.entered.includes(locationCode[0].name)) {
                         inventory.entered.push(locationCode[0].name);
@@ -6685,6 +7908,7 @@
     }
 
     function unlockEntrance(entrance) {
+      //console.log("UNLOCKING ENTRANCE");
     // TODO: Fix this up for the bugs bottleables stuff and triggering this only when access for every area is reached
                                                 if (entrance.unlocks) {
                                                 entrance.unlocks.forEach(e => {
@@ -6709,12 +7933,10 @@
                                                 })
                                           }
                                           if (entrance.linkedLocation) {
-                                                if (entrance == Locations.Market && inventory.ages.includes("Child")) {
-                                                      enterArea(Locations[entrance.linkedLocation[0]]);
+                                                if (!inventory.entered.includes(Locations[entrance.linkedLocation[0].name])) {
+                                                      inventory.entered.push(Locations[entrance.linkedLocation[0].name]);
                                                 }
-                                                else {
-                                                      enterArea(Locations[entrance.linkedLocation[0]]);
-                                                }
+                                                      
                                           }
                                           //console.log("Added entrance: " + entrance);
     }
