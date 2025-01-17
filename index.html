@@ -6420,17 +6420,32 @@
             var ageCheck = true;
             var collectCheck = true;
             for (var key in type) {
-                  //console.log(key);
+                  // console.log(key);
+                  // console.log(type[key]);
                   if (!type[key].location) {
+                        //console.log("skipping...");
                         continue;
                   }
                   if (inventory.entered.includes(type[key]["location"].name)) {
+                        // if (type[key]["location"].name == "Deku Tree") {
+                        //       console.log("PLEASE");
+                        // }
                         reqCheck = true;
                         multCheck = true;
                         condCheck = true;
                         needsAllCheck = true;
                         ageCheck = true;
                         collectCheck = true;
+                        // if (key == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
+                        //       console.log("WEEWOO KEY");
+                        //       console.log(type[key]);
+                        //       console.log(type[key].requirements);
+                        // }
+                        // if (type[key] == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
+                        //       console.log("WEEWOO VALUE");
+                        //       console.log(key)
+                        // }
+                        //console.log(key);
                         if (type[key].requirements) {
                               type[key].requirements.forEach(element => {
                                     // single req
@@ -6445,16 +6460,22 @@
                                     }
                                     // mult req
                                     else {
+                                          console.log("multi time");;
                                           multCheck = false;
-                                          element.forEach(requirement => {
+                                          element.forEach(requirementList => {
+                                                console.log(requirementList);
                                                 if (!multCheck) {
                                                       multCheck = true;
-                                                      if (inventory.requirements.includes(requirement)) {
+                                                      requirementList.forEach(requirement => {
+                                                            if (inventory.requirements.includes(requirement)) {
+                                                                  //console.log("matched");
+                                                            }
+                                                            else {
+                                                                  //console.log("unmatched");
+                                                                  multCheck = false;
+                                                            }
+                                                      })
 
-                                                      }
-                                                      else {
-                                                            multCheck = false;
-                                                      }
                                                 }
                                           })
                                     }
@@ -6500,7 +6521,7 @@
                                                                   if (!innerMultCheck) {
                                                                         requirementList.forEach(requirement => {
                                                                               innerMultCheck = true;
-                                                                              //console.log(requirement);
+                                                                              console.log(requirement);
                                                                               if (inventory.requirements.includes(requirement)) {
                                                                                     //console.log("matched!");
                                                                               }
@@ -6608,8 +6629,15 @@
                                     }
                               })
                         }
+                        // console.log(reqCheck);
+                        // console.log(multCheck);
+                        // console.log(condCheck);
+                        // console.log(ageCheck);
+                        // console.log(collectCheck);
+                        // console.log(needsAllCheck);
                         if (reqCheck && multCheck && condCheck && ageCheck && collectCheck && needsAllCheck) {
                               if (type == entrancesMap) {
+                                    // console.log("adding" + key);
                                     inventory.accessible.push(key);
                                     delete entrancesMap[key];
                               }
@@ -6648,10 +6676,13 @@
             inventory.accessible.forEach(entrance => {
                   keyName = entrance;
                   valueName = entrance.replace("->", "from");
+                  // console.log("attempting to enter: ");
+                  // console.log(keyName);
+                  // console.log(valueName);
                   for (var key in randomizedEntrances) {
                         if (key == keyName) {
                               tempName = randomizedEntrances[key].replace("from", "->");
-                              //console.log(tempName);
+                              // console.log(tempName);
                               if (!inventory.accessible.includes(tempName)) {
                                     inventory.accessible.push(tempName);
                                     if (!inventory.entered.includes(entrancesMap[tempName]["location"].name)) {
@@ -6661,6 +6692,8 @@
                                     delete randomizedEntrances[key];
                               }
                         }
+                        // console.log(randomizedEntrances[key]);
+                        // console.log(valueName);
                         if (randomizedEntrances[key] == valueName) {
                               //console.log(key);
                               if (!inventory.accessible.includes(key)) {
