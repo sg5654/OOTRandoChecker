@@ -203,9 +203,9 @@
       Hover_boots: {explanation: "Requires the use of the Hover Boots", related: ["items", "ages"], items: ["Hover Boots"], ages: ["Adult"]},
       // TODO: This one might not be enough, fix it moron
       //Small_Keys: {explanation: "Requires a certain amount of small keys", values: [0,1,2,3,4,5,6,7,8], items: ["Small Key"]},
-      Strength1: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Progressive Strength Upgrade"], count:1},
-      Strength2: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Progressive Strength Upgrade"], count:2},
-      Strength3: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Progressive Strength Upgrade"], count:3},
+      Strength1: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Strength Upgrade"], count:1},
+      Strength2: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Strength Upgrade"], count:2},
+      Strength3: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Strength Upgrade"], count:3},
       // TODO: Fix this shit
       //BK: {explanation: "Requires having a specific Boss Key", values: ["Forest", "Fire", "Water", "Shadow", "Spirit", "Ganon"]},
       Projectile: {explanation: "Requires the use of either Bow, slingsot or QPA", unlocked_if: ["Bow", "Slingshot"]},
@@ -216,7 +216,8 @@
       // TODO: Fix this shit
       //GS_Tokens: {explanation: "Requires hitting a specific GS token threshold", values: [10,20,30,40,50,100], items: ["Gold Skulltula Token"]},
       // TODO: expand this shit
-      Wallet1: {explanation: "Requires having the first wallet upgrade", related: ["items"], items: ["Wallet Upgrade"]},
+      Wallet1: {explanation: "Requires having the first wallet upgrade", related: ["items"], items: ["Progressive Wallet"]},
+      Wallet2: {explanation: "Requires having the second wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 2},
       // TODO: Fix this shit
       PriceCheck: {explanation: "Requires the logic to compare the price to the current wallet"},
       Dins: {explanation: "Requires having access to Din's Fire", related: ["items"], items: ["Din's Fire"]},
@@ -688,13 +689,13 @@
     Spirit_Child_Side: [  [ Requirements.Ranged_Weapon],
                           [ Requirements.Adult_Access, Requirements.Hover_boots]
     ],
-    Spirit_Central_Room: [  [ Requirements.Child_Access, Requirements.Spirit_small_keys_1, Requirements.Explosive],
-                            [ Requirements.Child_Access, Requirements.Spirit_small_keys_1, Requirements.Master_Sword, Requirements.FP_Item],
-                            [ Requirements.Child_Access, Requirements.Spirit_small_keys_1, Requirements.Strength2]
+    Spirit_Central_Room: [  [ Requirements.Child_Access, Requirements.Spirit_small_keys1, Requirements.Explosive],
+                            [ Requirements.Adult_Access, Requirements.Spirit_small_keys1, Requirements.Master_Sword, Requirements.FP_Item],
+                            [ Requirements.Adult_Access, Requirements.Spirit_small_keys1, Requirements.Strength2]
     ],
     Early_Adult: [  [ Requirements.Adult_Access, Requirements.Master_Sword, Requirements.FP_Item, Requirements.Shield],
                     [ Requirements.Adult_Access, Requirements.Strength2],
-                    [ Requirements.Child_Access, Requirements.Spirit_small_keys_2, Requirements.Explosive, Requirements.Shield, Requirements.Melee]
+                    [ Requirements.Child_Access, Requirements.Spirit_small_keys2, Requirements.Explosive, Requirements.Shield, Requirements.Melee]
 
     ],
     Early_Adult_Right: [  [ Requirements.Melee],
@@ -706,7 +707,7 @@
                         [ Requirements.Hover_boots],
                         [ Requirements.Hookshot]
     ],
-    Spirit_Adult_Anubis: [  [ Requirements.Spirit_small_keys_1, Requirements.Explosive]
+    Spirit_Adult_Anubis: [  [ Requirements.Spirit_small_keys1, Requirements.Explosive]
 
     ],
     Early_Adult_GS: [ [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Weapon],
@@ -995,7 +996,7 @@
       Volvagia: {name: "Volvagia's Bossroom", type: LocationType.Boss},
       Morpha: {name: "Morpha's Bossroom", type: LocationType.Boss},
       Bongo_Bongo: {name: "Bongo_Bongo's Bossroom", type: LocationType.Boss},
-      Twinrova: {name: "Twinrova's Bossroom", type: LocationType.Boss}
+      Twinrova: {name: "Twinrova's Bossroom", type: LocationType.Boss},
     };
 
     const Times = {
@@ -2394,7 +2395,22 @@
                   to: "",
                   conditional: ""
             },
-
+            "DMC Upper Local -> DMC Upper Grotto": {  requirements  : [ Requirements.Explosive_Or_Hammer],
+                location      : Locations.DMC,
+                  conditional: [    new Conditional(locations = [  "DMC Lower Local -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Local -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Local -> GC Darunias Chamber",
+                                                                  "DMC Lower Nearby -> DMC Hammer Grotto", 
+                                                                  "DMC Lower Nearby -> DMC Great Fairy Fountain", 
+                                                                  "DMC Lower Nearby -> GC Darunias Chamber",
+                                                                  "DMC Upper Local -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> Death Mountain Summit",
+                                                                  "DMC Upper Nearby -> DMC Upper Grotto",
+                                                                  "DMC Upper Local -> DMC Upper Grotto"]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                  ]
+            },
             "DMC Upper Nearby -> DMC Upper Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.DMC,
@@ -6465,6 +6481,7 @@
                                           //console.log(condition);
                                           //console.log(condCheck);
                                           if (!condCheck) {
+                                                needsAllCheck = true;
                                                 if (condition.needsAll) {
                                                       if (key == "GC Maze Center Chest") {
                                                             //console.log("condition needs all");
@@ -6678,6 +6695,7 @@
                               // console.log(ageCheck);
                               // console.log(collectCheck);
                               // console.log(needsAllCheck);
+                              // "GC Woods Warp -> Lost Woods"
                               // if (key == "GC Maze Center Chest") {
                               //       console.log("conclusion: ");
                               //       console.log(reqCheck);
@@ -6768,7 +6786,7 @@
                                     //console.log(tempName);
                                     //console.log(accessibleList[index]);
                                     if (!accessibleList[index].includes(tempName)) {
-                                          //console.log("Adding to accessible " + tempName);
+                                          console.log("Adding to accessible " + tempName);
                                           accessibleList[index].push(tempName);
                                           //console.log(entrancesMap[tempName]);
                                           if (entrancesMap[tempName].location[0]) {
