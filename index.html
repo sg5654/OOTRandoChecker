@@ -26,7 +26,7 @@
   <div id="drop-area">Drop your JSON file here</div>
   <pre id="output"></pre>
   <button onclick=tempTrigger()>next phase</button>
-
+  <button onclick=tempTriggerLoop()>Go until garuanteed solved/impossible</button>
   <script>
 
     // Select the drop area and output elements
@@ -78,93 +78,16 @@
       Child_start : "",
       Adult_start : "",
       entered : [],
+      entered_child: [],
+      entered_adult: [],
       cleared : [],
       accessible : [],
+      accessible_child: [],
+      accessible_adult: [],
       requirements: [],
       items: [],
       ages: [],
       collected: [],
-
-      rawIitems : [],
-      Deku_Sticks : false,
-      Deku_Nuts : false,
-      Slingshot : false,
-      Boomerang : false,
-      Bottle : false,
-      Bugs : false,
-      Blue_Fire : false,
-      Ocarina : false,
-      Lens : false,
-      Bombs : false,
-      Bombchu : false,
-      Beans : false,
-      Bow : false,
-      Hookshot : false,
-      longshot : false,
-      Fire_Arrow : false,
-      Ice_Arrow : false,
-      Light_Arrow : false,
-      Dins_Fire : false,
-      Farores_Wind : false,
-      Nayrus_Love : false,
-      Magic : false,
-      Pocket_Egg : false,
-      Pocket_Cucco : false,
-      Cojiro : false,
-      Odd_Mushroom : false,
-      Odd_Potion : false,
-      Poacher_Saw : false,
-      Broken_Sword : false,
-      Prescription : false,
-      Eyeball_Frog : false,
-      Eyedrops : false,
-      Claim_Check : false,
-      Weird_Egg : false,
-      Talon_Woken : false,
-      Zeldas_Letter : false,
-      Mask_Quest : false,
-      Zeldas_Lullaby : false,
-      Eponas_Song : false,
-      Sarias_Song : false,
-      Suns_Song : false,
-      Song_Of_Time : false,
-      Song_Of_Storms : false,
-      Minuet : false,
-      Bolero : false,
-      Serenade : false,
-      Requiem : false,
-      Nocturne : false,
-      Prelude : false,
-      Medals : [],
-      Spiritual_Stones : [],
-      Deku_Shield : false,
-      Hylian_Shield : false,
-      Mirror_Shield : false,
-      Kokiri_Sword : false,
-      Master_Sword : false,
-      Giants_Knife : false,
-      Biggoron_Sword : false,
-      Goron_Tunic : false,
-      Zora_Tunic : false,
-      Iron_Boots : false,
-      Hover_boots : false,
-      BOTW_keys : 0,
-      Forest_Keys : 0,
-      Fire_Keys : 0,
-      Water_Keys : 0,
-      Shadow_Keys : 0,
-      Spirit_Keys : 0,
-      GTG_Keys : 0,
-      GF_Keys : 0,
-      GS_Tokens : 0,
-      Forest_BK : false,
-      Fire_BK : false,
-      Water_BK : false,
-      Shadow_BK : false,
-      Spirit_BK : false,
-      Ganon_keys : 0,
-      Ganon_BK : false
-
 
     };
 
@@ -195,94 +118,94 @@
       }
     }
 
-    const Requirements = {
+    var Requirements = {
       Silver_Boulder: {explanation: "Has the ability to bypass a Silver Boulder for a grotto", unlocked_if_all: ["Strength2", "Weirdslide"]},
       Weirdslide: {explanation: "Has the ability to perform a weirdslide", unlocked_if_all: ["FP_Item", "Explosive", "Adult_Shield"]},
-      Child_Access: {explanation: "Has access to child", related: [inventory.ages], ages: ["Child"]},
-      Adult_Access: {explanation: "Has access to adult", related: [inventory.ages], ages: ["Adult"]},
-      Horse_Race: {explanation: "Requires having beaten Malon's Obstacle course using Epona", related: [inventory.items, inventory.ages, inventory.entered], items: ["Epona's Song"], ages: ["Adult"], stages: ["Lon Lon Ranch"] },
-      Zeldas_Lullaby: {explanation: "Requires having Zelda's Lullaby", related: [inventory.items], items: ["Zelda's Lullaby"]},
-      Eponas_Song: {explanation: "Requires having Epona's Song", related: [inventory.items], items: ["Epona's Song"]},
-      Sarias_Song: {explanation: "Requires having Saria's Song", related: [inventory.items], items: ["Saria's Song"]},
-      Song_Of_Time: {explanation: "Requires having Song of Time", related: [inventory.items], items: ["Song of Time"]},
-      Suns_Song: {explanation: "Requires having Sun's Song", related: [inventory.items], items: ["Sun's Song"]},
-      Song_Of_Storms: {explanation: "Requires having Song of Storms", related: [inventory.items], items: ["Song of Storms"]},
-      Minuet: {explanation: "Requires having Minuet of Forest", related: [inventory.items], items: ["Minuet of Forest"]},
-      Bolero: {explanation: "Requires having Bolero of Fire", related: [inventory.items], items: ["Bolero of Fire"]},
-      Serenade: {explanation: "Requires having Serenade of Water", related: [inventory.items], items: ["Serenade of Water"]},
-      Nocturne: {explanation: "Requires having Nocturne of Shadow", related: [inventory.items], items: ["Nocturne of Shadow"]},
-      Requiem: {explanation: "Requires having Requiem of Spirit", related: [inventory.item], items: ["Requiem of Spirit"]},
-      Prelude: {explanation: "Requires having Prelude of Light", related: [inventory.item], items: ["Prelude of Light"]},
+      Child_Access: {explanation: "Has access to child", related: ["ages"], ages: ["Child"]},
+      Adult_Access: {explanation: "Has access to adult", related: ["ages"], ages: ["Adult"]},
+      Horse_Race: {explanation: "Requires having beaten Malon's Obstacle course using Epona", related: ["items", "ages", "entered"], items: ["Epona's Song"], ages: ["Adult"], stages: ["Lon Lon Ranch"] },
+      Zeldas_Lullaby: {explanation: "Requires having Zelda's Lullaby", related: ["items"], items: ["Zelda's Lullaby"]},
+      Eponas_Song: {explanation: "Requires having Epona's Song", related: ["items"], items: ["Epona's Song"]},
+      Sarias_Song: {explanation: "Requires having Saria's Song", related: ["items"], items: ["Saria's Song"]},
+      Song_Of_Time: {explanation: "Requires having Song of Time", related: ["items"], items: ["Song of Time"]},
+      Suns_Song: {explanation: "Requires having Sun's Song", related: ["items"], items: ["Sun's Song"]},
+      Song_Of_Storms: {explanation: "Requires having Song of Storms", related: ["items"], items: ["Song of Storms"]},
+      Minuet: {explanation: "Requires having Minuet of Forest", related: ["items"], items: ["Minuet of Forest"]},
+      Bolero: {explanation: "Requires having Bolero of Fire", related: ["items"], items: ["Bolero of Fire"]},
+      Serenade: {explanation: "Requires having Serenade of Water", related: ["items"], items: ["Serenade of Water"]},
+      Nocturne: {explanation: "Requires having Nocturne of Shadow", related: ["items"], items: ["Nocturne of Shadow"]},
+      Requiem: {explanation: "Requires having Requiem of Spirit", related: ["items"], items: ["Requiem of Spirit"]},
+      Prelude: {explanation: "Requires having Prelude of Light", related: ["items"], items: ["Prelude of Light"]},
       Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina"]},
       Weapon: {   explanation: "Requires having any form of weapon to induce damage",  
-                  related: [inventory.ages, inventory.items], 
+                  related: ["ages", "items"], 
                   items: [    "Kokiri Sword", "Master Sword", "Giant's Knife", "Buy Deku Stick (1)", "Biggoron's Sword", "Progressive Bow", 
                               "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"],
                   ages: ["Child", "Adult"]},
-      Bugs: {     explanation: "Requires having a bottle of bugs", related: [inventory.items, inventory.bottleables], bottleables: ["Bugs"], 
+      Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
                   items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Blue Fire"]},
-      Bomb_Hovering: {explanation: "Requires being able to bomb hover", related: [inventory.items], unlocked_if_all: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
+      Bomb_Hovering: {explanation: "Requires being able to bomb hover", related: ["items"], unlocked_if_all: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
       Bomb_Hovering_Child: {explanation: "Requires being able to bomb hover as child", unlocked_if_all: ["Bombs", "Child_Access", "Child_Shield", "Child_Melee"]},
       Bomb_Hovering_Adult: {explanation: "Requires being able to bomb hover as adult", unlocked_if_all: ["Bombs", "Adult_Access", "Adult_Shield", "Adult_Melee"]},
-      Hookshot: {explanation: "Requires having a hookshot available", related: [inventory.items, inventory.ages], items: ["Progressive Hookshot"], ages: ["Adult"]},
+      Hookshot: {explanation: "Requires having a hookshot available", related: ["items", "ages"], items: ["Progressive Hookshot"], ages: ["Adult"]},
       Ranged_Retrieval: {explanation: "Requires having a boomerang, hookshot or bomb hovering without any specificity", unlocked_if: ["Boomerang", "Hookshot", "Bomb_Hovering"]},
-      Hover_boots: {explanation: "Requires having Hover Boots", related: [inventory.items], items: ["Hover Boots"]},
-      Boomerang: {explanation: "Requires having boomerang", related: [inventory.items], items: ["Boomerang"]},
-      Slingshot: {explanation: "Requires having fairy slingshot", related: [inventory.items, inventory.ages], items: ["Progressive Slingshot"], ages: ["Child"]},
-      Bow: {explanation: "Requires having a Fairy Bow", related: [inventory.items], items: ["Progressive Bow"]},
+      Hover_boots: {explanation: "Requires having Hover Boots", related: ["items"], items: ["Hover Boots"]},
+      Boomerang: {explanation: "Requires having boomerang", related: ["items"], items: ["Boomerang"]},
+      Slingshot: {explanation: "Requires having fairy slingshot", related: ["items", "ages"], items: ["Progressive Slingshot"], ages: ["Child"]},
+      Bow: {explanation: "Requires having a Fairy Bow", related: ["items"], items: ["Progressive Bow"]},
       Shield: {explanation: "Requires the use of a shield", unlocked_if_all: ["Child_Shield", "Adult_Shield"]},
-      Child_Shield: {explanation: "Requires having a shield as child", related: [inventory.items, inventory.ages], items: ["Deku Shield", "Buy Deku Shield"], ages: ["Child"]},
-      Adult_Shield: {   explanation: "Requires having a shield as adult", related: [inventory.items, inventory.ages], items: ["Buy Hylian Shield", "Hylian Shield", "Mirror Shield"], ages: ["Adult"]},
-      Child_Melee: {    explanation: "Requires having a melee weapon as child", related: [inventory.items, inventory.ages], 
+      Child_Shield: {explanation: "Requires having a shield as child", related: ["items", "ages"], items: ["Deku Shield", "Buy Deku Shield"], ages: ["Child"]},
+      Adult_Shield: {   explanation: "Requires having a shield as adult", related: ["items", "ages"], items: ["Buy Hylian Shield", "Hylian Shield", "Mirror Shield"], ages: ["Adult"]},
+      Child_Melee: {    explanation: "Requires having a melee weapon as child", related: ["items", "ages"], 
                         items: ["Kokiri Sword", "Buy Deku Stick (1)", "Megaton Hammer"],
                         ages: ["Child"]},
-      Adult_Melee: {    explanation: "Requires having a melee weapon as adult", related: [inventory.items, inventory.ages], 
+      Adult_Melee: {    explanation: "Requires having a melee weapon as adult", related: ["items", "ages"], 
                         items: ["Master Sword", "Giant's Knife", "Buy Deku Stick (1)", "Biggoron's Sword", "Megaton Hammer"],
                         ages: ["Adult"]},
       Melee_Either: {explanation: "Requires having access to a melee weapon as either age", unlocked_if: ["Child_Melee", "Adult_Melee"]},
       Melee: {explanation: "Requires having a weapon Link can pull out and swing", unlocked_if_all: ["Child_Melee", "Adult_Melee"]},
-      Magic: {explanation: "Requires having a Magic Upgrade", related: [inventory.items], items: ["Progressive Magic Meter"]},
+      Magic: {explanation: "Requires having a Magic Upgrade", related: ["items"], items: ["Progressive Magic Meter"]},
       Scrubbable: {     explanation: 'Requires having any of the items necessary to interact with deku scrubs', 
                         unlocked_if: ["Nuts", "Melee", "Hammer", "Hookshot", "Boomerang", "Slingshot", "Shield", "Explosive"]},
-      Biggoron_Sword: {explanation: "Requires having specifically Biggoron's Sword", related: [inventory.items], items: ["Biggoron's Sword"]},
-      Cojiro: {explanation: "Requires having Cojiro", related: [inventory.items], items: ["Cojiro"]},
-      Odd_Potion: {explanation: "Requires having the Odd Potion", related: [inventory.items], items: ["Odd Potion"]},
-      Odd_Mushroom: {explanation: "Requires having the Odd Mushroom", related: [inventory.items], items: ["Odd Mushroom"]},
-      Broken_Sword: {explanation: "Requires having the broken sword", related: [inventory.items], items: ["Broken Sword"]},
-      Poacher_Saw: {explanation: "Requires having the Poacher's Saw", related: [inventory.items], items: ["Poacher's Saw"]},
-      Prescription: {explanation: "Requires having the prescription", related: [inventory.items], items: ["Prescription"]},
-      Eyeball_Frog: {explanation: "Requires having the Eyeball Frog", related: [inventory.items], items: ["Eyeball Frog"]},
-      Eyedrops: {explanation: "Requires having the Eyedrops", related: [inventory.items], items: ["Eyedrops"]},
-      Claim_Check: {explanation: "Requires having the Claim Check", related: [inventory.items], items: ["Claim Check"]},
+      Biggoron_Sword: {explanation: "Requires having specifically Biggoron's Sword", related: ["items"], items: ["Biggoron's Sword"]},
+      Cojiro: {explanation: "Requires having Cojiro", related: ["items"], items: ["Cojiro"]},
+      Odd_Potion: {explanation: "Requires having the Odd Potion", related: ["items"], items: ["Odd Potion"]},
+      Odd_Mushroom: {explanation: "Requires having the Odd Mushroom", related: ["items"], items: ["Odd Mushroom"]},
+      Broken_Sword: {explanation: "Requires having the broken sword", related: ["items"], items: ["Broken Sword"]},
+      Poacher_Saw: {explanation: "Requires having the Poacher's Saw", related: ["items"], items: ["Poacher's Saw"]},
+      Prescription: {explanation: "Requires having the prescription", related: ["items"], items: ["Prescription"]},
+      Eyeball_Frog: {explanation: "Requires having the Eyeball Frog", related: ["items"], items: ["Eyeball Frog"]},
+      Eyedrops: {explanation: "Requires having the Eyedrops", related: ["items"], items: ["Eyedrops"]},
+      Claim_Check: {explanation: "Requires having the Claim Check", related: ["items"], items: ["Claim Check"]},
       // TODO: Figure out how to ensure this also works if skip DMT gate isn't on
-      Mask_Quest: {explanation: "Requires having the mask quest started", related: [inventory.collected], checks: ["HC Zeldas Letter"] },
-      Talon_Woken: {explanation: "Requires having used the Weird Egg to wake up Talon", related: [inventory.items, inventory.ages, inventory.entered], items: ["Weird Egg"], ages: ["Child"], stages: ["Hyrule Castle"]},
+      Mask_Quest: {explanation: "Requires having the mask quest started", related: ["collected"], checks: ["HC Zeldas Letter"] },
+      Talon_Woken: {explanation: "Requires having used the Weird Egg to wake up Talon", related: ["items", "ages", "entered"], items: ["Weird Egg"], ages: ["Child"], stages: ["Hyrule Castle"]},
       // TODO: Figure out how to ensure we have access to the location I guess? This one sucks
-      Bean_Planted: {   explanation: "Requires having had a bean planted in the nearest soft soil", related: [inventory.items, inventory.ages], 
+      Bean_Planted: {   explanation: "Requires having had a bean planted in the nearest soft soil", related: ["items", "ages"], 
                         items: ["Magic Bean Pack"], ages: ["Child, Adult"]},
-      Bombchu: {explanation: "Requires having a bombchu", related: [inventory.items], items: ["Progressive Bombchu"]},
-      Bombs: {explanation: "Requires having bomb bag", related: [inventory.items], items: ["Progressive Bomb Bag"]},
+      Bombchu: {explanation: "Requires having a bombchu", related: ["items"], items: ["Progressive Bombchu"]},
+      Bombs: {explanation: "Requires having bomb bag", related: ["items"], items: ["Progressive Bomb Bag"]},
       Explosive: {explanation: "Requires having any form of explosive", unlocked_if: ["Bombs", "Bombchu"]},
-      Longshot: {explanation: "Requires having Hookshot upgraded to Longshot", related: [inventory.items, inventory.ages], items: ["Progressive Hookshot"], ages: ["Adult"], count: 2},
+      Longshot: {explanation: "Requires having Hookshot upgraded to Longshot", related: ["items", "ages"], items: ["Progressive Hookshot"], ages: ["Adult"], count: 2},
       Mudwall: {explanation: "Requires having any means of destroying a mudwall", unlocked_if: ["Blue_Fire", "Explosive", "Bombs", "Bombchu", "Hammer", "QPA"]},
       Mudwall_Or_Strength: {  explanation: "Requires having any means of destroying a mudwall, or having strength. Applicable for Dodongo's Cavern",
                               unlocked_if:["Mudwall", "Strength1"]
       },
-      Blue_Fire: {explanation: "Requires having access to blue fire", related: [inventory.items], items: ["Buy Blue Fire"]},
+      Blue_Fire: {explanation: "Requires having access to blue fire", related: ["items"], items: ["Buy Blue Fire"]},
       // TODO: Expand this for putaway and damage QPA
-      QPA: {explanation: "Requires having access to a means of triggering QPA", related: [inventory.items], items_all: ["Buy Deku Stick (1)", "Buy Deku Nut (5)"]},
+      QPA: {explanation: "Requires having access to a means of triggering QPA", related: ["items"], items_all: ["Buy Deku Stick (1)", "Buy Deku Nut (5)"]},
       // TODO: Expand this for any scenario that can give sticks
-      Stick: {explanation: "Requires having access to deku sticks", related: [inventory.items], items: ["Buy Deku Stick (1)"]},
+      Stick: {explanation: "Requires having access to deku sticks", related: ["items"], items: ["Buy Deku Stick (1)"]},
       // TODO: expand this behaviour to trigger in any situation that can give nuts
-      Nuts: {explanation: 'Requires the use of a deku nut', related: [inventory.items], items: ["Buy Deku Nut (5)", "Buy Deku Nut (10)"]},
+      Nuts: {explanation: 'Requires the use of a deku nut', related: ["items"], items: ["Buy Deku Nut (5)", "Buy Deku Nut (10)"]},
       Burnable: {explanation: "Requires the use of any form of fire starting or moving", unlocked_if: ["Bow", "Stick", "QPA", "Fire"]},
-      Iron_Boots: {explanation: "Requires the use of the Iron Boots", related: [inventory.items, inventory.ages], items: ["Iron Boots"], ages: ["Adult"]},
-      Hover_boots: {explanation: "Requires the use of the Hover Boots", related: [inventory.items, inventory.ages], items: ["Hover Boots"], ages: ["Adult"]},
+      Iron_Boots: {explanation: "Requires the use of the Iron Boots", related: ["items", "ages"], items: ["Iron Boots"], ages: ["Adult"]},
+      Hover_boots: {explanation: "Requires the use of the Hover Boots", related: ["items", "ages"], items: ["Hover Boots"], ages: ["Adult"]},
       // TODO: This one might not be enough, fix it moron
       //Small_Keys: {explanation: "Requires a certain amount of small keys", values: [0,1,2,3,4,5,6,7,8], items: ["Small Key"]},
-      Strength1: {explanation: "Requires a certain amount of Strength Upgrades", related: [inventory.items], items: ["Progressive Strength Upgrade"], count:1},
-      Strength2: {explanation: "Requires a certain amount of Strength Upgrades", related: [inventory.items], items: ["Progressive Strength Upgrade"], count:2},
-      Strength3: {explanation: "Requires a certain amount of Strength Upgrades", related: [inventory.items], items: ["Progressive Strength Upgrade"], count:3},
+      Strength1: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Progressive Strength Upgrade"], count:1},
+      Strength2: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Progressive Strength Upgrade"], count:2},
+      Strength3: {explanation: "Requires a certain amount of Strength Upgrades", related: ["items"], items: ["Progressive Strength Upgrade"], count:3},
       // TODO: Fix this shit
       //BK: {explanation: "Requires having a specific Boss Key", values: ["Forest", "Fire", "Water", "Shadow", "Spirit", "Ganon"]},
       Projectile: {explanation: "Requires the use of either Bow, slingsot or QPA", unlocked_if: ["Bow", "Slingshot"]},
@@ -293,299 +216,299 @@
       // TODO: Fix this shit
       //GS_Tokens: {explanation: "Requires hitting a specific GS token threshold", values: [10,20,30,40,50,100], items: ["Gold Skulltula Token"]},
       // TODO: expand this shit
-      Wallet1: {explanation: "Requires having the first wallet upgrade", related: [inventory.items], items: ["Wallet Upgrade"]},
+      Wallet1: {explanation: "Requires having the first wallet upgrade", related: ["items"], items: ["Wallet Upgrade"]},
       // TODO: Fix this shit
       PriceCheck: {explanation: "Requires the logic to compare the price to the current wallet"},
-      Dins: {explanation: "Requires having access to Din's Fire", related: [inventory.items], items: ["Din's Fire"]},
+      Dins: {explanation: "Requires having access to Din's Fire", related: ["items"], items: ["Din's Fire"]},
       Fire: {explanation: "Requires a source of fire, either QPA, Fire Arrow or Din's", unlocked_if: ["Dins", "Fire_Arrow"]},
-      Ocarina: {explanation: "Requires specifically Ocarina", related: [inventory.items], items: ["Progressive Ocarina"]},
-      Hammer: {explanation: "Requires the use of Megaton Hammer", related: [inventory.items], items: ["Megaton Hammer"]},
+      Ocarina: {explanation: "Requires specifically Ocarina", related: ["items"], items: ["Progressive Ocarina"]},
+      Hammer: {explanation: "Requires the use of Megaton Hammer", related: ["items"], items: ["Megaton Hammer"]},
       Explosive_Or_Hammer: {explanation: "Requires the use of hammer or an explosive", unlocked_if: ["Hammer", "Bombs", "Bombchu"]},
       Explosive_Or_Strength: {explanation: "Requires the use of an explosive or goron bracelet", unlocked_if: ["Strength1", "Bombs", "Bombchu"]},
-      Membership: {explanation: "Requires having the Gerudo Membership Card", related: [inventory.items], items: ["Gerudo Membership Card"]},
+      Membership: {explanation: "Requires having the Gerudo Membership Card", related: ["items"], items: ["Gerudo Membership Card"]},
       Ranged_Weapon: {explanation: "Requires a ranged weapon for switches", unlocked_if: ["Bow", "Slingshot", "Boomerang", "Bombs", "Bombchu", "Dins"]},
       // TODO: Fix this shit
-      Spiritual_Stones: {explanation: "Requires having a specific amount of Spiritual Stones", related: [inventory.items], items_all: ["Goron's Ruby", "Zora's Sapphire", "Kokiri's Emerald"]},
+      Spiritual_Stones: {explanation: "Requires having a specific amount of Spiritual Stones", related: ["items"], items_all: ["Goron's Ruby", "Zora's Sapphire", "Kokiri's Emerald"]},
       Gold_Scale_Or_Iron: {explanation: "Requires having an ability to dive deep", unlocked_if: ["GoldScale", "IronBoots"]},
-      GoldScale: {explanation: "Requires having the ability to dive deep", related: [inventory.items], items: ["Progressive Scale"], count: 2},
-      IronBoots: {explanation: "Requires having iron boots", related: [inventory.items], items: ["Iron boots"]},
-      Scale: {explanation: "Requires having a specific scale upgrade", related: [inventory.items], items: ["Progressive Scale"]},
+      GoldScale: {explanation: "Requires having the ability to dive deep", related: ["items"], items: ["Progressive Scale"], count: 2},
+      IronBoots: {explanation: "Requires having iron boots", related: ["items"], items: ["Iron boots"]},
+      Scale: {explanation: "Requires having a specific scale upgrade", related: ["items"], items: ["Progressive Scale"]},
       Hook_Or_Hover: {explanation: "Requires you to either pull yourself with hookshot or hover", unlocked_if: ["Hookshot", "Bomb_Hovering"]},
-      Weird_Egg: {explanation: 'Requires you to have weird egg', related: [inventory.items], items: ["Weird Egg"]},
-      Bottle: {explanation: "Requires you to have a bottle", related: [inventory.items], items: ["Bottle with Blue Fire", "Bottle with Blue Potion"]},
-      Fire_Arrow: {explanation: "Requires having fire arrows", related: [inventory.items], items_all: ["Fire Arrow", "Progressive Bow", "Progressive Magic Meter"]},
-      Mirror_Shield: {explanation: "Requires having a Mirror Shield", related: [inventory.ages, inventory.items], items: ["Mirror Shield"], ages: ["Adult"]},
-      Master_Sword: {explanation: "Master Sword", related: [inventory.items, inventory.ages], items: ["Master Sword"], ages: ["Adult"]},
-      Light_Arrow: {explanation: "Requires having Light arrows", related: [inventory.items, inventory.ages], items: ["Light Arrow"], ages: ["Adult"]},
-      FP_Item: {  explanation: "Items suitable with triple slash clip or weirdslide/weirdshot", related: [inventory.items],
+      Weird_Egg: {explanation: 'Requires you to have weird egg', related: ["items"], items: ["Weird Egg"]},
+      Bottle: {explanation: "Requires you to have a bottle", related: ["items"], items: ["Bottle with Blue Fire", "Bottle with Blue Potion"]},
+      Fire_Arrow: {explanation: "Requires having fire arrows", related: ["items"], items_all: ["Fire Arrow", "Progressive Bow", "Progressive Magic Meter"]},
+      Mirror_Shield: {explanation: "Requires having a Mirror Shield", related: ["items", "ages"], items: ["Mirror Shield"], ages: ["Adult"]},
+      Master_Sword: {explanation: "Master Sword", related: ["items", "ages"], items: ["Master Sword"], ages: ["Adult"]},
+      Light_Arrow: {explanation: "Requires having Light arrows", related: ["items", "ages"], items: ["Light Arrow"], ages: ["Adult"]},
+      FP_Item: {  explanation: "Items suitable with triple slash clip or weirdslide/weirdshot", related: ["items"],
                   items: ["Progressive Slingshot", "Progressive Bow", "Progressive Hookshot", "Ice Arrow", "Light Arrow", "Fire Arrow"]},
                   // Doing a shitty temp fix just to get stuff working again, I hate myself for doing this. I'll probably replace this with a class at some point since I should've just started with that
       Forest_small_keys1: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Forest Temple Small Key"],
                               count: 1}, 
       Forest_small_keys2: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Forest Temple Small Key"],
                               count: 2},      
       Forest_small_keys3: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Forest Temple Small Key"],
                               count: 3},   
       Forest_small_keys4: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Forest Temple Small Key"],
                               count: 4},      
       Forest_small_keys5: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Forest Temple Small Key"],
                               count: 5},  
       Forest_small_keys6: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Forest Temple Small Key"],
                               count: 6},            
       Fire_small_keys1: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 1}, 
       Fire_small_keys1: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 1}, 
       Fire_small_keys2: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 2}, 
       Fire_small_keys3: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 3}, 
       Fire_small_keys4: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 4}, 
       Fire_small_keys5: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 5}, 
       Fire_small_keys6: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 6}, 
       Fire_small_keys7: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 7}, 
       Fire_small_keys8: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Fire Temple Small Key"],
                               count: 8}, 
       Water_small_keys1: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Water Temple Small Key"],
                               count: 1}, 
       Water_small_keys2: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Water Temple Small Key"],
                               count: 2}, 
       Water_small_keys3: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Water Temple Small Key"],
                               count: 3}, 
       Water_small_keys4: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Water Temple Small Key"],
                               count: 4}, 
       Water_small_keys5: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Water Temple Small Key"],
                               count: 5}, 
       Water_small_keys6: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Water Temple Small Key"],
                               count: 6}, 
       Shadow_small_keys1: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Shadow Temple Small Key"],
                               count: 1}, 
       Shadow_small_keys2: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Shadow Temple Small Key"],
                               count: 2}, 
       Shadow_small_keys3: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Shadow Temple Small Key"],
                               count: 3}, 
       Shadow_small_keys4: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Shadow Temple Small Key"],
                               count: 4}, 
       Shadow_small_keys5: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Shadow Temple Small Key"],
                               count: 5}, 
       Shadow_small_keys6: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Shadow Temple Small Key"],
                               count: 6}, 
       Spirit_small_keys1: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Spirit Temple Small Key"],
                               count: 1}, 
       Spirit_small_keys2: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Spirit Temple Small Key"],
                               count: 2}, 
       Spirit_small_keys3: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Spirit Temple Small Key"],
                               count: 3}, 
       Spirit_small_keys4: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Spirit Temple Small Key"],
                               count: 4}, 
       Spirit_small_keys5: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Spirit Temple Small Key"],
                               count: 5}, 
       Spirit_small_keys6: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Spirit Temple Small Key"],
                               count: 6}, 
       BOTW_small_keys1: {   explanation: "Requires having a specific amount of small keys for BOTW", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Bottom of the Well Small Key"],
                               count: 1}, 
       BOTW_small_keys2: {   explanation: "Requires having a specific amount of small keys for BOTW", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Bottom of the Well Small Key"],
                               count: 2}, 
       BOTW_small_keys3: {   explanation: "Requires having a specific amount of small keys for BOTW", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Bottom of the Well Small Key"],
                               count: 3}, 
       GTG_small_keys1: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 1}, 
       GTG_small_keys2: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 2}, 
       GTG_small_keys3: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 3}, 
       GTG_small_keys4: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 4}, 
       GTG_small_keys5: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 5}, 
       GTG_small_keys6: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 6}, 
       GTG_small_keys7: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 7}, 
       GTG_small_keys8: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 8}, 
       GTG_small_keys9: {   explanation: "Requires having a specific amount of small keys for GTG", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Training Grounds Small Key"],
                               count: 9}, 
       GF_small_keys1: {   explanation: "Requires having a specific amount of small keys for GF", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
                               count: 1}, 
       GF_small_keys2: {   explanation: "Requires having a specific amount of small keys for GF", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
                               count: 2}, 
       GF_small_keys3: {   explanation: "Requires having a specific amount of small keys for GF", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
                               count: 3}, 
       GF_small_keys4: {   explanation: "Requires having a specific amount of small keys for GF", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
                               count: 4}, 
       Ganon_small_keys1: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Ganon's Castle Small Key"],
                               count: 1}, 
       Ganon_small_keys2: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Ganon's Castle Small Key"],
                               count: 2}, 
       Ganon_small_keys3: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
-                              related: [inventory.items],
+                              related: ["items"],
                               items: ["Ganon's Castle Small Key"],
                               count: 3}, 
       Forest_BK: {      explanation: "Requires having access to the Forest Temple Boss Key",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Forest Temple Boss Key"]},
       Fire_BK: {      explanation: "Requires having access to the Fire Temple Boss Key",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Fire Temple Boss Key"]},
       Water_BK: {      explanation: "Requires having access to the Water Temple Boss Key",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Water Temple Boss Key"]},
       Shadow_BK: {      explanation: "Requires having access to the Shadow Temple Boss Key",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Shadow Temple Boss Key"]},
       Spirit_BK: {      explanation: "Requires having access to the Spirit Temple Boss Key",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Spirit Temple Boss Key"]},
       Ganons_BK: {      explanation: "Requires having access to the Ganon's Boss Key",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Ganon's Castle Boss Key"]},
       Forest_Medallion: {      explanation: "Requires having access to the Forest Medallion",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Forest Medallion"]},
       Fire_Medallion: {      explanation: "Requires having access to the Fire Medallion",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Fire Medallion"]},
       Water_Medallion: {      explanation: "Requires having access to the Water Medallion",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Water Medallion"]},
       Shadow_Medallion: {      explanation: "Requires having access to the Shadow Medallion",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Shadow Medallion"]},
       Spirit_Medallion: {      explanation: "Requires having access to the Spirit Medallion",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Spirit Medallion"]},
       Light_Medallion: {      explanation: "Requires having access to the Light Medallion",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Light Medallion"]},
       GS_Tokens1: {      explanation: "Requires having access a specific Gold Skulltula token threshold",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Gold Skulltula Token"],
                         count: 10},
       GS_Tokens2: {      explanation: "Requires having access a specific Gold Skulltula token threshold",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Gold Skulltula Token"],
                         count: 20},
       GS_Tokens3: {      explanation: "Requires having access a specific Gold Skulltula token threshold",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Gold Skulltula Token"],
                         count: 30},
       GS_Tokens4: {      explanation: "Requires having access a specific Gold Skulltula token threshold",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Gold Skulltula Token"],
                         count: 40},
       GS_Tokens5: {      explanation: "Requires having access a specific Gold Skulltula token threshold",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Gold Skulltula Token"],
                         count: 50},
       GS_Tokens6: {      explanation: "Requires having access a specific Gold Skulltula token threshold",
-                        related: [inventory.items],
+                        related: ["items"],
                         items: ["Gold Skulltula Token"],
                         count: 100},
 
@@ -938,7 +861,7 @@
       LH: {name: "Lake Hylia", type: LocationType.Overworld},
       // Conditional:
       //    Crossing bridge
-      GV: {name: "Gerudo Valley", related: [inventory.accessible], accessible:["Gerudo Valley -> Hyrule Field"] ,bottleables: ["Bugs"], linkedLocation: ["LH"], type: LocationType.Overworld},
+      GV: {name: "Gerudo Valley", related: ["accessible_adult", "accessible_child"], accessible:["Gerudo Valley -> Hyrule Field"] ,bottleables: ["Bugs"], linkedLocation: ["LH"], type: LocationType.Overworld},
       // Conditional:
       //    Gate
       GF: {name: "Gerudo Fortress", type: LocationType.Overworld},
@@ -947,7 +870,7 @@
       // Conditional:
       //    Bombawa path to DMC
       DMT: {name: "Death Mountain Trail", 
-            related: [inventory.accessible], 
+            related: ["accessible_adult", "accessible_child"], 
             accessible: [     "Death Mountain Summit -> DMC Upper Nearby",
                               "Death Mountain Summit -> DMC Upper Local",
                               "Death Mountain Summit -> DMT Cow Grotto",
@@ -6236,11 +6159,15 @@
             // if (inventory.items.includes("Greg the Green Rupee")) {
             //       bossesNeeded--;
             // }
-            if (!inventory.entered.includes(Locations.Ganon.name)) {
+            if (!inventory.entered_adult.includes(Locations.Ganon.name)) {
                   pass = false;
                   console.log("Ganon wasn't reached");
             }
-            if (!inventory.entered.includes(Locations.TOT.name)) {
+            if (!inventory.entered_child.includes(Locations.TOT.name)) {
+                  pass = false;
+                  console.log("Temple of Time wasn't reached");
+            }
+            if (!inventory.entered_adult.includes(Locations.TOT.name)) {
                   pass = false;
                   console.log("Temple of Time wasn't reached");
             }
@@ -6256,23 +6183,33 @@
             console.log(medallions);
             console.log(rewards);
             console.log(bosses.includes("Barinade's Bossroom"));
-            console.log(inventory.entered.filter(e => bosses.includes(e)).length);
+            tempList = inventory.entered_child.filter(e => bosses.includes(e)).concat(inventory.entered_adult.filter(e => bosses.includes(e)));
+            tempList = [...new Set(tempList)];
+            console.log(tempList);
             console.log(Settings.bossesNeeded - gregModifier);
             // TODO: expand to check hammer, boomerang, ranged wep etc
             if (Settings.bossesNeeded) {
-                  tempList = inventory.entered.filter(e => bosses.includes(e));
+                  // tempList = inventory.entered.filter(e => bosses.includes(e));
                   if (!inventory.items.includes("Megaton Hammer")) {
                         tempList = tempList.filter(e => e != Locations.Volvagia.name);
                   }
                   if (!inventory.items.includes("Mirror Shield")) {
                         tempList = tempList.filter(e => e != Locations.Twinrova.name);
                   }
+                  else if (!inventory.entered_adult.includes(Locations.Twinrova.name)) {
+
+                        tempList = tempList.filter(e => e != Locations.Twinrova.name);
+                  }
                   if (!inventory.items.includes("Progressive Hookshot")) {
+                        tempList = tempList.filter(e => e != Locations.Morpha.name);
+                  }
+                  else if (!inventory.entered_adult.includes(Locations.Morpha.name)) {
                         tempList = tempList.filter(e => e != Locations.Morpha.name);
                   }
                   if (!inventory.items.includes("Boomerang")) {
                         tempList = tempList.filter(e => e != Locations.Barinade.name);
                   }
+                  console.log(tempList);
                   if (tempList.length < (Settings.bossesNeeded - gregModifier)) {
                         pass = false;
                         console.log("Not enough bosses were reached");
@@ -6328,6 +6265,7 @@
             }
             else {
                   output.textContent = "Seed is beatable"
+                  solvedState = true;
             }
       }
 //     function validateItems(locations) {
@@ -6419,246 +6357,366 @@
             var innerMultCheck = false;
             var ageCheck = true;
             var collectCheck = true;
-            for (var key in type) {
-                  // console.log(key);
-                  // console.log(type[key]);
-                  if (!type[key].location) {
-                        //console.log("skipping...");
-                        continue;
-                  }
-                  if (inventory.entered.includes(type[key]["location"].name)) {
-                        // if (type[key]["location"].name == "Deku Tree") {
-                        //       console.log("PLEASE");
+            var enteredList = [];
+            var accessibleList = [];
+            if (inventory.ages.includes("Adult")) {
+                  enteredList.push(inventory.entered_adult);
+                  accessibleList.push(inventory.accessible_adult);
+            }
+            if (inventory.ages.includes("Child")) {
+                  enteredList.push(inventory.entered_child);
+                  accessibleList.push(inventory.accessible_child);
+            }
+            for (var listIndex in enteredList) {
+                  // console.log("explore area stuff");
+                  // console.log(enteredList);
+                  // console.log(listIndex);
+                  for (var key in type) {
+                        // if (key == "GC Maze Center Chest") {
+                        //       console.log("checking the thing");
                         // }
-                        reqCheck = true;
-                        multCheck = true;
-                        condCheck = true;
-                        needsAllCheck = true;
-                        ageCheck = true;
-                        collectCheck = true;
-                        // if (key == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
-                        //       console.log("WEEWOO KEY");
-                        //       console.log(type[key]);
-                        //       console.log(type[key].requirements);
-                        // }
-                        // if (type[key] == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
-                        //       console.log("WEEWOO VALUE");
-                        //       console.log(key)
-                        // }
-                        //console.log(key);
-                        if (type[key].requirements) {
-                              type[key].requirements.forEach(element => {
-                                    // single req
-                                    //console.log(element);
-                                    if (element.explanation) {
-                                          if (inventory.requirements.includes(element)) {
-
-                                          }
-                                          else {
-                                                reqCheck = false;
-                                          }
-                                    }
-                                    // mult req
-                                    else {
-                                          console.log("multi time");;
-                                          multCheck = false;
-                                          element.forEach(requirementList => {
-                                                console.log(requirementList);
-                                                if (!multCheck) {
-                                                      multCheck = true;
-                                                      requirementList.forEach(requirement => {
-                                                            if (inventory.requirements.includes(requirement)) {
-                                                                  //console.log("matched");
-                                                            }
-                                                            else {
-                                                                  //console.log("unmatched");
-                                                                  multCheck = false;
-                                                            }
-                                                      })
-
-                                                }
-                                          })
-                                    }
-                              })
+                        // console.log(key);
+                        // console.log(type[key]);
+                        if (!type[key].location) {
+                              //console.log("skipping...");
+                              continue;
                         }
-                        if (type[key].conditional) {
-
-                              condCheck = false;
-                              //console.log(key)
-                              type[key]["conditional"].forEach(condition => {
-                                    //console.log(condition);
-                                    //console.log(condCheck);
-                                    if (!condCheck) {
-                                          if (condition.needsAll) {
-                                                needsAllCheck = true;
-                                                if (condition.locations) {
-                                                      //console.log(condition.locations);
-                                                      condition.locations.forEach(entrance => {
-                                                            if (inventory.accessible.includes(entrance)) {
-                                                                  condCheck = true;
+                        if (enteredList[listIndex].includes(type[key]["location"].name)) {
+                              // if (type[key]["location"].name == "Deku Tree") {
+                              //       console.log("PLEASE");
+                              // }
+                              reqCheck = true;
+                              multCheck = true;
+                              condCheck = true;
+                              needsAllCheck = true;
+                              ageCheck = true;
+                              collectCheck = true;
+                              // if (key == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
+                              //       console.log("WEEWOO KEY");
+                              //       console.log(type[key]);
+                              //       console.log(type[key].requirements);
+                              // }
+                              // if (type[key] == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
+                              //       console.log("WEEWOO VALUE");
+                              //       console.log(key)
+                              // }
+                              //console.log(key);
+                              if (type[key].requirements) {
+                                    type[key].requirements.forEach(element => {
+                                          // single req
+                                          //console.log(element);
+                                          if (element.explanation) {
+                                                if (inventory.requirements.includes(element)) {
+                                                      if (element == Requirements.Adult_Access) {
+                                                            if (!inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                  reqCheck = false;
                                                             }
-                                                            else {
-                                                                  needsAllCheck = false;
                                                       }
-                                                      });
-                                                      //console.log(condCheck);
+                                                      else if (element == Requirements.Child_Access) {
+                                                            if (!inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                  reqCheck = false;
+                                                            }
+                                                      }
                                                 }
-                                                if (condition.requirements) {
-                                                      //console.log(condition.requirements);
-                                                      condition.requirements.forEach(element => {
-                                                      if (element.explanation) {
-                                                            if (inventory.requirements.includes(element)) {
-                                                                  condCheck = true;
-                                                            }
-                                                            else {
-                                                                  needsAllCheck = false;
-                                                            }
-                                                      }
-                                                      // mult req
-                                                      else {
-                                                            //console.log("multReq");
-                                                            element.forEach(requirementList => {
-                                                                  if (!innerMultCheck) {
-                                                                        requirementList.forEach(requirement => {
-                                                                              innerMultCheck = true;
-                                                                              console.log(requirement);
-                                                                              if (inventory.requirements.includes(requirement)) {
-                                                                                    //console.log("matched!");
-                                                                              }
-                                                                              else {
-                                                                                    //console.log("unmatched");
-                                                                                    innerMultCheck = false;
-                                                                              }
-                                                                        })
-                                                                  }
-                                                            })
-                                                            condCheck = innerMultCheck;
-                                                            needsAllCheck = innerMultCheck;
-                                                      }
-                                                      
-                                                      //console.log(condCheck);
-                                                })};
-                                                if (condition.collected) {
-                                                      condition["collected"].forEach(coll => {
-                                                            if (inventory.collected.includes(coll)) {
-
-                                                            }
-                                                            else {
-                                                                  collectCheck = false;
-                                                                  needsAllCheck = false;
-                                                            }
-                                                      })
-                                                }
-                                                if (condition.age) {
-                                                      if (inventory.ages.includes(condition["age"])) {
-
-                                                      }
-                                                      else {
-                                                            ageCheck = false;
-                                                            needsAllCheck = false;
-                                                      }
+                                                else {
+                                                      reqCheck = false;
                                                 }
                                           }
+                                          // mult req
                                           else {
-                                                if (condition.locations) {
-                                                      //console.log(condition.locations);
-                                                      condition.locations.forEach(entrance => {
-                                                            if (inventory.accessible.includes(entrance)) {
-                                                                  condCheck = true;
-                                                            }
-                                                            else {
-
-                                                      }
-                                                      });
-                                                      //console.log(condCheck);
-                                                }
-                                                if (condition.requirements) {
-                                                      //console.log(condition.requirements);
-                                                      condition.requirements.forEach(element => {
-                                                      if (element.explanation) {
-                                                            if (inventory.requirements.includes(element)) {
-                                                                  condCheck = true;
-                                                            }
-                                                            else {
-
-                                                            }
-                                                      }
-                                                      // mult req
-                                                      else {
-                                                            //console.log("multReq");
-                                                            element.forEach(requirementList => {
-                                                                  if (!innerMultCheck) {
-                                                                        requirementList.forEach(requirement => {
-                                                                              innerMultCheck = true;
-                                                                              console.log(requirement);
-                                                                              if (inventory.requirements.includes(requirement)) {
-                                                                                    //console.log("matched!");
+                                                //console.log("multi time");;
+                                                multCheck = false;
+                                                element.forEach(requirementList => {
+                                                      //console.log(requirementList);
+                                                      if (!multCheck) {
+                                                            multCheck = true;
+                                                            requirementList.forEach(requirement => {
+                                                                  if (inventory.requirements.includes(requirement)) {
+                                                                        if (requirement == Requirements.Adult_Access) {
+                                                                              if (!inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                                    multCheck = false;
                                                                               }
-                                                                              else {
-                                                                                    //console.log("unmatched");
-                                                                                    innerMultCheck = false;
+                                                                        }
+                                                                        else if (requirement == Requirements.Child_Access) {
+                                                                              if (!inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                                    multCheck = false;
                                                                               }
-                                                                        })
+                                                                        }
+                                                                  }
+                                                                  else {
+                                                                        //console.log("unmatched");
+                                                                        multCheck = false;
                                                                   }
                                                             })
-                                                            condCheck = innerMultCheck;
+
                                                       }
-                                                      
-                                                      //console.log(condCheck);
-                                                })};
-                                                if (condition.collected) {
-                                                      condition["collected"].forEach(coll => {
-                                                            if (inventory.collected.includes(coll)) {
+                                                })
+                                          }
+                                    })
+                              }
+                              if (type[key].conditional) {
+
+                                    // if (key == "GC Maze Center Chest") {
+                                    //       console.log("entering conditional");
+                                    // }
+                                    condCheck = false;
+                                    //console.log(key)
+                                    type[key]["conditional"].forEach(condition => {
+                                          //console.log(condition);
+                                          //console.log(condCheck);
+                                          if (!condCheck) {
+                                                if (condition.needsAll) {
+                                                      if (key == "GC Maze Center Chest") {
+                                                            //console.log("condition needs all");
+                                                      }
+                                                      needsAllCheck = true;
+                                                      if (condition.locations) {
+                                                            //console.log(condition.locations);
+                                                            condition.locations.forEach(entrance => {
+                                                                  if (accessibleList[listIndex].includes(entrance)) {
+                                                                        condCheck = true;
+                                                                  }
+                                                                  else {
+                                                                        needsAllCheck = false;
+                                                            }
+                                                            });
+                                                            //console.log(condCheck);
+                                                      }
+                                                      if (condition.requirements) {
+                                                            //console.log(condition.requirements);
+                                                            condition.requirements.forEach(element => {
+                                                            if (element.explanation) {
+                                                                  if (inventory.requirements.includes(element)) {
+                                                                        if (element == Requirements.Adult_Access) {
+                                                                              if (inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                                    condCheck = true;
+                                                                              }
+                                                                        }
+                                                                        else if (element == Requirements.Child_Access) {
+                                                                              if (inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                                    condCheck = true;
+                                                                              }
+                                                                        }
+                                                                        else {
+                                                                              condCheck = true;
+                                                                        }
+                                                                  }
+                                                                  else {
+                                                                        needsAllCheck = false;
+                                                                  }
+                                                            }
+                                                            // mult req
+                                                            else {
+                                                                  //console.log("multReq");
+                                                                  element.forEach(requirementList => {
+                                                                        if (!innerMultCheck) {
+                                                                              requirementList.forEach(requirement => {
+                                                                                    innerMultCheck = true;
+                                                                                    // console.log(requirement);
+                                                                                    if (inventory.requirements.includes(requirement)) {
+                                                                                          if (requirement == Requirements.Adult_Access) {
+                                                                                                if (!inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                                                      innerMultCheck = false;
+                                                                                                }
+                                                                                          }
+                                                                                          else if (requirement == Requirements.Child_Access) {
+                                                                                                if (!inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                                                      innerMultCheck = false;
+                                                                                                }
+                                                                                          }
+                                                                                    }
+                                                                                    else {
+                                                                                          //console.log("unmatched");
+                                                                                          innerMultCheck = false;
+                                                                                    }
+                                                                              })
+                                                                        }
+                                                                  })
+                                                                  condCheck = innerMultCheck;
+                                                                  needsAllCheck = innerMultCheck;
+                                                            }
+                                                            
+                                                            //console.log(condCheck);
+                                                      })};
+                                                      if (condition.collected) {
+                                                            condition["collected"].forEach(coll => {
+                                                                  if (inventory.collected.includes(coll)) {
+
+                                                                  }
+                                                                  else {
+                                                                        collectCheck = false;
+                                                                        needsAllCheck = false;
+                                                                  }
+                                                            })
+                                                      }
+                                                      if (condition.age) {
+                                                            if (inventory.ages.includes(condition["age"])) {
 
                                                             }
                                                             else {
-                                                                  collectCheck = false;
+                                                                  ageCheck = false;
+                                                                  needsAllCheck = false;
                                                             }
-                                                      })
+                                                      }
                                                 }
-                                                if (condition.age) {
-                                                      if (inventory.ages.includes(condition["age"])) {
+                                                else {
+                                                      // if (key == "GC Maze Center Chest") {
+                                                      //       console.log("condition needs only one");
+                                                      // }
+                                                      // if (key == "GC Maze Center Chest") {
+                                                      //       console.log(condition);
+                                                      // }
+                                                      if (condition.locations) {
+                                                            // if (key == "GC Maze Center Chest") {
+                                                            //       console.log(condition.locations);
+                                                            //       console.log(enteredList[listIndex]);
+                                                            //}
+                                                            condition.locations.forEach(entrance => {
+                                                                  if (accessibleList[listIndex].includes(entrance)) {
+                                                                        condCheck = true;
+                                                                        // if (key == "GC Maze Center Chest") {
+                                                                        //                               console.log("You got it!");
+                                                                        //                         }
+                                                                  }
+                                                                  else {
 
+                                                            }
+                                                            });
+                                                            //console.log(condCheck);
                                                       }
-                                                      else {
-                                                            ageCheck = false;
+                                                      if (condition.requirements) {
+                                                            // if (key == "GC Maze Center Chest") {
+                                                            //       console.log("has requirements: ");
+                                                            //       console.log(condition["requirements"]);
+                                                            // }
+                                                            //console.log(condition.requirements);
+                                                            condition["requirements"].forEach(element => {
+                                                            if (element.explanation) {
+                                                                  if (inventory.requirements.includes(element)) {
+                                                                        if (element == Requirements.Adult_Access) {
+                                                                                                if (inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                                                      condCheck = true;
+                                                                                                }
+                                                                                          }
+                                                                                          else if (element == Requirements.Child_Access) {
+                                                                                                if (inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                                                      condCheck = true;
+                                                                                                }
+                                                                                          }
+                                                                                          else {
+                                                                                                condCheck = true;
+                                                                                                // if (key == "GC Maze Center Chest") {
+                                                                                                //       console.log("you got it");
+                                                                                                // }
+                                                                                          }
+                                                                  }
+                                                                  else {
+
+                                                                  }
+                                                            }
+                                                            // mult req
+                                                            else {
+                                                                  //console.log("multReq");
+                                                                  element.forEach(requirementList => {
+                                                                        if (!innerMultCheck) {
+                                                                              requirementList.forEach(requirement => {
+                                                                                    innerMultCheck = true;
+                                                                                    //console.log(requirement);
+                                                                                    if (inventory.requirements.includes(requirement)) {
+                                                                                          if (requirement == Requirements.Adult_Access) {
+                                                                                                if (!inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                                                      innerMultCheck = false;
+                                                                                                }
+                                                                                          }
+                                                                                          else if (requirement == Requirements.Child_Access) {
+                                                                                                if (!inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                                                      innerMultCheck = false;
+                                                                                                }
+                                                                                          }
+                                                                                    }
+                                                                                    else {
+                                                                                          //console.log("unmatched");
+                                                                                          innerMultCheck = false;
+                                                                                          if (key == "GC Maze Center Chest") {
+                                                                                                      console.log(innerMultCheck);
+                                                                                                }
+                                                                                    }
+                                                                              })
+                                                                        }
+                                                                  })
+                                                                  condCheck = innerMultCheck;
+                                                            }
+                                                            
+                                                            //console.log(condCheck);
+                                                      })};
+                                                      if (condition.collected) {
+                                                            condition.collected.forEach(coll => {
+                                                                  if (inventory.collected.includes(coll)) {
+
+                                                                  }
+                                                                  else {
+                                                                        collectCheck = false;
+                                                                  }
+                                                            })
+                                                      }
+                                                      if (condition.age) {
+                                                            if (inventory.ages.includes(condition["age"])) {
+
+                                                            }
+                                                            else {
+                                                                  ageCheck = false;
+                                                            }
                                                       }
                                                 }
+                                                
+                                          }
+                                    })
+                              }
+                              // console.log(reqCheck);
+                              // console.log(multCheck);
+                              // console.log(condCheck);
+                              // console.log(ageCheck);
+                              // console.log(collectCheck);
+                              // console.log(needsAllCheck);
+                              // if (key == "GC Maze Center Chest") {
+                              //       console.log("conclusion: ");
+                              //       console.log(reqCheck);
+                              //       console.log(multCheck);
+                              //       console.log(condCheck);
+                              //       console.log(ageCheck);
+                              //       console.log(collectCheck);
+                              //       console.log(needsAllCheck);
+                              // }
+                              if (reqCheck && multCheck && condCheck && ageCheck && collectCheck && needsAllCheck) {
+                                    if (type == entrancesMap) {
+                                          // console.log("adding" + key);
+                                          if (!accessibleList[listIndex].includes(key)) {
+                                                accessibleList[listIndex].push(key);
+                                          }
+                                          //delete entrancesMap[key];
+                                    }
+                                    if (type == itemLocations) {
+                                          if (file.locations[key]) {
+                                                if (!inventory.collected.includes(key)) {
+                                                      inventory.collected.push(key);
+                                                }
+                                                
+                                                // console.log(key);
+                                                // console.log(file);
+                                                if (file.locations[key].item) {
+                                                            inventory.items.push(file.locations[key].item);
+                                                }
+                                                else {
+                                                            inventory.items.push(file.locations[key]);
+                                                }
+                                                delete itemLocations[key];
+                                                delete file.locations[key];
+                                          }
+                                          else {
+
                                           }
                                           
                                     }
-                              })
-                        }
-                        // console.log(reqCheck);
-                        // console.log(multCheck);
-                        // console.log(condCheck);
-                        // console.log(ageCheck);
-                        // console.log(collectCheck);
-                        // console.log(needsAllCheck);
-                        if (reqCheck && multCheck && condCheck && ageCheck && collectCheck && needsAllCheck) {
-                              if (type == entrancesMap) {
-                                    // console.log("adding" + key);
-                                    inventory.accessible.push(key);
-                                    delete entrancesMap[key];
-                              }
-                              if (type == itemLocations) {
-                                    if (file.locations[key]) {
-                                          inventory.collected.push(key);
-                                          // console.log(key);
-                                          // console.log(file);
-                                          if (file.locations[key].item) {
-                                                inventory.items.push(file.locations[key].item);
-                                          }
-                                          else {
-                                                inventory.items.push(file.locations[key]);
-                                          }
-                                          delete itemLocations[key];
-                                          delete file.locations[key];
-                                    }
-                                    else {
-
-                                    }
-                                    
                               }
                         }
                   }
@@ -6669,44 +6727,126 @@
 
       }
 
+      var queued = ""
       function advanceAreas() {
             var keyName;
             var valueName;
             var tempName;
-            inventory.accessible.forEach(entrance => {
-                  keyName = entrance;
-                  valueName = entrance.replace("->", "from");
-                  // console.log("attempting to enter: ");
-                  // console.log(keyName);
-                  // console.log(valueName);
-                  for (var key in randomizedEntrances) {
-                        if (key == keyName) {
-                              tempName = randomizedEntrances[key].replace("from", "->");
-                              // console.log(tempName);
-                              if (!inventory.accessible.includes(tempName)) {
-                                    inventory.accessible.push(tempName);
-                                    if (!inventory.entered.includes(entrancesMap[tempName]["location"].name)) {
-                                          inventory.entered.push(entrancesMap[tempName]["location"].name);
-                                    }
-                                    unlockEntrance(entrancesMap[tempName]["location"]);
-                                    delete randomizedEntrances[key];
-                              }
-                        }
-                        // console.log(randomizedEntrances[key]);
+            var accessibleList = [];
+            var enteredList = [];
+            var age = [];
+            if (inventory.ages.includes("Adult")) {
+                  accessibleList.push(inventory.accessible_adult);
+                  enteredList.push(inventory.entered_adult)
+            }
+            if (inventory.ages.includes("Child")) {
+                  accessibleList.push(inventory.accessible_child);
+                  enteredList.push(inventory.entered_child);
+            }
+
+            for (var index in accessibleList) {
+                  accessibleList[index].forEach(entrance => {
+                        keyName = entrance;
+                        valueName = entrance.replace("->", "from");
+                        // if (valueName == "Castle Grounds -> Market") {
+                        //       console.log("KEY!");
+                        // }
+                        // if (keyName == "Castle Grounds -> Market") {
+                        //       console.log('VALUE')
+                        // }
+                        // if (keyName == "Kak Behind Gate -> Death Mountain") {
+                        //       console.log("ATTEMPTING TO ADD CASTLE GROUNDS");
+                        //       console.log(randomizedEntrances[keyName]);
+                        // }
+                        // console.log("attempting to enter: ");
+                        // console.log(keyName);
                         // console.log(valueName);
-                        if (randomizedEntrances[key] == valueName) {
-                              //console.log(key);
-                              if (!inventory.accessible.includes(key)) {
-                                    inventory.accessible.push(key);
-                                    if (!inventory.entered.includes(entrancesMap[key]["location"].name)) {
-                                          inventory.entered.push(entrancesMap[key]["location"].name);
+                        for (var key in randomizedEntrances) {
+                              if (key == keyName) {
+                                    tempName = randomizedEntrances[key].replace("from", "->");
+
+                                    //console.log(tempName);
+                                    //console.log(accessibleList[index]);
+                                    if (!accessibleList[index].includes(tempName)) {
+                                          //console.log("Adding to accessible " + tempName);
+                                          accessibleList[index].push(tempName);
+                                          //console.log(entrancesMap[tempName]);
+                                          if (entrancesMap[tempName].location[0]) {
+                                                //console.log("castle grounds");
+                                                //console.log(entrancesMap[tempName].location[0]);
+                                                if (!enteredList[index].includes(entrancesMap[tempName].location[0].name)) {
+                                                      //console.log("Adding castle grounds")
+                                                      enteredList[index].push(entrancesMap[tempName].location[0].name);
+                                                      unlockEntrance(entrancesMap[tempName].location[0], index);
+                                                      
+                                                }
+                                                if (!enteredList[index].includes(entrancesMap[tempName].location[1].name)) {
+                                                      //console.log("Adding OGC");
+                                                      enteredList[index].push(entrancesMap[tempName].location[1].name);
+                                                      unlockEntrance(entrancesMap[tempName].location[1], index);
+                                                }
+                                                queued = tempName;
+                                          }
+                                          else if (!enteredList[index].includes(entrancesMap[tempName]["location"].name)) {
+                                                enteredList[index].push(entrancesMap[tempName]["location"].name);
+                                                unlockEntrance(entrancesMap[tempName]["location"], index);
+                                          }      
+                                          //delete randomizedEntrances[key];
                                     }
-                                    unlockEntrance(entrancesMap[key]["location"]);
-                                    delete randomizedEntrances[key];
+                              }
+                              // console.log(randomizedEntrances[key]);
+                              // console.log(valueName);
+                              if (randomizedEntrances[key] == valueName) {
+                                    //console.log(key);
+                                    if (!accessibleList[index].includes(key)) {
+                                          accessibleList[index].push(key);
+                                          // console.log(entrancesMap[key]);
+                                          
+                                          if (entrancesMap[key][0]) {
+                                                //console.log("castle grounds");
+                                                if (!enteredList[index].includes(entrancesMap[key][0].name)) {
+                                                      enteredList[index].push(entrancesMap[key][0].name);
+                                                      unlockEntrance(entrancesMap[key][0]), index;
+                                                }
+                                                if (!enteredList[index].includes(entrancesMap[key][1].name)) {
+                                                      enteredList[index].push(entrancesMap[key][1].name);
+                                                      unlockEntrance(entrancesMap[key][1], index);
+                                                }
+                                          }
+                                          else if (!enteredList[index].includes(entrancesMap[key]["location"].name)) {
+                                                enteredList[index].push(entrancesMap[key]["location"].name);
+                                                unlockEntrance(entrancesMap[key]["location"], index);
+                                          }                                         
+                                          //delete randomizedEntrances[key];
+                                    }
                               }
                         }
+                  })
+            }
+      }
+
+      var solvedState = false;
+      function tempTriggerLoop() {
+            //console.log("temptriggerloop");
+            for (var i = 0; i < 100; i++) {
+                  //console.log(solvedState);
+                  if (solvedState) {
+                        break;
                   }
-            })
+                  //console.log("temptrigger");
+                  tempTrigger()
+            }
+            if (!solvedState) {
+                  
+                  
+                  console.log(file);
+                  console.log(randomizedEntrances);
+                  console.log(entrancesMap);
+                  console.log(itemLocations);
+                  console.log(inventory);
+                  validateItems();
+                  output.textContent = "Seed is impossible. See console for reasons"
+            }
       }
       function tempTrigger() {
             // checkCurrentAvailableItems(tempFileStorage);
@@ -6720,7 +6860,10 @@
             advanceAreas();
             inventory.items.sort();
             inventory.collected.sort();
-            inventory.entered.sort();
+            inventory.accessible_adult.sort();
+            inventory.accessible_child.sort();
+            inventory.entered_adult.sort();
+            inventory.entered_child.sort();
             inventory.requirements.sort();
 
             console.log(file);
@@ -6910,18 +7053,22 @@
             if (key == searchString) {
                   if (inventory.ages.includes("Child")) {
                         inventory.Child_start = randomizedEntrances[key].replace("from" , '->');
-                        inventory.accessible.push(inventory.Child_start);
-                        inventory.entered.push(entrancesMap[inventory.Child_start].location.name);
-                        delete entrancesMap[inventory.Child_start];
+                        inventory.accessible_child.push(inventory.Child_start);
+                        inventory.entered_child.push(entrancesMap[inventory.Child_start].location.name);
+                        //delete entrancesMap[inventory.Child_start];
+                        inventory.Adult_start = randomizedEntrances["Adult Spawn -> Temple of Time"].replace("from" , '->');
+                        //delete randomizedEntrances["Adult Spawn -> Temple of Time"];
                   }
                   else {
                         inventory.Adult_start = randomizedEntrances[key].replace("from" , '->');
-                        inventory.accessible.push(inventory.Adult_start);
-                        inventory.entered.push(entrancesMap[inventory.Adult_start].location.name);
-                        delete entrancesMap[inventory.Adult_start];
+                        inventory.accessible_adult.push(inventory.Adult_start);
+                        inventory.entered_adult.push(entrancesMap[inventory.Adult_start].location.name);
+                        //delete entrancesMap[inventory.Adult_start];
+                        inventory.Adult_start = randomizedEntrances["Child Spawn -> KF Link's House"].replace("from" , '->');
+                        //delete randomizedEntrances["Child Spawn -> KF Link's House"];
                         
                   }
-                  delete randomizedEntrances[key];
+                  //delete randomizedEntrances[key];
             }
         }
       //   for (var sphere in file.entrancesMap) {
@@ -7046,455 +7193,455 @@
         validateItems(file.locations)
     }
 
-    function checkCurrentlyAvailableLocations(file) {
-      var requirementCheck = true;
-      var multipleCheck = true;
-      var tempCheck = false;
-      var conditionPass = true;
-      var innerMultCheck = false;
-      for (var entrance in entrancesMap) {
-            requirementCheck = true;
-            multipleCheck = true;
-            tempCheck = false;
+//     function checkCurrentlyAvailableLocations(file) {
+//       var requirementCheck = true;
+//       var multipleCheck = true;
+//       var tempCheck = false;
+//       var conditionPass = true;
+//       var innerMultCheck = false;
+//       for (var entrance in entrancesMap) {
+//             requirementCheck = true;
+//             multipleCheck = true;
+//             tempCheck = false;
 
-            if (!entrancesMap[entrance]) {
-                  continue;
-            }
-            if (entrancesMap[entrance].location) {
-                  // console.log("Checking location: " + entrancesMap[entrance].location.name);
-                  if (inventory.entered.includes(entrancesMap[entrance].location.name)) {
-                        // if (!entrancesMap[entrance].requirements && !entrancesMap[entrance].conditional && !entrancesMap[entrance].age) {
-                        //             if (!inventory.accessible.includes(entrance)) {
-                        //                   inventory.accessible.push(entrance);
+//             if (!entrancesMap[entrance]) {
+//                   continue;
+//             }
+//             if (entrancesMap[entrance].location) {
+//                   // console.log("Checking location: " + entrancesMap[entrance].location.name);
+//                   if (inventory.entered.includes(entrancesMap[entrance].location.name)) {
+//                         // if (!entrancesMap[entrance].requirements && !entrancesMap[entrance].conditional && !entrancesMap[entrance].age) {
+//                         //             if (!inventory.accessible.includes(entrance)) {
+//                         //                   inventory.accessible.push(entrance);
 
 
-                        //             }
-                        //             continue;
-                        //       }
+//                         //             }
+//                         //             continue;
+//                         //       }
                         
-                        console.log(entrance);
-                        if (entrancesMap[entrance].requirements) {
-                        entrancesMap[entrance].requirements.forEach(req => {
-                              //console.log(req);
-                                                if(req.explanation) {
-                                                      //console.log("This should be a single requirement");
-                                                      //console.log(requirement);
-                                                      // console.log("Has req?");
-                                                      // console.log(inventory.requirements.includes(req));
-                                                            if (inventory.requirements.includes(req)) {
-                                                            }
-                                                            else {
-                                                                  // console.log("turning requirementCheck off");
-                                                                  requirementCheck = false;
-                                                            }
-                                                }
-                                                else {
-                                                      req.forEach(list => {
-                                                            if (!tempCheck) {
-                                                                  tempCheck = true;
-                                                                  list.forEach(multReqItem => {
+//                         //console.log(entrance);
+//                         if (entrancesMap[entrance].requirements) {
+//                         entrancesMap[entrance].requirements.forEach(req => {
+//                               //console.log(req);
+//                                                 if(req.explanation) {
+//                                                       //console.log("This should be a single requirement");
+//                                                       //console.log(requirement);
+//                                                       // console.log("Has req?");
+//                                                       // console.log(inventory.requirements.includes(req));
+//                                                             if (inventory.requirements.includes(req)) {
+//                                                             }
+//                                                             else {
+//                                                                   // console.log("turning requirementCheck off");
+//                                                                   requirementCheck = false;
+//                                                             }
+//                                                 }
+//                                                 else {
+//                                                       req.forEach(list => {
+//                                                             if (!tempCheck) {
+//                                                                   tempCheck = true;
+//                                                                   list.forEach(multReqItem => {
                                                                         
-                                                                        if (inventory.requirements.includes(multReqItem)) {
+//                                                                         if (inventory.requirements.includes(multReqItem)) {
 
-                                                                        }
-                                                                        else {
-                                                                              tempCheck = false;
-                                                                        }
-                                                                  })
-                                                            }
-                                                            //console.log(list);
-                                                      })
-                                                      multipleCheck = tempCheck;
-                                                      //console.log("This should be a MultipleReq")
-                                                      //console.log(requirement);
-                                                      //console.log(multipleCheck);
+//                                                                         }
+//                                                                         else {
+//                                                                               tempCheck = false;
+//                                                                         }
+//                                                                   })
+//                                                             }
+//                                                             //console.log(list);
+//                                                       })
+//                                                       multipleCheck = tempCheck;
+//                                                       //console.log("This should be a MultipleReq")
+//                                                       //console.log(requirement);
+//                                                       //console.log(multipleCheck);
                                                       
-                                                }
-                        });
-                  }
-                        if (entrancesMap[entrance].conditional && !inventory.entered.includes(entrancesMap[entrance].location)) {
-                              console.log(entrancesMap[entrance].conditional);
-                                          if (entrancesMap[entrance].conditional) {
-                                                conditionPass = false;
-                                                entrancesMap[entrance].conditional.forEach(condition => {
-                                                      if (conditionPass) {
+//                                                 }
+//                         });
+//                   }
+//                         if (entrancesMap[entrance].conditional && !inventory.entered.includes(entrancesMap[entrance].location)) {
+//                               console.log(entrancesMap[entrance].conditional);
+//                                           if (entrancesMap[entrance].conditional) {
+//                                                 conditionPass = false;
+//                                                 entrancesMap[entrance].conditional.forEach(condition => {
+//                                                       if (conditionPass) {
 
-                                                      }
-                                                      else {
-                                                            if (condition.needsAll) {
-                                                      console.log("condition needs all? " + condition.needsAll);
-                                                      conditionPass = true;
-                                                      if (condition.locations) {
-                                                            condition.locations.forEach(location => {
-                                                                  if (inventory.accessible.includes(location)) {
+//                                                       }
+//                                                       else {
+//                                                             if (condition.needsAll) {
+//                                                       console.log("condition needs all? " + condition.needsAll);
+//                                                       conditionPass = true;
+//                                                       if (condition.locations) {
+//                                                             condition.locations.forEach(location => {
+//                                                                   if (inventory.accessible.includes(location)) {
 
-                                                                  }
-                                                                  else {
-                                                                        conditionPass = false;
-                                                                  }
-                                                            })
+//                                                                   }
+//                                                                   else {
+//                                                                         conditionPass = false;
+//                                                                   }
+//                                                             })
 
-                                                      }if (condition.requirements) {
-                                                            condition.requirements.forEach(requirement => {
-                                                                  if (!requirement.explanation) {
-                                                                        innerMultCheck = true;
-                                                                        requirement.forEach(multReq => {
-                                                                              if (!innerMultCheck) {
-                                                                                    innerMultCheck = true;
-                                                                                    multReq.forEach(singleReq => {
-                                                                                          if (inventory.requirements.includes(singleReq)) {
+//                                                       }if (condition.requirements) {
+//                                                             condition.requirements.forEach(requirement => {
+//                                                                   if (!requirement.explanation) {
+//                                                                         innerMultCheck = true;
+//                                                                         requirement.forEach(multReq => {
+//                                                                               if (!innerMultCheck) {
+//                                                                                     innerMultCheck = true;
+//                                                                                     multReq.forEach(singleReq => {
+//                                                                                           if (inventory.requirements.includes(singleReq)) {
 
-                                                                                          }
-                                                                                          else {
-                                                                                                innerMultCheck = false;
-                                                                                          }
-                                                                                    })
-                                                                              }
-                                                                        })
-                                                                        conditionPass = !innerMultCheck;
-                                                                  }
-                                                                  else {
-                                                                        if (inventory.requirements.includes(requirement)) {
+//                                                                                           }
+//                                                                                           else {
+//                                                                                                 innerMultCheck = false;
+//                                                                                           }
+//                                                                                     })
+//                                                                               }
+//                                                                         })
+//                                                                         conditionPass = !innerMultCheck;
+//                                                                   }
+//                                                                   else {
+//                                                                         if (inventory.requirements.includes(requirement)) {
 
-                                                                        }
-                                                                        else {
-                                                                              conditionPass = false;
-                                                                        }
-                                                                  }
-                                                            })
-                                                      }if (condition.age) {
-                                                            if (inventory.ages.includes(condition.age)) {
+//                                                                         }
+//                                                                         else {
+//                                                                               conditionPass = false;
+//                                                                         }
+//                                                                   }
+//                                                             })
+//                                                       }if (condition.age) {
+//                                                             if (inventory.ages.includes(condition.age)) {
 
-                                                            }
-                                                            else {
-                                                                  conditionPass = false;
-                                                            }
-                                                      }
-                                                      if (condition.collected) {
-                                                            condition.collected.forEach(collect => {
-                                                                  if (inventory.collected.includes(collect)) {
+//                                                             }
+//                                                             else {
+//                                                                   conditionPass = false;
+//                                                             }
+//                                                       }
+//                                                       if (condition.collected) {
+//                                                             condition.collected.forEach(collect => {
+//                                                                   if (inventory.collected.includes(collect)) {
                                                                         
-                                                                  }
-                                                                  else {
-                                                                        conditionPass = false;
-                                                                  }
-                                                            })
-                                                      }
-                                                }
-                                                else {
-                                                      //console.log("condition only needs one");
-                                                      conditionPass = false;
-                                                      if (condition.locations) {
-                                                            condition.locations.forEach(location => {
-                                                                  //console.log(location);
-                                                                  //console.log(inventory.accessible.includes(location));
-                                                                  if (inventory.accessible.includes(location)) {
-                                                                        conditionPass = true;
-                                                                  }
-                                                                  else {
+//                                                                   }
+//                                                                   else {
+//                                                                         conditionPass = false;
+//                                                                   }
+//                                                             })
+//                                                       }
+//                                                 }
+//                                                 else {
+//                                                       //console.log("condition only needs one");
+//                                                       conditionPass = false;
+//                                                       if (condition.locations) {
+//                                                             condition.locations.forEach(location => {
+//                                                                   //console.log(location);
+//                                                                   //console.log(inventory.accessible.includes(location));
+//                                                                   if (inventory.accessible.includes(location)) {
+//                                                                         conditionPass = true;
+//                                                                   }
+//                                                                   else {
                                                                         
-                                                                  }
-                                                            })
+//                                                                   }
+//                                                             })
 
-                                                      }if (condition.requirements) {
-                                                            condition.requirements.forEach(requirement => {
-                                                                  if (!requirement.explanation) {
-                                                                        console.log("time for that multi shit");
-                                                                        console.log(condition);
-                                                                        console.log(requirement);
-                                                                        requirement.forEach(multReq => {
-                                                                              console.log(multReq);
-                                                                              if (!innerMultCheck) {
-                                                                                    innerMultCheck = true;
-                                                                                    multReq.forEach(singleReq => {
-                                                                                          console.log(singleReq);
-                                                                                          if (inventory.requirements.includes(singleReq)) {
+//                                                       }if (condition.requirements) {
+//                                                             condition.requirements.forEach(requirement => {
+//                                                                   if (!requirement.explanation) {
+//                                                                         console.log("time for that multi shit");
+//                                                                         console.log(condition);
+//                                                                         console.log(requirement);
+//                                                                         requirement.forEach(multReq => {
+//                                                                               console.log(multReq);
+//                                                                               if (!innerMultCheck) {
+//                                                                                     innerMultCheck = true;
+//                                                                                     multReq.forEach(singleReq => {
+//                                                                                           console.log(singleReq);
+//                                                                                           if (inventory.requirements.includes(singleReq)) {
 
-                                                                                          }
-                                                                                          else {
-                                                                                                console.log("rejecting for: ");
-                                                                                                console.log(singleReq);
-                                                                                                innerMultCheck = false;
-                                                                                          }
-                                                                                    })
-                                                                              }
-                                                                        })
-                                                                        conditionPass = !innerMultCheck;
-                                                                  }
-                                                                  else {
-                                                                        if (inventory.requirements.includes(requirement)) {
+//                                                                                           }
+//                                                                                           else {
+//                                                                                                 console.log("rejecting for: ");
+//                                                                                                 console.log(singleReq);
+//                                                                                                 innerMultCheck = false;
+//                                                                                           }
+//                                                                                     })
+//                                                                               }
+//                                                                         })
+//                                                                         conditionPass = !innerMultCheck;
+//                                                                   }
+//                                                                   else {
+//                                                                         if (inventory.requirements.includes(requirement)) {
 
-                                                                        }
-                                                                        else {
-                                                                              conditionPass = false;
-                                                                        }
-                                                                  }
-                                                            })
-                                                      }if (condition.age) {
-                                                            if (inventory.ages.includes(condition.age)) {
-                                                                  conditionPass = true;
-                                                            }
-                                                            else {
-                                                            }
-                                                      }
-                                                      if (condition.collected) {
-                                                            //console.log(entrance);
-                                                            condition.collected.forEach(collect => {
-                                                                  if (inventory.collected.includes(collect)) {
-                                                                        conditionPass = true;
-                                                                  }
-                                                                  else {
+//                                                                         }
+//                                                                         else {
+//                                                                               conditionPass = false;
+//                                                                         }
+//                                                                   }
+//                                                             })
+//                                                       }if (condition.age) {
+//                                                             if (inventory.ages.includes(condition.age)) {
+//                                                                   conditionPass = true;
+//                                                             }
+//                                                             else {
+//                                                             }
+//                                                       }
+//                                                       if (condition.collected) {
+//                                                             //console.log(entrance);
+//                                                             condition.collected.forEach(collect => {
+//                                                                   if (inventory.collected.includes(collect)) {
+//                                                                         conditionPass = true;
+//                                                                   }
+//                                                                   else {
                                                                         
-                                                                  }
-                                                            })
-                                                      }
-                                                }
-                                                      }
+//                                                                   }
+//                                                             })
+//                                                       }
+//                                                 }
+//                                                       }
                                                 
-                                          });
-                                    }
-                                    //console.log("Did condition pass? : "+ conditionPass);
-                              } 
-                        if (multipleCheck && requirementCheck && conditionPass && !inventory.accessible.includes(entrance)) {
-                              // console.log("pushing: ");
-                              // console.log(entrance);
-                              inventory.accessible.push(entrance);
-                        }
-                        else {
-                              // console.log("Rejected: ");
-                              // console.log(entrance);
-                              // console.log(multipleCheck);
-                              // console.log(requirementCheck);
-                              // console.log(!inventory.accessible.includes(entrance));
-                              // console.log(entrancesMap[entrance].requirements);
-                              // console.log(inventory.requirements);
-                        }
+//                                           });
+//                                     }
+//                                     //console.log("Did condition pass? : "+ conditionPass);
+//                               } 
+//                         if (multipleCheck && requirementCheck && conditionPass && !inventory.accessible.includes(entrance)) {
+//                               // console.log("pushing: ");
+//                               // console.log(entrance);
+//                               inventory.accessible.push(entrance);
+//                         }
+//                         else {
+//                               // console.log("Rejected: ");
+//                               // console.log(entrance);
+//                               // console.log(multipleCheck);
+//                               // console.log(requirementCheck);
+//                               // console.log(!inventory.accessible.includes(entrance));
+//                               // console.log(entrancesMap[entrance].requirements);
+//                               // console.log(inventory.requirements);
+//                         }
                         
-                  }
-            }
-      }
-    }
-    function checkCurrentAvailableItems(file) {
-      for (var item in itemLocations) {
-            var ageCheck = true;
-            var requirementCheck = true;
-            var multipleCheck = true;
-            var tempCheck = false;
-            var conditionPass = true;
-            if (item) {
-                  if (!file.locations[item]) {
-                        continue;
-                  }
-                  //console.log(item)
-                  if (itemLocations[item]) {
-                        //console.log("item descriptors...");
-                        if (itemLocations[item].location) {
-                              //console.log(itemLocations[item].location);
+//                   }
+//             }
+//       }
+//     }
+//     function checkCurrentAvailableItems(file) {
+//       for (var item in itemLocations) {
+//             var ageCheck = true;
+//             var requirementCheck = true;
+//             var multipleCheck = true;
+//             var tempCheck = false;
+//             var conditionPass = true;
+//             if (item) {
+//                   if (!file.locations[item]) {
+//                         continue;
+//                   }
+//                   //console.log(item)
+//                   if (itemLocations[item]) {
+//                         //console.log("item descriptors...");
+//                         if (itemLocations[item].location) {
+//                               //console.log(itemLocations[item].location);
                               
-                              if (inventory.entered.includes(itemLocations[item].location.name)) {
-                                    //console.log("Checking for the current item:")
-                                    //console.log(file.locations[item]);
-                                    //console.log("entered....");
-                                    if (itemLocations[item].age) {
-                                          if (inventory.ages.includes(itemLocations[item].age)) {
+//                               if (inventory.entered.includes(itemLocations[item].location.name)) {
+//                                     //console.log("Checking for the current item:")
+//                                     //console.log(file.locations[item]);
+//                                     //console.log("entered....");
+//                                     if (itemLocations[item].age) {
+//                                           if (inventory.ages.includes(itemLocations[item].age)) {
 
-                                          }
-                                          else {
-                                                // console.log("Rejected age for element: " + item);
-                                                ageCheck = false;
-                                          }
-                                          //console.log(ageCheck);
-                                    }
-                                    if (itemLocations[item].requirements) {
-                                          //console.log("Checking item location requirement for: ");
-                                          //console.log(itemLocations[item]);
-                                          itemLocations[item].requirements.forEach(requirement => {
-                                                // console.log(requirement);
-                                                if(requirement.explanation) {
-                                                      //console.log("This should be a single requirement");
-                                                      //console.log(requirement);
-                                                            if (inventory.requirements.includes(requirement)) {
-                                                            }
-                                                            else {
-                                                                  requirementCheck = false;
-                                                            }
-                                                }
-                                                else {
-                                                      requirement.forEach(list => {
-                                                            if (!tempCheck) {
-                                                                  list.forEach(multReqItem => {
-                                                                        tempCheck = true;
-                                                                        if (inventory.requirements.includes(multReqItem)) {
+//                                           }
+//                                           else {
+//                                                 // console.log("Rejected age for element: " + item);
+//                                                 ageCheck = false;
+//                                           }
+//                                           //console.log(ageCheck);
+//                                     }
+//                                     if (itemLocations[item].requirements) {
+//                                           //console.log("Checking item location requirement for: ");
+//                                           //console.log(itemLocations[item]);
+//                                           itemLocations[item].requirements.forEach(requirement => {
+//                                                 // console.log(requirement);
+//                                                 if(requirement.explanation) {
+//                                                       //console.log("This should be a single requirement");
+//                                                       //console.log(requirement);
+//                                                             if (inventory.requirements.includes(requirement)) {
+//                                                             }
+//                                                             else {
+//                                                                   requirementCheck = false;
+//                                                             }
+//                                                 }
+//                                                 else {
+//                                                       requirement.forEach(list => {
+//                                                             if (!tempCheck) {
+//                                                                   list.forEach(multReqItem => {
+//                                                                         tempCheck = true;
+//                                                                         if (inventory.requirements.includes(multReqItem)) {
 
-                                                                        }
-                                                                        else {
-                                                                              tempCheck = false;
-                                                                        }
-                                                                  })
-                                                            }
-                                                            //console.log(list);
-                                                      })
-                                                      multipleCheck = tempCheck;
-                                                      //console.log("This should be a MultipleReq")
-                                                      //console.log(requirement);
-                                                      //console.log(multipleCheck);
+//                                                                         }
+//                                                                         else {
+//                                                                               tempCheck = false;
+//                                                                         }
+//                                                                   })
+//                                                             }
+//                                                             //console.log(list);
+//                                                       })
+//                                                       multipleCheck = tempCheck;
+//                                                       //console.log("This should be a MultipleReq")
+//                                                       //console.log(requirement);
+//                                                       //console.log(multipleCheck);
                                                       
-                                                }
-                                          })
-                                          // for (var index in itemLocations[item].requirements) {
-                                          //       console.log("Is this an array?")
-                                          //       console.log(index);
-                                          //       console.log(itemLocations[item].requirements);
-                                          //       console.log(itemLocations[item].requirements[index]);
-                                          //       if (!itemLocations[item].requirements[index].explanation) {
-                                          //             console.log("entered MultipleReq Loop");
-                                          //             for (var index in itemLocations[item].requirements[index]) {
-                                          //                   multipleCheck = true;
-                                          //                   console.log(index);
-                                          //                   console.log(itemLocations[item].requirements[index]);
-                                          //                   console.log(itemLocations[item].requirements[index][index]);
-                                          //                   itemLocations[item].requirements[index][index].forEach(requirement => {
+//                                                 }
+//                                           })
+//                                           // for (var index in itemLocations[item].requirements) {
+//                                           //       console.log("Is this an array?")
+//                                           //       console.log(index);
+//                                           //       console.log(itemLocations[item].requirements);
+//                                           //       console.log(itemLocations[item].requirements[index]);
+//                                           //       if (!itemLocations[item].requirements[index].explanation) {
+//                                           //             console.log("entered MultipleReq Loop");
+//                                           //             for (var index in itemLocations[item].requirements[index]) {
+//                                           //                   multipleCheck = true;
+//                                           //                   console.log(index);
+//                                           //                   console.log(itemLocations[item].requirements[index]);
+//                                           //                   console.log(itemLocations[item].requirements[index][index]);
+//                                           //                   itemLocations[item].requirements[index][index].forEach(requirement => {
                                                                   
-                                          //                         if (inventory.requirements.includes(requirement)) {
+//                                           //                         if (inventory.requirements.includes(requirement)) {
                                                                         
-                                          //                         }
-                                          //                         else {
-                                          //                               console.log("didn't apply");
-                                          //                               multipleCheck = false;
-                                          //                         }
-                                          //                   })
-                                          //                   if (multipleCheck) {
-                                          //                         console.log("all checks applied!");
-                                          //                         break;
-                                          //                   }
-                                          //             }
-                                          //       }
-                                          //       else if (inventory.requirements.includes(itemLocations[item].requirements[index])) {
+//                                           //                         }
+//                                           //                         else {
+//                                           //                               console.log("didn't apply");
+//                                           //                               multipleCheck = false;
+//                                           //                         }
+//                                           //                   })
+//                                           //                   if (multipleCheck) {
+//                                           //                         console.log("all checks applied!");
+//                                           //                         break;
+//                                           //                   }
+//                                           //             }
+//                                           //       }
+//                                           //       else if (inventory.requirements.includes(itemLocations[item].requirements[index])) {
 
-                                          //       }
-                                          //       else {
-                                          //             // console.log("Rejected requirement for element: " + item);
-                                          //             requirementCheck = false;
-                                          //       }
-                                          // }
-                                          //console.log(requirementCheck);
-                                    }
-                                    if (itemLocations[item].conditional){
-                                          conditionPass = false;
-                                          itemLocations[item].conditional.forEach(condition => {
-                                                if (conditionPass) {
+//                                           //       }
+//                                           //       else {
+//                                           //             // console.log("Rejected requirement for element: " + item);
+//                                           //             requirementCheck = false;
+//                                           //       }
+//                                           // }
+//                                           //console.log(requirementCheck);
+//                                     }
+//                                     if (itemLocations[item].conditional){
+//                                           conditionPass = false;
+//                                           itemLocations[item].conditional.forEach(condition => {
+//                                                 if (conditionPass) {
 
-                                                }
-                                                else {
-                                                      if (condition.needsAll) {
-                                                      conditionPass = true;
-                                                      if (condition.locations) {
-                                                            condition.locations.forEach(location => {
-                                                                  if (inventory.accessible.includes(location)) {
+//                                                 }
+//                                                 else {
+//                                                       if (condition.needsAll) {
+//                                                       conditionPass = true;
+//                                                       if (condition.locations) {
+//                                                             condition.locations.forEach(location => {
+//                                                                   if (inventory.accessible.includes(location)) {
 
-                                                                  }
-                                                                  else {
-                                                                        conditionPass = false;
-                                                                  }
-                                                            })
+//                                                                   }
+//                                                                   else {
+//                                                                         conditionPass = false;
+//                                                                   }
+//                                                             })
 
-                                                      }if (condition.requirements) {
-                                                            condition.requirements.forEach(requirement => {
-                                                                  if (inventory.requirements.includes(requirement)) {
+//                                                       }if (condition.requirements) {
+//                                                             condition.requirements.forEach(requirement => {
+//                                                                   if (inventory.requirements.includes(requirement)) {
 
-                                                                  }
-                                                                  else {
-                                                                        conditionPass = false;
-                                                                  }
-                                                            })
-                                                      }if (condition.age) {
-                                                            if (inventory.ages.includes(condition.age)) {
+//                                                                   }
+//                                                                   else {
+//                                                                         conditionPass = false;
+//                                                                   }
+//                                                             })
+//                                                       }if (condition.age) {
+//                                                             if (inventory.ages.includes(condition.age)) {
 
-                                                            }
-                                                            else {
-                                                                  conditionPass = false;
-                                                            }
-                                                      }
-                                                      if (condition.collected) {
-                                                            condition.collected.forEach(collect => {
-                                                                  if (inventory.collected.includes(collect)) {
+//                                                             }
+//                                                             else {
+//                                                                   conditionPass = false;
+//                                                             }
+//                                                       }
+//                                                       if (condition.collected) {
+//                                                             condition.collected.forEach(collect => {
+//                                                                   if (inventory.collected.includes(collect)) {
 
-                                                                  }
-                                                                  else {
-                                                                        conditionPass = false;
-                                                                  }
-                                                            })
-                                                      }
-                                                }
-                                                else {
-                                                      conditionPass = false;
-                                                      if (condition.locations) {
-                                                            condition.locations.forEach(location => {
-                                                                  if (inventory.accessible.includes(location)) {
-                                                                        conditionPass = true;
-                                                                  }
-                                                                  else {
+//                                                                   }
+//                                                                   else {
+//                                                                         conditionPass = false;
+//                                                                   }
+//                                                             })
+//                                                       }
+//                                                 }
+//                                                 else {
+//                                                       conditionPass = false;
+//                                                       if (condition.locations) {
+//                                                             condition.locations.forEach(location => {
+//                                                                   if (inventory.accessible.includes(location)) {
+//                                                                         conditionPass = true;
+//                                                                   }
+//                                                                   else {
                                                                         
-                                                                  }
-                                                            })
+//                                                                   }
+//                                                             })
 
-                                                      }if (condition.requirements) {
-                                                            condition.requirements.forEach(requirement => {
-                                                                  if (inventory.requirements.includes(requirement)) {
-                                                                        conditionPass = true;
-                                                                  }
-                                                                  else {
-                                                                  }
-                                                            })
-                                                      }if (condition.age) {
-                                                            if (inventory.ages.includes(condition.age)) {
-                                                                  conditionPass = true;
-                                                            }
-                                                            else {
-                                                            }
-                                                      }
-                                                      if (condition.collected) {
-                                                            condition.collected.forEach(collect => {
-                                                                  if (inventory.collected.includes(collect)) {
-                                                                        conditionPass = true;
-                                                                  }
-                                                                  else {
+//                                                       }if (condition.requirements) {
+//                                                             condition.requirements.forEach(requirement => {
+//                                                                   if (inventory.requirements.includes(requirement)) {
+//                                                                         conditionPass = true;
+//                                                                   }
+//                                                                   else {
+//                                                                   }
+//                                                             })
+//                                                       }if (condition.age) {
+//                                                             if (inventory.ages.includes(condition.age)) {
+//                                                                   conditionPass = true;
+//                                                             }
+//                                                             else {
+//                                                             }
+//                                                       }
+//                                                       if (condition.collected) {
+//                                                             condition.collected.forEach(collect => {
+//                                                                   if (inventory.collected.includes(collect)) {
+//                                                                         conditionPass = true;
+//                                                                   }
+//                                                                   else {
                                                                         
-                                                                  }
-                                                            })
-                                                      }
-                                                }
-                                                }
+//                                                                   }
+//                                                             })
+//                                                       }
+//                                                 }
+//                                                 }
                                                 
-                                          });
-                                    }
-                                    // console.log("PRE ATTENTION");
-                                    // console.log(item);
-                                    if (ageCheck && requirementCheck && multipleCheck && !inventory.items.includes[item]) {
-                                          //inventory.items.push(item);
-                                          //console.log(file.locations[item])
-                                          // console.log("PAY ATTENTION: ");
-                                          //console.log(file.locations[item]);
-                                          if (file.locations[item].item) {
-                                                //console.log(file.locations[item].item);
-                                                inventory.items.push(file.locations[item].item);
-                                          }
-                                          else {
-                                                inventory.items.push(file.locations[item]);
-                                          }
-                                          inventory.collected.push(item);
-                                          //console.log("This item got added:");
-                                          //console.log(item);
-                                          delete file.locations[item];
-                                          //console.log(file.locations);
-                                    }
+//                                           });
+//                                     }
+//                                     // console.log("PRE ATTENTION");
+//                                     // console.log(item);
+//                                     if (ageCheck && requirementCheck && multipleCheck && !inventory.items.includes[item]) {
+//                                           //inventory.items.push(item);
+//                                           //console.log(file.locations[item])
+//                                           // console.log("PAY ATTENTION: ");
+//                                           //console.log(file.locations[item]);
+//                                           if (file.locations[item].item) {
+//                                                 //console.log(file.locations[item].item);
+//                                                 inventory.items.push(file.locations[item].item);
+//                                           }
+//                                           else {
+//                                                 inventory.items.push(file.locations[item]);
+//                                           }
+//                                           inventory.collected.push(item);
+//                                           //console.log("This item got added:");
+//                                           //console.log(item);
+//                                           //delete file.locations[item];
+//                                           //console.log(file.locations);
+//                                     }
                                     
-                              }
-                        }
-                  }
-            }
-        }
-    }
+//                               }
+//                         }
+//                   }
+//             }
+//         }
+//     }
 
     function updateRequirements() {
       for (var requirement in Requirements) {
@@ -7508,7 +7655,9 @@
             var unlockedCheck = true;
             var unlockedAllCheck = true;
             var enteredCheck = true;
+            var accessibleCheck = true;
             if (Requirements[requirement].related) {
+                  // console.log(requirement);
                   
                   // for (var index in Requirements[requirement].items) {
                   //       //console.log(Requirements[requirement].items[index]);
@@ -7520,8 +7669,11 @@
                   //       console.log("Added requirement: " + Requirements[requirement])
                   //       inventory.requirements.push(Requirements[requirement]);
                   // }
+                  // console.log(Requirements[requirement]);
+                  // console.log((Requirements[requirement]["related"]));
                   Requirements[requirement].related.forEach(e => {
-                        if (e == inventory.items) {
+                        //console.log(e);
+                        if (e == "items") {
                               if (Requirements[requirement].items){
                                     itemCheck = false;
                                     Requirements[requirement].items.forEach(item => {
@@ -7557,7 +7709,7 @@
                                           }
                               )};
                         }
-                        if (e == inventory.ages) {
+                        if (e == "ages") {
                               agesCheck = true;
                               Requirements[requirement].ages.forEach(e => {
                                     if (inventory.ages.includes(e)) {
@@ -7568,7 +7720,7 @@
                                     }
                               })
                         }
-                        if (e == inventory.bottleables) {
+                        if (e == "bottleables") {
                               if (Requirements[requirement].bottleables){
                                     bottleCheck = false;
                                     Requirements[requirement].bottleables.forEach(item => {
@@ -7581,7 +7733,7 @@
                                           
                               })}
                         }
-                        if (e == inventory.collected) {
+                        if (e == "collected") {
                               if (Requirements[requirement].checks) {
                                     collectedCheck = true;
                                     Requirements[requirement].checks.forEach(check => {
@@ -7594,17 +7746,40 @@
                                     });
                               }
                         }
-                        if (e == inventory.entered) {
+                        if (e == "entered") {
                               if (Requirements[requirement].stages) {
                                     //console.log("stagecheck");
                                     enteredCheck = false;
                                     Requirements[requirement].stages.forEach(stage => {
-                                          if (inventory.entered.includes(stage)) {
+                                          if (inventory.entered_child.includes(stage)) {
 
+                                                enteredCheck = true;
+                                          }
+                                          else if (inventory.entered_adult.includes(stage)) {
                                                 enteredCheck = true;
                                           }
                                           else {
                                                 enteredCheck = false;
+                                          }
+                                    })
+                                    
+                              }
+                              //console.log(enteredCheck);
+                        }
+                        if (e == "accessible") {
+                              if (Requirements[requirement].stages) {
+                                    //console.log("stagecheck");
+                                    accessibleCheck = false;
+                                    Requirements[requirement].stages.forEach(stage => {
+                                          if (inventory.accessible_child.includes(stage)) {
+
+                                                accessibleCheck = true;
+                                          }
+                                          else if (inventory.accessible_adult.includes(stage)) {
+                                                accessibleCheck = true;
+                                          }
+                                          else {
+                                                accessibleCheck = false;
                                           }
                                     })
                                     
@@ -7639,10 +7814,12 @@
                         }
                   })
             }
-                        if (itemCheck && itemsAllCheck && agesCheck && bottleCheck && collectedCheck && unlockedCheck && unlockedAllCheck && enteredCheck && !inventory.requirements.includes(Requirements[requirement])) {
+            
+                        if (itemCheck && itemsAllCheck && agesCheck && bottleCheck && collectedCheck && unlockedCheck && unlockedAllCheck && enteredCheck && accessibleCheck && !inventory.requirements.includes(Requirements[requirement])) {
                               //console.log("Added requirement: " + Requirements[requirement].explanation)
                               //console.log(Requirements[requirement]);
                               //console.log(requirement);
+                              
                               inventory.requirements.push(Requirements[requirement]);
                         }
                         else {
@@ -7657,35 +7834,35 @@
       }
     }
 
-    function updateAvailableLocations(file) {
+//     function updateAvailableLocations(file) {
 
-      var tempName = "";
-      var conditionPass = true;
-      inventory.accessible.forEach(e => {
-            for (var sphere in file.entrancesMap) {
-                  for (var x in file.entrancesMap[sphere]) {
-                        if (x == e) {
-                              tempName = file.entrancesMap[sphere][x];
-                              tempName = tempName.replace("from" , '->');
-                              //console.log(tempName);
-                              if (!inventory.accessible.includes(tempName)) {
-                                    inventory.accessible.push(tempName)
-                              }
-                              enterArea(entrancesMap[tempName].location);
-                        }
-                        else {
-                              tempName = e.replace("->", "from");
-                              if (file.entrancesMap[sphere][x] == tempName) {
-                                    if (!inventory.accessible.includes(tempName)) {
-                                          inventory.accessible.push(x);
-                                    }
-                                    //console.log(x);
-                                    enterArea(entrancesMap[x].location);
-                              }
-                        }
-                  }
-            }
-      });
+//       var tempName = "";
+//       var conditionPass = true;
+//       inventory.accessible.forEach(e => {
+//             for (var sphere in file.entrancesMap) {
+//                   for (var x in file.entrancesMap[sphere]) {
+//                         if (x == e) {
+//                               tempName = file.entrancesMap[sphere][x];
+//                               tempName = tempName.replace("from" , '->');
+//                               //console.log(tempName);
+//                               if (!inventory.accessible.includes(tempName)) {
+//                                     inventory.accessible.push(tempName)
+//                               }
+//                               enterArea(entrancesMap[tempName].location);
+//                         }
+//                         else {
+//                               tempName = e.replace("->", "from");
+//                               if (file.entrancesMap[sphere][x] == tempName) {
+//                                     if (!inventory.accessible.includes(tempName)) {
+//                                           inventory.accessible.push(x);
+//                                     }
+//                                     //console.log(x);
+//                                     enterArea(entrancesMap[x].location);
+//                               }
+//                         }
+//                   }
+//             }
+//       });
       // for (var sphere in file.entrancesMap) {
       //   for (var x in file.entrancesMap[sphere]) {
       //       tempName = file.entrancesMap[sphere][x];
@@ -7776,7 +7953,7 @@
       //       }
             
       //   }
-    }
+//     }
     function ganonCastleLocationCheck() {
       for (let key in randomizedEntrances) {
             if (randomizedEntrances[key] == "Ganon's Castle Entryway from Ganon's Castle Ledge") {
@@ -7838,109 +8015,125 @@
       // }
     }
 
-    function clearArea(locationCode) {
-      inventory.cleared.push(locationCode.name);
-      // switch(locationCode) {
-      //       case Locations.KF: inventory.KF_clear = true; break;
-      //       case Locations.LH: inventory.LH_Clear = true; break;
-      //       case Locations.LW: inventory.LW_Clear = true; break;
-      //       case Locations.SFM: inventory.SFM_Clear = true; break;
-      //       case Locations.Deku_Tree: inventory.Deku_Tree_Clear = true; break;
-      //       case Locations.HF: inventory.HF_Clear = true; break;
-      //       case Locations.Water: inventory.Water_Clear = true; break;
-      //       case Locations.LLR: inventory.LLR_Clear = true; break;
-      //       case Locations.ZR: inventory.ZR_Clear = true; break;
-      //       case Locations.ZD: inventory.ZD_Clear = true; break;
-      //       case Locations.ZF: inventory.ZF_Clear = true; break;
-      //       case Locations.Jabu: inventory.Jabu_Clear = true; break;
-      //       case Locations.Kakariko: inventory.Kakariko_clear = true; break;
-      //       case Locations.GY: inventory.GY_Clear = true; break;
-      //       case Locations.Shadow: inventory.Shadow_Clear = true; break;
-      //       case Locations.BOTW: inventory.BOTW_Clear = true; break;
-      //       case Locations.DMT: inventory.DMT_Clear = true; break;
-      //       case Locations.Dodongos_Cavern: inventory.Dodongos_Cavern_Clear = true; break;
-      //       case Locations.DMC: inventory.DMC_Clear = true; break;
-      //       case Locations.Fire: inventory.Fire_Clear = true; break;
-      //       case Locations.GC: inventory.GC_Clear = true; break;
-      //       case Locations.GV: inventory.GV_Clear = true; break;
-      //       case Locations.GF: inventory.GF_Clear = true; break;
-      //       case Locations.GTG: inventory.GTG_Clear = true; break;
-      //       case Locations.HW: inventory.HW_Clear = true; break;
-      //       case Locations.DC: inventory.DC_Clear = true; break;
-      //       case Locations.Spirit: inventory.Spirit_Clear = true; break;
-      //       case Locations.Ice_Cavern: inventory.Ice_Cavern_Clear = true; break;
-      //       case Locations.Ganon: inventory.Ganon_Clear = true; break;
-      //       case Locations.Market_Entrance: inventory.Market_Entrance_Clear = true; break;
-      //       case Locations.Alleyway: inventory.Alleyway_CLear = true; break;
-      //       case Locations.TOT_Enrance: inventory.TOT_Enrance_Clear = true; break;
-      //       case Locations.HC: inventory.HC_Clear = true; break;
-      //       case Locations.OGC: inventory.OGC_Clear = true; break;
-      // }
-    }
+//     function clearArea(locationCode) {
+//       inventory.cleared.push(locationCode.name);
+//       // switch(locationCode) {
+//       //       case Locations.KF: inventory.KF_clear = true; break;
+//       //       case Locations.LH: inventory.LH_Clear = true; break;
+//       //       case Locations.LW: inventory.LW_Clear = true; break;
+//       //       case Locations.SFM: inventory.SFM_Clear = true; break;
+//       //       case Locations.Deku_Tree: inventory.Deku_Tree_Clear = true; break;
+//       //       case Locations.HF: inventory.HF_Clear = true; break;
+//       //       case Locations.Water: inventory.Water_Clear = true; break;
+//       //       case Locations.LLR: inventory.LLR_Clear = true; break;
+//       //       case Locations.ZR: inventory.ZR_Clear = true; break;
+//       //       case Locations.ZD: inventory.ZD_Clear = true; break;
+//       //       case Locations.ZF: inventory.ZF_Clear = true; break;
+//       //       case Locations.Jabu: inventory.Jabu_Clear = true; break;
+//       //       case Locations.Kakariko: inventory.Kakariko_clear = true; break;
+//       //       case Locations.GY: inventory.GY_Clear = true; break;
+//       //       case Locations.Shadow: inventory.Shadow_Clear = true; break;
+//       //       case Locations.BOTW: inventory.BOTW_Clear = true; break;
+//       //       case Locations.DMT: inventory.DMT_Clear = true; break;
+//       //       case Locations.Dodongos_Cavern: inventory.Dodongos_Cavern_Clear = true; break;
+//       //       case Locations.DMC: inventory.DMC_Clear = true; break;
+//       //       case Locations.Fire: inventory.Fire_Clear = true; break;
+//       //       case Locations.GC: inventory.GC_Clear = true; break;
+//       //       case Locations.GV: inventory.GV_Clear = true; break;
+//       //       case Locations.GF: inventory.GF_Clear = true; break;
+//       //       case Locations.GTG: inventory.GTG_Clear = true; break;
+//       //       case Locations.HW: inventory.HW_Clear = true; break;
+//       //       case Locations.DC: inventory.DC_Clear = true; break;
+//       //       case Locations.Spirit: inventory.Spirit_Clear = true; break;
+//       //       case Locations.Ice_Cavern: inventory.Ice_Cavern_Clear = true; break;
+//       //       case Locations.Ganon: inventory.Ganon_Clear = true; break;
+//       //       case Locations.Market_Entrance: inventory.Market_Entrance_Clear = true; break;
+//       //       case Locations.Alleyway: inventory.Alleyway_CLear = true; break;
+//       //       case Locations.TOT_Enrance: inventory.TOT_Enrance_Clear = true; break;
+//       //       case Locations.HC: inventory.HC_Clear = true; break;
+//       //       case Locations.OGC: inventory.OGC_Clear = true; break;
+//       // }
+//     }
 
-    function enterArea(locationCode) {
-      //console.log(locationCode)
-      if (locationCode == Locations.Interior) {
+//     function enterArea(locationCode) {
+//       //console.log(locationCode)
+//       if (locationCode == Locations.Interior) {
 
-      }
-      else if (!inventory.entered.includes(locationCode.name)) {
-            if (locationCode[0]) {
-                  if (!inventory.entered.includes(locationCode[0].name)) {
-                        inventory.entered.push(locationCode[0].name);
-                        unlockEntrance(locationCode[0]);
-                  }
-                  if (!inventory.entered.includes(locationCode[1].name)) {
-                        inventory.entered.push(locationCode[1].name);
-                        unlockEntrance(locationCode[1]);
-                  }
-            }
-            else {
-                  //console.log("Adding current location to entered:");
-                  //console.log(locationCode);
-                  inventory.entered.push(locationCode.name);
-                  unlockEntrance(locationCode);
-            }
+//       }
+//       else if (!inventory.entered.includes(locationCode.name)) {
+//             if (locationCode[0]) {
+//                   if (!inventory.entered.includes(locationCode[0].name)) {
+//                         inventory.entered.push(locationCode[0].name);
+//                         unlockEntrance(locationCode[0]);
+//                   }
+//                   if (!inventory.entered.includes(locationCode[1].name)) {
+//                         inventory.entered.push(locationCode[1].name);
+//                         unlockEntrance(locationCode[1]);
+//                   }
+//             }
+//             else {
+//                   //console.log("Adding current location to entered:");
+//                   //console.log(locationCode);
+//                   inventory.entered.push(locationCode.name);
+//                   unlockEntrance(locationCode);
+//             }
             
-      }
-      // switch(locationCode) {
-      //       case Locations.KF: inventory.KF_Entered = true; break;
-      //       case Locations.LH: inventory.LH_Entered = true; break;
-      //       case Locations.LW: inventory.LW_Entered = true; break;
-      //       case Locations.SFM: inventory.SFM_Entered = true; break;
-      //       case Locations.Deku_Tree: inventory.Deku_Tree_Entered = true; break;
-      //       case Locations.HF: inventory.HF_Entered = true; break;
-      //       case Locations.Water: inventory.Water_Entered = true; break;
-      //       case Locations.LLR: inventory.LLR_Entered = true; break;
-      //       case Locations.ZR: inventory.ZR_Entered = true; break;
-      //       case Locations.ZD: inventory.ZD_Entered = true; break;
-      //       case Locations.ZF: inventory.ZF_Entered = true; break;
-      //       case Locations.Jabu: inventory.Jabu_Entered = true; break;
-      //       case Locations.Kakariko: inventory.Kakariko_Entered = true; break;
-      //       case Locations.GY: inventory.GY_Entered = true; break;
-      //       case Locations.Shadow: inventory.Shadow_Entered = true; break;
-      //       case Locations.BOTW: inventory.BOTW_Entered = true; break;
-      //       case Locations.DMT: inventory.DMT_Entered = true; break;
-      //       case Locations.Dodongos_Cavern: inventory.Dodongos_Cavern_Entered = true; break;
-      //       case Locations.DMC: inventory.DMC_Entered = true; break;
-      //       case Locations.Fire: inventory.Fire_Entered = true; break;
-      //       case Locations.GC: inventory.GC_Entered = true; break;
-      //       case Locations.GV: inventory.GV_Entered = true; break;
-      //       case Locations.GF: inventory.GF_Entered = true; break;
-      //       case Locations.GTG: inventory.GTG_Entered = true; break;
-      //       case Locations.HW: inventory.HW_Entered = true; break;
-      //       case Locations.DC: inventory.DC_Entered = true; break;
-      //       case Locations.Spirit: inventory.Spirit_Entered = true; break;
-      //       case Locations.Ice_Cavern: inventory.Ice_Cavern_Entered = true; break;
-      //       case Locations.Ganon: inventory.Ganon_Entered = true; break;
-      //       case Locations.Market_Entrance: inventory.Market_Entrance_Entered = true; break;
-      //       case Locations.Alleyway: inventory.Alleyway_Entered = true; break;
-      //       case Locations.TOT_Enrance: inventory.TOT_Enrance_Entered = true; break;
-      //       case Locations.HC: inventory.HC_Entered = true; break;
-      //       case Locations.OGC: inventory.OGC_Entered = true; break;
-      // }
-    }
+//       }
+//       // switch(locationCode) {
+//       //       case Locations.KF: inventory.KF_Entered = true; break;
+//       //       case Locations.LH: inventory.LH_Entered = true; break;
+//       //       case Locations.LW: inventory.LW_Entered = true; break;
+//       //       case Locations.SFM: inventory.SFM_Entered = true; break;
+//       //       case Locations.Deku_Tree: inventory.Deku_Tree_Entered = true; break;
+//       //       case Locations.HF: inventory.HF_Entered = true; break;
+//       //       case Locations.Water: inventory.Water_Entered = true; break;
+//       //       case Locations.LLR: inventory.LLR_Entered = true; break;
+//       //       case Locations.ZR: inventory.ZR_Entered = true; break;
+//       //       case Locations.ZD: inventory.ZD_Entered = true; break;
+//       //       case Locations.ZF: inventory.ZF_Entered = true; break;
+//       //       case Locations.Jabu: inventory.Jabu_Entered = true; break;
+//       //       case Locations.Kakariko: inventory.Kakariko_Entered = true; break;
+//       //       case Locations.GY: inventory.GY_Entered = true; break;
+//       //       case Locations.Shadow: inventory.Shadow_Entered = true; break;
+//       //       case Locations.BOTW: inventory.BOTW_Entered = true; break;
+//       //       case Locations.DMT: inventory.DMT_Entered = true; break;
+//       //       case Locations.Dodongos_Cavern: inventory.Dodongos_Cavern_Entered = true; break;
+//       //       case Locations.DMC: inventory.DMC_Entered = true; break;
+//       //       case Locations.Fire: inventory.Fire_Entered = true; break;
+//       //       case Locations.GC: inventory.GC_Entered = true; break;
+//       //       case Locations.GV: inventory.GV_Entered = true; break;
+//       //       case Locations.GF: inventory.GF_Entered = true; break;
+//       //       case Locations.GTG: inventory.GTG_Entered = true; break;
+//       //       case Locations.HW: inventory.HW_Entered = true; break;
+//       //       case Locations.DC: inventory.DC_Entered = true; break;
+//       //       case Locations.Spirit: inventory.Spirit_Entered = true; break;
+//       //       case Locations.Ice_Cavern: inventory.Ice_Cavern_Entered = true; break;
+//       //       case Locations.Ganon: inventory.Ganon_Entered = true; break;
+//       //       case Locations.Market_Entrance: inventory.Market_Entrance_Entered = true; break;
+//       //       case Locations.Alleyway: inventory.Alleyway_Entered = true; break;
+//       //       case Locations.TOT_Enrance: inventory.TOT_Enrance_Entered = true; break;
+//       //       case Locations.HC: inventory.HC_Entered = true; break;
+//       //       case Locations.OGC: inventory.OGC_Entered = true; break;
+//       // }
+//     }
 
-    function unlockEntrance(entrance) {
+    function unlockEntrance(entrance, index) {
+      var accesibleList = [];
+      var enteredList = [];
+      if (inventory.ages.includes("Child") && index == 0) {
+            accesibleList.push(inventory.accessible_child);
+            enteredList.push(inventory.entered_child);
+      }
+      if (inventory.ages.includes("Adult") && index == 1) {
+            accesibleList.push(inventory.accessible_adult);
+            enteredList.push(inventory.entered_adult);
+      }
+      else {
+            accesibleList.push(inventory.accessible_adult);
+            enteredList.push(inventory.entered_adult);
+      }
+      for (var index in enteredList) {
+
       //console.log("UNLOCKING ENTRANCE");
     // TODO: Fix this up for the bugs bottleables stuff and triggering this only when access for every area is reached
                                                 if (entrance.unlocks) {
@@ -7958,20 +8151,40 @@
                                                 })
                                           }
                                           if (entrance.unlocksAges) {
-                                                var allAges = ["Child", "Adult"]
-                                                allAges.forEach(e => {
-                                                      if (!inventory.ages.includes(e)) {
-                                                            inventory.ages.push(e);
+                                                
+                                                if (inventory.ages.includes("Child") && inventory.ages.includes("Adult")) {
+
+                                                }
+                                                else {
+                                                      if (inventory.ages.includes("Child")) {
+                                                            inventory.ages.push("Adult");
+                                                            //console.log(entrance);
+                                                            inventory.entered_adult.push(entrance.name);
+                                                            inventory.entered_adult.push(entrancesMap[inventory.Adult_start]["location"].name);
                                                       }
-                                                })
+                                                      else {
+                                                            inventory.ages.push("Child");
+                                                            //console.log(entrance);
+                                                            inventory.entered_child.push(entrance.name);
+                                                            inventory.entered_child.push(entrancesMap[inventory.Adult_start]["location"].name);
+                                                }
+                                                }
+
+                                                // allAges.forEach(e => {
+                                                //       if (!inventory.ages.includes(e)) {
+                                                //             inventory.ages.push(e);
+                                                //             inventory.entered
+                                                //       }
+                                                // })
                                           }
                                           if (entrance.linkedLocation) {
-                                                if (!inventory.entered.includes(Locations[entrance.linkedLocation[0].name])) {
-                                                      inventory.entered.push(Locations[entrance.linkedLocation[0].name]);
+                                                if (!enteredList[index].includes(Locations[entrance.linkedLocation[0].name])) {
+                                                      enteredList[index].push(Locations[entrance.linkedLocation[0].name]);
                                                 }
                                                       
                                           }
                                           //console.log("Added entrance: " + entrance);
+                                    }
     }
 
     
