@@ -118,7 +118,144 @@
       }
     }
 
+    var vanillaMap = {
+            "Child Spawn -> KF Link's House": "KF Link's House -> Kokiri Forest",
+            "Adult Spawn -> Temple of Time": "Temple of Time -> ToT Entrance",
+            "Minuet of Forest Warp -> Sacred Forest Meadow": "Kokiri Forest from KF House of Twins",
+            "Bolero of Fire Warp -> DMC Central Local": "DMC Lower Local from DMC Great Fairy Fountain",
+            "Serenade of Water Warp -> Lake Hylia": "Kak Potion Shop Front from Kakariko Village",
+            "Nocturne of Shadow Warp -> Graveyard Warp Pad Region": "Market from Market Mask Shop",
+            "Requiem of Spirit Warp -> Desert Colossus": "DMC Hammer Grotto from DMC Lower Nearby",
+            "Prelude of Light Warp -> Temple of Time": "Gerudo Valley from Hyrule Field",
+            "Hyrule Field -> LW Bridge": "Kakariko Village from Bottom of the Well Entryway",
+            "Hyrule Field -> Lake Hylia": "Wasteland Near Fortress from GF Outside Gate",
+            "Hyrule Field -> Gerudo Valley": "Graveyard Shield Grave from The Graveyard",
+            "Hyrule Field -> Market Entrance": "ZR Front from Hyrule Field",
+            "Hyrule Field -> Kakariko Village": "Market Guard House from Market Entrance",
+            "Hyrule Field -> ZR Front": "Kak Carpenter Boss House from Kakariko Village",
+            "Hyrule Field -> Lon Lon Ranch": "KF Storms Grotto from Kokiri Forest",
+            "Hyrule Field -> HF Southeast Grotto": "DMC Hammer Grotto from DMC Lower Nearby",
+            "Hyrule Field -> HF Open Grotto": "HC Storms Grotto from Hyrule Castle Grounds",
+            "Hyrule Field -> HF Inside Fence Grotto": "GF Storms Grotto from Gerudo Fortress",
+            "Hyrule Field -> HF Cow Grotto": "Temple of Time from ToT Entrance",
+            "Hyrule Field -> HF Near Market Grotto": "DMC Upper Grotto from DMC Upper Nearby",
+            "Hyrule Field -> HF Fairy Grotto": "Graveyard Dampes Grave from The Graveyard",
+            "Hyrule Field -> HF Near Kak Grotto": "DMT Storms Grotto from Death Mountain",
+            "Hyrule Field -> HF Tektite Grotto": "LLR Talons House from Lon Lon Ranch",
+            "Goron City -> Death Mountain": "LW Beyond Mido from LW Scrubs Grotto",
+            "Goron City -> GC Shop": "Deku Theater from LW Beyond Mido",
+            "Kokiri Forest -> KF Link's House": "SFM Fairy Grotto from Sacred Forest Meadow",
+            "Kokiri Forest -> KF Mido's House": "LH Fishing Hole from LH Fishing Island",
+            "Kokiri Forest -> KF Saria's House": "KF Know It All House from Kokiri Forest",
+            "Kokiri Forest -> KF House of Twins": "GV Octorok Grotto from GV Grotto Ledge",
+            "Kokiri Forest -> KF Know It All House": "SFM Entryway from LW Beyond Mido",
+            "Kokiri Forest -> KF Kokiri Shop": "KF Kokiri Shop from Kokiri Forest",
+            "Kokiri Forest -> Lost Woods": "ZR Storms Grotto from Zora River",
+            "Kokiri Forest -> LW Bridge From Forest": "Market from Market Entrance",
+            "Kokiri Forest -> KF Storms Grotto": "The Graveyard from Kakariko Village",
+            "Kak Potion Shop Front -> Kakariko Village": "Wasteland Near Colossus from Desert Colossus",
+            "Market -> ToT Entrance": "Gerudo Valley from Hyrule Field",
+            "Market -> Castle Grounds": "ZD Shop from Zoras Domain",
+            "Market -> Market Bazaar": "Colossus Great Fairy Fountain from Desert Colossus",
+            "Market -> Market Mask Shop": "Kak Impas House Back from Kak Impas Ledge",
+            "Market -> Market Shooting Gallery": "HF Southeast Grotto from Hyrule Field",
+            "Market -> Market Bombchu Bowling": "Market Bombchu Bowling from Market",
+            "Market -> Market Treasure Chest Game": "Desert Colossus from Wasteland Near Colossus",
+            "Market -> Market Potion Shop": "Fire Temple Entryway from DMC Central Local",
+            "Kakariko Village -> Hyrule Field": "Desert Colossus From Spirit Entryway from Spirit Temple Entryway",
+            "Kakariko Village -> Kak Carpenter Boss House": "KF Link's House from Kokiri Forest",
+            "Kakariko Village -> Kak House of Skulltula": "DMC Upper Local from Death Mountain Summit",
+            "Kakariko Village -> Kak Impas House": "Jabu Jabus Belly Entryway from Zoras Fountain",
+            "Kakariko Village -> Kak Windmill": "OGC Great Fairy Fountain from Ganon's Castle Grounds",
+            "Kakariko Village -> Kak Bazaar": "ZR Open Grotto from Zora River",
+            "Kakariko Village -> Kak Shooting Gallery": "Kak Redead Grotto from Kakariko Village",
+            "Kakariko Village -> Kak Potion Shop Front": "Lon Lon Ranch from Hyrule Field",
+            "Kakariko Village -> Kak Redead Grotto": "Deku Tree Entryway from KF Outside Deku Tree",
+            "Kakariko Village -> The Graveyard": "ToT Entrance from Market",
+            "LW Beyond Mido -> SFM Entryway": "HF Tektite Grotto from Hyrule Field",
+            "LW Beyond Mido -> Deku Theater": "DMC Lower Local from GC Darunias Chamber",
+            "GC Woods Warp -> Lost Woods": "Lon Lon Ranch from LLR Stables",
+            "GC Darunias Chamber -> DMC Lower Local": "Colossus Grotto from Desert Colossus",
+            "GC Grotto Platform -> GC Grotto": "Forest Temple Entryway from Sacred Forest Meadow",
+            "SFM Entryway -> SFM Wolfos Grotto": "KF House of Twins from Kokiri Forest",
+            "KF Outside Deku Tree -> Deku Tree Entryway": "Graveyard Dampes House from The Graveyard",
+            "The Graveyard -> Graveyard Shield Grave": "Graveyard Composers Grave from The Graveyard",
+            "The Graveyard -> Graveyard Composers Grave": "KF Mido's House from Kokiri Forest",
+            "The Graveyard -> Graveyard Heart Piece Grave": "Dodongos Cavern Entryway from Death Mountain",
+            "The Graveyard -> Graveyard Dampes Grave": "HF Cow Grotto from Hyrule Field",
+            "The Graveyard -> Graveyard Dampes House": "LLR Tower from Lon Lon Ranch",
+            "DMC Lower Nearby -> DMC Great Fairy Fountain": "SFM Wolfos Grotto from SFM Entryway",
+            "DMC Lower Nearby -> DMC Hammer Grotto": "Graveyard Heart Piece Grave from The Graveyard",
+            "DMC Central Local -> Fire Temple Entryway": "HF Near Kak Grotto from Hyrule Field",
+            "Kak Potion Shop Back -> Kak Backyard": "GV Grotto Ledge from GV Octorok Grotto",
+            "Desert Colossus -> Colossus Great Fairy Fountain": "DMT Cow Grotto from Death Mountain Summit",
+            "Desert Colossus -> Colossus Grotto": "Spirit Temple Entryway from Desert Colossus",
+            "Market Back Alley -> Market Bombchu Shop": "LW Near Shortcuts Grotto from Lost Woods",
+            "Market Back Alley -> Market Man in Green House": "Bottom of the Well Entryway from Kakariko Village",
+            "GV Fortress Side -> Gerudo Fortress": "Kak Shooting Gallery from Kakariko Village",
+            "GV Fortress Side -> GV Carpenter Tent": "Kak Bazaar from Kakariko Village",
+            "GV Fortress Side -> GV Storms Grotto": "Castle Grounds from Market",
+            "Lon Lon Ranch -> LLR Talons House": "SFM Storms Grotto from Sacred Forest Meadow",
+            "Lon Lon Ranch -> LLR Tower": "Market Treasure Chest Game from Market",
+            "Lon Lon Ranch -> LLR Grotto": "GV Carpenter Tent from GV Fortress Side",
+            "Kak Impas Ledge -> Kak Impas House Back": "ZD Storms Grotto from Zoras Domain",
+            "ToT Entrance -> Temple of Time": "Gerudo Fortress from GV Fortress Side",
+            "Kak Behind Gate -> Death Mountain": "Zoras Domain from ZR Behind Waterfall",
+            "Zora River -> ZR Open Grotto": "Market Bazaar from Market",
+            "Zora River -> ZR Fairy Grotto": "Lake Hylia from Hyrule Field",
+            "Zora River -> Lost Woods": "Sacred Forest Meadow from SFM Storms Grotto",
+            "Zora River -> ZR Storms Grotto": "Market Potion Shop from Market",
+            "Kak Windmill -> Kakariko Village": "Gerudo Fortress from Gerudo Training Grounds Entryway",
+            "LW Forest Exit -> Kokiri Forest": "LH Fishing Island from LH Fishing Hole",
+            "Lost Woods -> GC Woods Warp": "Market Man in Green House from Market Back Alley",
+            "Lost Woods -> Zora River": "Water Temple Entryway from Lake Hylia",
+            "Lost Woods -> LW Near Shortcuts Grotto": "GC Shop from Goron City",
+            "Sacred Forest Meadow -> Forest Temple Entryway": "Market Entrance from Hyrule Field",
+            "Sacred Forest Meadow -> SFM Fairy Grotto": "LW Scrubs Grotto from LW Beyond Mido",
+            "Graveyard Warp Pad Region -> Shadow Temple Entryway": "HF Open Grotto from Hyrule Field",
+            "DMC Upper Nearby -> DMC Upper Grotto": "Kak House of Skulltula from Kakariko Village",
+            "Kak Backyard -> Kak Open Grotto": "HF Near Market Grotto from Hyrule Field",
+            "Kak Backyard -> Kak Granny's Potion Shop": "Ganon's Castle Entryway from Ganon's Castle Ledge",
+            "Kak Backyard -> Kak Potion Shop Back": "DMC Great Fairy Fountain from DMC Lower Nearby",
+            "Gerudo Fortress -> GF Storms Grotto": "ZF Great Fairy Fountain from Zoras Fountain",
+            "Zoras Domain -> Lake Hylia": "ZR Behind Waterfall from Zoras Domain",
+            "Zoras Domain -> ZD Shop": "LH Lab from Lake Hylia",
+            "Zoras Domain -> ZD Storms Grotto": "LLR Grotto from Lon Lon Ranch",
+            "Lake Hylia -> Zoras Domain": "Death Mountain from Kak Behind Gate",
+            "Lake Hylia -> LH Lab": "Kak Granny's Potion Shop from Kak Backyard",
+            "Lake Hylia -> Water Temple Entryway": "DMT Great Fairy Fountain from Death Mountain Summit",
+            "Lake Hylia -> LH Grotto": "Gerudo Training Grounds Entryway from Gerudo Fortress",
+            "LW Bridge -> Kokiri Forest": "Zoras Fountain from Ice Cavern Entryway",
+            "LW Bridge -> Hyrule Field": "LLR Stables from Lon Lon Ranch",
+            "Market Entrance -> Market": "ZR Fairy Grotto from Zora River",
+            "Market Entrance -> Market Guard House": "Kak Impas House from Kakariko Village",
+            "Hyrule Castle Grounds -> HC Great Fairy Fountain": "Kak Open Grotto from Kak Backyard",
+            "Hyrule Castle Grounds -> HC Storms Grotto": "Market Shooting Gallery from Market",
+            "Ganon's Castle Grounds -> OGC Great Fairy Fountain": "Ice Cavern Entryway from Zoras Fountain",
+            "Deku Tree Boss Entryway -> Deku Tree Boss Room": "Fire Temple Boss Room from Fire Temple Boss Entryway",
+            "GF Outside Gate -> Wasteland Near Fortress": "HF Inside Fence Grotto from Hyrule Field",
+            "ZD Behind King Zora -> Zoras Fountain": "HC Great Fairy Fountain from Hyrule Castle Grounds",
+            "Death Mountain -> Goron City": "KF Saria's House from Kokiri Forest",
+            "Death Mountain -> Dodongos Cavern Entryway": "Market Bombchu Shop from Market Back Alley",
+            "Death Mountain -> DMT Storms Grotto": "Shadow Temple Entryway from Graveyard Warp Pad Region",
+            "LH Owl Flight -> Hyrule Field": "Kak Behind Gate from Death Mountain",
+            "Zoras Fountain -> ZD Behind King Zora": "Death Mountain Summit from DMT Great Fairy Fountain",
+            "Zoras Fountain -> Jabu Jabus Belly Entryway": "GC Grotto from GC Grotto Platform",
+            "Zoras Fountain -> ZF Great Fairy Fountain": "Market Mask Shop from Market",
+            "Fire Temple Boss Entryway -> Fire Temple Boss Room": "Jabu Jabus Belly Boss Room from Jabu Jabus Belly Boss Entryway",
+            "Ganon's Castle Ledge -> Ganon's Castle Entryway": "GV Storms Grotto from GV Fortress Side",
+            "Death Mountain Summit -> DMC Upper Local": "HF Fairy Grotto from Hyrule Field",
+            "Death Mountain Summit -> DMT Cow Grotto": "LH Grotto from Lake Hylia",
+            "Dodongos Cavern Boss Entryway -> Dodongos Cavern Boss Room": "Shadow Temple Boss Room from Shadow Temple Boss Entryway",
+            "Jabu Jabus Belly Boss Entryway -> Jabu Jabus Belly Boss Room": "Water Temple Boss Room from Water Temple Boss Entryway",
+            "DMT Owl Flight -> Kak Impas Rooftop": "Wasteland Near Fortress from GF Outside Gate",
+            "Water Temple Boss Entryway -> Water Temple Boss Room": "Forest Temple Boss Room from Forest Temple Boss Entryway",
+            "Forest Temple Boss Entryway -> Forest Temple Boss Room": "Deku Tree Boss Room from Deku Tree Boss Entryway",
+            "Shadow Temple Boss Entryway -> Shadow Temple Boss Room": "Spirit Temple Boss Room from Spirit Temple Boss Entryway",
+            "Spirit Temple Boss Entryway -> Spirit Temple Boss Room": "Dodongos Cavern Boss Room from Dodongos Cavern Boss Entryway"
+    }
     var Requirements = {
+      OneWayOwl: {explanation: "placeholder to prevent access in a one way", related: ["items"], items: ["-NO-ACCESS-"]},
       Silver_Boulder: {explanation: "Has the ability to bypass a Silver Boulder for a grotto", unlocked_if_all: ["Strength2", "Weirdslide"]},
       Weirdslide: {explanation: "Has the ability to perform a weirdslide", unlocked_if_all: ["FP_Item", "Explosive", "Adult_Shield"]},
       Child_Access: {explanation: "Has access to child", related: ["ages"], ages: ["Child"]},
@@ -144,7 +281,7 @@
                   ages: ["Child", "Adult"]},
       Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
                   items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Blue Fire"]},
-      Bomb_Hovering: {explanation: "Requires being able to bomb hover", related: ["items"], unlocked_if_all: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
+      Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if_all: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
       Bomb_Hovering_Child: {explanation: "Requires being able to bomb hover as child", unlocked_if_all: ["Bombs", "Child_Access", "Child_Shield", "Child_Melee"]},
       Bomb_Hovering_Adult: {explanation: "Requires being able to bomb hover as adult", unlocked_if_all: ["Bombs", "Adult_Access", "Adult_Shield", "Adult_Melee"]},
       Hookshot: {explanation: "Requires having a hookshot available", related: ["items", "ages"], items: ["Progressive Hookshot"], ages: ["Adult"]},
@@ -244,214 +381,293 @@
       FP_Item: {  explanation: "Items suitable with triple slash clip or weirdslide/weirdshot", related: ["items"],
                   items: ["Progressive Slingshot", "Progressive Bow", "Progressive Hookshot", "Ice Arrow", "Light Arrow", "Fire Arrow"]},
                   // Doing a shitty temp fix just to get stuff working again, I hate myself for doing this. I'll probably replace this with a class at some point since I should've just started with that
+                  Forest_keyring: {   explanation: "Requires having a key ring for Forest Temple", 
+                              related: ["items"],
+                              items: ["Forest Temple Key Ring"]}, 
       Forest_small_keys1: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Forest_keyring"]}, 
       Forest_small_keys2: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
-                              count: 2},      
+                              count: 2,
+                              unlocked_if: ["Forest_keyring"]},      
       Forest_small_keys3: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
-                              count: 3},   
+                              count: 3,
+                              unlocked_if: ["Forest_keyring"]},    
       Forest_small_keys4: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
-                              count: 4},      
+                              count: 4,
+                              unlocked_if: ["Forest_keyring"]},      
       Forest_small_keys5: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
-                              count: 5},  
+                              count: 5,
+                              unlocked_if: ["Forest_keyring"]},   
       Forest_small_keys6: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
-                              count: 6},            
+                              count: 6,
+                              unlocked_if: ["Forest_keyring"]},       
+      Fire_keyring: {   explanation: "Requires having a key ring for Fire Temple", 
+                              related: ["items"],
+                              items: ["Fire Temple Key Ring"]},     
       Fire_small_keys1: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Fire_keyring"]},       
       Fire_small_keys1: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Fire_keyring"]},   
       Fire_small_keys2: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["Fire_keyring"]},   
       Fire_small_keys3: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["Fire_keyring"]},   
       Fire_small_keys4: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 4}, 
+                              count: 4,
+                              unlocked_if: ["Fire_keyring"]},    
       Fire_small_keys5: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 5}, 
+                              count: 5,
+                              unlocked_if: ["Fire_keyring"]},   
       Fire_small_keys6: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 6}, 
+                              count: 6,
+                              unlocked_if: ["Fire_keyring"]},   
       Fire_small_keys7: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 7}, 
+                              count: 7,
+                              unlocked_if: ["Fire_keyring"]},   
       Fire_small_keys8: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
-                              count: 8}, 
+                              count: 8,
+                              unlocked_if: ["Fire_keyring"]},   
+      Water_keyring: {   explanation: "Requires having a key ring for Water Temple", 
+                              related: ["items"],
+                              items: ["Water Temple Key Ring"]},  
       Water_small_keys1: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Water_keyring"]},  
       Water_small_keys2: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["Water_keyring"]},  
       Water_small_keys3: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["Water_keyring"]},  
       Water_small_keys4: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
-                              count: 4}, 
+                              count: 4,
+                              unlocked_if: ["Water_keyring"]},  
       Water_small_keys5: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
-                              count: 5}, 
+                              count: 5,
+                              unlocked_if: ["Water_keyring"]},   
       Water_small_keys6: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
-                              count: 6}, 
+                              count: 6,
+                              unlocked_if: ["Water_keyring"]},  
+      Shadow_keyring: {   explanation: "Requires having a key ring for Shadow Temple", 
+                              related: ["items"],
+                              items: ["Shadow Temple Key Ring"]},  
       Shadow_small_keys1: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Shadow_keyring"]},  
       Shadow_small_keys2: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["Shadow_keyring"]},  
       Shadow_small_keys3: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["Shadow_keyring"]},  
       Shadow_small_keys4: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
-                              count: 4}, 
+                              count: 4,
+                              unlocked_if: ["Shadow_keyring"]},   
       Shadow_small_keys5: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
-                              count: 5}, 
+                              count: 5,
+                              unlocked_if: ["Shadow_keyring"]},  
       Shadow_small_keys6: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
-                              count: 6}, 
+                              count: 6,
+                              unlocked_if: ["Shadow_keyring"]},  
+      Spirit_keyring: {   explanation: "Requires having a key ring for Spirit Temple", 
+                              related: ["items"],
+                              items: ["Spirit Temple Key Ring"]},  
       Spirit_small_keys1: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Spirit_keyring"]},  
       Spirit_small_keys2: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["Spirit_keyring"]},  
       Spirit_small_keys3: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["Spirit_keyring"]},  
       Spirit_small_keys4: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
-                              count: 4}, 
+                              count: 4,
+                              unlocked_if: ["Spirit_keyring"]},  
       Spirit_small_keys5: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
-                              count: 5}, 
+                              count: 5,
+                              unlocked_if: ["Spirit_keyring"]},  
       Spirit_small_keys6: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
-                              count: 6}, 
+                              count: 6,
+                              unlocked_if: ["Spirit_keyring"]},  
+      BOTW_keyring: {   explanation: "Requires having a key ring for BOTW", 
+                              related: ["items"],
+                              items: ["Bottom of the Well Key Ring"]},  
       BOTW_small_keys1: {   explanation: "Requires having a specific amount of small keys for BOTW", 
                               related: ["items"],
                               items: ["Bottom of the Well Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["BOTW_keyring"]},  
       BOTW_small_keys2: {   explanation: "Requires having a specific amount of small keys for BOTW", 
                               related: ["items"],
                               items: ["Bottom of the Well Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["BOTW_keyring"]},  
       BOTW_small_keys3: {   explanation: "Requires having a specific amount of small keys for BOTW", 
                               related: ["items"],
                               items: ["Bottom of the Well Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["BOTW_keyring"]},   
+      GTG_keyring: {   explanation: "Requires having a key ring for GTG", 
+                              related: ["items"],
+                              items: ["Training Grounds Key Ring"]},  
       GTG_small_keys1: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["GTG_keyring"]}, 
       GTG_small_keys2: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["GTG_keyring"]},  
       GTG_small_keys3: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["GTG_keyring"]},  
       GTG_small_keys4: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 4}, 
+                              count: 4,
+                              unlocked_if: ["GTG_keyring"]}, 
       GTG_small_keys5: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 5}, 
+                              count: 5,
+                              unlocked_if: ["GTG_keyring"]}, 
       GTG_small_keys6: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 6}, 
+                              count: 6,
+                              unlocked_if: ["GTG_keyring"]}, 
       GTG_small_keys7: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 7}, 
+                              count: 7,
+                              unlocked_if: ["GTG_keyring"]},  
       GTG_small_keys8: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 8}, 
+                              count: 8,
+                              unlocked_if: ["GTG_keyring"]}, 
       GTG_small_keys9: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
-                              count: 9}, 
+                              count: 9,
+                              unlocked_if: ["GTG_keyring"]},  
+      GF_keyring: {   explanation: "Requires having a key ring for GF", 
+                              related: ["items"],
+                              items: ["Gerudo Fortress Key Ring"]},  
       GF_small_keys1: {   explanation: "Requires having a specific amount of small keys for GF", 
                               related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["GF_keyring"]},  
       GF_small_keys2: {   explanation: "Requires having a specific amount of small keys for GF", 
                               related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["GF_keyring"]}, 
       GF_small_keys3: {   explanation: "Requires having a specific amount of small keys for GF", 
                               related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["GF_keyring"]}, 
       GF_small_keys4: {   explanation: "Requires having a specific amount of small keys for GF", 
                               related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
-                              count: 4}, 
+                              count: 4,
+                              unlocked_if: ["GF_keyring"]}, 
+      Ganon_keyring: {   explanation: "Requires having a key ring for Ganon's Castle", 
+                              related: ["items"],
+                              items: ["Ganon's Castle Key Ring"]},  
       Ganon_small_keys1: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
                               related: ["items"],
                               items: ["Ganon's Castle Small Key"],
-                              count: 1}, 
+                              count: 1,
+                              unlocked_if: ["Ganon_keyring"]},  
       Ganon_small_keys2: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
                               related: ["items"],
                               items: ["Ganon's Castle Small Key"],
-                              count: 2}, 
+                              count: 2,
+                              unlocked_if: ["Ganon_keyring"]},  
       Ganon_small_keys3: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
                               related: ["items"],
                               items: ["Ganon's Castle Small Key"],
-                              count: 3}, 
+                              count: 3,
+                              unlocked_if: ["Ganon_keyring"]},  
       Forest_BK: {      explanation: "Requires having access to the Forest Temple Boss Key",
                         related: ["items"],
                         items: ["Forest Temple Boss Key"]},
@@ -1042,32 +1258,39 @@
     }
     var entrancesMap = {
             "Kak Impas Rooftop -> DMT Owl Flight": {
-                  requirements: "",
-                  location: Locations.Interior
+                  requirements: [Requirements.OneWayOwl],
+                  location: Locations.Kakariko,
+                  default: "DMT Owl Flight -> Kak Impas Rooftop"
             },
             "Sacred Forest Meadow -> Minuet of Forest Warp": {
                   requirements: "",
-                  location: Locations.SFM
+                  location: Locations.SFM,
+                  default: "Minuet of Forest Warp -> Sacred Forest Meadow"
             },
             "DMC Central Local -> Bolero of Fire Warp": {
                   requirements: "",
-                  location: Locations.DMC
+                  location: Locations.DMC,
+                  default: "Bolero of Fire Warp -> DMC Central Local"
             },
             "Lake Hylia -> Serenade of Water Warp": {
                   requirements: "",
-                  location: Locations.LH
+                  location: Locations.LH,
+                  default: "Serenade of Water Warp -> Lake Hylia"
             },
             "Graveyard Warp Pad Region -> Nocturne of Shadow Warp": {
                   requirements: "",
-                  location: Locations.GY
+                  location: Locations.GY,
+                  default: "Nocturne of Shadow Warp -> Graveyard Warp Pad Region"
             },
             "Desert Colossus -> Requiem of Spirit Warp": {
                   requirements: "",
-                  location: Locations.DC
+                  location: Locations.DC,
+                  default: "Requiem of Spirit Warp -> Desert Colossus"
             },
             "Temple of Time -> Prelude of Light Warp": {
                   requirements: "",
-                  location: Locations.TOT
+                  location: Locations.TOT,
+                  default: "Prelude of Light Warp -> Temple of Time"
             },
             "DMC Lower Local -> DMC Great Fairy Fountain": 
             {
@@ -1085,7 +1308,8 @@
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "DMC Great Fairy Fountain -> DMC Lower Nearby"
             },
             "Death Mountain Summit -> DMC Upper Nearby": 
             {
@@ -1098,7 +1322,8 @@
                                                                   "Death Mountain Summit -> DMT Great Fairy Fountain"
                   ]),
                   new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])
-            ]
+            ],
+            default: "DMC Upper Nearby -> Death Mountain Summit"
             },
             "DMC Lower Local -> DMC Hammer Grotto": 
             {
@@ -1116,12 +1341,14 @@
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "DMC Hammer Grotto -> DMC Lower Nearby"
             },
             "Lake Hylia -> GV Lower Stream": 
             {
                   requirements: "",
-                  location: Locations.LH
+                  location: Locations.LH,
+                  default: "GV Lower Stream -> Lake Hylia"
                   
             },
             "LW Bridge From Forest -> Kokiri Forest": 
@@ -1130,25 +1357,26 @@
                   location: Locations.LW,
                   conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
                                     new Conditional(locations = ["LW Bridge -> Hyrule Field", "LW Bridge -> Kokiri Forest"])
-            ]
+            ],
+            default: "Kokiri Forest -> LW Bridge From Forest"
             },
             "DMC Upper Grotto -> DMC Upper Nearby": 
             {
                   requirements: "",
                   location: Locations.DMC_Upper_Grotto,
-                  to: ""
+                  default: "DMC Upper Grotto -> DMC Upper Local"
             },
             "Kokiri Forest -> LW Forest Exit": 
             {
                   requirements: "",
                   location: Locations.KF,
-                  to: ""
+                  default: "LW Forest Exit -> Kokiri Forest"
             },
             "DMC Hammer Grotto -> DMC Lower Nearby": 
             {
                   requirements: "",
                   location: Locations.DMC_Hammer_Grotto,
-                  to: ""
+                  default: "DMC Lower Local -> DMC Hammer Grotto"
             },
             "Gerudo Fortress -> GV Fortress Side": 
             {
@@ -1156,7 +1384,8 @@
                   location: Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
                               new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])
-            ]
+            ],
+            default: "GV Fortress Side -> Gerudo Fortress"
             },
             "GC Darunias Chamber -> DMC Lower Nearby": 
             {
@@ -1170,7 +1399,8 @@
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Fire], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
                                     new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Nearby", "GC Darunias Chamber -> DMC Lower Local"])
-                              ]
+                              ],
+                              default: "DMC Lower Local -> GC Darunias Chamber"
             },
             "LW Beyond Mido -> LW Scrubs Grotto": 
             {
@@ -1185,117 +1415,129 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "LW Scrubs Grotto -> LW Beyond Mido"
             },
             // Todo: Add nighttime behaviour as child
             "Market Entrance -> Hyrule Field": 
             {
                   requirements: "",
                   location: Locations.Market_Entrance,
-                  to: ""
+                  default: "Hyrule Field -> Market Entrance"
             },
             "KF House of Twins -> Kokiri Forest": {
                   requirements: "",
-                  location: Locations.KF_House_Of_Twins
+                  location: Locations.KF_House_Of_Twins,
+                  default: "Kokiri Forest -> KF House of Twins"
             },
             "Water Temple Boss Room -> Water Temple Boss Entryway": {
                   requirements: "",
-                  location: Locations.Morpha
+                  location: Locations.Morpha,
+                  default: "Water Temple Boss Entryway -> Water Temple Boss Room"
             },
             "Ganon's Castle Entryway -> Ganon's Castle Ledge": 
             {
                   requirements: "",
                   location: Locations.Ganon,
-                  to: ""
+                  default: "Ganon's Castle Ledge -> Ganon's Castle Entryway"
             },
             "HC Great Fairy Fountain -> Castle Grounds": 
             {
                   requirements: "",
-                  location: Locations.HC_Great_Fairy_Fountain
+                  location: Locations.HC_Great_Fairy_Fountain,
+                  default: "HC Great Fairy Fountain -> Castle Grounds"
             },
             "HC Great Fairy Fountain -> Hyrule Castle Grounds": 
             {
                   requirements: "",
-                  location: Locations.HC_Great_Fairy_Fountain
+                  location: Locations.HC_Great_Fairy_Fountain,
+                  default: "HC Great Fairy Fountain -> Hyrule Castle Grounds"
             },
             "Shadow Temple Boss Room -> Shadow Temple Boss Entryway": 
             {
                   requirements: "",
-                  location: Locations.Bongo_Bongo
+                  location: Locations.Bongo_Bongo,
+                  default: "Shadow Temple Boss Entryway -> Shadow Temple Boss Room"
             },
             "Deku Tree Boss Room -> Deku Tree Boss Entryway": {
                   requirements: "",
-                  location: Locations.Gohma
+                  location: Locations.Gohma,
+                  default: "Deku Tree Boss Entryway -> Deku Tree Boss Room"
             },
             "Spirit Temple Boss Room -> Spirit Temple Boss Entryway": 
             {
                   requirements: "",
-                  location: Locations.Twinrova
+                  location: Locations.Twinrova,
+                  default: "Spirit Temple Boss Entryway -> Spirit Temple Boss Room"
             },
             "Jabu Jabus Belly Boss Room -> Jabu Jabus Belly Boss Entryway": 
             {
                   requirements: "",
-                  location: Locations.Barinade
+                  location: Locations.Barinade,
+                  default: "Jabu Jabus Belly Boss Entryway -> Jabu Jabus Belly Boss Room"
             },
             "Fire Temple Boss Room -> Fire Temple Boss Entryway": {
                   requirements: "",
-                  location: Locations.Volvagia
+                  location: Locations.Volvagia,
+                  default: "Fire Temple Boss Entryway -> Fire Temple Boss Room"
             },
             "Forest Temple Boss Room -> Forest Temple Boss Entryway": {
                   requirements: "",
-                  location: Locations.Phantom_Ganon
+                  location: Locations.Phantom_Ganon,
+                  default: "Forest Temple Boss Entryway -> Forest Temple Boss Room"
             },
             "Dodongos Cavern Boss Room -> Dodongos Cavern Boss Entryway": {
                   requirements: "",
-                  location: Locations.King_Dodongo
+                  location: Locations.King_Dodongo,
+                  default: "Dodongos Cavern Boss Entryway -> Dodongos Cavern Boss Room"
             },
             "Child Spawn -> KF Link's House": 
             {
                   requirements: [Requirements.Child_Access],
                   location: Locations.Interior,
-                  to: ""
+                  default: "KF Link's House -> Kokiri Forest"
             },
             "Adult Spawn -> Temple of Time": 
             {
                   requirements: [Requirements.Adult_Access],
                   location: Locations.Interior,
-                  to: ""
+                  default: "Temple of Time -> ToT Entrance"
             },
             "Minuet of Forest Warp -> Sacred Forest Meadow": 
             {
                   requirements: [Requirements.Instrument, Requirements.Minuet],
                   location: Locations.Interior,
-                  to: ""
+                  default: "Sacred Forest Meadow -> Minuet of Forest Warp"
             },
             "Bolero of Fire Warp -> DMC Central Local": 
             {
                   requirements: [Requirements.Instrument, Requirements.Bolero],
                   location: Locations.Interior,
-                  to: ""
+                  default: "DMC Central Local -> Bolero of Fire Warp"
             },
             "Serenade of Water Warp -> Lake Hylia":
             {
                   requirements: [Requirements.Instrument, Requirements.Serenade],
                   location: Locations.Interior,
-                  to: ""
+                  default: "Lake Hylia -> Serenade of Water Warp"
             },
             "Nocturne of Shadow Warp -> Graveyard Warp Pad Region": 
             {
                   requirements: [Requirements.Instrument, Requirements.Nocturne],
                   location: Locations.Interior,
-                  to: ""
+                  default: "Graveyard Warp Pad Region -> Nocturne of Shadow Warp"
             },
             "Requiem of Spirit Warp -> Desert Colossus": 
             {
                   requirements: [Requirements.Instrument, Requirements.Requiem],
                   location: Locations.Interior,
-                  to: ""
+                  default: "Desert Colossus -> Requiem of Spirit Warp"
             },
             "Prelude of Light Warp -> Temple of Time": 
             {
                   requirements: [Requirements.Instrument, Requirements.Prelude],
                   location: Locations.Interior,
-                  to: ""
+                  default: "Temple of Time -> Prelude of Light Warp"
             },
             "DMC Upper Nearby -> Death Mountain Summit":{
                   requirements: "",
@@ -1312,54 +1554,55 @@
                                                                   "DMC Upper Local -> DMC Upper Grotto"]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "Death Mountain Summit -> DMC Upper Nearby"
             },
             "SFM Entryway -> LW Beyond Mido":{
                   requirements: "",
                   location: Locations.SFM,
-                  to: "",
+                  default: "SFM Entryway -> SFM Wolfos Grotto",
                   conditional: ""
             },
             "Zoras Fountain -> Ice Cavern Entryway":{
                   requirements: "",
                   location: Locations.ZF,
-                  to: "",
+                  default: "Ice Cavern Entryway -> Zoras Fountain",
                   conditional: ""
             },
             "Kakariko Village -> Hyrule Field":{
                   requirements: "",
                   location: Locations.Kakariko,
-                  to: "",
+                  default: "Hyrule Field -> Kakariko Village",
                   conditional: ""
             },
             "Kakariko Village -> The Graveyard":{
                   requirements: "",
                   location: Locations.Kakariko,
-                  to: "",
+                  default: "The Graveyard -> Kakariko Village",
                   conditional: ""
             },
             "Zora River -> ZR Open Grotto":{
                   requirements: "",
                   location: Locations.ZR,
-                  to: "",
+                  default: "ZR Open Grotto -> Zora River",
                   conditional: ""
             },
             "Zoras Domain -> Lake Hylia":{
                   requirements: "",
                   location: Locations.ZD,
-                  to: "",
+                  default: "Lake Hylia -> Zoras Domain",
                   conditional: ""
             },
             "Hyrule Field -> Market Entrance":{
                   requirements: "",
                   location: Locations.HF,
-                  to: "",
+                  default: "Market Entrance -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Near Kak Grotto":{
                   requirements: "",
                   location: Locations.HF,
-                  to: "",
+                  default: "HF Near Kak Grotto -> Hyrule Field",
                   conditional: ""
             },
             "GV Grotto Ledge -> GV Octorok Grotto":{
@@ -1369,26 +1612,27 @@
                         new Conditional(locations = ["GV Grotto Ledge -> GV Octorok Grotto", "Gerudo Valley -> Hyrule Field"]),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Bomb_Hovering_Adult, Requirements.Eponas_Song]),
                         new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive])
-                  ]
+                  ],
+                  default: "GV Octorok Grotto -> GV Grotto Ledge"
             },
             "Market -> Market Entrance":{
                   requirements: "",
                   location: Locations.Market,
-                  to: "",
+                  default: "Market Entrance -> Market",
                   conditional: ""
             },
-            "Wasteland Near Fortress from GF Outside Gate":
+            "Wasteland Near Fortress -> GF Outside Gate":
             {
                   requirements: "",
                   location: Locations.HW,
-                  to: "",
+                  default: "GF Outside Gate -> Wasteland Near Fortress",
                   conditional: ""
             },
             "ZR Front -> Hyrule Field":
             {
                   requirements: "",
                   location: Locations.ZR,
-                  to: "",
+                  default: "Hyrule Field -> ZR Front",
                   conditional: ""
             },
             "Goron City -> Death Mountain":
@@ -1402,28 +1646,29 @@
                                                                   "GC Grotto Platform -> GC Grotto"]),
                                     new Conditional(locations = ["GC Woods Warp -> Lost Woods"], requirements = [Requirements.Explosive_Or_Hammer], age = undefined, needsAll = true),
                                     new Conditional(locations = ["GC Woods Warp -> Lost Woods"], requirements = [Requirements.Dins], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "Death Mountain -> Goron City"
                   
             },
             "Desert Colossus From Spirit Entryway -> Spirit Temple Entryway":
             {
                   requirements: "",
                   location: Locations.DC,
-                  to: "",
+                  default: "Spirit Temple Entryway -> Desert Colossus",
                   conditional: ""
             },
             "Lon Lon Ranch -> Hyrule Field":
             {
                   requirements: "",
                   location: Locations.LLR,
-                  to: "",
+                  default: "Hyrule Field -> Lon Lon Ranch",
                   conditional: ""
             },
             "ZR Fairy Grotto -> Zora River":
             {
                   requirements: "",
                   location: Locations.ZR_Fairy_Grotto,
-                  to: "",
+                  default: "Zora River -> ZR Fairy Grotto",
                   conditional: ""
             },
             "Gerudo Valley -> Hyrule Field" :
@@ -1434,41 +1679,42 @@
                         new Conditional(locations = ["GV Grotto Ledge -> GV Octorok Grotto", "Gerudo Valley -> Hyrule Field"]),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Bomb_Hovering_Adult, Requirements.Eponas_Song]),
                         new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "Hyrule Field -> Gerudo Valley"
             },
             "HC Storms Grotto -> Castle Grounds":
             {
                   requirements: "",
                   location: Locations.HC_Storms_Grotto,
-                  to: "",
+                  default: "Castle Grounds -> HC Storms Grotto",
                   conditional: ""
             },
             "HC Storms Grotto -> Hyrule Castle Grounds":
             {
                   requirements: "",
                   location: Locations.HC_Storms_Grotto,
-                  to: "",
+                  default: "Hyrule Castle Grounds -> HC Storms Grotto",
                   conditional: ""
             },
             "Zoras Fountain -> ZD Behind King Zora":
             {
                   requirements: "",
                   location: Locations.ZF,
-                  to: "",
+                  default: "ZD Behind King Zora -> Zoras Fountain",
                   conditional: ""
             },
             "OGC Great Fairy Fountain -> Castle Grounds":
             {
                   requirements: "",
                   location: Locations.OGC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Castle Grounds -> OGC Great Fairy Fountain",
                   conditional: ""
             },
             "OGC Great Fairy Fountain -> Ganon's Castle Grounds":
             {
                   requirements: "",
                   location: Locations.OGC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Ganon's Castle Grounds -> OGC Great Fairy Fountain",
                   conditional: ""
             },
             "Lost Woods -> Kokiri Forest":
@@ -1484,7 +1730,8 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "Kokiri Forest -> Lost Woods"
             },
             "DMC Lower Local -> GC Darunias Chamber": {
                   requirements: "",
@@ -1501,149 +1748,151 @@
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "GC Darunias Chamber -> DMC Lower Nearby"
             },
             "Desert Colossus -> Wasteland Near Colossus": {
                   requirements: "",
                   location: Locations.DC,
-                  to: "",
+                  default: "Wasteland Near Colossus -> Desert Colossus",
                   conditional: ""
             },
             "DMC Great Fairy Fountain -> DMC Lower Nearby": 
             {
                   requirements: "",
                   location: Locations.DMC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "DMC Lower Nearby -> DMC Great Fairy Fountain",
                   conditional: ""
             },
             "Death Mountain -> Kak Behind Gate": {
                   requirements: "",
                   location: Locations.DMT,
-                  to: "",
+                  default: "Kak Behind Gate -> Death Mountain",
                   conditional: ""
             },
             "LH Fishing Hole -> LH Fishing Island": {
                   requirements :    "",
                   location: Locations.Fishing_Hole,
-                  to: "",
+                  default: "LH Fishing Island -> LH Fishing Hole",
                   conditional: ""
             },
             "LH Lab -> Lake Hylia": {
                   requirements :    "",
                   location: Locations.LH_Lab,
-                  to: "",
+                  default: "Lake Hylia -> LH Lab",
                   conditional: ""
             },
             "Kak Open Grotto -> Kak Backyard": 
             {  requirements  : "",
                 location      : Locations.Kak_Open_Grotto,
-                  to: "",
+                  default: "Kak Backyard -> Kak Open Grotto",
                   conditional: ""
             },
             "HF Southeast Grotto -> Hyrule Field": {
                   requirements  : "",
                 location      : Locations.HF_SE_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Southeast Grotto",
                   conditional: ""
             },
             "Shadow Temple Entryway -> Graveyard Warp Pad Region": {
                   requirements  : "",
                 location      : Locations.Shadow,
-                  to: "",
+                  default: "Graveyard Warp Pad Region -> Shadow Temple Entryway",
                   conditional: ""
             },
             "ZR Storms Grotto -> Zora River":
             {  requirements  : "",
                 location      : Locations.ZR_Storms_Grotto,
-                  to: "",
+                  default: "Zora River -> ZR Storms Grotto",
                   conditional: ""
             },
             "Gerudo Training Grounds Entryway -> Gerudo Fortress":
             {  requirements  : "",
-                location      : Locations.GTG
+                location      : Locations.GTG,
+                default: "Gerudo Fortress -> Gerudo Training Grounds Entryway"
             },
             "Market Treasure Chest Game -> Market":
             {  requirements  : "",
                 location      : Locations.Market_Treasure_Game,
-                  to: "",
+                  default: "Market -> Market Treasure Chest Game",
                   conditional: ""
             },
             "Castle Grounds -> Ganon's Castle":
             {  requirements  : "",
                 location      : Locations.OGC,
-                  to: "",
+                  default: "Ganon's Castle Entryway -> Castle Grounds From Ganon's Castle",
                   conditional: ""
             },
             "Temple of Time -> ToT Entrance":
             {  requirements  : "",
                 location      : Locations.TOT,
-                  to: "",
+                  default: "ToT Entrance -> Temple of Time",
                   conditional: ""
             },
             "KF Kokiri Shop -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.KF_Shop,
-                  to: "",
+                  default: "Kokiri Forest -> KF Kokiri Shop",
                   conditional: ""
             },
             "HF Near Kak Grotto -> Hyrule Field":
             {  requirements  : "",
                 location      : Locations.HF_Near_Kak_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Near Kak Grotto",
                   conditional: ""
             },
             "Market Bazaar -> Market":
             {  requirements  : "",
                 location      : Locations.Market_Bazaar,
-                  to: "",
+                  default: "Market -> Market Bazaar",
                   conditional: ""
             },
             "ZD Storms Grotto -> Zoras Domain":
             {  requirements  : "",
                 location      : Locations.ZD_Storms_Grotto,
-                  to: "",
+                  default: "Zoras Domain -> ZD Storms Grotto",
                   conditional: ""
             },
             "GC Shop -> Goron City":
             {  requirements  : "",
                 location      : Locations.GC_Shop,
-                  to: "",
+                  default: "Goron City -> GC Shop",
                   conditional: ""
             },
             "HF Fairy Grotto -> Hyrule Field":
             {  requirements  : "",
                 location      : Locations.HF_Fairy_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Fairy Grotto",
                   conditional: ""
             },
             "GV Octorok Grotto -> GV Grotto Ledge":
             {  requirements  : "",
                 location      : Locations.GV_Octorok_Grotto,
-                  to: "",
+                  default: "GV Grotto Ledge -> GV Octorok Grotto",
                   conditional: ""
             },
             "HC Storms Grotto -> Castle Grounds":
             {  requirements  : "",
                 location      : Locations.HC_Storms_Grotto,
-                  to: "",
+                  default: "Castle Grounds -> HC Storms Grotto",
                   conditional: ""
             },
             "Spirit Temple Entryway -> Desert Colossus":
             {  requirements  : "",
                 location      : Locations.Spirit,
-                  to: "",
+                  default: "Desert Colossus -> Spirit Temple Entryway",
                   conditional: ""
             },
             "Market Bombchu Shop -> Market Back Alley":
             {  requirements  : "",
                 location      : Locations.Market_Bombchu_Shop,
-                  to: "",
+                  default: "Market Back Alley -> Market Bombchu Shop",
                   conditional: ""
             },
             "DMT Storms Grotto -> Death Mountain":
             {  requirements  : "",
                 location      : Locations.DMT_Storms_Grotto,
-                  to: "",
+                  default: "Death Mountain -> DMT Storms Grotto",
                   conditional: ""
             },
             "LW Bridge -> Kokiri Forest":
@@ -1651,88 +1900,90 @@
                 location      : Locations.LW,
                   conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
                                     new Conditional(locations = ["LW Bridge -> Hyrule Field", "LW Bridge -> Kokiri Forest"])
-            ]
+            ],
+            default: "Kokiri Forest -> LW Bridge"
             },
             "Jabu Jabus Belly Entryway -> Zoras Fountain":
             {  requirements  : "",
                 location      : Locations.Jabu,
-                  to: "",
+                  default: "Zoras Fountain -> Jabu Jabus Belly Entryway",
                   conditional: ""
             },
             "Market Mask Shop -> Market":
             {  requirements  : "",
                 location      : Locations.Market_Mask_Shop,
-                  to: "",
+                  default: "Market -> Market Mask Shop",
                   conditional: ""
             },
             "Market Bombchu Bowling -> Market":
             {  requirements  : "",
                 location      : Locations.Market_Bombchu_Bowling,
-                  to: "",
+                  default: "Market -> Market Bombchu Bowling",
                   conditional: ""
             },
             "SFM Wolfos Grotto -> SFM Entryway":
             {  requirements  : "",
                 location      : Locations.SFM_Wolfos_Grotto,
-                  to: "",
+                  default: "SFM Entryway -> SFM Wolfos Grotto",
                   conditional: ""
             },
             "SFM Fairy Grotto -> Sacred Forest Meadow":
             {  requirements  : "",
                 location      : Locations.SFM_Fairy_Grotto,
-                  to: "",
+                  default: "Sacred Forest Meadow -> SFM Fairy Grotto",
                   conditional: ""
             },
             "KF Know It All House -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.KF_Know_It_All_House,
-                  to: "",
+                  default: "Kokiri Forest -> KF Know It All House",
                   conditional: ""
             },
             "LLR Talons House -> Lon Lon Ranch":
             {  requirements  : "",
                 location      : Locations.LLR_Talons_House,
-                  to: "",
+                  default: "Lon Lon Ranch -> LLR Talons House",
                   conditional: ""
             },
             "GV Carpenter Tent -> GV Fortress Side":
             {  requirements  : "",
-                location      : Locations.GV_Carpenter_Tent
+                location      : Locations.GV_Carpenter_Tent,
+                default: "GV Fortress Side -> GV Carpenter Tent"
             },
             "ZR Open Grotto -> Zora River":
             {  requirements  : "",
                 location      : Locations.ZR_Open_Grotto,
-                  to: "",
+                  default: "Zora River -> ZR Open Grotto",
                   conditional: ""
             },
             "Kak Carpenter Boss House -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Carpenter_Boss_House,
-                  to: "",
+                  default: "Kakariko Village -> Kak Carpenter Boss House",
                   conditional: ""
             },
             "Kak House of Skulltula -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Skulltula_House,
-                  to: "",
+                  default: "Kakariko Village -> Kak House of Skulltula",
                   conditional: ""
             },
             "DMC Great Fairy Fountain -> DMC Lower Local":
             {  requirements  : "",
                 location      : Locations.DMC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "DMC Lower Nearby -> DMC Great Fairy Fountain",
                   conditional: ""
             },
             "Market Man in Green House -> Market Back Alley":
             {  requirements  : "",
                 location      : Locations.Market_Man_In_Green_House,
-                  to: "",
+                  default: "Market Back Alley -> Market Man in Green House",
                   conditional: ""
             },
             "LLR Tower -> Lon Lon Ranch":
             {  requirements  : "",
                 location      : Locations.LLR_Tower,
-                  to: "",
+                  default: "Lon Lon Ranch -> LLR Tower",
                   conditional: ""
             },
             "LW Forest Exit -> Kokiri Forest":
@@ -1747,138 +1998,139 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "Kokiri Forest -> LW Forest Exit"
             },
             "KF Mido's House -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.KF_Midos_House,
-                  to: "",
+                  default: "Kokiri Forest -> KF Mido's House",
                   conditional: ""
             },
             "DMT Cow Grotto -> Death Mountain Summit":
             {  requirements  : "",
                 location      : Locations.DMT_Cow_Grotto,
-                  to: "",
+                  default: "Death Mountain Summit -> DMT Cow Grotto",
                   conditional: ""
             },
             "HF Inside Fence Grotto -> Hyrule Field":
             {  requirements  : "",
                 location      : Locations.HF_Inside_Fence_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Inside Fence Grotto",
                   conditional: ""
             },
             "Colossus Great Fairy Fountain -> Desert Colossus":
             {  requirements  : "",
                 location      : Locations.DC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Desert Colossus -> Colossus Great Fairy Fountain",
                   conditional: ""
             },
             "Kak Impas House -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Impas_House,
-                  to: "",
+                  default: "Kakariko Village -> Kak Impas House",
                   conditional: ""
             },
             "Dodongos Cavern Entryway -> Death Mountain":
             {  requirements  : "",
                 location      : Locations.Dodongos_Cavern,
-                  to: "",
+                  default: "Death Mountain -> Dodongos Cavern Entryway",
                   conditional: ""
             },
             "KF Saria's House -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.KF_Sarias_House,
-                  to: "",
+                  default: "Kokiri Forest -> KF Saria's House",
                   conditional: ""
             },
             "DMC Upper Grotto -> DMC Upper Local":
             {  requirements  : "",
                 location      : Locations.DMC_Upper_Grotto,
-                  to: "",
+                  default: "DMC Upper Local -> DMC Upper Grotto",
                   conditional: ""
             },
             "Graveyard Dampes Grave -> The Graveyard":
             {  requirements  : "",
                 location      : Locations.GY_Dampes_Grave,
-                  to: "",
+                  default: "The Graveyard -> Graveyard Dampes Grave",
                   conditional: ""
             },
             "Bottom of the Well Entryway -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.BOTW,
-                  to: "",
+                  default: "Kakariko Village -> Bottom of the Well Entryway",
                   conditional: ""
             },
             "Kak Potion Shop Front -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Potion_Shop,
-                  to: "",
+                  default: "Kakariko Village -> Kak Potion Shop Front",
                   conditional: ""
             },
             "LH Grotto -> Lake Hylia":
             {  requirements  : "",
                 location      : Locations.LH_Grotto,
-                  to: "",
+                  default: "Lake Hylia -> LH Grotto",
                   conditional: ""
             },
             "Kak Bazaar -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Bazaar,
-                  to: "",
+                  default: "Kakariko Village -> Kak Bazaar",
                   conditional: ""
             },
             "Market Potion Shop -> Market":
             {  requirements  : "",
                 location      : Locations.Market_Potion_Shop,
-                  to: "",
+                  default: "Market -> Market Potion Shop",
                   conditional: ""
             },
             "HF Tektite Grotto -> Hyrule Field":
             {  requirements  : "",
                 location      : Locations.HF_Tektite_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Tektite Grotto",
                   conditional: ""
             },
             "Kak Shooting Gallery -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Shooting_Gallery,
-                  to: "",
+                  default: "Kakariko Village -> Kak Shooting Gallery",
                   conditional: ""
             },
             "HF Open Grotto -> Hyrule Field":
             {  requirements  : "",
                 location      : Locations.HF_Open_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Open Grotto",
                   conditional: ""
             },
             "DMC Hammer Grotto -> DMC Lower Local":
             {  requirements  : "",
                 location      : Locations.DMC_Hammer_Grotto,
-                  to: "",
+                  default: "DMC Lower Nearby -> DMC Hammer Grotto",
                   conditional: ""
             },
             "HC Great Fairy Fountain -> Castle Grounds":
             {  requirements  : "",
                 location      : Locations.HC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Castle Grounds -> HC Great Fairy Fountain",
                   conditional: ""
             },
             "HF Cow Grotto -> Hyrule Field":
             {  requirements  : "",
                 location      : Locations.HF_Cow_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Cow Grotto",
                   conditional: ""
             },
             "LLR Grotto -> Lon Lon Ranch":
             {  requirements  : "",
                 location      : Locations.LLR_Grotto,
-                  to: "",
+                  default: "Lon Lon Ranch -> LLR Grotto",
                   conditional: ""
             },
             "Deku Theater -> LW Beyond Mido":
             {  requirements  : "",
                 location      : Locations.Deku_Theater,
-                  to: "",
+                  default: "LW Beyond Mido -> Deku Theater",
                   conditional: ""
             },
             // TODO: Extend behaviour
@@ -1893,72 +2145,73 @@
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Fire], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
                                     new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Nearby", "GC Darunias Chamber -> DMC Lower Local"])
-                              ]
+                              ],
+                              default: "DMC Lower Nearby -> GC Darunias Chamber"
             },
             "GF Storms Grotto -> Gerudo Fortress":
             {  requirements  : "",
                 location      : Locations.GF_Storms_Grotto,
-                  to: "",
+                  default: "Gerudo Fortress -> GF Storms Grotto",
                   conditional: ""
             },
             "Water Temple Entryway -> Lake Hylia":
             {  requirements  : "",
                 location      : Locations.Water,
-                  to: "",
+                  default: "Lake Hylia -> Water Temple Entryway",
                   conditional: ""
             },
             "Kak Granny's Potion Shop -> Kak Backyard":
             {  requirements  : "",
                 location      : Locations.Kak_Grannys_Potion_Shop,
-                  to: "",
+                  default: "Kak Backyard -> Kak Granny's Potion Shop",
                   conditional: ""
             },
             "SFM Storms Grotto -> Sacred Forest Meadow":
             {  requirements  : "",
                 location      : Locations.SFM_Storms_Grotto,
-                  to: "",
+                  default: "Sacred Forest Meadow -> SFM Storms Grotto",
                   conditional: ""
             },
             "Graveyard Shield Grave -> The Graveyard":
             {  requirements  : "",
                 location      : Locations.GY_Shield_Grave,
-                  to: "",
+                  default: "The Graveyard -> Graveyard Shield Grave",
                   conditional: ""
             },
             "Market Shooting Gallery -> Market":
             {  requirements  : "",
                 location      : Locations.Market_Shooting_Gallery,
-                  to: "",
+                  default: "Market -> Market Shooting Gallery",
                   conditional: ""
             },
             "Graveyard Composers Grave -> The Graveyard":
             {  requirements  : "",
                 location      : Locations.GY_Composer_Grave,
-                  to: "",
+                  default: "The Graveyard -> Graveyard Composers Grave",
                   conditional: ""
             },
             "GV Storms Grotto -> GV Fortress Side":
             {  requirements  : "",
                 location      : Locations.GV_Storms_Grotto,
-                  to: "",
+                  default: "GV Fortress Side -> GV Storms Grotto",
                   conditional: ""
             },
             "LW Scrubs Grotto -> LW Beyond Mido":
             {  requirements  : "",
                 location      : Locations.LW_Scrubs_Grotto,
-                  to: "",
+                  default: "LW Beyond Mido -> LW Scrubs Grotto",
                   conditional: ""
             },
             "Deku Tree Entryway -> KF Outside Deku Tree":
             {  requirements  : "",
                 location      : Locations.Deku_Tree,
-                  to: "",
+                  default: "KF Outside Deku Tree -> Deku Tree Entryway",
                   conditional: ""
             },
             "DMT Great Fairy Fountain -> Death Mountain Summit":
             {  requirements  : "",
                 location      : Locations.DMT_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Death Mountain Summit -> DMT Great Fairy Fountain",
                   conditional: ""
             },
             "GC Woods Warp -> Lost Woods":
@@ -1968,84 +2221,85 @@
                                     new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Local"], requirements = [Requirements.Stick], age = undefined, needsAll = true),
                                     new Conditional(locations = ["GC Darunias Chamber -> DMC Lower Nearby",], requirements = [Requirements.Stick], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Strength1, Requirements.Fire, Requirements.Bow, Requirements.Explosive_Or_Hammer])
-                  ]
+                  ],
+                  default: "Lost Woods -> GC Woods Warp"
             },
             "GV Lower Stream -> Lake Hylia":
             {  requirements  : "",
                 location      : Locations.GV,
-                  to: "",
+                  default: "Lake Hylia -> GV Lower Stream",
                   conditional: ""
             },
             "Castle Grounds -> Market":
             {  requirements  : "",
                 location      : [Locations.HC, Locations.OGC],
-                  to: "",
+                  default: "Market -> Castle Grounds",
                   conditional: ""
             },
             "Kokiri Forest -> KF Link's House": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF Link's House -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> KF Mido's House": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF Mido's House -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> KF Saria's House": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF Saria's House -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> KF House of Twins": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF House of Twins -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> KF Know It All House": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF Know It All House -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> KF Kokiri Shop": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF Kokiri Shop -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> Lost Woods": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "Lost Woods -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> LW Bridge": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "LW Bridge -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> LW Bridge From Forest": 
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "LW Bridge From Forest -> Kokiri Forest",
                   conditional: ""
             },
             "Kokiri Forest -> KF Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.KF,
-                  to: "",
+                  default: "KF Storms Grotto -> Kokiri Forest",
                   conditional: ""
             },
             "Lake Hylia -> Hyrule Field": 
             {  requirements  : "",
                 location      : Locations.LH,
-                  to: "",
+                  default: "Hyrule Field -> Lake Hylia",
                   conditional: ""
             },
             "Lake Hylia -> Zoras Domain": 
@@ -2054,202 +2308,210 @@
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access], age = undefined, needsAll = true, collected = ["Morpha"] ),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Explosive], age = undefined, needsAll = true)
-            ]
+            ],
+            default: "Zoras Domain -> Lake Hylia",
             },
             "Lake Hylia -> LH Lab": 
             {  requirements  : "",
                 location      : Locations.LH,
-                  to: "",
+                  default: "LH Lab -> Lake Hylia",
                   conditional: ""
             },
             "Lake Hylia -> Water Temple Entryway": 
             {  requirements  : "",
                 location      : Locations.LH,
-                  to: "",
+                  default: "Water Temple Entryway -> Lake Hylia",
                   conditional: ""
             },
             "Lake Hylia -> LH Grotto": 
             {  requirements  : "",
                 location      : Locations.LH,
-                  to: "",
+                  default: "LH Grotto -> Lake Hylia",
                   conditional: ""
             },
             "HF Near Market Grotto -> Hyrule Field": 
             {  requirements  : "",
                 location      : Locations.HF_Near_Market_Grotto,
-                  to: "",
+                  default: "Hyrule Field -> HF Near Market Grotto",
                   conditional: ""
             },
             // TODO: Implement graves only being pulled during day as child
             "The Graveyard -> Graveyard Shield Grave": 
             {  requirements  : "",
                 location      : Locations.GY,
-                  to: "",
+                  default: "Graveyard Shield Grave -> The Graveyard",
                   conditional: ""
             },
             // TODO: Implement skips for Zelda's Lullaby
             "The Graveyard -> Graveyard Composers Grave": 
             {  requirements  : "",
                 location      : Locations.GY,
-                  to: "",
+                  default: "Graveyard Composers Grave -> The Graveyard",
                   conditional: ""
             },
             "The Graveyard -> Graveyard Heart Piece Grave": 
             {  requirements  : "",
                 location      : Locations.GY,
-                  to: "",
+                  default: "Graveyard Heart Piece Grave -> The Graveyard",
                   conditional: ""
             },
             "The Graveyard -> Graveyard Dampes Grave": 
             {  requirements  : [Requirements.Adult_Access],
                 location      : Locations.GY,
-                  to: "",
+                  default: "Graveyard Dampes Grave -> The Graveyard",
                   conditional: ""
             },
             // TODO: Implement conditional where it needs to be early night for child
             "The Graveyard -> Graveyard Dampes House": 
             {  requirements  : "",
                 location      : Locations.GY,
-                  to: "",
+                  default: "Graveyard Dampes House -> The Graveyard",
                   conditional: ""
             },
             "The Graveyard -> Kakariko Village": 
             {  requirements  : "",
                 location      : Locations.GY,
-                  to: "",
+                  default: "Kakariko Village -> The Graveyard",
                   conditional: ""
             },
             "ToT Entrance -> Market": 
             {  requirements  : "",
                 location      : Locations.TOT_Enrance,
-                  to: "",
+                  default: "Market -> ToT Entrance",
                   conditional: ""
             },
             "ToT Entrance -> Temple of Time":
             {  requirements  : "",
                 location      : Locations.TOT_Enrance,
-                  to: "",
+                  default: "Temple of Time -> ToT Entrance",
                   conditional: ""
             },
             "Hyrule Field -> LW Bridge": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "LW Bridge -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> Lake Hylia": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "Lake Hylia -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> Gerudo Valley": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "Gerudo Valley -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> Kakariko Village": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "Kakariko Village -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> ZR Front": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "ZR Front -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> Lon Lon Ranch": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "Lon Lon Ranch -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Southeast Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Southeast Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Open Grotto": 
             {  requirements  : "",
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Open Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Inside Fence Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Inside Fence Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Cow Grotto": 
             {  requirements  : [ MultiplePossibleRequirements.HF_Cow_Grotto],
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Cow Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Near Market Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Near Market Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Fairy Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Fairy Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Hyrule Field -> HF Tektite Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HF,
-                  to: "",
+                  default: "HF Tektite Grotto -> Hyrule Field",
                   conditional: ""
             },
             "Death Mountain -> Goron City": 
             {  requirements  : "",
                 location      : Locations.DMT,
-                  to: "",
+                  default: "Goron City -> Death Mountain",
                   conditional: ""
             },
             "Death Mountain -> Dodongos Cavern Entryway": 
             {  requirements  : [ Requirements.Explosive_Or_Strength],
                 location      : Locations.DMT,
-                  to: "",
+                  default: "Dodongos Cavern Entryway -> Death Mountain",
                   conditional: ""
             },
             "Death Mountain -> DMT Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.DMT,
-                  to: "",
+                  default: "DMT Storms Grotto -> Death Mountain",
                   conditional: ""
             },
             "Gerudo Fortress -> Gerudo Training Grounds Entryway": 
             {  requirements  : [ MultiplePossibleRequirements.GTG_Entrance],
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])]
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
+                              default: "Gerudo Training Grounds Entryway -> Gerudo Fortress"
             },
             "Gerudo Fortress -> GF Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])]
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
+                              default: "GF Storms Grotto -> Gerudo Fortress"
             },
             "KF Outside Deku Tree -> Deku Tree Entryway": 
             // TODO: Implement dynamic options for dungeon randomisation
             {  requirements  : "",
                 location      : Locations.KF,
-                  to: "",
+                  default: "Deku Tree Entryway -> KF Outside Deku Tree",
                   conditional: ""
             },
             "LH Owl Flight -> Hyrule Field": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.LH,
-                  to: "",
+                  default: "Hyrule Field -> LH Owl Flight",
+                  conditional: ""
+            },"Hyrule Field -> LH Owl Flight": 
+            {  requirements  : [Requirements.OneWayOwl],
+                location      : Locations.HF,
+                  default: "LH Owl Flight -> Hyrule Field",
                   conditional: ""
             },
             "LH Fishing Island -> LH Fishing Hole": 
@@ -2262,137 +2524,138 @@
                               new Conditional(locations = undefined, requirements = [Requirements.Bean_Planted, Requirements.Adult_Access], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
             
-            ]
+            ],
+            default: "LH Fishing Hole -> LH Fishing Island"
             },
             "Lon Lon Ranch -> LLR Talons House": 
             {  requirements  : "",
                 location      : Locations.LLR,
-                  to: "",
+                  default: "LLR Talons House -> Lon Lon Ranch",
                   conditional: ""
             },
             "Lon Lon Ranch -> LLR Stables": 
             {  requirements  : "",
                 location      : Locations.LLR,
-                  to: "",
+                  default: "LLR Stables -> Lon Lon Ranch",
                   conditional: ""
             },
             "Lon Lon Ranch -> LLR Tower": 
             {  requirements  : "",
                 location      : Locations.LLR,
-                  to: "",
+                  default: "LLR Tower -> Lon Lon Ranch",
                   conditional: ""
             },
             "Lon Lon Ranch -> LLR Grotto": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.LLR,
-                  to: "",
+                  default: "LLR Grotto -> Lon Lon Ranch",
                   conditional: ""
             },
             "Kakariko Village -> Kak Carpenter Boss House": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Carpenter Boss House -> Kakariko Village",
                   conditional: ""
             },
             "Kakariko Village -> Kak House of Skulltula": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak House of Skulltula -> Kakariko Village",
                   conditional: ""
             },
             "Kakariko Village -> Kak Impas House": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Impas House -> Kakariko Village",
                   conditional: ""
             },
             "Kakariko Village -> Kak Windmill": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Windmill -> Kakariko Village",
                   conditional: ""
             },
             // TODO: Implement behaviour for child clip
             "Kakariko Village -> Kak Bazaar": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Bazaar -> Kakariko Village",
                   conditional: ""
             },
             // TODO: Implement behaviour for child clip
             "Kakariko Village -> Kak Shooting Gallery": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Shooting Gallery -> Kakariko Village",
                   conditional: ""
             },
             // TODO: Implement behaviour for all BOTW Clips
             "Kakariko Village -> Bottom of the Well Entryway": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default:"Bottom of the Well Entryway -> Kakariko Village",
                   conditional: ""
             },
             // TODO: Implement behaviour for night needing clip
             "Kakariko Village -> Kak Potion Shop Front": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Potion Shop Front -> Kakariko Village",
                   conditional: ""
             },
             "Kakariko Village -> Kak Redead Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Redead Grotto -> Kakariko Village",
                   conditional: ""
             },
             "Graveyard Warp Pad Region -> Shadow Temple Entryway":
             {
                   requirements :    [MultiplePossibleRequirements.Shadow_Entry],
                   location : Locations.GY,
-                  to: "",
+                  default: "Shadow Temple Entryway -> Graveyard Warp Pad Region",
                   conditional: ""
             },
             "Fire Temple Entryway -> DMC Central Local":
             {  requirements  : "",
                 location      : Locations.Fire,
-                  to: "",
+                  default: "DMC Central Local -> Fire Temple Entryway",
                   conditional: ""
             },
             "Wasteland Near Colossus -> Desert Colossus":
             {  requirements  : "",
                 location      : Locations.HW,
-                  to: "",
+                  default: "Desert Colossus -> Wasteland Near Colossus",
                   conditional: ""
             },
             "Ice Cavern Entryway -> Zoras Fountain":
             {  requirements  : "",
                 location      : Locations.Ice_Cavern,
-                  to: "",
+                  default: "Zoras Fountain -> Ice Cavern Entryway",
                   conditional: ""
             },
             "ZD Shop -> Zoras Domain":
             {  requirements  : "",
                 location      : Locations.ZD_Shop,
-                  to: "",
+                  default: "Zoras Domain -> ZD Shop",
                   conditional: ""
             },
             "KF Link's House -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.KF_Links_House,
-                  to: "",
+                  default: "Kokiri Forest -> KF Link's House",
                   conditional: ""
             },
             "LW Near Shortcuts Grotto -> Lost Woods":
             {  requirements  : "",
                 location      : Locations.LW_Near_Shortcuts_Grotto,
-                  to: "",
+                  default: "Lost Woods -> LW Near Shortcuts Grotto",
                   conditional: ""
             },
             "LLR Stables -> Lon Lon Ranch":
             {  requirements  : "",
                 location      : Locations.LLR_Stables,
-                  to: "",
+                  default: "Lon Lon Ranch -> LLR Stables",
                   conditional: ""
             },
             "DMC Upper Local -> DMC Upper Grotto": {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -2409,7 +2672,8 @@
                                                                   "DMC Upper Local -> DMC Upper Grotto"]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "DMC Upper Grotto -> DMC Upper Local"
             },
             "DMC Upper Nearby -> DMC Upper Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -2426,7 +2690,8 @@
                                                                   "DMC Upper Local -> DMC Upper Grotto"]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "DMC Upper Grotto -> DMC Upper Local"
             },
             "DMC Lower Nearby -> GC Darunias Chamber": 
             {  requirements  : "",
@@ -2443,7 +2708,8 @@
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "GC Darunias Chamber -> DMC Lower Local"
             },
             "DMC Lower Nearby -> DMC Great Fairy Fountain": 
             // TODO: Implement red rock skip behaviour
@@ -2461,7 +2727,8 @@
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "DMC Great Fairy Fountain -> DMC Lower Local"
             },
             "DMC Lower Nearby -> DMC Hammer Grotto": 
             // TODO: Implement red rock/weirdslide behaviour
@@ -2479,31 +2746,32 @@
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "DMC Hammer Grotto -> DMC Lower Local"
             },
             "Zora River -> ZR Fairy Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.ZR,
-                  to: "",
+                  default: "ZR Fairy Grotto -> Zora River",
                   conditional: ""
             },
             "Zora River -> Lost Woods": 
             // TODO: Implement behaviour for clips, unloading and diving
             {  requirements  : "",
                 location      : Locations.ZR,
-                  to: "",
+                  default: "Lost Woods -> Zora River",
                   conditional: ""
             },
             "Zora River -> ZR Storms Grotto": 
             {  requirements  : [Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.ZR,
-                  to: "",
+                  default: "ZR Storms Grotto -> Zora River",
                   conditional: ""
             },
             "SFM Entryway -> SFM Wolfos Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.SFM,
-                  to: "",
+                  default: "SFM Wolfos Grotto -> SFM Entryway",
                   conditional: ""
             },
             "DMC Upper Local -> Death Mountain Summit": 
@@ -2521,7 +2789,8 @@
                                                                   "DMC Upper Local -> DMC Upper Grotto"]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
-                  ]
+                  ],
+                  default: "Death Mountain Summit -> DMC Upper Local"
             },
             "Death Mountain Summit -> DMC Upper Local": 
             {  requirements  : "",
@@ -2532,7 +2801,8 @@
                                                                   "DMT Owl Flight -> Kak Impas Rooftop",
                                                                   "Death Mountain Summit -> DMT Great Fairy Fountain"
                   ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                  default:  "DMC Upper Local -> Death Mountain Summit"
             },
             "Death Mountain Summit -> DMT Cow Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -2543,7 +2813,8 @@
                                                                   "DMT Owl Flight -> Kak Impas Rooftop",
                                                                   "Death Mountain Summit -> DMT Great Fairy Fountain"
                   ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                  default: "DMT Cow Grotto -> Death Mountain Summit"
             },
             "Death Mountain Summit -> DMT Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -2554,13 +2825,15 @@
                                                                   "DMT Owl Flight -> Kak Impas Rooftop",
                                                                   "Death Mountain Summit -> DMT Great Fairy Fountain"
                   ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                  default: "DMT Great Fairy Fountain -> Death Mountain Summit"
             },
             "GF Outside Gate -> Wasteland Near Fortress": 
             {  requirements  : "",
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["GF Outside Gate -> Wasteland Near Fortress"])]
+                              new Conditional(locations = ["GF Outside Gate -> Wasteland Near Fortress"])],
+                              default: "Wasteland Near Fortress -> GF Outside Gate"
             },
             "Goron City -> GC Shop": 
             // TODO: Implement behaviour for adult opening up shop without explosives or burnables
@@ -2570,72 +2843,73 @@
                                     new Conditional(locations = undefined, requirements = [Requirements.Fire]),
                                     new Conditional(locations = undefined, requirements = [Requirements.Stick, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Child_Access], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Stick, Requirements.Bombs, Requirements.Child_Shield, Requirements.Adult_Access], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "GC Shop -> Goron City"
             },
             "Zoras Fountain -> Jabu Jabus Belly Entryway": 
             // TODO: Implement behaviour for Jabu skips as both child and adult
             {  requirements  : "",
                 location      : Locations.ZF,
-                  to: "",
+                  default: "Jabu Jabus Belly Entryway -> Zoras Fountain",
                   conditional: ""
             },
             "Zoras Fountain -> ZF Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive],
                 location      : Locations.ZF,
-                  to: "",
+                  default: "ZF Great Fairy Fountain -> Zoras Fountain",
                   conditional: ""
             },
             "Market -> ToT Entrance": 
             {  requirements  : "",
                 location      : Locations.Market,
-                  to: "",
+                  default: "ToT Entrance -> Market",
                   conditional: ""
             },
             "Market -> Castle Grounds": 
             {  requirements  : "",
                 location      : Locations.Market,
-                  to: "",
+                  default: "Castle Grounds -> Market",
                   conditional: ""
             },
             "Market -> Market Bazaar": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  to: "",
+                  default: "Market Bazaar -> Market",
                   conditional: "",
                 time          : Times.Day
             },
             "Market -> Market Mask Shop": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  to: "",
+                  default: "Market Mask Shop -> Market",
                   conditional: "",
                 time          : Times.Day
             },
             "Market -> Market Shooting Gallery": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  to: "",
+                  default: "Market Shooting Gallery -> Market",
                   conditional: "",
                 time          : Times.Day
             },
             "Market -> Market Bombchu Bowling": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  to: "",
+                  default: "Market Bombchu Bowling -> Market",
                   conditional: "",
                 time          : Times.Day
             },
             "Market -> Market Treasure Chest Game": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  to: "",
+                  default: "Market Treasure Chest Game -> Market",
                   conditional: "",
                 time          : Times.Night
             },
             "Market -> Market Potion Shop": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  to: "",
+                  default: "Market Potion Shop -> Market",
                   conditional: "",
                 time          : Times.Day
             },
@@ -2643,52 +2917,52 @@
             // TODO: Implement behaviour for child needing items if night only
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Impas House Back -> Kak Impas Ledge",
                   conditional: ""
             },
             "Kak Behind Gate -> Death Mountain": 
             // TODO: Implement behaviour for gate skip/zelda's letter
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Death Mountain -> Kak Behind Gate",
                   conditional: ""
             },
             "Castle Grounds -> HC Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HC,
-                  to: "",
+                  default: "HC Great Fairy Fountain -> Castle Grounds",
                   conditional: ""
             },
             "Hyrule Castle Grounds -> HC Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.HC,
-                  to: "",
+                  default: "HC Great Fairy Fountain -> Hyrule Castle Grounds",
                   conditional: ""
             },
             "Castle Grounds -> HC Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.HC,
-                  to: "",
+                  default: "HC Storms Grotto -> Castle Grounds",
                   conditional: ""
             },
             "Hyrule Castle Grounds -> HC Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.HC,
-                  to: "",
+                  default: "HC Storms Grotto -> Hyrule Castle Grounds",
                   conditional: ""
             },
             "Castle Grounds -> OGC Great Fairy Fountain": 
             // Implement behaviour for gold gauntlet skips
             {  requirements  : "",
                 location      : Locations.OGC,
-                  to: "",
+                  default: "OGC Great Fairy Fountain -> Castle Grounds",
                   conditional: ""
             },
             "Ganon's Castle Grounds -> OGC Great Fairy Fountain": 
             // Implement behaviour for gold gauntlet skips
             {  requirements  : "",
                 location      : Locations.OGC,
-                  to: "",
+                  default: "OGC Great Fairy Fountain -> Ganon's Castle Grounds",
                   conditional: ""
             },
             "DMC Central Local -> Fire Temple Entryway": 
@@ -2697,12 +2971,13 @@
                   conditional: [    new Conditional(locations = [  "DMC Central Local -> Bolero of Fire Warp", 
                                                                   "DMC Central Local -> Fire Temple Entryway"]),
                                     new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central])
-                  ]
+                  ],
+                  default: "Fire Temple Entryway -> DMC Central Local"
             },
             "ZR Behind Waterfall -> Zoras Domain": 
             {  requirements  : "",
                 location      : Locations.ZR,
-                  to: "",
+                  default: "Zoras Domain -> ZR Behind Waterfall",
                   conditional: ""
             },
             "Sacred Forest Meadow -> Forest Temple Entryway": 
@@ -2712,7 +2987,8 @@
                                     new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access, Requirements.Weapon], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access], age = undefined, needsAll = true)
-            ]
+            ],
+            default: "Forest Temple Entryway -> Sacred Forest Meadow"
             },
             "Sacred Forest Meadow -> SFM Fairy Grotto": 
             {  requirements  : "",
@@ -2720,25 +2996,27 @@
                   conditional: [new Conditional(locations = ["Sacred Forest Meadow -> Forest Temple Entryway", "Sacred Forest Meadow -> SFM Fairy Grotto", "Sacred Forest Meadow -> SFM Storms Grotto"]),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
                               new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)
-            ]
+            ],
+            default: "SFM Fairy Grotto -> Sacred Forest Meadow"
             },
             "Sacred Forest Meadow -> SFM Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.SFM,
                   conditional: [new Conditional(locations = ["Sacred Forest Meadow -> Forest Temple Entryway", "Sacred Forest Meadow -> SFM Fairy Grotto", "Sacred Forest Meadow -> SFM Storms Grotto"]),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)]
+                              new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)],
+                  default: "SFM Storms Grotto -> Sacred Forest Meadow"
             },
             "Market Entrance -> Market": 
             {  requirements  : "",
                 location      : Locations.Market_Entrance,
-                  to: "",
+                  default: "Market -> Market Entrance",
                   conditional: ""
             },
             "Market Entrance -> Market Guard House": 
             {  requirements  : "",
                 location      : Locations.Market_Entrance,
-                  to: "",
+                  default: "Market Guard House -> Market Entrance",
                   conditional: ""
             },
             "DMT Owl Flight -> Kak Impas Rooftop": 
@@ -2750,25 +3028,26 @@
                                                                   "DMT Owl Flight -> Kak Impas Rooftop",
                                                                   "Death Mountain Summit -> DMT Great Fairy Fountain"
                   ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])]
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                  default: "Kak Impas Rooftop -> DMT Owl Flight"
             },
             "Desert Colossus -> Colossus Great Fairy Fountain": 
             {  requirements  : [ Requirements.Explosive],
                 location      : Locations.DC,
-                  to: "",
+                  default: "Colossus Great Fairy Fountain -> Desert Colossus",
                   conditional: ""
             },
             "Desert Colossus -> Spirit Temple Entryway": 
             {  requirements  : "",
                 location      : Locations.DC,
-                  to: "",
+                  default: "Spirit Temple Entryway -> Desert Colossus",
                   conditional: ""
             },
             "Desert Colossus -> Colossus Grotto": 
             // TODO: Implement behaviour for Silver boulder weirdslide skip
             {  requirements  : [ Requirements.Strength2],
                 location      : Locations.DC,
-                  to: "",
+                  default: "Colossus Grotto -> Desert Colossus",
                   conditional: ""
             },
             "GC Grotto Platform -> GC Grotto": 
@@ -2779,77 +3058,78 @@
                                     new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Adult_Access], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Child_Melee, Requirements.Child_Shield, Requirements.Child_Access], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Adult_Melee, Requirements.Adult_Shield, Requirements.Adult_Access], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "GC Grotto -> GC Grotto Platform"
             },
             "Market Back Alley -> Market Bombchu Shop": 
             {  requirements  : "",
                 location      : Locations.Alleyway,
                 time          : Times.Night,
-                  to: "",
+                  default: "Market Bombchu Shop -> Market Back Alley",
                   conditional: ""
             },
             "Market Back Alley -> Market Man in Green House": 
             {  requirements  : "",
                 location      : Locations.Alleyway,
                 time          : Times.Night,
-                  to: "",
+                  default: "Market Man in Green House -> Market Back Alley",
                   conditional: ""
             },
             "Kak Backyard -> Kak Open Grotto": 
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Open Grotto -> Kak Backyard",
                   conditional: ""
             },
             "Kak Backyard -> Kak Granny's Potion Shop": 
             {  requirements  : [Requirements.Adult_Access],
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Granny's Potion Shop -> Kak Backyard",
                   conditional: ""
             },
             "Kak Backyard -> Kak Potion Shop Back": 
             // TODO: Implement behaviour for child clip and Adult nighttime clip
             {  requirements  : "",
                 location      : Locations.Kakariko,
-                  to: "",
+                  default: "Kak Potion Shop Back -> Kak Backyard",
                   conditional: ""
             },
             "Ganon's Castle Ledge -> Ganon's Castle Entryway": 
             // TODO: Implement behaviour for bridge conditions
             {  requirements  : "",
                 location      : Locations.OGC,
-                  to: "",
+                  default: "Ganon's Castle Entryway -> Ganon's Castle Ledge",
                   conditional: ""
             },
             "Ganon's Castle Entryway -> Castle Grounds From Ganon's Castle": 
             {  requirements  : "",
                 location      : Locations.Ganon,
-                  to: "",
+                  default: "Castle Grounds From Ganon's Castle -> Ganon's Castle Entryway",
                   conditional: ""
             },
             "Castle Grounds From Ganon's Castle -> Ganon's Castle Entryway": 
             {  requirements  : "",
                 location      : Locations.OGC,
-                  to: "",
+                  default: "Ganon's Castle Entryway -> Castle Grounds From Ganon's Castle",
                   conditional: ""
             },
             "Zoras Domain -> ZR Behind Waterfall": 
             {  requirements  : "",
                 location      : Locations.ZD,
-                  to: "",
+                  default: "ZR Behind Waterfall -> Zoras Domain",
                   conditional: ""
             },
             "Zoras Domain -> ZD Shop": 
             // TODO: Implement behaviour to skip red ice
             {  requirements  : "",
                 location      : Locations.ZD,
-                  to: "",
+                  default: "ZD Shop -> Zoras Domain",
                   conditional: ""
             },
             "Zoras Domain -> ZD Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.ZD,
-                  to: "",
+                  default: "ZD Storms Grotto -> Zoras Domain",
                   conditional: ""
             },
             "Lost Woods -> GC Woods Warp": 
@@ -2864,7 +3144,8 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "GC Woods Warp -> Lost Woods"
             },
             "Lost Woods -> Zora River": 
             // TODO: Implement dive/forest escape behaviour
@@ -2879,7 +3160,8 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "Zora River -> Lost Woods"
             },
             "Lost Woods -> LW Near Shortcuts Grotto": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -2893,12 +3175,13 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "LW Near Shortcuts Grotto -> Lost Woods"
             },
             "Water Temple Boss Entryway -> Water Temple Boss Room": 
             {  requirements  : [Requirements.Water_BK],
                 location      : Locations.Water,
-                  to: "",
+                  default: "Water Temple Boss Room -> Water Temple Boss Entryway",
                   conditional: ""
             },
             "LW Beyond Mido -> SFM Entryway": 
@@ -2913,7 +3196,8 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "SFM Entryway -> LW Beyond Mido"
             },
             "LW Beyond Mido -> Deku Theater": 
             {  requirements  : "",
@@ -2927,25 +3211,21 @@
                                                                   "LW Forest Exit -> Kokiri Forest",
                                                                   "Lost Woods -> Kokiri Forest",
                                                                   "LW Beyond Mido -> LW Scrubs Grotto"])
-            ]
+            ],
+            default: "Deku Theater -> LW Beyond Mido"
             },
             "LW Bridge -> Hyrule Field": 
             {  requirements  : "",
                 location      : Locations.LW,
                   conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
                                     new Conditional(locations = ["LW Bridge -> Hyrule Field", "LW Bridge -> Kokiri Forest", "LW Bridge From Forest -> Kokiri Forest"])
-            ]
-            },
-            "Wasteland Near Colossus -> Desert Colossus": 
-            {  requirements  : "",
-                location      : Locations.HW,
-                  to: "",
-                  conditional: ""
+            ],
+            default: "Hyrule Field -> LW Bridge"
             },
             "Jabu Jabus Belly Boss Entryway -> Jabu Jabus Belly Boss Room": 
             {  requirements  : "",
                 location      : Locations.Jabu,
-                  to: "",
+                  default: "Jabu Jabus Belly Boss Room -> Jabu Jabus Belly Boss Entryway",
                   conditional: ""
             },
             "GV Fortress Side -> Gerudo Fortress": 
@@ -2958,7 +3238,8 @@
                         new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "Gerudo Fortress -> GV Fortress Side"
             },
             "GV Fortress Side -> GV Carpenter Tent": 
             {  requirements  : "",
@@ -2970,7 +3251,8 @@
                         new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "GV Carpenter Tent -> GV Fortress Side"
             },
             "GV Fortress Side -> GV Storms Grotto": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
@@ -2982,122 +3264,130 @@
                         new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
-                  ]
+                  ],
+                  default: "GV Storms Grotto -> GV Fortress Side"
             },
             "Kak Redead Grotto -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.Kak_Redead_Grotto,
-                  to: "",
+                  default: "Kakariko Village -> Kak Redead Grotto",
                   conditional: ""
             },
             "Kak Impas House Back -> Kak Impas Ledge":
             {  requirements  : "",
                 location      : Locations.Kak_Impas_House,
-                  conditional: ""
+                  conditional: "",
+                  default: "Kak Impas Ledge -> Kak Impas House Back"
             },
             "Forest Temple Entryway -> Sacred Forest Meadow":
             {  requirements  : "",
                 location      : Locations.Forest,
-                  to: "",
+                  default: "Sacred Forest Meadow -> Forest Temple Entryway",
                   conditional: ""
             },
             "Kak Potion Shop Back -> Kak Backyard":
             {  requirements  : [Requirements.Adult_Access],
                 location      : Locations.Kak_Potion_Shop,
-                  to: "",
+                  default: "Kak Backyard -> Kak Potion Shop Back",
                   conditional: ""
             },
             "Kak Windmill -> Kakariko Village":
             {  requirements  : "",
                 location      : Locations.GY_Dampes_Grave,
-                  to: "",
+                  default: "Kakariko Village -> Kak Windmill",
                   conditional: ""
             },
             "ZF Great Fairy Fountain -> Zoras Fountain":
             {  requirements  : "",
                 location      : Locations.ZF_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Zoras Fountain -> ZF Great Fairy Fountain",
                   conditional: ""
             },
             "GC Grotto -> GC Grotto Platform":
             {  requirements  : "",
                 location      : Locations.GC_Grotto,
-                  to: "",
+                  default: "GC Grotto Platform -> GC Grotto",
                   conditional: ""
             },
             "Graveyard Dampes House -> The Graveyard":
             {  requirements  : "",
                 location      : Locations.GY_Dampes_House,
-                  to: "",
+                  default: "The Graveyard -> Graveyard Dampes House",
                   conditional: ""
             },
             "OGC Great Fairy Fountain -> Castle Grounds":
             {  requirements  : "",
                 location      : Locations.OGC_Great_Fairy_Fountain,
-                  to: "",
+                  default: "Castle Grounds -> OGC Great Fairy Fountain",
                   conditional: ""
             },
             "Colossus Grotto -> Desert Colossus":
             {  requirements  : "",
                 location      : Locations.DC_Grotto,
-                  to: "",
+                  default: "Desert Colossus -> Colossus Grotto",
                   conditional: ""
             },
             "ZD Behind King Zora -> Zoras Fountain":
             {  requirements  : "",
                 location      : Locations.ZD,
-                  to: "",
+                  default: "Zoras Fountain -> ZD Behind King Zora",
                   conditional: ""
             },
             "Market Guard House -> Market Entrance":
             {  requirements  : "",
                 location      : Locations.Market_Guard_House,
-                  to: "",
+                  default: "Market Entrance -> Market Guard House",
                   conditional: ""
             },
             "KF Storms Grotto -> Kokiri Forest":
             {  requirements  : "",
                 location      : Locations.KF_Storms_Grotto,
-                  to: "",
+                  default: "Kokiri Forest -> KF Storms Grotto",
                   conditional: ""
             },
             "Graveyard Heart Piece Grave -> The Graveyard":
             {  requirements  : "",
                 location      : Locations.GY_HP_Grave,
-                  to: "",
+                  default: "The Graveyard -> Graveyard Heart Piece Grave",
                   conditional: ""
             },
             "Wasteland Near Fortress -> GF Outside Gate":
             {  requirements  : "",
                 location      : Locations.HW,
-                  to: "",
+                  default: "GF Outside Gate -> Wasteland Near Fortress",
                   conditional: ""
             },
 
             "Fire Temple Boss Entryway -> Fire Temple Boss Room": {
                   requirements: [MultiplePossibleRequirements.Volvagia_Entrance],
-                  location: Locations.Fire
+                  location: Locations.Fire,
+                  default: "Fire Temple Boss Room -> Fire Temple Boss Entryway"
             },
             "Dodongos Cavern Boss Entryway -> Dodongos Cavern Boss Room": {
                   requirements: [MultiplePossibleRequirements.Dodongos_Upper],
-                  location: Locations.Dodongos_Cavern
+                  location: Locations.Dodongos_Cavern,
+                  default: "Dodongos Cavern Boss Room -> Dodongos Cavern Boss Entryway"
             },
             "Forest Temple Boss Entryway -> Forest Temple Boss Room": {
                   requirements: [MultiplePossibleRequirements.Forest_Basement, Requirements.Forest_BK],
-                  location: Locations.Forest
+                  location: Locations.Forest,
+                  default: "Forest Temple Boss Room -> Forest Temple Boss Entryway"
             },
             "Shadow Temple Boss Entryway -> Shadow Temple Boss Room": {
                   requirements: [MultiplePossibleRequirements.Bongo_Bongo_Entrance],
-                  location: Locations.Shadow
+                  location: Locations.Shadow,
+                  default: "Shadow Temple Boss Room -> Shadow Temple Boss Entryway"
             },
             // TODO: Implement behaviour for skipping the 2nd web
             "Deku Tree Boss Entryway -> Deku Tree Boss Room": {
                   requirements: [MultiplePossibleRequirements.Gohma_Entrance],
-                  location: Locations.Deku_Tree
+                  location: Locations.Deku_Tree,
+                  default: "Deku Tree Boss Room -> Deku Tree Boss Entryway"
             },
             "Spirit Temple Boss Entryway -> Spirit Temple Boss Room": {
                   requirements: [Requirements.Spirit_BK],
-                  location: Locations.Spirit
+                  location: Locations.Spirit,
+                  default: "Spirit Temple Boss Room -> Spirit Temple Boss Entryway"
             }
     }
     var itemLocations = {
@@ -4676,42 +4966,42 @@
               location      : Locations.ZR
         },
         "ZR Magic Bean Salesman": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs Zelda's Lullaby": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby],
+        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs Epona's Song": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Eponas_Song],
+        {  requirements  : [ Requirements.Instrument, Requirements.Eponas_Song, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs Saria's Song": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Sarias_Song],
+        {  requirements  : [ Requirements.Instrument, Requirements.Sarias_Song, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs Sun's Song": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Suns_Song],
+        {  requirements  : [ Requirements.Instrument, Requirements.Suns_Song, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs Song of Time": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Time],
+        {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs in the Rain": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
+        {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR Frogs Ocarina Game": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Eponas_Song, Requirements.Sarias_Song, Requirements.Suns_Song, Requirements.Song_Of_Time, Requirements.Song_Of_Storms],
+        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Eponas_Song, Requirements.Sarias_Song, Requirements.Suns_Song, Requirements.Song_Of_Time, Requirements.Song_Of_Storms, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
@@ -6747,6 +7037,7 @@
 
       var queued = ""
       function advanceAreas() {
+            console.log("These should be areas");
             var keyName;
             var valueName;
             var tempName;
@@ -6763,6 +7054,7 @@
             }
 
             for (var index in accessibleList) {
+                  console.log(accessibleList[index]);
                   accessibleList[index].forEach(entrance => {
                         keyName = entrance;
                         valueName = entrance.replace("->", "from");
@@ -6780,15 +7072,21 @@
                         // console.log(keyName);
                         // console.log(valueName);
                         for (var key in randomizedEntrances) {
+                              // console.log(key);
+                              // console.log(keyName);
+                              // console.log(key == keyName);
+                              // console.log(randomizedEntrances[key]);
+                              // console.log(valueName);
+                              // console.log(randomizedEntrances[key] == valueName);
                               if (key == keyName) {
                                     tempName = randomizedEntrances[key].replace("from", "->");
-
-                                    //console.log(tempName);
+                                    // console.log("keyName matched!");
+                                    // console.log("to be added:" + tempName);
                                     //console.log(accessibleList[index]);
                                     if (!accessibleList[index].includes(tempName)) {
-                                          console.log("Adding to accessible " + tempName);
+                                          // console.log("Adding to accessible " + tempName);
                                           accessibleList[index].push(tempName);
-                                          //console.log(entrancesMap[tempName]);
+                                          console.log(entrancesMap[tempName]);
                                           if (entrancesMap[tempName].location[0]) {
                                                 //console.log("castle grounds");
                                                 //console.log(entrancesMap[tempName].location[0]);
@@ -6813,7 +7111,7 @@
                                     }
                               }
                               // console.log(randomizedEntrances[key]);
-                              // console.log(valueName);
+                              //  console.log(valueName);
                               if (randomizedEntrances[key] == valueName) {
                                     //console.log(key);
                                     if (!accessibleList[index].includes(key)) {
@@ -6841,6 +7139,8 @@
                         }
                   })
             }
+            // console.log("end of loop");
+            // console.log(randomizedEntrances);
       }
 
       var solvedState = false;
@@ -6937,6 +7237,49 @@
                   }
 
             }
+            if (file.settings["Start with Zelda's Lullaby"] == "On") {
+                  inventory.items.push("Zelda's Lullaby");
+            }if (file.settings["Start with Epona's Song"] == "On") {
+                  inventory.items.push("Epona's Song");
+            }if (file.settings["Start with Saria's Song"] == "On") {
+                  inventory.items.push("Saria's Song");
+            }if (file.settings["Start with Sun's Song"] == "On") {
+                  inventory.items.push("Sun's Song");
+            }if (file.settings["Start with Song of Time"] == "On") {
+                  inventory.items.push("Song of Time");
+            }if (file.settings["Start with Song of Storms"] == "On") {
+                  inventory.items.push("Song of Storms");
+            }if (file.settings["Start with Minuet of Forest"] == "On") {
+                  inventory.items.push("Minuet of Forest");
+            }if (file.settings["Start with Bolero of Fire"] == "On") {
+                  inventory.items.push("Bolero of Fire");
+            }if (file.settings["Start with Serenade of Water"] == "On") {
+                  inventory.items.push("Serenade of Water");
+            }if (file.settings["Start with Requiem of Spirit"] == "On") {
+                  inventory.items.push("Requiem of Spirit");
+            }
+            if (file.settings["Start with Nocturne of Shadow"] == "On") {
+                  inventory.items.push("Nocturne of Shadow");
+            }
+            if (file.settings["Start with Prelude of Light"] == "On") {
+                  inventory.items.push("Prelude of Light");
+            }
+            if (file.settings["Start with Fairy Ocarina"] == "On") {
+                  inventory.items.push("Fairy Ocarina");
+            }
+            if (file.settings["Start with Kokiri Sword"] == "On") {
+                  inventory.items.push("Kokiri Sword");
+            }
+            if (file.settings["Start with Deku Shield"] == "On") {
+                  inventory.items.push("Deku Shield");
+            }
+            if (file.settings["Gold Skulltula Tokens"] != "0") {
+                  var tempIndex = file.settings["Gold Skulltula Tokens"];
+                  for (var i = 0; i < tempIndex; i++) {
+                        inventory.items.push("Gold Skulltula Token");
+                  }
+            }
+
 
             if (file.settings["World Settings:Shuffle Entrances"] == "Off") {
                   console.log("Entrance rando was off");
@@ -6950,94 +7293,123 @@
                   //       }
                   // }
                   for (var entrance in entrancesMap) {
-                        randomizedEntrances[entrance] = entrance.toString();
+                        var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance
                   }
             } 
             else {
-                  for (var sphere in file.entrancesMap) {
-                        for (var key in file.entrancesMap[sphere]) {
-                              randomizedEntrances[key] = file.entrancesMap[sphere][key];
+
+
+                                    // Adding overworld entrances
+                                    if (file.settings["World Settings:Overworld Entrances"] == "Off") {
+                        console.log("Overworld isn't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Overworld) {
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance
+                              }
                         }
                   }
+
+                  if (file.settings["World Settings:Owl Drops"] == "Off") {
+                        console.log("Owl drops aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrance == "DMT Owl Flight -> Kak Impas Rooftop" || entrance == "LH Owl Flight -> Hyrule Field") {
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrancedefault;
+                              }
+                        }
+                  }
+
+
                   // Adding dungeons and Ganon
                   if (file.settings["World Settings:Dungeon Entrances"] == "On + Ganon") {
 
                   }
                   else if (file.settings["World Settings:Dungeon Entrances"] == "On") {
-                        //console.log("Ganon isn't randomized");
+                        console.log("Ganon isn't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location == Locations["Ganon"]) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance    
                               }
                         }
                   }
+
+                  
+                  if (file.settings["World Settings:Interior Entrances"] == "Off") {
+                        console.log("Interiors aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Interior) {
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance
+                              }
+                        }
+                  }
+
+                  if (file.settings["World Settings:Grottos Entrances"] == "Off") {
+                        console.log("Grottos aren't randomized");
+                        for (entrance in entrancesMap) {
+                              if (entrancesMap[entrance].location.type == LocationType.Grotto) {
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance
+                              }
+                        }
+                  }
+
                   else if (file.settings["World Settings:Dungeon Entrances"] == "Off") {
-                        //console.log("Ganon nor dungeons are randomized");
+                        console.log("Ganon nor dungeons are randomized");
                         for (entrance in entrancesMap) {
                               //console.log(entrance);
                               if (entrancesMap[entrance].location == Locations["Ganon"]) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance
                               }
                               if (entrancesMap[entrance].location.type == LocationType.Dungeon) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                        randomizedEntrances[entrance] = tempEntrance;
+                        randomizedEntrances[tempEntrance] = entrance
                               }
                         }
                   }
 
                   // Adding bosses
                   if (file.settings["World Settings:Boss Entrances"] == "Off") {
-                        //console.log("Boss rooms aren't randomized");
+                        console.log("Boss rooms aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Boss) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
+                                    console.log("match found: " + entrance);
+                                    var tempEntrance = entrancesMap[entrance].default;
+                                    randomizedEntrances[entrance] = tempEntrance;
+                                    randomizedEntrances[tempEntrance] = entrance
                               }
+                        }
+                  }
+                  for (var sphere in file.entrancesMap) {
+                        for (var key in file.entrancesMap[sphere]) {
+                              randomizedEntrances[key] = file.entrancesMap[sphere][key];
                         }
                   }
 
-                  // Adding overworld entrances
-                  if (file.settings["World Settings:Overworld Entrances"] == "Off") {
-                        //console.log("Overworld isn't randomized");
-                        for (entrance in entrancesMap) {
-                              if (entrancesMap[entrance].location.type == LocationType.Overworld) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
-                              }
-                        }
-                  }
 
-                  if (file.settings["World Settings:Interior Entrances"] == "Off") {
-                        //console.log("Interiors aren't randomized");
-                        for (entrance in entrancesMap) {
-                              if (entrancesMap[entrance].location.type == LocationType.Interior) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
-                              }
-                        }
-                  }
 
-                  if (file.settings["World Settings:Grottos Entrances"] == "Off") {
-                        //console.log("Grottos aren't randomized");
-                        for (entrance in entrancesMap) {
-                              if (entrancesMap[entrance].location.type == LocationType.Grotto) {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
-                              }
-                        }
-                  }
 
-                  if (file.settings["World Settings:Owl Drops"] == "Off") {
-                        //console.log("Owl drops aren't randomized");
-                        for (entrance in entrancesMap) {
-                              if (entrance == "DMT Owl Flight -> Kak Impas Rooftop" || entrance == "LH Owl Flight -> Hyrule Field") {
-                                    //console.log("match found: " + entrance);
-                                    randomizedEntrances[entrance] = entrance.toString();
-                              }
-                        }
-                  }
+
+
 
             }
             console.log(file);
@@ -7665,16 +8037,20 @@
       for (var requirement in Requirements) {
             //console.log("Checking requirement...");
             //console.log(Requirements[requirement]);
+            var relatedCheck = false;
             var itemCheck = true;
             var itemsAllCheck = true;
             var agesCheck = true;
             var bottleCheck = true;
             var collectedCheck = true;
-            var unlockedCheck = true;
-            var unlockedAllCheck = true;
+            var unlockedCheck = false;
+            var unlockedAllCheck = false;
             var enteredCheck = true;
             var accessibleCheck = true;
+            // console.log("checking requirements for: ");
+            // console.log(requirement);
             if (Requirements[requirement].related) {
+                  relatedCheck = true;
                   // console.log(requirement);
                   
                   // for (var index in Requirements[requirement].items) {
@@ -7690,11 +8066,13 @@
                   // console.log(Requirements[requirement]);
                   // console.log((Requirements[requirement]["related"]));
                   Requirements[requirement].related.forEach(e => {
-                        //console.log(e);
+                        // console.log("checking requirements for :")
+                        // console.log(requirement);
                         if (e == "items") {
                               if (Requirements[requirement].items){
                                     itemCheck = false;
                                     Requirements[requirement].items.forEach(item => {
+                                          console.log(item);
                                           if (inventory.items.includes(item)) {
                                                 if (Requirements[requirement].count) {
                                                       if (inventory.items.filter(match => match == item).length >= Requirements[requirement].count) {
@@ -7712,6 +8090,7 @@
                                           else {
                                                 //allow = false;
                                           }
+                                          //console.log(itemCheck);
                                           
                               })}
                                     if (Requirements[requirement].items_all) {
@@ -7807,23 +8186,33 @@
                   })
             }
             if (Requirements[requirement].unlocked_if) {
+                  //console.log("entered unlocked if");
                   unlockedCheck = false;
                   Requirements[requirement].unlocked_if.forEach(item => {
-                        //console.log(Requirements[item]);
-                        //console.log(Requirements[requirement])
-                        if (inventory.requirements.includes(Requirements[item])) {
-                              unlockedCheck = true;
-                        }
-                        else {
+                        // console.log(Requirements[requirement].unlocked_if);
+                        if (!unlockedCheck) {
+                              unlockedCheck = false;
+                              // console.log(Requirements[item]);
+                              // console.log(Requirements[requirement])
+                              if (inventory.requirements.includes(Requirements[item])) {
+                                    // console.log("accepted condition because this exists: ");
+                                    // console.log(item);
+                                    unlockedCheck = true;
+                              }
+                              else {
 
+                              }
                         }
+
                   })
             }
             if (Requirements[requirement].unlocked_if_all) {
                   unlockedAllCheck = true;
                   Requirements[requirement].unlocked_if_all.forEach(item => {
-                        //console.log(Requirements[item]);
-                        //console.log(Requirements[requirement])
+                        // console.log(Requirements[item]);
+                        // console.log(Requirements[requirement])
+                        // console.log(Requirements[item]);
+                        // console.log(inventory.requirements.includes(Requirements[item]));
                         if (inventory.requirements.includes(Requirements[item])) {
 
                         }
@@ -7831,14 +8220,26 @@
                               unlockedAllCheck = false;
                         }
                   })
+                  // console.log(unlockedAllCheck);
             }
-            
-                        if (itemCheck && itemsAllCheck && agesCheck && bottleCheck && collectedCheck && unlockedCheck && unlockedAllCheck && enteredCheck && accessibleCheck && !inventory.requirements.includes(Requirements[requirement])) {
-                              //console.log("Added requirement: " + Requirements[requirement].explanation)
-                              //console.log(Requirements[requirement]);
-                              //console.log(requirement);
-                              
+            // console.log(relatedCheck);
+            // console.log(unlockedCheck);
+            // console.log(itemCheck);
+            // console.log(itemsAllCheck);
+            // console.log(agesCheck);
+            // console.log(bottleCheck);
+            // console.log(collectedCheck);
+            // console.log(unlockedAllCheck);
+            // console.log(accessibleCheck);
+            // console.log("final verdict");
+            // console.log((relatedCheck && itemCheck && itemsAllCheck && agesCheck && bottleCheck && collectedCheck && enteredCheck && accessibleCheck));
+                        if ((unlockedCheck || unlockedAllCheck || (relatedCheck && itemCheck && itemsAllCheck && agesCheck && bottleCheck && collectedCheck && enteredCheck && accessibleCheck)) && !inventory.requirements.includes(Requirements[requirement])) {
+                              // console.log("Added requirement: " + Requirements[requirement].explanation)
+                              // //console.log(Requirements[requirement]);
+                              // console.log(requirement);
+                              // console.log(unlockedCheck);
                               inventory.requirements.push(Requirements[requirement]);
+                              // console.log(inventory.requirements);
                         }
                         else {
                               // console.log("Rejected requirement");
