@@ -255,6 +255,9 @@
             "Spirit Temple Boss Entryway -> Spirit Temple Boss Room": "Dodongos Cavern Boss Room from Dodongos Cavern Boss Entryway"
     }
     var Requirements = {
+      FaroresWind: {explanation: "Has the ability to use Farore's Wind", related: ["items"], items_all: ["Farore's Wind", "Progressive Magic Meter"]},
+      NayrusLove: {explanation: "Has the ability to use Nayru's Love", related: ["items"], items_all: ["Nayru's Love", "Progressive Magic Meter"]},
+      Spelldive: {explanation: "Has the ability to go very deep underwater using", related: ["items"], unlocked_if: ["FaroresWind", "NayrusLove", "Dins"]},
       OneWayOwl: {explanation: "placeholder to prevent access in a one way", related: ["items"], items: ["-NO-ACCESS-"]},
       Silver_Boulder: {explanation: "Has the ability to bypass a Silver Boulder for a grotto", unlocked_if_all: ["Strength2", "Weirdslide"]},
       Weirdslide: {explanation: "Has the ability to perform a weirdslide", unlocked_if_all: ["FP_Item", "Explosive", "Adult_Shield"]},
@@ -355,9 +358,10 @@
       // TODO: expand this shit
       Wallet1: {explanation: "Requires having the first wallet upgrade", related: ["items"], items: ["Progressive Wallet"]},
       Wallet2: {explanation: "Requires having the second wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 2},
+      Wallet3: {explanation: "Requires having the Tycoon wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 3},
       // TODO: Fix this shit
       PriceCheck: {explanation: "Requires the logic to compare the price to the current wallet"},
-      Dins: {explanation: "Requires having access to Din's Fire", related: ["items"], items: ["Din's Fire"]},
+      Dins: {explanation: "Requires having access to Din's Fire", related: ["items"], items_all: ["Din's Fire", "Progressive Magic Meter"]},
       Fire: {explanation: "Requires a source of fire, either QPA, Fire Arrow or Din's", unlocked_if: ["Dins", "Fire_Arrow"]},
       Ocarina: {explanation: "Requires specifically Ocarina", related: ["items"], items: ["Progressive Ocarina"]},
       Hammer: {explanation: "Requires the use of Megaton Hammer", related: ["items"], items: ["Megaton Hammer"]},
@@ -1031,6 +1035,45 @@
       Forest_Escape: [              [Requirements.Adult_Melee, Requirements.Adult_access],
                                     [Requirements.Scale],
                                     [Requirements.Child_Melee, Requirements.Child_Access]
+      ],
+      GTG_Chest1: [                 [Requirements.GTG_small_keys1],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Bombs, Requirements.Adult_Access]
+      ],
+      GTG_Chest2: [                 [Requirements.GTG_small_keys2],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Bombs, Requirements.Adult_Access]
+
+      ],
+      GTG_Chest3: [                 [Requirements.GTG_small_keys4],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Bombs, Requirements.Adult_Access]
+      ],
+      GTG_Chest4: [                 [Requirements.GTG_small_keys5],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Bombs, Requirements.Adult_Access]
+      ],
+      GTG_Chest5: [                 [Requirements.GTG_small_keys7],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Bombs, Requirements.Adult_Access]
+
+      ],
+      GTG_Maze_Right: [             [Requirements.GTG_small_keys2],
+                                    [Requirements.Adult_Access, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Explosive],
+                                    [Requirements.Bombs, Requirements.Adult_Access],
+                                    [Requirements.Explosive, Requirements.Child_Access]
+
+      ],
+      GTG_Toilet: [                 [Requirements.GTG_small_keys2, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.IronBoots],
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.IronBoots],
+                                    [Requirements.GTG_small_keys2, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive],
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive],
+      ],
+      GTG_Hammer_clear: [           [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements],
+                                    [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hover_boots],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Hookshot]
+
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -1346,7 +1389,7 @@
             },
             "Lake Hylia -> GV Lower Stream": 
             {
-                  requirements: "",
+                  requirements: [Requirements.OneWayOwl],
                   location: Locations.LH,
                   default: "GV Lower Stream -> Lake Hylia"
                   
@@ -5711,17 +5754,18 @@
               conditional: [new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress"])]
         },
         "GF GS Archery Range": 
-        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Membership],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Membership, Requirements.Adult_Access],
               location      : Locations.GF,
               age           : Ages.Adult,
               time          : Times.Night
         },
         "GF GS Top Floor": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
               location      : Locations.GF,
               age           : Ages.Adult,
               time          : Times.Night
         },
+        // TODO: Implement ground jump
         "Wasteland GS": 
         {  requirements  : [ Requirements.Ranged_Retrieval],
               location      : Locations.HW
@@ -5750,51 +5794,51 @@
               location      : Locations.GTG
         },
         "Gerudo Training Grounds Stalfos Chest": {
-            requirements: "",
+            requirements: [Requirements.Weapon],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Beamos Chest": {
-            requirements: "",
+            requirements: [Requirements.Weapon],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Hidden Ceiling Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Chest1],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Maze Path First Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Chest2],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Maze Path Second Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Chest3],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Maze Path Third Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Chest4],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Maze Path Final Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Chest5],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Maze Right Central Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Maze_Right],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Maze Right Side Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Maze_Right],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Underwater Silver Rupee Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Toilet],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Hammer Room Clear Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Hammer_clear, Requirements.Weapon],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Hammer Room Switch Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Hammer_clear],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Eye Statue Chest": {
@@ -7495,7 +7539,16 @@
                   //console.log(key)
                   tempRequirement = "";
                   if (file.locations[key].price > 99) {
-                        tempRequirement = Requirements.Wallet1;
+                        if (file.locations[key].price > 200) {
+                              tempRequirement = Requirements.Wallet2
+                              if (file.locations[key].price > 500) {
+                                    tempRequirement = Requirements.Wallet3
+                              }
+                        }
+                        else {
+                              tempRequirement = Requirements.Wallet1;
+                        }
+                        
                   }
                   //console.log(itemLocations[key]);
                   if (itemLocations[key] && itemLocations[key].requirements) {
