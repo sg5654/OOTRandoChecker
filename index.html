@@ -6284,17 +6284,17 @@
               location      : Locations.Market_Bazaar
         },
         "HC Malon Egg": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.HC,
               age           : Ages.Child
         },
         "HC Zeldas Letter": 
-        {  requirements  : [ MultiplePossibleRequirements.TalonSkip],
+        {  requirements  : [ MultiplePossibleRequirements.TalonSkip, Requirements.Child_Access],
               location      : Locations.HC,
               age           : Ages.Child
         },
         "Song from Impa": 
-        {  requirements  : [ MultiplePossibleRequirements.TalonSkip],
+        {  requirements  : [ MultiplePossibleRequirements.TalonSkip, Requirements.Child_Access],
               location      : Locations.HC,
               age           : Ages.Child
         },
@@ -6427,7 +6427,7 @@
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Light Trial Lullaby Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GoldSkip, Requirements.Ganon_small_keys1, Requirements.Instrument, Requirements.Zeldas_Lullaby],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Shadow Trial Bomb Flower Chest": {
@@ -7280,6 +7280,12 @@
                         Settings.tokensNeeded = file.settings["Shuffle Dungeon Items:Token Count"];
                   }
 
+            }
+            if (file.settings["Skip Child Zelda"] == true) {
+                  inventory.items.push("Zelda's Letter");
+                  inventory.items.push("Weird Egg");
+                  inventory.requirements.push(Requirements.Talon_Woken);
+                  inventory.items.push(file.locations["Song from Impa"]);
             }
             if (file.settings["Start with Zelda's Lullaby"] == "On") {
                   inventory.items.push("Zelda's Lullaby");
