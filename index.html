@@ -1115,12 +1115,26 @@
 
       ],
       MQ_Spirit_Center_Room: [[Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys2, Requirements.Projectile],
-                              [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Strength2, Requirements.Longshot]
+                              [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Strength2, Requirements.Longshot, Requirements.Projectile]
       ],
       MQ_Spirit_Beamos: [     [Requirements.Child_Access, Requirements.Explosive ,Requirements.Child_Shield, Requirements.Child_Melee, Requirements.Spirit_small_keys3],
                               [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Strength2, Requirements.Longshot, Requirements.Spirit_small_keys1]
 
-      ]
+      ],
+      MQ_Spirit_SunBlock_Chest: [   [Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys2, Requirements.Song_Of_Time, Requirements.Instrument],
+                                    [Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys2, Requirements.Child_Shield],
+                                    [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Strength2, Requirements.Longshot]
+
+      ],
+      MQ_Spirit_Leever: [     [Requirements.Hover_boots, Requirements.Adult_Access],
+                              [Requirements.Longshot, Requirements.Adult_Access],
+                              [Requirements.Bomb_Hovering_Adult],
+                              [Requirements.Bomb_Hovering_Child]
+
+      ],
+      MQ_Spirit_Center_Invis: [     [Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys2, Requirements.Child_Shield, Requirements.Child_Melee],
+                                    [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Strength2, Requirements.Longshot]
+                              ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
       //                   [     Requirements.Bombs, Requirements.Adult_Access],
@@ -6101,7 +6115,7 @@
         },
         // Silver rupees
         "Spirit Temple MQ Entrance Front Right Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Entrance Back Left Chest": {
@@ -6134,11 +6148,11 @@
             location: Locations.Spirit
         },
         "Spirit Temple MQ Statue Room Lullaby Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Center_Invis, Requirements.Instrument, Requirements.Zeldas_Lullaby],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Statue Room Invisible Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Center_Invis],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Silver Block Hallway Chest": {
@@ -6146,15 +6160,15 @@
             location: Locations.Spirit
         },
         "Spirit Temple MQ Sun Block Room Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_SunBlock_Chest],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Symphony Room Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Song_Of_Time, Requirements.Zeldas_Lullaby, Requirements.Eponas_Song, Requirements.Suns_Song],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Leever Room Chest": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, MultiplePossibleRequirements.MQ_Spirit_Leever],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Beamos Room Chest": {
@@ -6162,35 +6176,35 @@
             location: Locations.Spirit
         },
         "Spirit Temple MQ Chest Switch Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Instrument, Requirements.Song_Of_Time],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Light_Or_Mirror, Requirements.Adult_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Mirror Puzzle Invisible Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Hammer, Requirements.Light_Or_Mirror, Requirements.Adult_Access, Requirements.Spirit_small_keys5, Requirements.Instrument, Requirements.Zeldas_Lullaby],
             location: Locations.Spirit
         },
         "Spirit Temple MQ GS Symphony Room": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Song_Of_Time, Requirements.Zeldas_Lullaby, Requirements.Eponas_Song, Requirements.Suns_Song, Requirements.Ranged_Retrieval],
             location: Locations.Spirit
         },
         "Spirit Temple MQ GS Leever Room": {
-            requirements: "",
+            requirements: [Requirements.Melee_Either, Requirements.Ranged_Retrieval],
             location: Locations.Spirit
         },
         "Spirit Temple MQ GS Nine Thrones Room West": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Ranged_Retrieval, Requirements.Spirit_small_keys5],
             location: Locations.Spirit
         },
         "Spirit Temple MQ GS Nine Thrones Room North": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Ranged_Retrieval, Requirements.Spirit_small_keys5],
             location: Locations.Spirit
         },
         "Spirit Temple MQ GS Sun Block Room": {
-            requirements: [Requirements.Ranged_Retrieval],
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_SunBlock_Chest, Requirements.Ranged_Retrieval],
             location: Locations.Spirit
         },
         "Twinrova": 
