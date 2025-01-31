@@ -259,7 +259,7 @@
       Light_Or_Mirror: {explanation: "Has the ability to trigger Sun Switches", unlocked_if: ["Light_Arrow", "Mirror_Shield"]},
       FaroresWind: {explanation: "Has the ability to use Farore's Wind", related: ["items"], items_all: ["Farore's Wind", "Progressive Magic Meter"]},
       NayrusLove: {explanation: "Has the ability to use Nayru's Love", related: ["items"], items_all: ["Nayru's Love", "Progressive Magic Meter"]},
-      Spelldive: {explanation: "Has the ability to go very deep underwater using", related: ["items"], unlocked_if: ["FaroresWind", "NayrusLove", "Dins"]},
+      Spelldive: {explanation: "Has the ability to go very deep underwater", unlocked_if: ["FaroresWind", "NayrusLove", "Dins"]},
       OneWayOwl: {explanation: "placeholder to prevent access in a one way", related: ["items"], items: ["-NO-ACCESS-"]},
       Silver_Boulder: {explanation: "Has the ability to bypass a Silver Boulder for a grotto", unlocked_if_all: ["Strength2", "Weirdslide"]},
       Weirdslide: {explanation: "Has the ability to perform a weirdslide", unlocked_if_all: ["FP_Item", "Explosive", "Adult_Shield"]},
@@ -6310,7 +6310,7 @@
             location: Locations.Spirit
         },
         "Spirit Temple MQ Silver Block Hallway Chest": {
-            requirements: [Requirements.Child_Access, Requirements.Spirit_small_keys2, Requirements.Requirements.Dins, Requirements.Projectile, Requirements.Explosive],
+            requirements: [Requirements.Child_Access, Requirements.Spirit_small_keys2, Requirements.Dins, Requirements.Projectile, Requirements.Explosive],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Sun Block Room Chest": {
@@ -7712,6 +7712,7 @@
                         inventory.Child_start = randomizedEntrances[key].replace("from" , '->');
                         inventory.accessible_child.push(inventory.Child_start);
                         inventory.entered_child.push(entrancesMap[inventory.Child_start].location.name);
+                        unlockEntrance(inventory.Child_start, 0);
                         //delete entrancesMap[inventory.Child_start];
                         inventory.Adult_start = randomizedEntrances["Adult Spawn -> Temple of Time"].replace("from" , '->');
                         //delete randomizedEntrances["Adult Spawn -> Temple of Time"];
@@ -7720,6 +7721,7 @@
                         inventory.Adult_start = randomizedEntrances[key].replace("from" , '->');
                         inventory.accessible_adult.push(inventory.Adult_start);
                         inventory.entered_adult.push(entrancesMap[inventory.Adult_start].location.name);
+                        unlockEntrance(inventory.Adult_start, 1);
                         //delete entrancesMap[inventory.Adult_start];
                         inventory.Adult_start = randomizedEntrances["Child Spawn -> KF Link's House"].replace("from" , '->');
                         //delete randomizedEntrances["Child Spawn -> KF Link's House"];
@@ -8873,6 +8875,8 @@
                                                 // })
                                           }
                                           if (entrance.linkedLocation) {
+                                                consle.log("linked location");
+                                                console.log(entrance.linkedLocation[0].name);
                                                 if (!enteredList[index].includes(Locations[entrance.linkedLocation[0].name])) {
                                                       enteredList[index].push(Locations[entrance.linkedLocation[0].name]);
                                                 }
