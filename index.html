@@ -1524,6 +1524,8 @@
             "DMC Central Local -> Bolero of Fire Warp": {
                   requirements: "",
                   location: Locations.DMC,
+                  conditional: [new Conditional(locations = [  "DMC Central Local -> Bolero of Fire Warp", 
+                  "DMC Central Local -> Fire Temple Entryway"]),],
                   default: "Bolero of Fire Warp -> DMC Central Local"
             },
             "Lake Hylia -> Serenade of Water Warp": {
@@ -7716,6 +7718,11 @@
                         //delete entrancesMap[inventory.Child_start];
                         inventory.Adult_start = randomizedEntrances["Adult Spawn -> Temple of Time"].replace("from" , '->');
                         //delete randomizedEntrances["Adult Spawn -> Temple of Time"];
+                        if (  entrancesMap[inventory.Child_start].location.linkedLocation == "LH" || 
+                              entrancesMap[inventory.Child_start].location.linkedLocation == "Market" || 
+                              entrancesMap[inventory.Child_start].location.linkedLocation == "Alleyway") {
+                                    inventory.entered_child.push(Locations[linkedLocation].name); 
+                              }
                   }
                   else {
                         inventory.Adult_start = randomizedEntrances[key].replace("from" , '->');
@@ -7723,8 +7730,12 @@
                         inventory.entered_adult.push(entrancesMap[inventory.Adult_start].location.name);
                         unlockEntrance(inventory.Adult_start, 1);
                         //delete entrancesMap[inventory.Adult_start];
-                        inventory.Adult_start = randomizedEntrances["Child Spawn -> KF Link's House"].replace("from" , '->');
+                        inventory.Child_start = randomizedEntrances["Child Spawn -> KF Link's House"].replace("from" , '->');
                         //delete randomizedEntrances["Child Spawn -> KF Link's House"];
+                        if (  entrancesMap[inventory.Adult_start].location.linkedLocation == "LH" || 
+                              entrancesMap[inventory.Adult_start].location.linkedLocation == "Market") {
+                                    inventory.entered_adult.push(Locations[linkedLocation].name); 
+                              }
                         
                   }
                   //delete randomizedEntrances[key];
@@ -8875,7 +8886,7 @@
                                                 // })
                                           }
                                           if (entrance.linkedLocation) {
-                                                consle.log("linked location");
+                                                console.log("linked location");
                                                 console.log(entrance.linkedLocation[0].name);
                                                 if (!enteredList[index].includes(Locations[entrance.linkedLocation[0].name])) {
                                                       enteredList[index].push(Locations[entrance.linkedLocation[0].name]);
