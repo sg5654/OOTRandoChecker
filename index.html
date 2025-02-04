@@ -1285,6 +1285,23 @@
                                           [Requirements.Bomb_Hovering_Adult, Requirements.Forest_small_keys2],
                                           [Requirements.Bomb_Hovering_Child, Requirements.Forest_small_keys2]
 
+      ],
+      MQ_BOTW_Entry: [  [Requirements.Child_Access],
+                        [Requirements.Longshot, Requirements.Adult_Shield, Requirements.Bombs]
+      ],
+      MQ_BOTW_Center: [ [Requirements.Explosive_Or_Hammer],
+                        [Requirements.Zeldas_Lullaby, Requirements.Instrument]
+
+      ],
+      Shadow_Temple_Entrance: [     [Requirements.Hookshot, Requirements.Adult_Access],
+                                    [Requirements.Hover_boots, Requirements.Adult_Access]
+                                    [Requirements.Explosive, Requirements.Adult_Shield],
+                                    [Requirements.Explosive, Requirements.Child_Shield]
+
+      ],
+      Shadow_Temple_Front_Gate: [   [Requirements.Hover_boots, Requirements.Adult_Access],
+                                    [Requirements.Explosive, Requirements.Adult_Shield],
+                                    [Requirements.Explosive, Requirements.Child_Shield]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -1536,6 +1553,7 @@
             "Graveyard Warp Pad Region -> Nocturne of Shadow Warp": {
                   requirements: "",
                   location: Locations.GY,
+                  conditional: [new Conditional(locations = ["Graveyard Warp Pad Region -> Shadow Temple Entryway", "Graveyard Warp Pad Region -> Nocturne of Shadow Warp"])],
                   default: "Nocturne of Shadow Warp -> Graveyard Warp Pad Region"
             },
             "Desert Colossus -> Requiem of Spirit Warp": {
@@ -2870,7 +2888,7 @@
                   requirements :    [MultiplePossibleRequirements.Shadow_Entry],
                   location : Locations.GY,
                   default: "Shadow Temple Entryway -> Graveyard Warp Pad Region",
-                  conditional: ""
+                  conditional: [new Conditional(locations = ["Graveyard Warp Pad Region -> Shadow Temple Entryway", "Graveyard Warp Pad Region -> Nocturne of Shadow Warp"])]
             },
             "Fire Temple Entryway -> DMC Central Local":
             {  requirements  : "",
@@ -4423,185 +4441,185 @@
               location      : Locations.BOTW
         },
         "Bottom of the Well Back Left Bombable Chest": 
-        {  requirements  : [ Requirements.Explosive],
+        {  requirements  : [ Requirements.Explosive, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Lens of Truth Chest": 
-          {  requirements  : [ MultiplePossibleRequirements.BOTW_Reach_DeadHand],
+          {  requirements  : [ MultiplePossibleRequirements.BOTW_Reach_DeadHand, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Invisible Chest": 
-        {  requirements  : [ MultiplePossibleRequirements.BOTW_Reach_DeadHand],
+        {  requirements  : [ MultiplePossibleRequirements.BOTW_Reach_DeadHand, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Underwater Front Chest": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby],
+        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Underwater Left Chest": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby],
+        {  requirements  : [ Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Map Chest": 
-          {  requirements  : [ Requirements.Explosive_Or_Hammer, Requirements.Melee],
+          {  requirements  : [ Requirements.Explosive_Or_Hammer, Requirements.Melee, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Fire Keese Chest": 
-        {  requirements  : [ Requirements.BOTW_small_keys1],
+        {  requirements  : [ Requirements.BOTW_small_keys1, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Like Like Chest": 
-        {  requirements  : [ Requirements.BOTW_small_keys1],
+        {  requirements  : [ Requirements.BOTW_small_keys1, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well Freestanding Key": 
-        {  requirements  : [ Requirements.Burnable],
+        {  requirements  : [ Requirements.Burnable, Requirements.Child_Access],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         // TODO: Implement cage skip
         "Bottom of the Well GS Like Like Cage": 
-        {  requirements  : [ Requirements.BOTW_small_keys1],
+        {  requirements  : [ Requirements.BOTW_small_keys1, Requirements.Child_Access, Requirements.Ranged_Retrieval],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well GS East Inner Room": 
-        {  requirements  : [ Requirements.BOTW_small_keys1],
+        {  requirements  : [ Requirements.BOTW_small_keys1, Requirements.Child_Access, Requirements.Ranged_Retrieval],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         "Bottom of the Well GS West Inner Room": 
-        {  requirements  : [ Requirements.BOTW_small_keys1],
+        {  requirements  : [ Requirements.BOTW_small_keys1, Requirements.Child_Access, Requirements.Ranged_Retrieval],
               location      : Locations.BOTW,
               age           : Ages.Child
         },
         // TODO: Implement longshot weirdshot behaviour
         "Bottom of the Well MQ Map Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ Lens of Truth Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.MQ_BOTW_Center, Requirements.Ranged_Weapon],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ Compass Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, Requirements.Ranged_Weapon, Requirements.Child_Melee],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ Dead Hand Freestanding Key": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, Requirements.Ranged_Weapon, Requirements.Child_Melee],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ East Inner Room Freestanding Key": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.MQ_BOTW_Center],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ GS Basement": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, Requirements.Weapon],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ GS Coffin Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, Requirements.BOTW_small_keys1],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ GS West Inner Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.MQ_BOTW_Center, Requirements.Weapon],
             location: Locations.BOTW
         },
         "Shadow Temple Map Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, Requirements.Melee_Either],
             location: Locations.Shadow
         },
         "Shadow Temple Hover Boots Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, Requirements.Melee_Either],
             location: Locations.Shadow
         },
         "Shadow Temple Compass Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Early Silver Rupee Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Visible Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Invisible Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Lower Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Upper Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Switch Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Spikes Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Wind Hint Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple After Wind Enemy Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple After Wind Hidden Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Spike Walls Left Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Floormaster Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Freestanding Key": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple GS Single Giant Pot": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple GS Falling Spikes Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple GS Triple Giant Pot": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple GS Like Like Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple GS Near Ship": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
             location: Locations.Shadow
         },
         "Shadow Temple Bongo Bongo Heart Container": {
