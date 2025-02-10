@@ -255,6 +255,7 @@
             "Spirit Temple Boss Entryway -> Spirit Temple Boss Room": "Dodongos Cavern Boss Room from Dodongos Cavern Boss Entryway"
     }
     var Requirements = {
+      SOT_Or_Boomerang: {explanation: "Has the ability to get skulltulas inside of SOT blocks", unlocked_if: ["Boomerang", "Song_Of_Time"]},
       Ranged_Fire: {explanation: "Has the ability to trigger torches with Dins or Fire Arrows", unlocked_if: ["Fire_Arrow", "Dins"]},
       Light_Or_Mirror: {explanation: "Has the ability to trigger Sun Switches", unlocked_if: ["Light_Arrow", "Mirror_Shield"]},
       FaroresWind: {explanation: "Has the ability to use Farore's Wind", related: ["items"], items_all: ["Farore's Wind", "Progressive Magic Meter"]},
@@ -876,7 +877,7 @@
 
       ],
       Jabu_Bossroom: [  [ Requirements.Explosive, Requirements.Shield],
-                        [ Requirements.Hover_boots],
+                        [ Requirements.Hover_boots, Requirements.Adult_Access],
                         [ Requirements.Boomerang, Requirements.Melee]
 
       ],
@@ -1085,13 +1086,65 @@
       GTG_Toilet: [                 [Requirements.GTG_small_keys2, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.IronBoots],
                                     [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.IronBoots],
                                     [Requirements.GTG_small_keys2, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive],
-                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive],
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive]
       ],
-      GTG_Hammer_clear: [           [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements],
+      GTG_Hammer_clear: [           [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Weapon],
                                     [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hover_boots],
                                     [Requirements.Explosive, Requirements.Child_Access],
-                                    [Requirements.Hookshot]
+                                    [Requirements.Hookshot, Requirements.Weapon]
 
+      ],
+      GTG_Eye_Statue: [      [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Bow],
+                                    [Requirements.Explosive, Requirements.Child_Access],
+                                    [Requirements.Hookshot, Requirements.Bow]
+
+      ],
+      GTG_Eye_Statue_Clear: [
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Weapon],
+                                    [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hover_boots],
+                                    [Requirements.Hookshot, Requirements.Weapon]
+      ],
+      GTG_Freestanding_Key: [
+            [Requirements.Child_Access, Requirements.Explosive],
+            [Requirements.Adult_Access, Requirements.Bombs],
+            [Requirements.GTG_small_keys2]
+      ],
+      Water_Ruto_hallway: [
+            [Requirements.Adult_Access],
+            [Requirements.Child_Access, Requirements.Spelldive]
+      ],
+      Water_Bow_Target_Chest: [
+            [Requirements.Adult_Access, Requirements.Bow, Requirements.Hover_boots, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Strength1],
+            [Requirements.Adult_Access, Requirements.Hookshot, Requirements.IronBoots],
+            [Requirements.Adult_Access, Requirements.Bow, Requirements.Adult_Shield, Requirements.Explosive, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Strength1],
+            [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Bow, Requirements.Strength1],
+            [Requirements.Child_Access, Requirements.Slingshot, Requirements.Spelldive, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Strength1, Requirements.Child_Shield, Requirements.Explosive]
+      ],
+      Water_Central_Pillar_Chest: [
+            [Requirements.Adult_Access, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Adult_Shield, Requirements.Bombs, Requirements.Scale],
+            [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Hookshot, Requirements.Instrument, Requirements.Zeldas_Lullaby]
+      ],
+      Water_Cracked_Wall: [
+            [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Hookshot, Requirements.IronBoots],
+            [Requirements.Adult_Access, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive],
+            [Requirements.Child_Access, Requirements.Spelldive, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive]
+      ],
+      Water_BK_Chest: [
+            [Requirements.Adult_Access, Requirements.Hover_boots, Requirements.Adult_Melee],
+            [Requirements.Adult_Access, Requirements.Hover_boots, Requirements.IronBoots],
+            [Requirements.Adult_Access, Requirements.Longshot, Requirements.Adult_Melee],
+            [Requirements.Adult_Access, Requirements.Longshot, Requirements.IronBoots],
+            [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult]
+      ],
+      Water_River: [
+            [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult],
+            [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Adult_Melee, Requirements.Water_small_keys2, Requirements.Song_Of_Time, Requirements.Instrument, Requirements.Bow]
+      ],
+      Water_GS_Behind_Gate: [
+            [Requirements.Adult_Access, Requirements.Hookshot],
+            [Requirements.Adult_Access, Requirements.Hover_boots],
+            [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult],
+            [Requirements.Child_Access, Requirements.Spelldive, Requirements.Explosive, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.GoldScale, Requirements.Bomb_Hovering_Child]
       ],
       Eye_Behind_Rock: [      [Requirements.QPA],
                               [Requirements.Explosive_Or_Hammer, Requirements.Bow, Requirements.Adult_Access],
@@ -1294,7 +1347,7 @@
 
       ],
       Shadow_Temple_Entrance: [     [Requirements.Hookshot, Requirements.Adult_Access],
-                                    [Requirements.Hover_boots, Requirements.Adult_Access]
+                                    [Requirements.Hover_boots, Requirements.Adult_Access],
                                     [Requirements.Explosive, Requirements.Adult_Shield],
                                     [Requirements.Explosive, Requirements.Child_Shield]
 
@@ -1302,6 +1355,10 @@
       Shadow_Temple_Front_Gate: [   [Requirements.Hover_boots, Requirements.Adult_Access],
                                     [Requirements.Explosive, Requirements.Adult_Shield],
                                     [Requirements.Explosive, Requirements.Child_Shield]
+      ],
+      Fire_Temple_Upper_Maze: [     [Requirements.Fire_small_keys5, Requirements.Adult_Access],
+                                    [Requirements.Fire_small_keys3, Requirements.Adult_Access, Requirements.Bombs],
+                                    [Requirements.Fire_small_keys3, Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Melee]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -4551,27 +4608,27 @@
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Visible Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Invisible Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Lower Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Upper Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Switch Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Spikes Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys2, Requirements.Melee],
             location: Locations.Shadow
         },
         "Shadow Temple Wind Hint Chest": {
@@ -5083,6 +5140,7 @@
             requirements: "",
             location: Locations.Dodongos_Cavern
         },
+        // free
         "Fire Temple Near Boss Chest": {
             requirements: "",
             location: Locations.Fire
@@ -5104,19 +5162,19 @@
             location: Locations.Fire
         },
         "Fire Temple Boulder Maze Lower Chest": {
-            requirements: "",
+            requirements: [Requirements.Fire_small_keys3],
             location: Locations.Fire
         },
         "Fire Temple Boulder Maze Upper Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze],
             location: Locations.Fire
         },
         "Fire Temple Boulder Maze Side Room Chest": {
-            requirements: "",
+            requirements: [Requirements.Fire_small_keys3],
             location: Locations.Fire
         },
         "Fire Temple Boulder Maze Shortcut Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze],
             location: Locations.Fire
         },
         "Fire Temple Scarecrow Chest": {
@@ -5445,68 +5503,69 @@
         {  requirements  : [ Requirements.Boomerang],
               location      : Locations.Barinade
         },
+        // TODO: Implement QPA Hovering
         "Jabu Jabus Belly MQ First Room Side Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Map Chest": {
-            requirements: "",
+            requirements: [Requirements.Explosive_Or_Hammer],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Second Room Lower Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Compass Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Second Room Upper Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Jabu_Bossroom, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Basement Near Switches Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Basement Near Vines Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Near Boss Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Jabu_Bossroom, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Falling Like Like Room Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access, Requirements.Explosive, Requirements.Boomerang],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Boomerang Room Small Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Boomerang Chest": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ Cow": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access, Requirements.Explosive, Requirements.Boomerang, Requirements.Stick],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ GS Tail Parasan Room": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access, Requirements.Explosive, Requirements.Boomerang, Requirements.Stick],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ GS Invisible Enemies Room": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access, Requirements.Explosive, Requirements.Boomerang],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ GS Boomerang Chest Room": {
-            requirements: "",
+            requirements: [Requirements.Slingshot, Requirements.Child_Access, Requirements.SOT_Or_Boomerang],
             location: Locations.Jabu
         },
         "Jabu Jabus Belly MQ GS Near Boss": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Jabu_Bossroom, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
         "Ice Cavern Map Chest": {
@@ -5748,63 +5807,64 @@
               age           : Ages.Adult
         },
         "Water Temple Map Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_Ruto_hallway, Requirements.Melee_Either],
             location: Locations.Water
         },
         "Water Temple Compass Chest": {
-            requirements: "",
+            requirements: [Requirements.Adult_Access],
             location: Locations.Water
         },
         "Water Temple Torches Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_Ruto_hallway, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Burnable],
             location: Locations.Water
         },
+        // Improve this logic
         "Water Temple Dragon Chest": {
-            requirements: "",
+            requirements: [Requirements.Adult_Access, Requirements.Ranged_Weapon],
             location: Locations.Water
         },
         "Water Temple Central Bow Target Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_Bow_Target_Chest],
             location: Locations.Water
         },
         "Water Temple Central Pillar Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_Central_Pillar_Chest],
             location: Locations.Water
         },
         "Water Temple Cracked Wall Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_Cracked_Wall],
             location: Locations.Water
         },
         "Water Temple Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_BK_Chest, Requirements.Water_small_keys2],
             location: Locations.Water
         },
         "Water Temple Longshot Chest": {
-            requirements: "",
+            requirements: [Requirements.Hookshot, Requirements.Water_small_keys2, Requirements.Adult_Access, Requirements.Adult_Melee],
             location: Locations.Water
         },
         "Water Temple River Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_River],
             location: Locations.Water
         },
         "Water Temple GS Behind Gate": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_GS_Behind_Gate],
             location: Locations.Water
         },
         "Water Temple GS Falling Platform Room": {
-            requirements: "",
+            requirements: [Requirements.Water_small_keys1, Requirements.Hookshot, Requirements.Adult_Access],
             location: Locations.Water
         },
         "Water Temple GS Central Pillar": {
-            requirements: "",
+            requirements: [Requirements.Hookshot, Requirements.Adult_Access, Requirements.Zeldas_Lullaby, Requirements.Instrument],
             location: Locations.Water
         },
         "Water Temple GS Near Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Water_BK_Chest, Requirements.Water_small_keys1, Requirements.Ranged_Retrieval],
             location: Locations.Water
         },
         "Water Temple GS River": {
-            requirements: "",
+            requirements: [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Adult_Melee, Requirements.Water_small_keys2, Requirements.Song_Of_Time, Requirements.Instrument],
             location: Locations.Water
         },
         "Water Temple Morpha Heart Container": {
@@ -6030,7 +6090,7 @@
             location: Locations.GTG
         },
         "Gerudo Training Grounds Beamos Chest": {
-            requirements: [Requirements.Weapon],
+            requirements: [Requirements.Explosive],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Hidden Ceiling Chest": {
@@ -6074,36 +6134,36 @@
             location: Locations.GTG
         },
         "Gerudo Training Grounds Eye Statue Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Eye_Statue_Clear, Requirements.Bow],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Near Scarecrow Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Eye_Statue],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Before Heavy Block Chest": {
-            requirements: "",
+            requirements: [Requirements.Weapon],
             location: Locations.GTG
         },
         // TODO: Implement heavy block skip and superslide past fire wall
         "Gerudo Training Grounds Heavy Block First Chest": {
-            requirements: [Requirements.Strength2, Requirements.Hookshot],
+            requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Heavy Block Second Chest": {
-            requirements: [Requirements.Strength2, Requirements.Hookshot],
+            requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Heavy Block Third Chest": {
-            requirements: [Requirements.Strength2, Requirements.Hookshot],
+            requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Heavy Block Fourth Chest": {
-            requirements: [Requirements.Strength2, Requirements.Hookshot],
+            requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
         "Gerudo Training Grounds Freestanding Key": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.GTG_Freestanding_Key],
             location: Locations.GTG
         },
         // free
@@ -7736,10 +7796,10 @@
                         //delete entrancesMap[inventory.Child_start];
                         inventory.Adult_start = randomizedEntrances["Adult Spawn -> Temple of Time"].replace("from" , '->');
                         //delete randomizedEntrances["Adult Spawn -> Temple of Time"];
-                        if (  entrancesMap[inventory.Child_start].location.linkedLocation == "LH" || 
-                              entrancesMap[inventory.Child_start].location.linkedLocation == "Market" || 
-                              entrancesMap[inventory.Child_start].location.linkedLocation == "Alleyway") {
-                                    inventory.entered_child.push(Locations[linkedLocation].name); 
+                        if (  entrancesMap[inventory.Child_start].location.linkedLocation && entrancesMap[inventory.Child_start].location.linkedLocation == "LH" || 
+                              entrancesMap[inventory.Child_start].location.linkedLocation && entrancesMap[inventory.Child_start].location.linkedLocation == "Market" || 
+                              entrancesMap[inventory.Child_start].location.linkedLocation && entrancesMap[inventory.Child_start].location.linkedLocation == "Alleyway") {
+                                    inventory.entered_child.push(Locations[entrancesMap[inventory.Child_start].location.linkedLocation].name); 
                               }
                   }
                   else {
@@ -7750,9 +7810,9 @@
                         //delete entrancesMap[inventory.Adult_start];
                         inventory.Child_start = randomizedEntrances["Child Spawn -> KF Link's House"].replace("from" , '->');
                         //delete randomizedEntrances["Child Spawn -> KF Link's House"];
-                        if (  entrancesMap[inventory.Adult_start].location.linkedLocation == "LH" || 
-                              entrancesMap[inventory.Adult_start].location.linkedLocation == "Market") {
-                                    inventory.entered_adult.push(Locations[linkedLocation].name); 
+                        if (  entrancesMap[inventory.Adult_start].location.linkedLocation && entrancesMap[inventory.Adult_start].location.linkedLocation == "LH" || 
+                        entrancesMap[inventory.Adult_start].location.linkedLocation && entrancesMap[inventory.Adult_start].location.linkedLocation == "Market") {
+                                    inventory.entered_adult.push(Locations[entrancesMap[inventory.Adult_start].location.linkedLocation].name); 
                               }
                         
                   }
