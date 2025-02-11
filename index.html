@@ -267,22 +267,22 @@
       Child_Access: {explanation: "Has access to child", related: ["ages"], ages: ["Child"]},
       Adult_Access: {explanation: "Has access to adult", related: ["ages"], ages: ["Adult"]},
       Horse_Race: {explanation: "Requires having beaten Malon's Obstacle course using Epona", related: ["items", "ages", "entered"], items: ["Epona's Song"], ages: ["Adult"], stages: ["Lon Lon Ranch"] },
-      Zeldas_Lullaby: {explanation: "Requires having Zelda's Lullaby", related: ["items"], items: ["Zelda's Lullaby"]},
-      Eponas_Song: {explanation: "Requires having Epona's Song", related: ["items"], items: ["Epona's Song"]},
-      Sarias_Song: {explanation: "Requires having Saria's Song", related: ["items"], items: ["Saria's Song"]},
-      Song_Of_Time: {explanation: "Requires having Song of Time", related: ["items"], items: ["Song of Time"]},
-      Suns_Song: {explanation: "Requires having Sun's Song", related: ["items"], items: ["Sun's Song"]},
-      Song_Of_Storms: {explanation: "Requires having Song of Storms", related: ["items"], items: ["Song of Storms"]},
-      Minuet: {explanation: "Requires having Minuet of Forest", related: ["items"], items: ["Minuet of Forest"]},
-      Bolero: {explanation: "Requires having Bolero of Fire", related: ["items"], items: ["Bolero of Fire"]},
-      Serenade: {explanation: "Requires having Serenade of Water", related: ["items"], items: ["Serenade of Water"]},
-      Nocturne: {explanation: "Requires having Nocturne of Shadow", related: ["items"], items: ["Nocturne of Shadow"]},
-      Requiem: {explanation: "Requires having Requiem of Spirit", related: ["items"], items: ["Requiem of Spirit"]},
-      Prelude: {explanation: "Requires having Prelude of Light", related: ["items"], items: ["Prelude of Light"]},
+      Zeldas_Lullaby: {explanation: "Requires having Zelda's Lullaby", related: ["items"], items_all: ["Zelda's Lullaby", "Ocarina C Left Button", "Ocarina C Up Button", "Ocarina C Right Button"]},
+      Eponas_Song: {explanation: "Requires having Epona's Song", related: ["items"], items_all: ["Epona's Song", "Ocarina C Up Button", "Ocarina C Left Button", "Ocarina C Right Button"]},
+      Sarias_Song: {explanation: "Requires having Saria's Song", related: ["items"], items_all: ["Saria's Song", "Ocarina C Down Button", "Ocarina C Right Button", "Ocarina C Left Button"]},
+      Song_Of_Time: {explanation: "Requires having Song of Time", related: ["items"], items_all: ["Song of Time", "Ocarina C Right Button", "Ocarina A Button", "Ocarina C Down Button"]},
+      Suns_Song: {explanation: "Requires having Sun's Song", related: ["items"], items_all: ["Sun's Song", "Ocarina C Right Button", "Ocarina C Down Button", "Ocarina C Up Button"]},
+      Song_Of_Storms: {explanation: "Requires having Song of Storms", related: ["items"], items_all: ["Song of Storms", "Ocarina A Button", "Ocarina C Down Button", "Ocarina C Up Button"]},
+      Minuet: {explanation: "Requires having Minuet of Forest", related: ["items"], items_all: ["Minuet of Forest", "Ocarina A Button", "Ocarina C Up Button", "Ocarina C Left Button", "Ocarina C Right Button"]},
+      Bolero: {explanation: "Requires having Bolero of Fire", related: ["items"], items_all: ["Bolero of Fire", "Ocarina C Right Button", "Ocarina C Down Button", "Ocarina A Button"]},
+      Serenade: {explanation: "Requires having Serenade of Water", related: ["items"], items_all: ["Serenade of Water", "Ocarina A Button", "Ocarina C Down Button", "Ocarina C Right Button", "Ocarina C Left Button"]},
+      Nocturne: {explanation: "Requires having Nocturne of Shadow", related: ["items"], items_all: ["Nocturne of Shadow", "Ocarina C Left Button", "Ocarina C Right Button", "Ocarina A Button", "Ocarina C Down Button"]},
+      Requiem: {explanation: "Requires having Requiem of Spirit", related: ["items"], items_all: ["Requiem of Spirit", "Ocarina A Button", "Ocarina C Right Button", "Ocarina C Down Button"]},
+      Prelude: {explanation: "Requires having Prelude of Light", related: ["items"], items_all: ["Prelude of Light", "Ocarina C Left Button", "Ocarina C Up Button", "Ocarina C Right Button"]},
       Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina"]},
       Weapon: {   explanation: "Requires having any form of weapon to induce damage",  
                   related: ["ages", "items"], 
-                  items: [    "Kokiri Sword", "Master Sword", "Giant's Knife", "Buy Deku Stick (1)", "Biggoron's Sword", "Progressive Bow", 
+                  items: [    "Kokiri Sword", "Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", 
                               "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"],
                   ages: ["Child", "Adult"]},
       Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
@@ -300,10 +300,10 @@
       Child_Shield: {explanation: "Requires having a shield as child", related: ["items", "ages"], items: ["Deku Shield", "Buy Deku Shield"], ages: ["Child"]},
       Adult_Shield: {   explanation: "Requires having a shield as adult", related: ["items", "ages"], items: ["Buy Hylian Shield", "Hylian Shield", "Mirror Shield"], ages: ["Adult"]},
       Child_Melee: {    explanation: "Requires having a melee weapon as child", related: ["items", "ages"], 
-                        items: ["Kokiri Sword", "Buy Deku Stick (1)", "Megaton Hammer"],
+                        items: ["Kokiri Sword", "Progressive Stick Capacity", "Megaton Hammer"],
                         ages: ["Child"]},
       Adult_Melee: {    explanation: "Requires having a melee weapon as adult", related: ["items", "ages"], 
-                        items: ["Master Sword", "Giant's Knife", "Buy Deku Stick (1)", "Biggoron's Sword", "Megaton Hammer"],
+                        items: ["Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Megaton Hammer"],
                         ages: ["Adult"]},
       Melee_Either: {explanation: "Requires having access to a melee weapon as either age", unlocked_if: ["Child_Melee", "Adult_Melee"]},
       Melee: {explanation: "Requires having a weapon Link can pull out and swing", unlocked_if_all: ["Child_Melee", "Adult_Melee"]},
@@ -336,11 +336,11 @@
       },
       Blue_Fire: {explanation: "Requires having access to blue fire", related: ["items"], items: ["Buy Blue Fire"]},
       // TODO: Expand this for putaway and damage QPA
-      QPA: {explanation: "Requires having access to a means of triggering QPA", related: ["items"], items_all: ["Buy Deku Stick (1)", "Buy Deku Nut (5)"]},
+      QPA: {explanation: "Requires having access to a means of triggering QPA", related: ["items"], items_all: ["Progressive Stick Capacity", "Buy Deku Stick (1)", "Progressive Nut Capacity", "Buy Deku Nut (5)"]},
       // TODO: Expand this for any scenario that can give sticks
-      Stick: {explanation: "Requires having access to deku sticks", related: ["items"], items: ["Buy Deku Stick (1)"]},
+      Stick: {explanation: "Requires having access to deku sticks", related: ["items"], items_all: ["Progressive Stick Capacity", "Buy Deku Stick (1)"]},
       // TODO: expand this behaviour to trigger in any situation that can give nuts
-      Nuts: {explanation: 'Requires the use of a deku nut', related: ["items"], items: ["Buy Deku Nut (5)", "Buy Deku Nut (10)"]},
+      Nuts: {explanation: 'Requires the use of a deku nut', related: ["items"], items: ["Progressive Nut Capacity"]},
       Burnable: {explanation: "Requires the use of any form of fire starting or moving", unlocked_if: ["Bow", "Stick", "QPA", "Fire"]},
       Iron_Boots: {explanation: "Requires the use of the Iron Boots", related: ["items", "ages"], items: ["Iron Boots"], ages: ["Adult"]},
       Hover_boots: {explanation: "Requires the use of the Hover Boots", related: ["items", "ages"], items: ["Hover Boots"], ages: ["Adult"]},
@@ -359,9 +359,10 @@
       // TODO: Fix this shit
       //GS_Tokens: {explanation: "Requires hitting a specific GS token threshold", values: [10,20,30,40,50,100], items: ["Gold Skulltula Token"]},
       // TODO: expand this shit
-      Wallet1: {explanation: "Requires having the first wallet upgrade", related: ["items"], items: ["Progressive Wallet"]},
-      Wallet2: {explanation: "Requires having the second wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 2},
-      Wallet3: {explanation: "Requires having the Tycoon wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 3},
+      Wallet0: {explanation: "Requires having Child Wallet", related: ["items"], items: ["Progressive Wallet"]},
+      Wallet1: {explanation: "Requires having the first wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 2},
+      Wallet2: {explanation: "Requires having the second wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 3},
+      Wallet3: {explanation: "Requires having the Tycoon wallet upgrade", related: ["items"], items: ["Progressive Wallet"], count: 4},
       // TODO: Fix this shit
       PriceCheck: {explanation: "Requires the logic to compare the price to the current wallet"},
       Dins: {explanation: "Requires having access to Din's Fire", related: ["items"], items_all: ["Din's Fire", "Progressive Magic Meter"]},
@@ -375,9 +376,10 @@
       // TODO: Fix this shit
       Spiritual_Stones: {explanation: "Requires having a specific amount of Spiritual Stones", related: ["items"], items_all: ["Goron's Ruby", "Zora's Sapphire", "Kokiri's Emerald"]},
       Gold_Scale_Or_Iron: {explanation: "Requires having an ability to dive deep", unlocked_if: ["GoldScale", "IronBoots"]},
-      GoldScale: {explanation: "Requires having the ability to dive deep", related: ["items"], items: ["Progressive Scale"], count: 2},
+      BronzeScale: {explanation: "Requires having the ability to swim", related: ["items"], items: ["Progressive Scale"]},
+      GoldScale: {explanation: "Requires having the ability to dive deep", related: ["items"], items: ["Progressive Scale"], count: 3},
       IronBoots: {explanation: "Requires having iron boots", related: ["items"], items: ["Iron boots"]},
-      Scale: {explanation: "Requires having a specific scale upgrade", related: ["items"], items: ["Progressive Scale"]},
+      Scale: {explanation: "Requires having a specific scale upgrade", related: ["items"], items: ["Progressive Scale"], count: 2},
       Hook_Or_Hover: {explanation: "Requires you to either pull yourself with hookshot or hover", unlocked_if: ["Hookshot", "Bomb_Hovering"]},
       Weird_Egg: {explanation: 'Requires you to have weird egg', related: ["items"], items: ["Weird Egg"]},
       Bottle: {explanation: "Requires you to have a bottle", related: ["items"], items: ["Bottle with Blue Fire", "Bottle with Blue Potion"]},
@@ -390,7 +392,7 @@
                   // Doing a shitty temp fix just to get stuff working again, I hate myself for doing this. I'll probably replace this with a class at some point since I should've just started with that
                   Forest_keyring: {   explanation: "Requires having a key ring for Forest Temple", 
                               related: ["items"],
-                              items: ["Forest Temple Key Ring"]}, 
+                              items: ["Forest Temple Key Ring", "Skeleton Key"]}, 
       Forest_small_keys1: {   explanation: "Requires having a specific amount of small keys for Forest Temple", 
                               related: ["items"],
                               items: ["Forest Temple Small Key"],
@@ -423,7 +425,7 @@
                               unlocked_if: ["Forest_keyring"]},       
       Fire_keyring: {   explanation: "Requires having a key ring for Fire Temple", 
                               related: ["items"],
-                              items: ["Fire Temple Key Ring"]},     
+                              items: ["Fire Temple Key Ring", "Skeleton Key"]},     
       Fire_small_keys1: {   explanation: "Requires having a specific amount of small keys for Fire Temple", 
                               related: ["items"],
                               items: ["Fire Temple Small Key"],
@@ -471,7 +473,7 @@
                               unlocked_if: ["Fire_keyring"]},   
       Water_keyring: {   explanation: "Requires having a key ring for Water Temple", 
                               related: ["items"],
-                              items: ["Water Temple Key Ring"]},  
+                              items: ["Water Temple Key Ring", "Skeleton Key"]},  
       Water_small_keys1: {   explanation: "Requires having a specific amount of small keys for Water Temple", 
                               related: ["items"],
                               items: ["Water Temple Small Key"],
@@ -504,7 +506,7 @@
                               unlocked_if: ["Water_keyring"]},  
       Shadow_keyring: {   explanation: "Requires having a key ring for Shadow Temple", 
                               related: ["items"],
-                              items: ["Shadow Temple Key Ring"]},  
+                              items: ["Shadow Temple Key Ring", "Skeleton Key"]},  
       Shadow_small_keys1: {   explanation: "Requires having a specific amount of small keys for Shadow Temple", 
                               related: ["items"],
                               items: ["Shadow Temple Small Key"],
@@ -537,7 +539,7 @@
                               unlocked_if: ["Shadow_keyring"]},  
       Spirit_keyring: {   explanation: "Requires having a key ring for Spirit Temple", 
                               related: ["items"],
-                              items: ["Spirit Temple Key Ring"]},  
+                              items: ["Spirit Temple Key Ring", "Skeleton Key"]},  
       Spirit_small_keys1: {   explanation: "Requires having a specific amount of small keys for Spirit Temple", 
                               related: ["items"],
                               items: ["Spirit Temple Small Key"],
@@ -570,7 +572,7 @@
                               unlocked_if: ["Spirit_keyring"]},  
       BOTW_keyring: {   explanation: "Requires having a key ring for BOTW", 
                               related: ["items"],
-                              items: ["Bottom of the Well Key Ring"]},  
+                              items: ["Bottom of the Well Key Ring", "Skeleton Key"]},  
       BOTW_small_keys1: {   explanation: "Requires having a specific amount of small keys for BOTW", 
                               related: ["items"],
                               items: ["Bottom of the Well Small Key"],
@@ -588,7 +590,7 @@
                               unlocked_if: ["BOTW_keyring"]},   
       GTG_keyring: {   explanation: "Requires having a key ring for GTG", 
                               related: ["items"],
-                              items: ["Training Grounds Key Ring"]},  
+                              items: ["Training Grounds Key Ring", "Skeleton Key"]},  
       GTG_small_keys1: {   explanation: "Requires having a specific amount of small keys for GTG", 
                               related: ["items"],
                               items: ["Training Grounds Small Key"],
@@ -636,7 +638,7 @@
                               unlocked_if: ["GTG_keyring"]},  
       GF_keyring: {   explanation: "Requires having a key ring for GF", 
                               related: ["items"],
-                              items: ["Gerudo Fortress Key Ring"]},  
+                              items: ["Gerudo Fortress Key Ring", "Skeleton Key"]},  
       GF_small_keys1: {   explanation: "Requires having a specific amount of small keys for GF", 
                               related: ["items"],
                               items: ["Gerudo Fortress Small Key"],
@@ -659,7 +661,7 @@
                               unlocked_if: ["GF_keyring"]}, 
       Ganon_keyring: {   explanation: "Requires having a key ring for Ganon's Castle", 
                               related: ["items"],
-                              items: ["Ganon's Castle Key Ring"]},  
+                              items: ["Ganon's Castle Key Ring", "Skeleton Key"]},  
       Ganon_small_keys1: {   explanation: "Requires having a specific amount of small keys for Ganon's Castle", 
                               related: ["items"],
                               items: ["Ganon's Castle Small Key"],
@@ -1566,7 +1568,19 @@
     }
 
     const childOnlyEntrances = [
-        "Hyrule Field -> HF Open Grotto",
+      // new
+
+      "LLR Grotto Entry",
+      "MK Bazaar Entry",
+      "MK Mask Shop Entry",
+      "MK Shooting Gallery Entry",
+      "MK Bombchu Bowling Entry",
+      "MK Potion Shop Entry",
+      "MK Treasure Chest Game Entry",
+      "HC Boulder Crawlspace",
+      "HC Storms Grotto Entry",
+
+      // old
         "Lon Lon Ranch -> LLR Grotto",
         "Market -> Market Bazaar",
         "Market -> Market Mask Shop",
@@ -1581,6 +1595,14 @@
     ];
 
     const adultOnlyEntrances = [
+      // new
+      "Kak Granny's Potion Shop Entry",
+      "GY Near-Ledge Grave Entry",
+      "OGC Rainbow Bridge Exit",
+      "OGC Behind Pillar",
+      "GF Storms Grotto Entry",
+      "GV Behind Tent Grotto Entry",
+      // old
         "Kak Backyard -> Kak Potion Shop Back",
         "The Graveyard -> Graveyard Dampes Grave",
         "Ganon's Castle Grounds -> OGC Great Fairy Fountain",
@@ -7572,28 +7594,28 @@
             console.log("adjusting file settings...")
 
             // Ganon's BK settings
-            if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"].includes("LACS")) {
+            if (file.settings["Ganon's Boss Key"].includes("LACS")) {
                   Settings.GanonBKShuffle = false;
-                  if (file.settings["Shuffle Dungeon Items:LACS Reward Options"] == "Greg as Wildcard") {
+                  if (file.settings["LACS Reward Options"] == "Greg as Wildcard") {
                         Settings.gregModifier = true;
                   }
-                  if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Vanilla") {
+                  if (file.settings["Ganon's Boss Key"] == "LACS-Vanilla") {
 
                   }
-                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Stones") {
-                        Settings.stonesNeeded = file.settings["Shuffle Dungeon Items:Stone Count"];
+                  else if (file.settings["Ganon's Boss Key"] == "LACS-Stones") {
+                        Settings.stonesNeeded = file.settings["GCBK Stone Count"];
                   }
-                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Medallions") {
-                        Settings.medallionsNeeded = file.settings["Shuffle Dungeon Items:Medallion Count"];
+                  else if (file.settings["Ganon's Boss Key"] == "LACS-Medallions") {
+                        Settings.medallionsNeeded = file.settings["GCBK Medallion Count"];
                   }
-                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Rewards") {
-                        Settings.rewardsNeeded = file.settings["Shuffle Dungeon Items:Reward Count"];
+                  else if (file.settings["Ganon's Boss Key"] == "LACS-Rewards") {
+                        Settings.rewardsNeeded = file.settings["GCBK Reward Count"];
                   }
-                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Dungeons") {
-                        Settings.bossesNeeded = file.settings["Shuffle Dungeon Items:Dungeon Count"];
+                  else if (file.settings["Ganon's Boss Key"] == "LACS-Dungeons") {
+                        Settings.bossesNeeded = file.settings["GCBK Dungeon Count"];
                   }
-                  else if (file.settings["Shuffle Dungeon Items:Ganon's Boss Key"] == "LACS-Tokens") {
-                        Settings.tokensNeeded = file.settings["Shuffle Dungeon Items:Token Count"];
+                  else if (file.settings["Ganon's Boss Key"] == "LACS-Tokens") {
+                        Settings.tokensNeeded = file.settings["GCBK Token Count"];
                   }
 
             }
@@ -7645,9 +7667,48 @@
                         inventory.items.push("Gold Skulltula Token");
                   }
             }
+            if (file.settings["Shuffle Deku Stick Bag"] != "On") {
+                  inventory.items.push("Progressive Stick Capacity");
+            }
+            if (file.settings["Shuffle Deku Nut Bag"] != "On") {
+                  inventory.items.push("Progressive Nut Capacity");
+            }
+            if (file.settings["Shuffle Ocarina Buttons"] != "On") {
+                  inventory.items.push("Ocarina A Button");
+                  inventory.items.push("Ocarina C Up Button");
+                  inventory.items.push("Ocarina C Left Button");
+                  inventory.items.push("Ocarina C Down Button");
+                  inventory.items.push("Ocarina C Right Button");
+            }
+            if (file.settings["Shuffle Swim"] != "On") {
+                  inventory.items.push("Progressive Scale");
+            }
+            if (file.settings["Shuffle Fishing Pole"] != "On") {
+                  inventory.items.push("Fishing Pole");
+            }
+            if (file.settings["Shuffle Boss Souls"] == "On + Ganon") {
+                  
+            }
+            else if (file.settings["Shuffle Boss Souls"] == "On") {
+                  inventory.items.push("Ganon's Soul");
+            }
+            else {
+                  inventory.items.push("Gohma's Soul");
+                  inventory.items.push("King Dodongo's Soul");
+                  inventory.items.push("Barinade's Soul");
+                  inventory.items.push("Phantom Ganon's Soul");
+                  inventory.items.push("Volvagia's Soul");
+                  inventory.items.push("Morpha's Soul");
+                  inventory.items.push("Bongo Bongo's Soul");
+                  inventory.items.push("Twinrova's Soul");
+                  inventory.items.push("Ganon's Soul");
+            }
+            if (file.settings["Shuffle Master Sword"] != "On") {
+                  inventory.items.push("Master Sword");
+            }
 
 
-            if (file.settings["World Settings:Shuffle Entrances"] == "Off") {
+            if (file.settings["Shuffle Entrances"] == "Off") {
                   console.log("Entrance rando was off");
                   //file.entrancesMap = {};
                   // for (var location in Locations ) {
@@ -7668,7 +7729,7 @@
 
 
                                     // Adding overworld entrances
-                                    if (file.settings["World Settings:Overworld Entrances"] == "Off") {
+                                    if (file.settings["Overworld Entrances"] == "Off") {
                         console.log("Overworld isn't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Overworld) {
@@ -7680,24 +7741,24 @@
                         }
                   }
 
-                  if (file.settings["World Settings:Owl Drops"] == "Off") {
+                  if (file.settings["Owl Drops"] == "Off") {
                         console.log("Owl drops aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrance == "DMT Owl Flight -> Kak Impas Rooftop" || entrance == "LH Owl Flight -> Hyrule Field") {
                                     console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
-                        randomizedEntrances[tempEntrance] = entrancedefault;
+                        randomizedEntrances[tempEntrance] = entrance.default;
                               }
                         }
                   }
 
 
                   // Adding dungeons and Ganon
-                  if (file.settings["World Settings:Dungeon Entrances"] == "On + Ganon") {
+                  if (file.settings["Dungeon Entrances"] == "On + Ganon") {
 
                   }
-                  else if (file.settings["World Settings:Dungeon Entrances"] == "On") {
+                  else if (file.settings["Dungeon Entrances"] == "On") {
                         console.log("Ganon isn't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location == Locations["Ganon"]) {
@@ -7710,7 +7771,7 @@
                   }
 
                   
-                  if (file.settings["World Settings:Interior Entrances"] == "Off") {
+                  if (file.settings["Interior Entrances"] == "Off") {
                         console.log("Interiors aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Interior) {
@@ -7722,7 +7783,7 @@
                         }
                   }
 
-                  if (file.settings["World Settings:Grottos Entrances"] == "Off") {
+                  if (file.settings["Grottos Entrances"] == "Off") {
                         console.log("Grottos aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Grotto) {
@@ -7734,7 +7795,7 @@
                         }
                   }
 
-                  else if (file.settings["World Settings:Dungeon Entrances"] == "Off") {
+                  else if (file.settings["Dungeon Entrances"] == "Off") {
                         console.log("Ganon nor dungeons are randomized");
                         for (entrance in entrancesMap) {
                               //console.log(entrance);
@@ -7754,7 +7815,7 @@
                   }
 
                   // Adding bosses
-                  if (file.settings["World Settings:Boss Entrances"] == "Off") {
+                  if (file.settings["Boss Entrances"] == "Off") {
                         console.log("Boss rooms aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Boss) {
@@ -7765,6 +7826,7 @@
                               }
                         }
                   }
+
                   for (var sphere in file.entrancesMap) {
                         for (var key in file.entrancesMap[sphere]) {
                               randomizedEntrances[key] = file.entrancesMap[sphere][key];
@@ -7793,7 +7855,7 @@
 
         // Starting age
         var searchString = "";
-        if (file.settings["World Settings:Starting Age"] == "Child") {
+        if (file.settings["Starting Age"] == "Child") {
             inventory.ages.push("Child");
             searchString = "Child Spawn -> KF Link's House";
         }
@@ -7871,6 +7933,9 @@
             if    (file.locations[key].price) {
                   //console.log(key)
                   tempRequirement = "";
+                  if (file.locations[key].price > 0) {
+                        tempRequirement = Requirements.Wallet0;
+                  }
                   if (file.locations[key].price > 99) {
                         if (file.locations[key].price > 200) {
                               tempRequirement = Requirements.Wallet2
@@ -7892,7 +7957,7 @@
                   
             }
         }
-        if (file.settings["World Settings:Warp Songs"] == "On") {
+        if (file.settings["Warp Songs"] == "On") {
             var tempValue;
             for (var sphere in file.entrancesMap) {
                   
