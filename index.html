@@ -1566,7 +1566,6 @@
     }
 
     const childOnlyEntrances = [
-        "Hyrule Field -> HF Open Grotto",
         "Lon Lon Ranch -> LLR Grotto",
         "Market -> Market Bazaar",
         "Market -> Market Mask Shop",
@@ -7645,6 +7644,9 @@
                         inventory.items.push("Gold Skulltula Token");
                   }
             }
+            if (file.settings["Shuffle Settings:Shuffle Master Sword"] != "On") {
+                  inventory.items.push("Master Sword");
+            }
 
 
             if (file.settings["World Settings:Shuffle Entrances"] == "Off") {
@@ -7687,7 +7689,7 @@
                                     console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
-                        randomizedEntrances[tempEntrance] = entrancedefault;
+                        randomizedEntrances[tempEntrance] = entrance.default;
                               }
                         }
                   }
