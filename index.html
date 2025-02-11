@@ -1359,6 +1359,22 @@
       Fire_Temple_Upper_Maze: [     [Requirements.Fire_small_keys5, Requirements.Adult_Access],
                                     [Requirements.Fire_small_keys3, Requirements.Adult_Access, Requirements.Bombs],
                                     [Requirements.Fire_small_keys3, Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Melee]
+      ],
+      MQ_Dong_BombBag: [
+            [Requirements.Adult_Access],
+            [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Strength1],
+            [Requirements.Child_Access, Requirements.Bombs, Requirements.Child_Shield],
+            [Requirements.Child_Access, Requirements.Explosive_Or_Hammer, Requirements.Child_Melee],
+            [Requirements.Child_Access, Requirements.Strength1, Requirements.Stick, Requirements.Weapon]
+      ],
+      MQ_Dong_Upper: [
+            [Requirements.Strength1],
+            [Requirements.Explosive],
+            [Requirements.QPA, Requirements.Hammer]
+      ],
+      Pixelshot: [
+            [Requirements.Longshot, Requirements.Adult_Access],
+            [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Instrument]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -5069,63 +5085,63 @@
             location: Locations.King_Dodongo
         },
         "Dodongos Cavern MQ Map Chest": {
-            requirements: "",
+            requirements: [Requirements.Mudwall_Or_Strength],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Bomb Bag Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_BombBag, Requirements.Mudwall_Or_Strength],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Compass Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Larvae Room Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, Requirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Torch Puzzle Room Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, Requirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Under Grave Chest": {
-            requirements: "",
+            requirements: [Requirements.Explosive],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Deku Scrub Lobby Rear": {
-            requirements: "",
+            requirements: [Requirements.Mudwall_Or_Strength, Requirements.Scrubbable],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Deku Scrub Lobby Front": {
-            requirements: "",
+            requirements: [Requirements.Mudwall_Or_Strength, Requirements.Scrubbable],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Deku Scrub Staircase": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Scrubbable],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Deku Scrub Side Room Near Lower Lizalfos": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_BombBag, Requirements.Ranged_Retrieval],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Scrub Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_BombBag],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Song of Time Block Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Song_Of_Time, Requirements.Instrument],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Lizalfos Room": {
-            requirements: "",
+            requirements: [Requirements.Explosive_Or_Hammer],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Larvae Room": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, Requirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Back Room": {
-            requirements: "",
+            requirements: [Requirements.Explosive],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Boss Room Chest": {
@@ -5178,51 +5194,54 @@
             location: Locations.Fire
         },
         "Fire Temple Scarecrow Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Pixelshot],
             location: Locations.Fire
         },
         "Fire Temple Map Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze],
             location: Locations.Fire
         },
+        // TODO: Expand
         "Fire Temple Compass Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys4],
             location: Locations.Fire
         },
+        // TODO: Expand
         "Fire Temple Highest Goron Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire_small_keys6],
             location: Locations.Fire
         },
         "Fire Temple Megaton Hammer Chest":{
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire_small_keys6],
             location: Locations.Fire
         },
+        // TODO: Expand
         "Fire Temple GS Song of Time Room": {
-            requirements: "",
+            requirements: [Requirements.Adult_Access, Requirements.Fire_small_keys1],
             location: Locations.Fire
         },
         "Fire Temple GS Boss Key Loop": {
-            requirements: "",
+            requirements: [Requirements.Weapon, MultiplePossibleRequirements.Fire_Boss_Loop],
             location: Locations.Fire
         },
         "Fire Temple GS Boulder Maze": {
-            requirements: "",
+            requirements: [Requirements.Fire_small_keys3],
             location: Locations.Fire
         },
         "Fire Temple GS Scarecrow Top": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Pixelshot],
             location: Locations.Fire
         },
         "Fire Temple GS Scarecrow Climb": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Pixelshot],
             location: Locations.Fire
         },
         "Fire Temple Volvagia Heart Container": {
-            requirements: "",
+            requirements: [Requirements.Hammer],
             location: Locations.Volvagia
         },
         "Fire Temple MQ Near Boss Chest": {
-            requirements: "",
+            requirements: [Requirements.Fire_Arrow],
             location: Locations.Fire
         },
         "Fire Temple MQ Megaton Hammer Chest": {
@@ -5230,63 +5249,63 @@
             location: Locations.Fire
         },
         "Fire Temple MQ Compass Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer],
             location: Locations.Fire
         },
         "Fire Temple MQ Lizalfos Maze Lower Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer],
             location: Locations.Fire
         },
         "Fire Temple MQ Lizalfos Maze Upper Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys1, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ Chest on Fire": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ Map Room Side Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ Map Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ Boss Key Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire_Arrow, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ Big Lava Room Blocked Door Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Hookshot, Requirements.Explosive, Requirements.Fire],
             location: Locations.Fire
         },
         "Fire Temple MQ Lizalfos Maze Side Room Chest": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys1, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ Freestanding Key": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot, Requirements.Bow],
             location: Locations.Fire
         },
         "Fire Temple MQ GS Above Fire Wall Maze": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys4, Requirements.Hookshot, Requirements.Bow],
             location: Locations.Fire
         },
         "Fire Temple MQ GS Fire Wall Maze Center": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot, Requirements.Bow],
             location: Locations.Fire
         },
         "Fire Temple MQ GS Big Lava Room Open Door": {
-            requirements: "",
+            requirements: [Requirements.Hammer],
             location: Locations.Fire
         },
         "Fire Temple MQ GS Fire Wall Maze Side Room": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Fire Temple MQ GS Skull on Fire": {
-            requirements: "",
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys1, Requirements.Hookshot],
             location: Locations.Fire
         },
         "Volvagia": {
