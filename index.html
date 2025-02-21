@@ -2054,6 +2054,13 @@
             //       location: Locations.TOT,
             //       default: "Prelude of Light Warp -> Temple of Time"
             // },
+            
+            "Desert Colossus Warp Pad":
+            {
+              requirements: [Requirements.OneWayOwl],
+              location: Locations.DC,
+              default: "Colossus Outside Temple"
+            },
             "Hyrule Field Owl Drop":
             {
               requirements: [Requirements.OneWayOwl],
@@ -12692,6 +12699,8 @@
             for (var sphere in file.entrancesMap) {
                   
                   if (file.entrancesMap[sphere]["Minuet of Forest"]) {
+                    console.log(sphere)
+                      console.log(file.entrancesMap[sphere]);
                         tempValue = file.entrancesMap[sphere]["Minuet of Forest"];
                         entrancesMap["Minuet of Forest"].location = entrancesMap[tempValue].location;
                         console.log("Changed location of forest warp to: "+ entrancesMap[tempValue].location.name)
