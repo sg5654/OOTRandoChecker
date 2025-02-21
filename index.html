@@ -1966,7 +1966,7 @@
     }
 
     const childOnlyEntrances = [
-      // new
+        // new
 
       "LLR Grotto Entry",
       "MK Bazaar Entry",
@@ -12356,7 +12356,7 @@
                         inventory.items.push("Gold Skulltula Token");
                   }
             }
-            if (file.settings["Shuffle Deku Stick Bag"] != "On") {
+        if (file.settings["Shuffle Deku Stick Bag"] != "On") {
                   inventory.items.push("Progressive Stick Capacity");
             }
             if (file.settings["Shuffle Deku Nut Bag"] != "On") {
@@ -12422,7 +12422,9 @@
               inventory.items.push("Richard's House Key");
               inventory.items.push("Impa's House Key");
             }
-
+        if (file.settings["Shuffle Settings:Shuffle Master Sword"] != "On") {
+                  inventory.items.push("Master Sword");
+            }
 
             if (file.settings["Shuffle Entrances"] == "Off") {
                   console.log("Entrance rando was off");
