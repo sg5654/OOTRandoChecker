@@ -2054,7 +2054,12 @@
             //       location: Locations.TOT,
             //       default: "Prelude of Light Warp -> Temple of Time"
             // },
-            
+            "Temple of Time Warp Pad":
+            {
+              requirements: [Requirements.OneWayOwl],
+              location: Locations.TOT,
+              default: "Temple of Time Entrance"
+            },
             "Desert Colossus Warp Pad":
             {
               requirements: [Requirements.OneWayOwl],
@@ -12700,7 +12705,7 @@
                   
                   if (file.entrancesMap[sphere]["Minuet of Forest"]) {
                     console.log(sphere)
-                      console.log(file.entrancesMap[sphere]);
+                      
                         tempValue = file.entrancesMap[sphere]["Minuet of Forest"];
                         entrancesMap["Minuet of Forest"].location = entrancesMap[tempValue].location;
                         console.log("Changed location of forest warp to: "+ entrancesMap[tempValue].location.name)
@@ -12722,6 +12727,7 @@
                   }
                   if (file.entrancesMap[sphere]["Requiem of Spirit"]) {
                         tempValue = file.entrancesMap[sphere]["Requiem of Spirit"];
+                        console.log(file.entrancesMap[sphere]);
                         entrancesMap["Requiem of Spirit"].location = entrancesMap[tempValue].location;
                         console.log("Changed location of requiem warp to: "+ entrancesMap[tempValue].location.name)
                   }
