@@ -8733,12 +8733,12 @@
         "Deku Tree Queen Gohma Heart Container": 
           {  requirements  : [ MultiplePossibleRequirements.Gohma, Requirements.Boss_Soul_Gohma
           ],
-              location      : Locations.Deku_Tree,
+              location      : Locations.Gohma,
         },
         "Queen Gohma": 
           {  requirements  : [ MultiplePossibleRequirements.Gohma, Requirements.Boss_Soul_Gohma
           ],
-              location      : Locations.Deku_Tree,
+              location      : Locations.Gohma,
         },
 
         "Deku Tree MQ Map Chest": 
@@ -8903,13 +8903,13 @@
           {  requirements  : [ MultiplePossibleRequirements.Forest_Basement,
                                 Requirements.Forest_BK
           ],
-              location      : Locations.Forest
+              location      : Locations.Phantom_Ganon
         },
         "Phantom Ganon": 
         {  requirements  : [ MultiplePossibleRequirements.Forest_Basement,
                                 Requirements.Forest_BK
           ],
-              location      : Locations.Forest
+              location      : Locations.Phantom_Ganon
         },
         "Forest Temple MQ First Room Chest": 
           {  requirements  : [Requirements.Weapon],
@@ -9532,10 +9532,10 @@
             requirements: "",
             location: Locations.Shadow
         },
-        "Shadow Temple Bongo Bongo Heart Container": {
-            requirements: "",
-            location: Locations.Shadow
-        },
+        // "Shadow Temple Bongo Bongo Heart Container": {
+        //     requirements: "",
+        //     location: Locations.Bongo_Bongo
+        // },
         "Bongo Bongo": {
             requirements: "",
             location: Locations.Bongo_Bongo
@@ -9877,18 +9877,18 @@
             requirements: [Requirements.Explosive],
             location: Locations.Dodongos_Cavern
         },
-        "Dodongos Cavern Boss Room Chest": {
-            requirements: "",
-            location: Locations.Dodongos_Cavern
-        },
-        "Dodongos Cavern King Dodongo Heart Container": {
-            requirements: "",
-            location: Locations.Dodongos_Cavern
-        },
-        "King Dodongo": {
-            requirements: "",
-            location: Locations.Dodongos_Cavern
-        },
+        // "Dodongos Cavern Boss Room Chest": {
+        //     requirements: "",
+        //     location: Locations.Dodongos_Cavern
+        // },
+        // "Dodongos Cavern King Dodongo Heart Container": {
+        //     requirements: "",
+        //     location: Locations.Dodongos_Cavern
+        // },
+        // "King Dodongo": {
+        //     requirements: "",
+        //     location: Locations.Dodongos_Cavern
+        // },
         // free
         "Fire Temple Near Boss Chest": {
             requirements: "",
@@ -12430,6 +12430,9 @@
             if (file.settings["Shuffle Master Sword"] != "On") {
                   inventory.items.push("Master Sword");
             }
+            else {
+              inventory.items.push(file.locations["Market ToT Master Sword"]);
+            }
             if (file.settings["Lock Overworld Doors"] != "On") {
               // quickscroll comment
               inventory.items.push("Kakariko Shooting Gallery Key");
@@ -13790,7 +13793,8 @@
       }
       for (var index in enteredList) {
 
-      //console.log("UNLOCKING ENTRANCE");
+      console.log("UNLOCKING ENTRANCE");
+      console.log(entrance);
     // TODO: Fix this up for the bugs bottleables stuff and triggering this only when access for every area is reached
                                                 if (entrance.unlocks) {
                                                 entrance.unlocks.forEach(e => {
@@ -13834,10 +13838,12 @@
                                                 // })
                                           }
                                           if (entrance.linkedLocation) {
-                                                // console.log("linked location");
-                                                // console.log(entrance.linkedLocation[0].name);
-                                                if (!enteredList[index].includes(Locations[entrance.linkedLocation[0].name])) {
-                                                      enteredList[index].push(Locations[entrance.linkedLocation[0].name]);
+                                                console.log("linked location");
+                                                console.log(entrance.linkedLocation[0].name);
+                                                if (!enteredList[index].includes(Locations[entrance["linkedLocation"][0]].name)) {
+                                                      if (entrance["linkedLocation"][0] == "Alleyway" && inventory.ages.includes("Child")) {
+                                                        enteredList[index].push(Locations[entrance["linkedLocation"][0]].name);
+                                                      }
                                                 }
                                                       
                                           }
