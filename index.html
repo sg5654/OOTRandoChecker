@@ -1774,6 +1774,11 @@
       TrialSkip: [
         [Requirements.Bomb_Hovering],
         [Requirements.Adult_Access, Requirements.Adult_Melee]
+      ],
+      ZDShopEntry: [
+        [Requirements.Child_Access],
+        [Requirements.Blue_Fire],
+        [Requirements.Adult_Melee, Requirements.Adult_Access]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -3792,7 +3797,7 @@
             },
             "ZD Shop Entry": 
             // TODO: Implement behaviour to skip red ice
-            {  requirements  : "",
+            {  requirements  : [MultiplePossibleRequirements.ZDShopEntry],
                 location      : Locations.ZD,
                   default: "Zora Shop",
                   conditional: [
@@ -9544,19 +9549,19 @@
               location      : Locations.DMT_Storms_Grotto
         },
         "DMT Trade Broken Sword": 
-        {  requirements  : [ Requirements.Broken_Sword],
+        {  requirements  : [ Requirements.Broken_Sword, Requirements.Adult_Access],
               location      : Locations.DMT,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Death Mountain Trail Top Exit"])]
         },
         "DMT Trade Eyedrops": 
-        {  requirements  : [ Requirements.Eyedrops],
+        {  requirements  : [ Requirements.Eyedrops, Requirements.Adult_Access],
               location      : Locations.DMT,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Death Mountain Trail Top Exit"])]
         },
         "DMT Trade Claim Check": 
-        {  requirements  : [ Requirements.Claim_Check],
+        {  requirements  : [ Requirements.Claim_Check, Requirements.Adult_Access],
               location      : Locations.DMT,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Death Mountain Trail Top Exit"])]
@@ -9588,13 +9593,13 @@
               conditional   : [new Conditional(locations = ["Death Mountain Crater Bridge Exit"])]
         },
         "Sheik in Crater": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Adult_Access],
               location      : Locations.DMC,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Death Mountain Crater Outside Temple"])]
         },
         "DMC Deku Scrub": 
-        {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck],
+        {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Child_Access],
               location      : Locations.DMC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Death Mountain Crater Upper Exit"])]
@@ -9616,19 +9621,19 @@
               location      : Locations.DMC_Hammer_Grotto
         },
         "DMC GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon],
+        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.DMC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Death Mountain Crater Outside Temple"])]
         },
         "DMC GS Crate": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.DMC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Death Mountain Crater Upper Exit"])]
         },
         "DMT GS Bean Patch": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Bugs],
+        {  requirements  : [ Requirements.Weapon, Requirements.Bugs, Requirements.Child_Access],
               location      : Locations.DMT,
               age           : Ages.Child
         },
@@ -9637,12 +9642,12 @@
               location      : Locations.DMT
         },
         "DMT GS Above Dodongos Cavern": 
-        {  requirements  : [ MultiplePossibleRequirements.DMT_GS_DC],
+        {  requirements  : [ MultiplePossibleRequirements.DMT_GS_DC, Requirements.Adult_Access],
               location      : Locations.DMT,
               age           : Ages.Adult
         },
         "DMT GS Falling Rocks Path": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Adult_Access],
               location      : Locations.DMT,
               age           : Ages.Adult
         },
@@ -9662,26 +9667,26 @@
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
         },
         "GC Rolling Goron as Child": 
-        {  requirements  : [ Requirements.Explosive],
+        {  requirements  : [ Requirements.Explosive, Requirements.Child_Access],
               location      : Locations.GC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
         },
         "GC Rolling Goron as Adult": 
-          {  requirements  : [ MultiplePossibleRequirements.Rolling_Goron_Adult],
+          {  requirements  : [ MultiplePossibleRequirements.Rolling_Goron_Adult, Requirements.Adult_Access],
               location      : Locations.GC,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
         },
         "GC Darunias Joy": 
         // TODO: Implement behaviour for coming from different entrances
-        {  requirements  : [ Requirements.Instrument, Requirements.Sarias_Song],
+        {  requirements  : [ Requirements.Instrument, Requirements.Sarias_Song, Requirements.Child_Access],
               location      : Locations.GC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Goron City Darunia's Room Backdoor"])]
         },
         "GC Pot Freestanding PoH":
-        {  requirements  : [ Requirements.Explosive_Or_Strength],
+        {  requirements  : [ Requirements.Explosive_Or_Strength, Requirements.Child_Access],
               location      : Locations.GC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
@@ -9699,7 +9704,7 @@
               location      : Locations.GC_Grotto
         },
         "GC Medigoron": 
-        {  requirements  : [ Requirements.Wallet1],
+        {  requirements  : [ Requirements.Wallet1, Requirements.Adult_Access],
               location      : Locations.GC,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
@@ -9737,13 +9742,13 @@
               location      : Locations.GC_Shop
         },
         "GC GS Center Platform": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
               location      : Locations.GC,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
         },
         "GC GS Boulder Maze": 
-        {  requirements  : [ MultiplePossibleRequirements.GC_Maze],
+        {  requirements  : [ MultiplePossibleRequirements.GC_Maze, Requirements.Child_Access],
               location      : Locations.GC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
@@ -10101,42 +10106,42 @@
               location      : Locations.ZR_Storms_Grotto
         },
         "ZR GS Ladder": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR GS Tree": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access ],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR GS Above Bridge": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.ZR,
               age           : Ages.Adult
         },
         "ZR GS Near Raised Grottos": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.ZR,
               age           : Ages.Adult
         },
         "ZD Chest": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.ZD,
               age           : Ages.Child
         },
         "ZD Diving Minigame": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.ZD,
               age           : Ages.Child
         },
         "ZD King Zora Thawed":
-        {  requirements  : "",
+        {  requirements  : [Requirements.Adult_Access],
               location      : Locations.ZD,
               age           : Ages.Adult
         },
         "ZD Trade Prescription": 
-        {  requirements  : [ Requirements.Prescription],
+        {  requirements  : [ Requirements.Prescription, Requirements.Adult_Access],
               location      : Locations.ZD,
               age           : Ages.Adult
         },
@@ -10173,12 +10178,12 @@
               location      : Locations.ZD_Shop
         },
         "ZF Iceberg Freestanding PoH": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Adult_Access],
               location      : Locations.ZF,
               age           : Ages.Adult
         },
         "ZF Bottom Freestanding PoH": 
-        {  requirements  : [ Requirements.Iron_Boots],
+        {  requirements  : [ Requirements.Iron_Boots, Requirements.Adult_Access],
               location      : Locations.ZF,
               age           : Ages.Adult
         },
@@ -10187,26 +10192,26 @@
               location      : Locations.ZF_Great_Fairy_Fountain,
         },
         "ZD GS Frozen Waterfall": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
               location      : Locations.ZD,
               age           : Ages.Adult,
               time          : Times.Night
         },
         "ZF GS Above The Log": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Child_Access],
               location      : Locations.ZF,
               age           : Ages.Child,
               time          : Times.Night
         },
         "ZF GS Hidden Cave": 
         // TODO: Implement behaviour for OOB clip and weirdslide
-        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Strength2],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Strength2, Requirements.Adult_Access],
               location      : Locations.ZF,
               age           : Ages.Adult,
               time          : Times.Night
         },
         "ZF GS Tree": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.ZF,
               age           : Ages.Child
         },
@@ -10418,17 +10423,17 @@
               location      : Locations.HF_Near_Kak_Grotto
         },
         "Song from Malon": 
-        {  requirements  : [ Requirements.Talon_Woken, Requirements.Instrument],
+        {  requirements  : [ Requirements.Talon_Woken, Requirements.Instrument, ],
               location      : Locations.LLR,
               age           : Ages.Child
         },
         "LLR Talons Chickens": 
-        {  requirements  : [ Requirements.Talon_Woken],
+        {  requirements  : [ Requirements.Talon_Woken, Requirements.Child_Access],
               location      : Locations.LLR_Talons_House,
               age           : Ages.Child
         },
         "LLR Freestanding PoH": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Child_Access],
               location      : Locations.LLR_Tower,
               age           : Ages.Child
         },
@@ -10461,25 +10466,25 @@
               location      : Locations.LLR_Tower
         },
         "LLR GS Back Wall": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Child_Access],
               location      : Locations.LLR,
               age           : Ages.Child,
               time          : Times.Night
         },
         "LLR GS Rain Shed": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.LLR,
               age           : Ages.Child,
               time          : Times.Night
         },
         "LLR GS House Window": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Child_Access],
               location      : Locations.LLR,
               age           : Ages.Child,
               time          : Times.Night
         },
         "LLR GS Tree": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.LLR,
               age           : Ages.Child,
         },
@@ -10507,13 +10512,13 @@
               location      : Locations.LH_Lab
         },
         "LH Underwater Item": 
-        {  requirements  : [ Requirements.Scale],
+        {  requirements  : [ Requirements.Scale, Requirements.Child_Access],
               location      : Locations.LH,
               age           : Ages.Child
         },
         // TODO: Implement various ways of retrieving this item
         "LH Sun": 
-        {  requirements  : [ Requirements.Bow],
+        {  requirements  : [ Requirements.Bow, Requirements.Adult_Access],
               location      : Locations.LH,
               age           : Ages.Adult
         },
@@ -10534,27 +10539,27 @@
               location      : Locations.LH_Grotto
         },
         "LH GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon],
+        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.LH,
               age           : Ages.Child
         },
         "LH GS Small Island": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.LH,
               age           : Ages.Child
         },
         "LH GS Lab Wall": 
-        {  requirements  : [ MultiplePossibleRequirements.LabWall],
+        {  requirements  : [ MultiplePossibleRequirements.LabWall, Requirements.Child_Access],
               location      : Locations.LH,
               age           : Ages.Child
         },
         "LH GS Lab Crate": 
-        {  requirements  : [ Requirements.Iron_Boots, Requirements.Hookshot],
+        {  requirements  : [ Requirements.Iron_Boots, Requirements.Hookshot, Requirements.Adult_Access],
               location      : Locations.LH_Lab,
               age           : Ages.Adult
         },
         "LH GS Tree": 
-        {  requirements  : [ Requirements.Hookshot],
+        {  requirements  : [ Requirements.Hookshot, Requirements.Adult_Access],
               location      : Locations.LH,
               age           : Ages.Adult
         },
@@ -10674,13 +10679,13 @@
         },
         // TODO: Implement ways to bypass red rock, include the one with just hookshot
         "GV Chest": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Adult_Access],
               location      : Locations.GV,
               age           : Ages.Adult,
               conditional: [new Conditional(locations = ["Gerudo Valley West Exit"])]
         },
         "GV Trade Saw": 
-        {  requirements  : [ Requirements.Poacher_Saw],
+        {  requirements  : [ Requirements.Poacher_Saw, Requirements.Adult_Access],
               location      : Locations.GV,
               age           : Ages.Adult,
               conditional: [new Conditional(locations = ["Gerudo Valley West Exit"])]
@@ -10708,7 +10713,7 @@
               location      : Locations.GV_Storms_Grotto
         },
         "GV Cow": 
-        {  requirements  : [ Requirements.Instrument, Requirements.Eponas_Song],
+        {  requirements  : [ Requirements.Instrument, Requirements.Eponas_Song, Requirements.Child_Access],
               location      : Locations.GV,
               age           : Ages.Child
         },
@@ -10717,12 +10722,12 @@
               location      : Locations.GF
         },
         "GF HBA 1000 Points": 
-        {  requirements  : [ Requirements.Membership, Requirements.Eponas_Song, Requirements.Instrument, Requirements.Bow],
+        {  requirements  : [ Requirements.Membership, Requirements.Eponas_Song, Requirements.Instrument, Requirements.Bow, Requirements.Adult_Access],
               location      : Locations.GF,
               age           : Ages.Adult
         },
         "GF HBA 1500 Points": 
-        {  requirements  : [ Requirements.Membership, Requirements.Eponas_Song, Requirements.Instrument, Requirements.Bow],
+        {  requirements  : [ Requirements.Membership, Requirements.Eponas_Song, Requirements.Instrument, Requirements.Bow, Requirements.Adult_Access],
               location      : Locations.GF,
               age           : Ages.Adult
         },
@@ -10775,24 +10780,24 @@
               location      : Locations.DC_Grotto
         },
         "GV GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon],
+        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.GV,
               age           : Ages.Child
         },
         "GV GS Small Bridge": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Child_Access],
               location      : Locations.GV,
               age           : Ages.Child,
               conditional: [new Conditional(locations = ["Gerudo Valley East Exit"])]
         },
         "GV GS Pillar": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.GV,
               age           : Ages.Adult,
               conditional: [new Conditional(locations = ["Gerudo Valley West Exit"])]
         },
         "GV GS Behind Tent": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.GV,
               age           : Ages.Adult,
               conditional: [new Conditional(locations = ["Gerudo Valley West Exit"])]
@@ -10815,17 +10820,17 @@
               location      : Locations.HW
         },
         "Colossus GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon],
+        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
               location      : Locations.DC,
               age           : Ages.Child
         },
         "Colossus GS Hill": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
               location      : Locations.DC,
               age           : Ages.Adult
         },
         "Colossus GS Tree": 
-        {  requirements  : [ Requirements.Ranged_Retrieval],
+        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.DC,
               age           : Ages.Adult
         },
@@ -11226,7 +11231,7 @@
               age           : Ages.Child
         },
         "MK 10 Big Poes": 
-        {  requirements  : [ Requirements.Bottle, Requirements.Bow],
+        {  requirements  : [ Requirements.Bottle, Requirements.Bow, Requirements.Adult_Access],
               location      : Locations.Market_Guard_House,
               age           : Ages.Adult
         },
