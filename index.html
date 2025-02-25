@@ -2489,7 +2489,7 @@
             },
             // TODO: Expand
             "Zora's Domain Underwater Shortcut":{
-                  requirements: [Requirements.BronzeScale],
+                  requirements: [Requirements.Scale],
                   location: Locations.ZD,
                   default: "Lake Hylia Underwater Shortcut",
                   conditional: ""
@@ -3805,7 +3805,11 @@
             {  requirements  : [Requirements.Kak_Potion_Shop_Key],
                 location      : Locations.Kakariko,
                   default: "Kak Potion Shop Back",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Melee, Requirements.Child_Access], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive], age = undefined, needsAll = true)
+                ]
             },
             "OGC Rainbow Bridge Exit": 
             // TODO: Implement behaviour for bridge conditions
