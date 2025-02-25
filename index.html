@@ -13079,16 +13079,11 @@
       }
       var accesibleList = [];
       var enteredList = [];
-      if (inventory.ages.includes("Child") && index == 0) {
+      if (inventory.ages.includes("Child")) {
             accesibleList.push(inventory.accessible_child);
             enteredList.push(inventory.entered_child);
       }
-
-      if (inventory.ages.includes("Adult") && index == 1) {
-            accesibleList.push(inventory.accessible_adult);
-            enteredList.push(inventory.entered_adult);
-      }
-      else {
+      if (inventory.ages.includes("Adult")) {
             accesibleList.push(inventory.accessible_adult);
             enteredList.push(inventory.entered_adult);
       }
