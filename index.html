@@ -3322,7 +3322,12 @@
             {  requirements  : "",
                 location      : Locations.KF,
                   default: "Deku Tree Entrance",
-                  conditional: ""
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                              new Conditional(locations = ["KF Outside Deku Tree"]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Weapon], age = undefined, needsAll = true),
+                              new Conditional(locations = undefined, requirements = [Requirements.Child_Access], age = undefined, needsAll = true)
+            
+            ],
             },
             "LH Owl Flight": 
             {  requirements  : [Requirements.Child_Access],
@@ -3676,7 +3681,15 @@
             {  requirements  : "",
                 location      : Locations.ZR,
                   default: "Zora's Domain Entrance",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["Zora's River Waterfall Exit"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Hover_boots], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Master_Sword, Requirements.BronzeScale], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Zeldas_Lullaby], age = undefined, needsAll = true)
+                  ]
             },
             "Zora's Domain Entrance": 
             {  requirements  : "",
