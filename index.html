@@ -12671,7 +12671,7 @@
                         inventory.Adult_start = randomizedEntrances[key].replace("from" , '->');
                         inventory.accessible_adult.push(inventory.Adult_start);
                         //inventory.entered_adult.push(entrancesMap[inventory.Adult_start].location.name);
-                        unlockEntrance(entrancesMap[inventory.Adult_start].location, 1);
+                        unlockEntrance(entrancesMap[inventory.Adult_start].location, 0);
                         //delete entrancesMap[inventory.Adult_start];
                         inventory.Child_start = randomizedEntrances["Child Spawn"].replace("from" , '->');
                         //delete randomizedEntrances["Child Spawn -> KF Link's House"];
@@ -13087,13 +13087,28 @@
             accesibleList.push(inventory.accessible_adult);
             enteredList.push(inventory.entered_adult);
       }
-      for (var index in enteredList) {
+      // for (var index in enteredList) {
 
       console.log("UNLOCKING ENTRANCE");
       console.log(entrance);
-      if (!enteredList[index].includes(entrance.name)) {
-        enteredList[index].push(entrance.name);
+      if (entrance.name == "Outside Ganon's Castle" && enteredList[index] == inventory.entered_child) {
+          if (!enteredList[index].includes("Hyrule Castle")) {
+          enteredList[index].push("Hyrule Castle");
+          inventory.accessible_child.push("Castle Grounds South Exit");
+        }
       }
+      else if (entrance.name == "Hyrule Castle" && enteredList[index] == inventory.entered_adult) {
+          if (!enteredList[index].includes("Outside Ganon's Castle")) {
+          enteredList[index].push("Outside Ganon's Castle");
+          inventory.accessible_adult.push("Castle Grounds South Exit");
+        }
+      }
+      else {
+        if (!enteredList[index].includes(entrance.name)) {
+          enteredList[index].push(entrance.name);
+        }
+      }
+
       
     // TODO: Fix this up for the bugs bottleables stuff and triggering this only when access for every area is reached
                                                 if (entrance.unlocks) {
@@ -13149,7 +13164,7 @@
                                           }
                                           //console.log("Added entrance: " + entrance);
                                     }
-    }
+    // }
 
     
     </script>
