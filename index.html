@@ -2868,7 +2868,7 @@
             {  requirements  : "",
                 location      : Locations.Kak_Impas_House,
                   default: "Kak Impa's House Front Entry",
-                  conditional: ""
+                  conditional: [new Conditional(locations = ["Impa's House Front"])]
             },
             "Dodongo's Cavern Entrance":
             {  requirements  : "",
@@ -3154,7 +3154,7 @@
             },
             // TODO: Implement skips for Zelda's Lullaby
             "GY Royal Family's Tomb Entry": 
-            {  requirements  : "",
+            {  requirements  : [Requirements.Zeldas_Lullaby, Requirements.Instrument],
                 location      : Locations.GY,
                   default: "Royal Family's Tomb",
                   conditional: ""
@@ -3972,7 +3972,7 @@
             "Impa's House Back":
             {  requirements  : "",
                 location      : Locations.Kak_Impas_House,
-                  conditional: "",
+                  conditional: [new Conditional(locations = ["Impa's House Back"])],
                   default: "Kak Impa's House Back Entry"
             },
             "Forest Temple Entrance":
