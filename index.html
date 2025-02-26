@@ -524,6 +524,10 @@
     }
     // quickscroll comment
     var Requirements = {
+      Kokiri_Sword: {explanation: "Can use kokiri sword", related: ["items"], items: ["Kokiri Sword"]},
+      Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Child_Melee", "Bombs", "Bombchu", "Boomerang"]},
+      Grassable_Adult: {explanation: "Can cut grass as adult", unlocked_if: ["Adult_Melee", "Bombs", "Bombchu", "Boomerang"]},
+      Bean_Or_Hover: {explanation: "Can reach bean specific locations", unlocked_if: ["Bean_Planted", "Bomb_Hovering"]},
       Kak_Shooting_Gallery_Key: {explanation: "Can open the kakariko shooting gallery", related: ["items"], items: ["Kakariko Shooting Gallery Key", "Skeleton Key"]},
       LLR_Stables_Key: {explanation: "Can open the LLR Stables", related: ["items"], items: ["Stables Key", "Skeleton Key"]},
       MK_Treasure_Game_Key: {explanation: "Can open the Treasure Chest Game", related: ["items"], items: ["Treasure Chest Game Building Key", "Skeleton Key"]},
@@ -1563,6 +1567,10 @@
                               [Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Bombs, Requirements.Adult_Shield, Requirements.GoldScale, Requirements.Hookshot]
 
       ],
+      MQ_Central_Access: [
+                              [Requirements.IronBoots, Requirements.Adult_Access, Requirements.Hookshot],
+                              [Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Hookshot]
+      ],
       MQ_Water_Longshot: [    [Requirements.IronBoots, Requirements.Hookshot],
                               [Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Hookshot]
 
@@ -1781,6 +1789,14 @@
         [Requirements.Child_Access],
         [Requirements.Blue_Fire],
         [Requirements.Adult_Melee, Requirements.Adult_Access]
+      ],
+      Grassable: [
+        [Requirements.Child_Access, Requirements.Grassable_Child],
+        [Requirements.Adult_Access, Requirements.Grassable_Adult]
+      ],
+      Deku_Back: [
+        [Requirements.Child_Access],
+        [Requirements.Adult_Access, Requirements.Bow]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -4113,7 +4129,3388 @@
             }
     }
     var itemLocations = {
+      // newer
+      "GV Freestanding PoH Crate": {
+        requirements  : [MultiplePossibleRequirements.GV],
+        location      : Locations.GV,
+          conditional: [new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Adult_Shield, Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
+                  new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Longshot]),
+                  new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true)
+            ]
+      },
+        "GV Near Cow Crate":
+      {
+        requirements  : "",
+        location      : Locations.GV
+      },
+        "GF Above Jail Crate":
+      {
+        requirements  : [Requirements.Hookshot],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Outside Center Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Outside Center Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Outside Center Crate 3":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Outside Center Crate 4":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Outside Left Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Outside Left Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Archery Range Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Range Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Range Crate 3":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Range Crate 4":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Range Crate 5":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Range Crate 6":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Range Crate 7":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Near Archery Start Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Near Archery Start Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Left End Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Left End Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Right End Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Archery Right End Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+        ]
+      },
+        "GF Kitchen Crate 1":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Kitchen Crate 2":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Kitchen Crate 3":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Kitchen Crate 4":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Kitchen Crate 5":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Break Room Crate 1":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Break Room Crate 2":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Break Room Crate 3":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF Break Room Crate 4":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF North F1 Carpenter Crate":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF North F3 Carpenter Crate":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF South F2 Carpenter Crate 1":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "GF South F2 Carpenter Crate 2":
+      {
+        requirements  : [Requirements.GerudoGuard],
+        location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
+      },
+        "HW Before Quicksand Crate":
+      {
+        requirements  : "",
+        location      : Locations.HW
+      },
+        "HW After Quicksand Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.HW
+      },
+        "HW After Quicksand Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.HW
+      },
+        "HW After Quicksand Crate 3":
+      {
+        requirements  : "",
+        location      : Locations.HW
+      },
+        "HW Near Colossus Crate":
+      {
+        requirements  : "",
+        location      : Locations.HW
+      },
+        "MK Near Bazaar Crate 1":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market
+      },
+        "MK Near Bazaar Crate 2":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market
+      },
+        "MK Shooting Gallery Crate 1":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market
+      },
+        "MK Shooting Gallery Crate 2":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market
+      },
+        "MK Lost Dog House Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Alleyway
+      },
+        "MK Guard House Crate 1":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market_Guard_House
+      },
+        "MK Guard House Crate 2":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market_Guard_House
+      },
+        "MK Guard House Crate 3":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market_Guard_House
+      },
+        "MK Guard House Crate 4":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market_Guard_House
+      },
+        "MK Guard House Crate 5":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market_Guard_House
+      },
+        "Kak Near Open Grotto Adult Crate 1":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Open Grotto Adult Crate 2":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Open Grotto Adult Crate 3":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Open Grotto Adult Crate 4":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Potion Shop Adult Crate":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Shooting Gallery Adult Crate":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Boarding House Adult Crate 1":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Boarding House Adult Crate 2":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Impas House Adult Crate 1":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Impas House Adult Crate 2":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Bazaar Adult Crate 1":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Bazaar Adult Crate 2":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Behind GS House Adult Crate":
+      {
+        requirements  : [Requirements.Adult_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Graveyard Child Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Windmill Child Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Fence Child Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Boarding House Child Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Kakariko
+      },
+        "Kak Near Bazaar Child Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Kakariko
+      },
+        "GY Freestanding PoH Crate":
+      {
+        requirements  : [Requirements.Bean_Or_Hover],
+        location      : Locations.GY
+      },
+      // TODO: Silver on top of this
+        "GC Maze Crate":
+      {
+        requirements  : [Requirements.Explosive_Or_Hammer],
+        location      : Locations.GC
+      },
+        "DMC Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.DMC,
+        conditional   : [
+          new Conditional(locations = ["Death Mountain Crater Upper Exit"])
+        ]
+      },
+        "LLR Near Tree Crate":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.LLR
+      },
+        "LH Lab Crate":
+      {
+        requirements  : [Requirements.IronBoots, Requirements.Adult_Access],
+        location      : Locations.LH_Lab
+      },
+        "Jabu Jabus Belly Platform Room Small Crate 1":
+      {
+        requirements  : [Requirements.Ranged_Weapon],
+        location      : Locations.Jabu
+      },
+        "Jabu Jabus Belly Platform Room Small Crate 2":
+      {
+        requirements  : [Requirements.Ranged_Weapon],
+        location      : Locations.Jabu
+      },
+      // TODO: Expand
+        "Fire Temple After Hammer Small Crate 1":
+      {
+        requirements  : [Requirements.Hammer, Requirements.Fire_small_keys6],
+        location      : Locations.Fire
+      },
+        "Fire Temple After Hammer Small Crate 2":
+      {
+        requirements  : [Requirements.Hammer, Requirements.Fire_small_keys6],
+        location      : Locations.Fire
+      },
+        "Spirit Temple Before Child Climb Small Crate 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Spirit_Child_Side],
+        location      : Locations.Spirit
+      },
+        "Spirit Temple Before Child Climb Small Crate 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Spirit_Child_Side],
+        location      : Locations.Spirit
+      },
+        "HF Tree Near Kakariko":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree South":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Outside LLR":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Outside LH":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Outside GV":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Outside ZR":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "Small Tree Near Kakariko":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "Market Tree (Day)":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.Market
+      },
+        "HC Tree Near Guards 5":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "HC Tree Near Guards 4":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "HC Tree Near Guards 3":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "HC Tree Near Guards 2":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "HC Tree Near Guards 1":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "HF South Tree 1":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF NW Tree 2":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF SE Tree 4":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF NW Tree 1":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF East Tree 1":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF SE Tree 3":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF SE Tree 2":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Near HC Grotto 3":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree in SE HF 1":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree near Grotto 2":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Near HC Grotto 2":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HF Tree Near HC Grotto 1":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "ZF Tree with GS":
+      {
+        requirements  : "",
+        location      : Locations.ZF,
+        conditional   : [
+          new Conditional(locations = ["Zora's Fountain Tunnel Exit"])
+        ]
+      },
+        "ZR Tree with GS":
+      {
+        requirements  : "",
+        location      : Locations.ZR
+      },
+        "Kak Tree with GS":
+      {
+        requirements  : "",
+        location      : Locations.Kakariko
+      },
+        "LLR Tree with GS":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.LLR
+      },
+        "HF Tree near GV":
+      {
+        requirements  : "",
+        location      : Locations.HF
+      },
+        "HC Tree with GS":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "HC Tree Near Guards":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+        "SoS Grotto Tree":
+      {
+        requirements  : [Requirements.Child_Access],
+        location      : Locations.HC
+      },
+
+      "Child Grass 1":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 2":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 3":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 4":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 5":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 6":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 7":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 8":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 9":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 10":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 11":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass 12":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass Maze 1":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass Maze 2":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Child Grass Maze 3":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.KF
+      },
+        "Adult Grass 1":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 2":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 3":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 4":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 5":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 6":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 7":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 8":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 9":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 10":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 11":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 12":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 13":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 14":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 15":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 16":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 17":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 18":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 19":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Adult Grass 20":
+      {
+        requirements  : [Requirements.Adult_Access, Requirements.Grassable_Adult],
+        location      : Locations.KF
+      },
+        "Near Shortcuts Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "Near Shortcuts Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "Near Shortcuts Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "After Mido Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "After Mido Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "After Mido Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "Near SFM Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "Near SFM Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "Near SFM Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW
+      },
+        "Market Grass 1":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 2":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 3":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 4":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 5":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 6":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 7":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Market Grass 8":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        location      : Locations.Market
+      },
+        "Near Storms Grotto Grass 1":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.HC
+      },
+        "Near Storms Grotto Grass 2":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.HC
+      },
+        "Near Graveyard Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Near Graveyard Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Near Graveyard Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Tree Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Tree Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Tree Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Tree Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Tree Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kakariko
+      },
+        "Graveyard Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "Graveyard Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.GY
+      },
+        "LH Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 13":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 14":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 15":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 16":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 17":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 18":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 19":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 20":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 21":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 22":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 23":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 24":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 25":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 26":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 27":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 28":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 29":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 30":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 31":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 32":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 33":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 34":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 35":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Grass 36":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Child Grass 1":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Child Grass 2":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Child Grass 3":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Child Grass 4":
+      {
+        requirements  : [Requirements.Child_Access, Requirements.Grassable_Child],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Warp Pad Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "LH Warp Pad Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LH,
+        conditional   : [
+          new Conditional(locations = ["Lake Hylia North Exit"])
+        ]
+      },
+        "Near KF Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near KF Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Market Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "South Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Central Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 10":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 11":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Tree Grass 12":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "Near Freestanding PoH Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF
+      },
+        "KF Storms Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.KF_Storms_Grotto
+      },
+        "KF Storms Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.KF_Storms_Grotto
+      },
+        "KF Storms Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.KF_Storms_Grotto
+      },
+        "KF Storms Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.KF_Storms_Grotto
+      },
+        "LW Near Shortcuts Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW_Near_Shortcuts_Grotto
+      },
+        "LW Near Shortcuts Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW_Near_Shortcuts_Grotto
+      },
+        "LW Near Shortcuts Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW_Near_Shortcuts_Grotto
+      },
+        "LW Near Shortcuts Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.LW_Near_Shortcuts_Grotto
+      },
+        "HF Near Market Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Near_Market_Grotto
+      },
+        "HF Near Market Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Near_Market_Grotto
+      },
+        "HF Near Market Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Near_Market_Grotto
+      },
+        "HF Near Market Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Near_Market_Grotto
+      },
+        "HF Open Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Open_Grotto
+      },
+        "HF Open Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Open_Grotto
+      },
+        "HF Open Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Open_Grotto
+      },
+        "HF Open Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_Open_Grotto
+      },
+        "HF Southeast Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_SE_Grotto
+      },
+        "HF Southeast Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_SE_Grotto
+      },
+        "HF Southeast Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_SE_Grotto
+      },
+        "HF Southeast Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.HF_SE_Grotto
+      },
+        "HF Cow Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Fire],
+        location      : Locations.HF_Cow_Grotto
+      },
+        "HF Cow Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Fire],
+        location      : Locations.HF_Cow_Grotto
+      },
+        "Kak Open Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kak_Open_Grotto
+      },
+        "Kak Open Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kak_Open_Grotto
+      },
+        "Kak Open Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kak_Open_Grotto
+      },
+        "Kak Open Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Kak_Open_Grotto
+      },
+        "DMT Storms Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMT_Storms_Grotto
+      },
+        "DMT Storms Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMT_Storms_Grotto
+      },
+        "DMT Storms Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMT_Storms_Grotto
+      },
+        "DMT Storms Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMT_Storms_Grotto
+      },
+        "DMT Cow Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMT_Cow_Grotto
+      },
+        "DMT Cow Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMT_Cow_Grotto
+      },
+        "DMC Upper Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMC_Upper_Grotto
+      },
+        "DMC Upper Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMC_Upper_Grotto
+      },
+        "DMC Upper Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMC_Upper_Grotto
+      },
+        "DMC Upper Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.DMC_Upper_Grotto
+      },
+        "ZR Open Grotto Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.ZR_Open_Grotto
+      },
+        "ZR Open Grotto Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.ZR_Open_Grotto
+      },
+        "ZR Open Grotto Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.ZR_Open_Grotto
+      },
+        "ZR Open Grotto Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.ZR_Open_Grotto
+      },
+        "Deku Tree Lobby Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Lobby Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Lobby Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Lobby Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Lobby Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Slingshot Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Shield],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Slingshot Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Shield],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Slingshot Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Shield],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Slingshot Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Shield],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Compass Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Compass Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Basement Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Basement Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Eye Switch Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Eye Switch Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Eye Switch Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Eye Switch Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Spike Roller Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Deku_Back],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Spike Roller Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Deku_Back],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Torches Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Deku_Back],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Torches Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Deku_Back],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Larvae Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Deku_Back],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Larvae Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Deku_Back],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Before Boss Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Before Boss Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        location      : Locations.Deku_Tree 
+      },
+        "Deku Tree Before Boss Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        location      : Locations.Deku_Tree 
+      },
+        "Dodongo's Cavern First Bridge Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Dodongos_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongo's Cavern Blade Room Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Dodongos_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongo's Cavern Single Eye Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Dodongos_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongo's Cavern Before Boss Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Dodongos_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Behind Rocks Grass 9":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Bottom of the Well Basement Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access],
+        location      : Locations.BOTW 
+      },
+        "Deku Tree Queen Gohma Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+        "Deku Tree Queen Gohma Grass 8":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Gohma 
+      },
+
+      "Deku Tree MQ Lobby Crate":
+      {
+        requirements  : "",
+        location      : Locations.Deku 
+      },
+        "Deku Tree MQ Slingshot Room Crate 1":
+      {
+        requirements  : "",
+        location      : Locations.Deku 
+      },
+        "Deku Tree MQ Slingshot Room Crate 2":
+      {
+        requirements  : "",
+        location      : Locations.Deku 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 1":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 2":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 3":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 4":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 5":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 6":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 7":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Poe Room Crate 8":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Staircase Lower Crate 1":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Staircase Lower Crate 2":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Staircase Upper Crate 1":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Staircase Upper Crate 2":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Staircase Upper Crate 3":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Staircase Upper Crate 4":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Two Flames Crate 1":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Two Flames Crate 2":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Larvae Room Crate 1":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Larvae Room Crate 2":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Larvae Room Crate 3":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Larvae Room Crate 4":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Larvae Room Crate 5":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Dodongos Cavern MQ Larvae Room Crate 6":
+      {
+        requirements  : [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "Fire Temple MQ Outside Boss Crate 1":
+      {
+        requirements  : [Requirements.Dins],
+        location      : Locations.Fire 
+      },
+        "Fire Temple MQ Outside Boss Crate 2":
+      {
+        requirements  : [Requirements.Dins],
+        location      : Locations.Fire 
+      },
+        "Fire Temple MQ Outside Boss Crate 3":
+      {
+        requirements  : [Requirements.Dins],
+        location      : Locations.Fire 
+      },
+        "Fire Temple MQ Outside Boss Crate 4":
+      {
+        requirements  : [Requirements.Dins],
+        location      : Locations.Fire 
+      },
+        "Fire Temple MQ Outside Boss Crate 5":
+      {
+        requirements  : [Requirements.Dins],
+        location      : Locations.Fire 
+      },
+        "Fire Temple MQ Outside Boss Crate 6":
+      {
+        requirements  : [Requirements.Dins],
+        location      : Locations.Fire 
+      },
+        "Fire Temple MQ Shortcut Crate 1":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Shortcut Crate 2":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Shortcut Crate 3":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Shortcut Crate 4":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Shortcut Crate 5":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Shortcut Crate 6":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Lower 1":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Lower 2":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Lower 3":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Upper Crate 1":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Upper Crate 2":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Upper Crate 3":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Crate 1":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Crate 2":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Crate 3":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Crate 4":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Crate 5":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Water Temple MQ Central Pillar Upper Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Upper Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 5":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 6":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 7":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 8":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 9":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 10":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 11":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 12":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 13":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Central Pillar Lower Crate 14":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Central_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Room Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Room Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Room Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Room Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Room Crate 5":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Gate Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Lizalfos Hallway Gate Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Lizalfos_GS_Pots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 1":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 2":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 3":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 4":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 5":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 6":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Crate 7":
+        {
+            requirements: [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Crate 5":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Crate 6":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Upper Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Upper Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Torches Crate 1":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Torches Crate 2":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Submerged Crate 1":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Submerged Crate 2":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Submerged Crate 3":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Submerged Crate 4":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Door Crate 1":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Door Crate 2":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ BK Room Upper Crate":
+        {
+            requirements: [Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ BK Room Lower Crate 1":
+        {
+            requirements: [Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ BK Room Lower Crate 2":
+        {
+            requirements: [Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ BK Room Lower Crate 3":
+        {
+            requirements: [Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ BK Room Lower Crate 4":
+        {
+            requirements: [Requirements.Adult_Access],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Front Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Front Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Submerged Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Submerged Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Submerged Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Submerged Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Submerged Crate 5":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Submerged Crate 6":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Behind Gate Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Behind Gate Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Behind Gate Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Whirlpool Behind Gate Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dodongo Room Upper Crate":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dodongo Room Hall Crate":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dodongo Room Lower Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dodongo Room Lower Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dodongo Room Lower Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding_GS],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room B Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room B Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room B Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room B Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room B Crate 5":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Submerged Crate 1":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Submerged Crate 2":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Submerged Crate 3":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Submerged Crate 4":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Submerged Crate 5":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Submerged Crate 6":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Gate Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Triple],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Gate Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Triple],
+            location: Locations.Water
+        },
+        "Water Temple MQ Triple Torch Room Gate Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Triple],
+            location: Locations.Water
+        },
+        "Spirit Temple MQ Statue Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Center_Room],
+            location: Locations.Spirit
+        },
+        "Spirit Temple MQ Statue Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Center_Room],
+            location: Locations.Spirit
+        },
+        "Spirit Temple MQ Big Mirror Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Spirit_small_keys3],
+            location: Locations.Spirit
+        },
+        "Spirit Temple MQ Big Mirror Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Spirit_small_keys3],
+            location: Locations.Spirit
+        },
+        "Spirit Temple MQ Big Mirror Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Spirit_small_keys3],
+            location: Locations.Spirit
+        },
+        "Spirit Temple MQ Big Mirror Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Beamos, Requirements.Spirit_small_keys3],
+            location: Locations.Spirit
+        },
+        "Gerudo Training Ground MQ Maze Crate":
+        {
+            requirements: [Requirements.Fire, Requirements.Melee_Either],
+            location: Locations.GTG
+        },
+        "Jabu Jabus Belly MQ Triple Hallway Small Crate 1":
+        {
+            requirements: [Requirements.Boomerang],
+            location: Locations.Jabu
+        },
+        "Jabu Jabus Belly MQ Triple Hallway Small Crate 2":
+        {
+            requirements: [Requirements.Boomerang],
+            location: Locations.Jabu
+        },
+        "Forest Temple MQ Frozen Eye Switch Small Crate 1": {  
+          requirements  : [ MultiplePossibleRequirements.Forest_BK,
+                                Requirements.Projectile,
+                                Requirements.Forest_small_keys4
+          ],
+              location      : Locations.Forest
+        },
+        "Forest Temple MQ Frozen Eye Switch Small Crate 2": {  
+          requirements  : [ MultiplePossibleRequirements.Forest_BK,
+                                Requirements.Projectile,
+                                Requirements.Forest_small_keys4
+          ],
+              location      : Locations.Forest
+        },
+        "Forest Temple MQ Frozen Eye Switch Small Crate 3": {  
+          requirements  : [ MultiplePossibleRequirements.Forest_BK,
+                                Requirements.Projectile,
+                                Requirements.Forest_small_keys4
+          ],
+              location      : Locations.Forest
+        },
+        "Fire Temple MQ Lizalfos Maze Upper Small Crate 1":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lizalfos Maze Upper Small Crate 2":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Small Crate 1":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Small Crate 2":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Small Crate 3":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Small Crate 4":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Fire Temple MQ Lava Torch Small Crate 5":
+        {
+            requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
+            location: Locations.Fire
+        },
+        "Water Temple MQ Dragon Room Torches Small Crate 1":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Torches Small Crate 2":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Dragon Room Torches Small Crate 3":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Fire],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Small Crate 1":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Hookshot],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Small Crate 2":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Hookshot],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Small Crate 3":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Hookshot],
+            location: Locations.Water
+        },
+        "Water Temple MQ Storage Room A Small Crate 4":
+        {
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Hookshot],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Lower Small Crate":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Water Temple MQ GS Storage Room Upper Small Crate":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Water_Upper_Switch],
+            location: Locations.Water
+        },
+        "Shadow Temple MQ Truth Spinner Small Crate 1":
+        {
+            requirements: [MultiplePossibleRequirements.Shadow_Entry],
+            location: Locations.Shadow
+        },
+        "Shadow Temple MQ Truth Spinner Small Crate 2":
+        {
+            requirements: [MultiplePossibleRequirements.Shadow_Entry],
+            location: Locations.Shadow
+        },
+        "Shadow Temple MQ Truth Spinner Small Crate 3":
+        {
+            requirements: [MultiplePossibleRequirements.Shadow_Entry],
+            location: Locations.Shadow
+        },
+        "Shadow Temple MQ Truth Spinner Small Crate 4":
+        {
+            requirements: [MultiplePossibleRequirements.Shadow_Entry],
+            location: Locations.Shadow
+        },
+        "Spirit Temple MQ Statue Small Crate":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Center_Room],
+            location: Locations.Spirit
+        },
+        "Spirit Temple MQ Beamos Small Crate":
+        {
+            requirements: [MultiplePossibleRequirements.MQ_Spirit_Center_Room],
+            location: Locations.Spirit
+        },
+
+
+        "MQ Deku Tree Lobby Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Lobby Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Lobby Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Lobby Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Lobby Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Lobby Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Lobby Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Slingshot Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Slingshot Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Slingshot Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Slingshot Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 6":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Compass Grass 7":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Compass Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Compass Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Compass Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Compass Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Lower Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Lower Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Lower Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Lower Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Upper Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Upper Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Basement Upper Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Spike Roller Front Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Spike Roller Front Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Spike Roller Front Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Spike Roller Back Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Spike Roller Back Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Torches Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Torches Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Torches Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Torches Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Larvae Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Larvae Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Graves Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Graves Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Graves Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Graves Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Graves Grass 5":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Back Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Back Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Back Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Boss Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Boss Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Deku Tree Before Boss Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        location      : Locations.Deku_Tree 
+      },
+        "MQ Dodongo's Cavern Compass Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Compass Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Compass Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Compass Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_Upper],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Armos Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Back Poe Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Scrub Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Dodongo's Cavern Scrub Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Dong_BombBag],
+        location      : Locations.Dodongos_Cavern 
+      },
+        "MQ Jabu Jabu's Belly First Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly First Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Pit Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.BronzeScal, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Pit Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.BronzeScale, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Basement Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Basement Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Basement Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Wigglers Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Boomerang, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly After Big Octo Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Boomerang, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly After Big Octo Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Boomerang, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Like Like Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Jabu_Bossroom],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Basement Boomerang Grass":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Slingshot],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Before Boss Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Jabu_Bossroom],
+        location      : Locations.Jabu 
+      },
+        "MQ Jabu Jabu's Belly Before Boss Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Jabu_Bossroom],
+        location      : Locations.Jabu 
+      },
+        "MQ Bottom of the Well Dead Hand Grass 1":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access, Requirements.Ranged_Weapon],
+        location      : Locations.Jabu 
+      },
+        "MQ Bottom of the Well Dead Hand Grass 2":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access, Requirements.Ranged_Weapon],
+        location      : Locations.Jabu 
+      },
+        "MQ Bottom of the Well Dead Hand Grass 3":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access, Requirements.Ranged_Weapon],
+        location      : Locations.Jabu 
+      },
+        "MQ Bottom of the Well Dead Hand Grass 4":
+      {
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access, Requirements.Ranged_Weapon],
+        location      : Locations.Jabu 
+      },
       // new
+      "Market ToT Master Sword":
+      {
+        requirements  : "",
+        location      : Locations.TOT
+      },
       "Gift from Rauru":
       {
         requirements    : "",
@@ -5510,7 +8907,10 @@
       },
         "Kitchen Sun's Song Fairy": {
         requirements    : [Requirements.Suns_Song, Requirements.Instrument],
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "Scrub Grotto Sun's Song Fairy": {
         requirements    : [Requirements.Suns_Song, Requirements.Instrument],
@@ -5733,67 +9133,115 @@
       },
         "GF Break Room Pot 1": {
         requirements    : [Requirements.GerudoGuard],
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF Break Room Pot 2": {
         requirements    : [Requirements.GerudoGuard],
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF Kitchen Pot 1": {
         requirements    : [Requirements.GerudoGuard],
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF Kitchen Pot 2": {
         requirements    : [Requirements.GerudoGuard],
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF North F1 Carpenter Pot 1": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF North F1 Carpenter Pot 2": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF North F1 Carpenter Pot 3": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF North F2 Carpenter Pot 1": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF North F2 Carpenter Pot 2": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Pot 1": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Pot 2": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Pot 3": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Cell Pot 1": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Cell Pot 2": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Cell Pot 3": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "GF South F1 Carpenter Cell Pot 4": {
         requirements    : "",
-        location        : Locations.GF
+        location        : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
       },
         "Wasteland Near GS Pot 1": {
         requirements    : "",
@@ -8763,7 +12211,8 @@
         },
         "Deku Tree GS Basement Back Room": 
           {  requirements  : [ Requirements.Mudwall,
-                                Requirements.Ranged_Retrieval
+                                Requirements.Ranged_Retrieval,
+                                MultiplePossibleRequirements.Deku_Back
           ],
               location      : Locations.Deku_Tree,
         },
@@ -10773,37 +14222,61 @@
         },
         "GF Chest": 
         {  requirements  : [ MultiplePossibleRequirements.GF_Chest],
-              location      : Locations.GF
+              location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
         },
         "GF GF HBA 1000 Points": 
         {  requirements  : [ Requirements.Membership, Requirements.Eponas_Song, Requirements.Instrument, Requirements.Bow, Requirements.Adult_Access],
               location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ],
               age           : Ages.Adult
         },
         "GF GF HBA 1500 Points": 
         {  requirements  : [ Requirements.Membership, Requirements.Eponas_Song, Requirements.Instrument, Requirements.Bow, Requirements.Adult_Access],
               location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ],
               age           : Ages.Adult
         },
         "GF GF North F1 Carpenter": 
         {  requirements  : [ Requirements.Weapon],
-              location      : Locations.GF
+              location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
         },
         "GF GF North F2 Carpenter": 
         {  requirements  : [ Requirements.Weapon],
-              location      : Locations.GF
+              location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
         },
         "GF GF South F1 Carpenter": 
         {  requirements  : [ Requirements.Weapon],
-              location      : Locations.GF
+              location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
         },
         "GF GF South F2 Carpenter": 
         {  requirements  : [ Requirements.Weapon],
-              location      : Locations.GF
+              location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
         },
         "GF GF Gerudo Membership Card": 
         {  requirements  : [ Requirements.Weapon, Requirements.GF_small_keys4],
-              location      : Locations.GF
+              location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ]
         },
         "Wasteland Chest": 
         {  requirements  : [ Requirements.Fire],
@@ -10865,6 +14338,9 @@
         "GF GS Top Floor": 
         {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
               location      : Locations.GF,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Fortress East Exit"])
+        ],
               age           : Ages.Adult,
               time          : Times.Night
         },
@@ -11871,7 +15347,8 @@
                                             console.log("!!!");
                                             console.log("Entering debug key")
                                           }
-
+                                          // console.log(type[key]);
+                                          // console.log(key);
                                           if (element.explanation) {
                                               if (key == debugKey) {
                                               console.log("Single Req");
@@ -12510,9 +15987,9 @@
             if (file.settings["Shuffle Master Sword"] != "On") {
                   inventory.items.push("Master Sword");
             }
-            else {
-              inventory.items.push(file.locations["Market ToT Master Sword"]);
-            }
+            // else {
+            //   inventory.items.push(file.locations["Market ToT Master Sword"]);
+            // }
             if (file.settings["Lock Overworld Doors"] != "On") {
               // quickscroll comment
               inventory.items.push("Kakariko Shooting Gallery Key");
