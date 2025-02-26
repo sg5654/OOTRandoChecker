@@ -2485,7 +2485,11 @@
                   requirements: "",
                   location: Locations.ZR,
                   default: "ZR Open Grotto",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["ZR Raised Open Grotto Entry", "Zora's River Waterfall Exit", "Zora's River Underwater Shortcut", "ZR Raised Boulder Grotto Entry"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee, Requirements.BronzeScale], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access])
+                  ]
             },
             // TODO: Expand
             "Zora's Domain Underwater Shortcut":{
@@ -3501,20 +3505,32 @@
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.ZR,
                   default: "ZR Fairy Grotto",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["ZR Raised Open Grotto Entry", "Zora's River Waterfall Exit", "Zora's River Underwater Shortcut", "ZR Raised Boulder Grotto Entry"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee, Requirements.BronzeScale], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access])
+                  ]
             },
             "Zora's River Underwater Shortcut": 
             // TODO: Implement behaviour for clips, unloading and diving
             {  requirements  : [Requirements.Scale],
                 location      : Locations.ZR,
                   default: "Lost Woods Underwater Shortcut",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["ZR Raised Open Grotto Entry", "Zora's River Waterfall Exit", "Zora's River Underwater Shortcut", "ZR Raised Boulder Grotto Entry"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee, Requirements.BronzeScale], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access])
+                  ]
             },
             "ZR Rock Circle Grotto Entry": 
             {  requirements  : [Requirements.Instrument, Requirements.Song_Of_Storms],
                 location      : Locations.ZR,
                   default: "ZR Storms Grotto",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["ZR Raised Open Grotto Entry", "Zora's River Waterfall Exit", "Zora's River Underwater Shortcut", "ZR Raised Boulder Grotto Entry"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee, Requirements.BronzeScale], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access])
+                  ]
             },
             "SFM Wolfos Grotto Entry": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
@@ -3683,7 +3699,8 @@
                   default: "Zora's Domain Entrance",
                   conditional: [
                     new Conditional(locations = ["Zora's River Waterfall Exit"]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                    new Conditional(locations = ["ZR Raised Open Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee, Requirements.BronzeScale], age = undefined, needsAll = true),
                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Hover_boots], age = undefined, needsAll = true),
                     new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult]),
                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive, Requirements.Adult_Shield], age = undefined, needsAll = true),
@@ -10076,7 +10093,7 @@
         },
         "ZR Open Grotto Chest": 
         {  requirements  : "",
-              location      : Locations.ZR
+              location      : Locations.ZR_Open_Grotto
         },
         "ZR Magic Bean Salesman": 
         {  requirements  : [Requirements.Child_Access],
@@ -10120,11 +10137,13 @@
         },
         "ZR Near Open Grotto Freestanding PoH": 
         {  requirements  : "",
-              location      : Locations.ZR
+              location      : Locations.ZR,
+              conditional: [new Conditional(locations = ["ZR Raised Open Grotto Entry"])]
         },
         "ZR Near Domain Freestanding PoH": 
         {  requirements  : "",
-              location      : Locations.ZR
+              location      : Locations.ZR,
+              conditional: [new Conditional(locations = ["ZR Raised Open Grotto Entry"])]
         },
         "ZR Deku Scrub Grotto Rear": 
         {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck],
