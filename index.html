@@ -557,7 +557,7 @@
       Explosive_Or_Hammer_Or_Boomerang: {explanation: "Can retrieve freestanding items under boulders", unlocked_if: ["Boomerang", "Explosive", "Hammer"]},
       FishingRod: {explanation: "Can fish", related: ["items"], items: ["Fishing Pole"]},
       BeeHiveHigh: {explanation: "Can break a high hanging bee hive", related: ["items"], items: ["Boomerang", "Hookshot", "Progressive Bombchu"]},
-      BeeHiveLow: {explanation: "Can break a high hanging bee hive", related: ["items"], items: ["Boomerang", "Hookshot", "Progressive Bombchu", "Progressive Bomb Bag"]},
+      BeeHiveLow: {explanation: "Can break a low hanging bee hive", related: ["items"], items: ["Boomerang", "Hookshot", "Progressive Bombchu", "Progressive Bomb Bag"]},
       AllButtons: {explanation: "Has Access to all ocarina buttons", related: ["items"], items_all: ["Ocarina C Left Button", "Ocarina C Up Button", "Ocarina C Right Button", "Ocarina C Down Button", "Ocarina A Button"]},
       Boss_Soul_Gohma: {explanation: "Has Gohma's Boss Soul", related: ["items"], items: ["Gohma's Soul"]},
       Boss_Soul_KingDodongo: {explanation: "Has King Dodongo's Boss Soul", related:["items"], items: ["King Dodongo's Soul"]},
@@ -11785,6 +11785,7 @@
 //       console.log(MS_location);
 //       return;
 //     }
+      var debugKey = "Bottom of the Well MQ East Inner Room Freestanding Key";
 
       function exploreArea(type) {
             var reqCheck = true;
@@ -11841,12 +11842,16 @@
                               if (type[key].requirements) {
                                     type[key].requirements.forEach(element => {
                                           // single req
-                                          if (key == "MK Guard House Child Pot 26") {
-                                            console.log(type[key]);
-                                            console.log(element);
+                                          if (key == debugKey) {
+                                            console.log("!!!");
+                                            console.log("Entering debug key")
                                           }
 
                                           if (element.explanation) {
+                                              if (key == debugKey) {
+                                              console.log("Single Req");
+                                              console.log(element);
+                                            }
                                                 if (inventory.requirements.includes(element)) {
                                                       if (element == Requirements.Adult_Access) {
                                                             if (!inventory.entered_adult.includes(type[key]["location"].name)) {
@@ -11854,9 +11859,9 @@
                                                             }
                                                       }
                                                       else if (element == Requirements.Child_Access) {
-                                                        if (key == "MK Guard House Child Pot 26") {
-                                                          console.log(type[key]["location"].name);
-                                                        }
+                                                        // if (key == "MK Guard House Child Pot 26") {
+                                                        //   console.log(type[key]["location"].name);
+                                                        // }
                                                             if (!inventory.entered_child.includes(type[key]["location"].name)) {
                                                                   reqCheck = false;
                                                             }
@@ -11873,10 +11878,15 @@
                                                 element.forEach(requirementList => {
                                                       // console.log(requirementList);
                                                       // console.log(element);
-                                                      if (!multCheck) {
+                                                      if (!multCheck && reqCheck) {
                                                             multCheck = true;
                                                             requirementList.forEach(requirement => {
+                                                              if (key == debugKey) {
+                                                                      console.log("multi check")
+                                                                      console.log(requirement);
+                                                                    }
                                                                   if (inventory.requirements.includes(requirement)) {
+                                                                    
                                                                         if (requirement == Requirements.Adult_Access) {
                                                                               if (!inventory.entered_adult.includes(type[key]["location"].name)) {
                                                                                     multCheck = false;
@@ -11892,10 +11902,13 @@
                                                                         //console.log("unmatched");
                                                                         multCheck = false;
                                                                   }
+                                                                  //console.log(multCheck);
+                                                                  
                                                             })
 
                                                       }
-                                                })
+                                                });
+                                                reqCheck = multCheck;
                                           }
                                     })
                               }
@@ -11912,7 +11925,7 @@
                                           if (!condCheck) {
                                                 needsAllCheck = true;
                                                 if (condition.needsAll) {
-                                                      if (key == "GC Maze Center Chest") {
+                                                      if (key == debugKey) {
                                                             //console.log("condition needs all");
                                                       }
                                                       needsAllCheck = true;
@@ -12132,7 +12145,7 @@
                               // console.log(ageCheck);
                               // console.log(collectCheck);
                               // console.log(needsAllCheck);
-                              if (key == "MK Guard House Child Pot 26") {
+                              if (key == debugKey) {
                                     console.log("conclusion: ");
                                     console.log(reqCheck);
                                     console.log(multCheck);
@@ -12141,7 +12154,7 @@
                                     console.log(collectCheck);
                                     console.log(needsAllCheck);
                               }
-                              if (reqCheck && multCheck && condCheck && ageCheck && collectCheck && needsAllCheck) {
+                              if (reqCheck && condCheck && ageCheck && collectCheck) {
                                     if (type == entrancesMap) {
                                           // console.log("adding" + key);
                                           if (!accessibleList[listIndex].includes(key)) {
