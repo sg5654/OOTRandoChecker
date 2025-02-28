@@ -4151,7 +4151,7 @@
     var itemLocations = {
       // newer
       "GV Freestanding PoH Crate": {
-        requirements  : [MultiplePossibleRequirements.GV],
+        requirements  : "",
         location      : Locations.GV,
           conditional: [new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Adult_Shield, Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
                   new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
@@ -7447,7 +7447,7 @@
       },
         "MQ Jabu Jabu's Belly Pit Grass 1":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.BronzeScal, Requirements.Slingshot],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.BronzeScale, Requirements.Slingshot],
         location      : Locations.Jabu 
       },
         "MQ Jabu Jabu's Belly Pit Grass 2":
@@ -16210,12 +16210,21 @@
             // console.log(searchString);
             if (key == searchString) {
                   if (inventory.ages.includes("Child")) {
+                    // console.log("test");
+                    // console.log("Adult spawn:");
+                    //     console.log(randomizedEntrances["Adult Spawn"]);
                         inventory.Child_start = randomizedEntrances[key].replace("from" , '->');
                         inventory.accessible_child.push(inventory.Child_start);
+                        console.log(inventory.Child_start);
+                        console.log(randomizedEntrances[inventory.Child_start]);
+                        if (inventory.Child_start == "Temple of Time Warp Pad") {
+                          inventory.ages.push("Adult");
+                        }
                         //inventory.entered_child.push(entrancesMap[inventory.Child_start].location.name);
                         unlockEntrance(entrancesMap[inventory.Child_start].location, 0);
                         //delete entrancesMap[inventory.Child_start];
-                        inventory.Adult_start = randomizedEntrances["Adult Spawn"].replace("from" , '->');
+                        
+                        inventory.Adult_start = randomizedEntrances["Adult Spawn"];
                         //delete randomizedEntrances["Adult Spawn -> Temple of Time"];
                         if (entrancesMap[inventory.Child_start].location == Locations.HC) {
                           inventory.accessible_child.push("Castle Grounds South Exit"); 
@@ -16229,6 +16238,9 @@
                   else {
                         inventory.Adult_start = randomizedEntrances[key].replace("from" , '->');
                         inventory.accessible_adult.push(inventory.Adult_start);
+                        if (inventory.Adult_start == "Temple of Time Warp Pad") {
+                          inventory.ages.push("Child");
+                        }
                         //inventory.entered_adult.push(entrancesMap[inventory.Adult_start].location.name);
                         unlockEntrance(entrancesMap[inventory.Adult_start].location, 0);
                         //delete entrancesMap[inventory.Adult_start];
@@ -16693,7 +16705,8 @@
                                                 else {
                                                       if (inventory.ages.includes("Child")) {
                                                             inventory.ages.push("Adult");
-                                                            //console.log(entrance);
+                                                            console.log(entrance);
+                                                            console.log(inventory.Adult_start);
                                                             inventory.entered_adult.push(entrance.name);
                                                             inventory.entered_adult.push(entrancesMap[inventory.Adult_start]["location"].name);
                                                       }
