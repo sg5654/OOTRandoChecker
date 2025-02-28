@@ -526,8 +526,8 @@
     var Requirements = {
       Trials: {explanation: "Trials are open"},
       Kokiri_Sword: {explanation: "Can use kokiri sword", related: ["items"], items: ["Kokiri Sword"]},
-      Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Adult_Access", "Child_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
-      Grassable_Adult: {explanation: "Can cut grass as adult", unlocked_if: ["Child_Access", "Adult_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
+      Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Child_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
+      Grassable_Adult: {explanation: "Can cut grass as adult", unlocked_if: ["Adult_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
       Bean_Or_Hover: {explanation: "Can reach bean specific locations", unlocked_if: ["Bean_Planted", "Bomb_Hovering"]},
       Kak_Shooting_Gallery_Key: {explanation: "Can open the kakariko shooting gallery", related: ["items"], items: ["Kakariko Shooting Gallery Key", "Skeleton Key"]},
       LLR_Stables_Key: {explanation: "Can open the LLR Stables", related: ["items"], items: ["Stables Key", "Skeleton Key"]},
@@ -614,8 +614,10 @@
       Slingshot: {explanation: "Requires having fairy slingshot", related: ["items", "ages"], items: ["Progressive Slingshot"], ages: ["Child"]},
       Bow: {explanation: "Requires having a Fairy Bow", related: ["items"], items: ["Progressive Bow"]},
       Shield: {explanation: "Requires the use of a shield", unlocked_if: ["Child_Shield", "Adult_Shield"]},
-      Child_Shield: {explanation: "Requires having a shield as child", related: ["items", "ages"], items: ["Deku Shield", "Buy Deku Shield"], ages: ["Child"]},
-      Adult_Shield: {   explanation: "Requires having a shield as adult", related: ["items", "ages"], items: ["Buy Hylian Shield", "Hylian Shield", "Mirror Shield"], ages: ["Adult"]},
+      Child_Shield_Buy: {Explanation: "Can buy a Child Shield", related: ["items"], items_all: ["Progressive Wallet", "Buy Deku Shield"]},
+      Child_Shield: {explanation: "Requires having a shield as child", related: ["items", "ages"], items: ["Deku Shield"], ages: ["Child"], unlocked_if: ["Child_Shield_Buy"]},
+      Adult_Shield_Buy: {explanation: "Can Buy Adult Shield", related: ["items"], items_all: ["Buy Hylian Shield", "Progressive Wallet"]},
+      Adult_Shield: {   explanation: "Requires having a shield as adult", related: ["items", "ages"], items: ["Hylian Shield", "Mirror Shield"], ages: ["Adult"], unlocked_if: ["Adult_Shield_Buy"]},
       Child_Melee: {    explanation: "Requires having a melee weapon as child", related: ["items", "ages"], 
                         items: ["Kokiri Sword", "Progressive Stick Capacity", "Megaton Hammer"],
                         ages: ["Child"]},
@@ -651,7 +653,8 @@
       Mudwall_Or_Strength: {  explanation: "Requires having any means of destroying a mudwall, or having strength. Applicable for Dodongo's Cavern",
                               unlocked_if:["Mudwall", "Strength1"]
       },
-      Blue_Fire: {explanation: "Requires having access to blue fire", related: ["items"], items_all: ["Buy Blue Fire"]},
+      Blue_Fire_Buying: {explanation: "Can buy Blue Fire", related: ["items"], items: ["Buy Blue Fire"]},
+      Blue_Fire: {explanation: "Requires having access to blue fire", unlocked_if_all: ["Blue_Fire_Buying", "Wallet3", "Bottle"]},
       // TODO: Expand this for putaway and damage QPA
       QPA: {explanation: "Requires having access to a means of triggering QPA", related: ["items"], items_all: ["Progressive Stick Capacity", "Buy Deku Stick (1)", "Progressive Nut Capacity", "Buy Deku Nut (5)"]},
       // TODO: Expand this for any scenario that can give sticks
@@ -2304,8 +2307,18 @@
             {
                   requirements: "",
                   location: Locations.LW,
-                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
-                                    new Conditional(locations = ["Lost Woods Bridge West Exit", "Lost Woods Bridge East Exit"])
+                  conditional: [    new Conditional(locations = ["Lost Woods Underwater Shortcut"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["Lost Woods Tunnel Shortcut"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["Lost Woods South Exit"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["LW Shortcuts Grotto Entry"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["Lost Woods Bridge West Exit", "Lost Woods Bridge East Exit"]),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Child_Access, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Child_Access, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Child_Access, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true)
             ],
             default: "Kokiri Forest Lower Exit"
             },
@@ -2648,13 +2661,14 @@
                   requirements: "",
                   location: Locations.LW,
                   conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
-                                    new Conditional(locations = [ "LW Meadow Grotto Entry", 
-                                                                  "Lost Woods North Exit",
-                                                                  "LW North Grotto Entry",
-                                                                  "Lost Woods Underwater Shortcut",
-                                                                  "Lost Woods Tunnel Shortcut",
-                                                                  "Lost Woods South Exit",
-                                                                  "LW Shortcuts Grotto Entry"])
+                                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                  new Conditional(locations = ["Lost Woods Underwater Shortcut", "Lost Woods Tunnel Shortcut", "Lost Woods South Exit", "LW Shortcuts Grotto Entry", "Lost Woods Underwater Shortcut"]),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true)
             ],
             default: "Kokiri Forest Upper Exit"
             },
@@ -2798,8 +2812,18 @@
             {
                   requirements: "",
                   location: Locations.LW,
-                  conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Above]),
-                                    new Conditional(locations = ["Lost Woods Bridge West Exit", "Lost Woods Bridge East Exit"])
+                  conditional: [    new Conditional(locations = ["Lost Woods Underwater Shortcut"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["Lost Woods Tunnel Shortcut"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["Lost Woods South Exit"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["LW Shortcuts Grotto Entry"], requirements = [MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                    new Conditional(locations = ["Lost Woods Bridge West Exit", "Lost Woods Bridge East Exit"]),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Child_Access, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Child_Access, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Child_Access, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song, MultiplePossibleRequirements.LW_Bridge_Above], age = undefined, needsAll = true)
             ],
             default: "Hyrule Field Wooded Exit"
             },
@@ -3906,13 +3930,14 @@
             {  requirements  : "",
                 location      : Locations.LW,
                 conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
-                                    new Conditional(locations = [ "LW Meadow Grotto Entry", 
-                                                                  "Lost Woods North Exit",
-                                                                  "LW North Grotto Entry",
-                                                                  "Lost Woods Underwater Shortcut",
-                                                                  "Lost Woods Tunnel Shortcut",
-                                                                  "Lost Woods South Exit",
-                                                                  "LW Shortcuts Grotto Entry"])
+                                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                  new Conditional(locations = ["Lost Woods Underwater Shortcut", "Lost Woods Tunnel Shortcut", "Lost Woods South Exit", "LW Shortcuts Grotto Entry", "Lost Woods Underwater Shortcut"]),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true)
             ],
             default: "Goron City Tunnel Shortcut"
             },
@@ -3921,13 +3946,14 @@
             {  requirements  : [MultiplePossibleRequirements.Forest_Escape],
                 location      : Locations.LW,
                 conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
-                                    new Conditional(locations = [ "LW Meadow Grotto Entry", 
-                                                                  "Lost Woods North Exit",
-                                                                  "LW Shortcuts Grotto Entry",
-                                                                  "Lost Woods Underwater Shortcut",
-                                                                  "Lost Woods Tunnel Shortcut",
-                                                                  "Lost Woods South Exit",
-                                                                  "LW North Grotto Entry"])
+                                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                  new Conditional(locations = ["Lost Woods Underwater Shortcut", "Lost Woods Tunnel Shortcut", "Lost Woods South Exit", "LW Shortcuts Grotto Entry", "Lost Woods Underwater Shortcut"]),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true)
             ],
             default: "Zora's River Underwater Shortcut"
             },
@@ -3935,13 +3961,15 @@
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.LW,
                 conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
-                                    new Conditional(locations = [ "LW Meadow Grotto Entry", 
-                                                                  "Lost Woods North Exit",
-                                                                  "LW Shortcuts Grotto Entry",
-                                                                  "Lost Woods Underwater Shortcut",
-                                                                  "Lost Woods Tunnel Shortcut",
-                                                                  "Lost Woods South Exit",
-                                                                  "LW North Grotto Entry"])
+                                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                  new Conditional(locations = ["Lost Woods Underwater Shortcut", "Lost Woods Tunnel Shortcut", "Lost Woods South Exit", "LW Shortcuts Grotto Entry", "Lost Woods Underwater Shortcut"]),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW Meadow Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "LW north Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true),
+                                  new Conditional(locations = [ "Lost Woods North Exit"], requirements = [Requirements.Adult_Access, Requirements.Instrument, Requirements.Sarias_Song], age = undefined, needsAll = true)
+                                  
             ],
             default: "LW Tunnel Grotto"
             },
@@ -4161,7 +4189,7 @@
       },
         "GV Near Cow Crate":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.GV
       },
         "GF Above Jail Crate":
@@ -4736,6 +4764,7 @@
         requirements  : "",
         location      : Locations.HF
       },
+      // Cannot be collected?
         "HF NW Tree 2":
       {
         requirements  : [Requirements.Child_Access],
@@ -4768,7 +4797,7 @@
       },
         "HF Tree Near HC Grotto 3":
       {
-        requirements  : "",
+        requirements  : [Requirements.Adult_Access],
         location      : Locations.HF
       },
         "HF Tree in SE HF 1":
@@ -9621,27 +9650,45 @@
       },
         "GY Dampes Grave Pot 1": {
         requirements    : "",
-        location        : Locations.GY_Dampes_Grave
+        location        : Locations.GY_Dampes_Grave,
+        conditional     : [
+            new Conditional(locations = ["Dampe's Grave"])
+        ]
       },
         "GY Dampes Grave Pot 2": {
         requirements    : "",
-        location        : Locations.GY_Dampes_Grave
+        location        : Locations.GY_Dampes_Grave,
+        conditional     : [
+            new Conditional(locations = ["Dampe's Grave"])
+        ]
       },
         "GY Dampes Grave Pot 3": {
         requirements    : "",
-        location        : Locations.GY_Dampes_Grave
+        location        : Locations.GY_Dampes_Grave,
+        conditional     : [
+            new Conditional(locations = ["Dampe's Grave"])
+        ]
       },
         "GY Dampes Grave Pot 4": {
         requirements    : "",
-        location        : Locations.GY_Dampes_Grave
+        location        : Locations.GY_Dampes_Grave,
+        conditional     : [
+            new Conditional(locations = ["Dampe's Grave"])
+        ]
       },
         "GY Dampes Grave Pot 5": {
         requirements    : "",
-        location        : Locations.GY_Dampes_Grave
+        location        : Locations.GY_Dampes_Grave,
+        conditional     : [
+            new Conditional(locations = ["Dampe's Grave"])
+        ]
       },
         "GY Dampes Grave Pot 6": {
         requirements    : "",
-        location        : Locations.GY_Dampes_Grave
+        location        : Locations.GY_Dampes_Grave,
+        conditional     : [
+            new Conditional(locations = ["Dampe's Grave"])
+        ]
       },
         "GC Lower Staircase Pot 1": {
         requirements    : "",
@@ -16219,6 +16266,9 @@
                         console.log(randomizedEntrances[inventory.Child_start]);
                         if (inventory.Child_start == "Temple of Time Warp Pad") {
                           inventory.ages.push("Adult");
+                          inventory.accessible_adult.push(randomizedEntrances["Adult Spawn"]);
+                          inventory.accessible_adult.push("Temple of Time Entrance");
+                          inventory.entered_adult.push(Locations.TOT.name);
                         }
                         //inventory.entered_child.push(entrancesMap[inventory.Child_start].location.name);
                         unlockEntrance(entrancesMap[inventory.Child_start].location, 0);
@@ -16240,6 +16290,9 @@
                         inventory.accessible_adult.push(inventory.Adult_start);
                         if (inventory.Adult_start == "Temple of Time Warp Pad") {
                           inventory.ages.push("Child");
+                          inventory.accessible_child.push(randomizedEntrances["Child Spawn"]);
+                          inventory.accessible_child.push("Temple of Time Entrance");
+                          inventory.entered_child.push(Locations.TOT.name);
                         }
                         //inventory.entered_adult.push(entrancesMap[inventory.Adult_start].location.name);
                         unlockEntrance(entrancesMap[inventory.Adult_start].location, 0);
