@@ -524,9 +524,10 @@
     }
     // quickscroll comment
     var Requirements = {
+      Trials: {explanation: "Trials are open"},
       Kokiri_Sword: {explanation: "Can use kokiri sword", related: ["items"], items: ["Kokiri Sword"]},
-      Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Child_Melee", "Bombs", "Bombchu", "Boomerang"]},
-      Grassable_Adult: {explanation: "Can cut grass as adult", unlocked_if: ["Adult_Melee", "Bombs", "Bombchu", "Boomerang"]},
+      Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Adult_Access", "Child_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
+      Grassable_Adult: {explanation: "Can cut grass as adult", unlocked_if: ["Child_Access", "Adult_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
       Bean_Or_Hover: {explanation: "Can reach bean specific locations", unlocked_if: ["Bean_Planted", "Bomb_Hovering"]},
       Kak_Shooting_Gallery_Key: {explanation: "Can open the kakariko shooting gallery", related: ["items"], items: ["Kakariko Shooting Gallery Key", "Skeleton Key"]},
       LLR_Stables_Key: {explanation: "Can open the LLR Stables", related: ["items"], items: ["Stables Key", "Skeleton Key"]},
@@ -598,12 +599,11 @@
       Prelude: {explanation: "Requires having Prelude of Light", related: ["items"], items_all: ["Prelude of Light", "Ocarina C Left Button", "Ocarina C Up Button", "Ocarina C Right Button"]},
       Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina"]},
       Weapon: {   explanation: "Requires having any form of weapon to induce damage",  
-                  related: ["ages", "items"], 
+                  related: ["items"], 
                   items: [    "Kokiri Sword", "Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", 
-                              "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"],
-                  ages: ["Child", "Adult"]},
+                              "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
-                  items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Blue Fire"]},
+                  items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Fish"]},
       Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
       Bomb_Hovering_Child: {explanation: "Requires being able to bomb hover as child", unlocked_if_all: ["Bombs", "Child_Access", "Child_Shield", "Child_Melee"]},
       Bomb_Hovering_Adult: {explanation: "Requires being able to bomb hover as adult", unlocked_if_all: ["Bombs", "Adult_Access", "Adult_Shield", "Adult_Melee"]},
@@ -1060,6 +1060,22 @@
     };
 
     const MultiplePossibleRequirements = {
+      Deku_Beyond_Pool: [
+        [Requirements.BronzeScale],
+        [Requirements.Adult_Access, Requirements.Adult_Shield],
+        [Requirements.Adult_Access, Requirements.Adult_Melee],
+        [Requirements.Child_Access, Requirements.Child_Shield],
+        [Requirements.Child_Access, Requirements.Child_Melee]
+      ],
+      IronKnuckle: [
+        [Requirements.Adult_Melee, Requirements.Adult_Access],
+        [Requirements.Child_Melee, Requirements.Child_Access],
+        [Requirements.Explosive]
+      ],
+      Dodongos_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Explosive_Or_Strength]
+      ],
       HF_Cow_Grotto: [  [ Requirements.Hammer],
                         [ Requirements.Explosive, Requirements.Child_Access],
                         [ Requirements.Explosive, Requirements.Hookshot, Requirements.Shield],
@@ -1100,8 +1116,10 @@
       MQ_Ganon_Spirit_Sun: [  [Requirements.Light_Arrow],
                               [Requirements.Mirror_Shield, Requirements.Fire_Arrow]
       ],
-      MQ_Deku_Beyond_Switch: [  [ Requirements.Weapon],
-                                [ Requirements.Slingshot]
+      MQ_Deku_Beyond_Switch: [  [ Requirements.Bow, Requirements.Stick, Requirements.Adult_Access],
+                                [ Requirements.Slingshot, Requirements.Stick, Requirements.Child_Access],
+                                [ Requirements.Bow, Requirements.Fire, Requirements.Adult_Access],
+                                [ Requirements.Slingshot, Requirements.Fire, Requirements.Child_Access]
       ],
       MQ_Deku_High_GS: [  [ Requirements.Slingshot, Requirements.Longshot],
                           [ Requirements.Slingshot, Requirements.Ranged_Retrieval, Requirements.Song_Of_Time, Requirements.Instrument]
@@ -1326,8 +1344,9 @@
       ],
       Gohma_Entrance: [       [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Stick],
                               [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Fire],
-                              [Requirements.Shield, Requirements.Burnable],
-                              [Requirements.Master_Sword]
+                              [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bow],
+                              [Requirements.Master_Sword, Requirements.Adult_Access],
+                              [Requirements.Adult_Access, Requirements.Stick]
       ],
       Bongo_Bongo_Entrance: [ [Requirements.Master_Sword, Requirements.Hover_boots, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
                               [Requirements.Master_Sword, Requirements.Explosive, Requirements.Adult_Shield, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
@@ -1782,6 +1801,7 @@
         [Requirements.Fire_Arrow]
       ],
       TrialSkip: [
+        [Requirements.Trials],
         [Requirements.Bomb_Hovering],
         [Requirements.Adult_Access, Requirements.Adult_Melee]
       ],
@@ -1903,7 +1923,7 @@
       ZF_Great_Fairy_Fountain: {name: "ZF Great Fairy Fountain", type: LocationType.Interior},
       LLR_Stables: {name: "LLR Stables", type: LocationType.Interior},
       LW_Near_Shortcuts_Grotto: {name: "LW Near Shortcut grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
-      KF_Links_House: {name: "KF Link's House", type: LocationType.Interior},
+      KF_Links_House: {name: "Link's House", type: LocationType.Interior},
       HF_Near_Market_Grotto: {name: "HF Near Market Grotto", bottleables: ["Bugs"], type: LocationType.Grotto},
       DMT_Great_Fairy_Fountain: {name: "DMT Great Fairy Fountain", type: LocationType.Interior},
       GV_Storms_Grotto: {name: "GV Storms Grotto", type: LocationType.Grotto},
@@ -3317,7 +3337,7 @@
                   ]
             },
             "Death Mountain Trail Outside Dodongo's Cavern": 
-            {  requirements  : [ Requirements.Explosive_Or_Strength],
+            {  requirements  : [MultiplePossibleRequirements.Dodongos_Entry],
                 location      : Locations.DMT,
                   default: "Dodongo's Cavern Entrance",
                   conditional: ""
@@ -3333,14 +3353,14 @@
             {  requirements  : "",
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Ground Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
                               default: "Gerudo Training Ground Entrance"
             },
             "GF Storms Grotto Entry": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Grounds Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
+                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Ground Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
                               default: "GF Storms Grotto"
             },
             "KF Outside Deku Tree": 
@@ -4186,7 +4206,7 @@
       },
         "GF Outside Left Crate 1":
       {
-        requirements  : "",
+        requirements  : [Requirements.GerudoGuard],
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -4194,7 +4214,7 @@
       },
         "GF Outside Left Crate 2":
       {
-        requirements  : "",
+        requirements  : [Requirements.GerudoGuard],
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -4319,7 +4339,7 @@
       },
         "GF Kitchen Crate 1":
       {
-        requirements  : [Requirements.GerudoGuard],
+        requirements  : "",
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -4327,7 +4347,7 @@
       },
         "GF Kitchen Crate 2":
       {
-        requirements  : [Requirements.GerudoGuard],
+        requirements  : "",
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -4335,7 +4355,7 @@
       },
         "GF Kitchen Crate 3":
       {
-        requirements  : [Requirements.GerudoGuard],
+        requirements  : "",
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -4343,7 +4363,7 @@
       },
         "GF Kitchen Crate 4":
       {
-        requirements  : [Requirements.GerudoGuard],
+        requirements  : "",
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -4668,7 +4688,7 @@
       },
         "HF Tree Outside GV":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "HF Tree Outside ZR":
@@ -4718,12 +4738,12 @@
       },
         "HF NW Tree 2":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "HF SE Tree 4":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "HF NW Tree 1":
@@ -4753,7 +4773,7 @@
       },
         "HF Tree in SE HF 1":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "HF Tree near Grotto 2":
@@ -4763,12 +4783,12 @@
       },
         "HF Tree Near HC Grotto 2":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "HF Tree Near HC Grotto 1":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "ZF Tree with GS":
@@ -4796,7 +4816,7 @@
       },
         "HF Tree near GV":
       {
-        requirements  : "",
+        requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
         "HC Tree with GS":
@@ -5764,67 +5784,67 @@
         "Near Tree Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 5":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 6":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 7":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 8":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 9":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 10":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 11":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Tree Grass 12":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "Near Freestanding PoH Grass":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.HF
+        location      : Locations.ZR
       },
         "KF Storms Grotto Grass 1":
       {
@@ -6143,17 +6163,17 @@
       },
         "Deku Tree Before Boss Grass 1":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
         "Deku Tree Before Boss Grass 2":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
         "Deku Tree Before Boss Grass 3":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
         "Dodongo's Cavern First Bridge Grass":
@@ -6280,17 +6300,17 @@
       "Deku Tree MQ Lobby Crate":
       {
         requirements  : "",
-        location      : Locations.Deku 
+        location      : Locations.Deku_Tree 
       },
         "Deku Tree MQ Slingshot Room Crate 1":
       {
         requirements  : "",
-        location      : Locations.Deku 
+        location      : Locations.Deku_Tree 
       },
         "Deku Tree MQ Slingshot Room Crate 2":
       {
         requirements  : "",
-        location      : Locations.Deku 
+        location      : Locations.Deku_Tree 
       },
         "Dodongos Cavern MQ Poe Room Crate 1":
       {
@@ -6974,7 +6994,7 @@
         },
         "Gerudo Training Ground MQ Maze Crate":
         {
-            requirements: [Requirements.Fire, Requirements.Melee_Either],
+            requirements: [MultiplePossibleRequirements.GTG_Maze_Right],
             location: Locations.GTG
         },
         "Jabu Jabus Belly MQ Triple Hallway Small Crate 1":
@@ -7362,17 +7382,17 @@
       },
         "MQ Deku Tree Before Boss Grass 1":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
         "MQ Deku Tree Before Boss Grass 2":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
         "MQ Deku Tree Before Boss Grass 3":
       {
-        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.BronzeScale],
+        requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
         "MQ Dodongo's Cavern Compass Grass 1":
@@ -7888,11 +7908,11 @@
         location        : Locations.GV_Octorok_Grotto
       },
         "DMT Blue Rupee Under Boulder": {
-        requirements    : [Requirements.Explosive_Or_Hammer_Or_Boomerang],
+        requirements    : [Requirements.Explosive_Or_Hammer_Or_Boomerang, Requirements.Child_Access],
         location        : Locations.DMT
       },
         "DMT Red Rupee Under Boulder": {
-        requirements    : [Requirements.Explosive_Or_Hammer_Or_Boomerang],
+        requirements    : [Requirements.Explosive_Or_Hammer_Or_Boomerang, Requirements.Child_Access],
         location        : Locations.DMT
       },
         "DMT Cow Grotto Left Heart": {
@@ -8325,35 +8345,35 @@
         location        : Locations.GY_Shield_Grave
       },
         "Oasis Fairy 1": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 2": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 3": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 4": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 5": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 6": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 7": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
         "Oasis Fairy 8": {
-        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument, Requirements.BronzeScale],
+        requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
         location        : Locations.DC
       },
       // TODO: Add conditional for bottom exit without bombs
@@ -9792,15 +9812,15 @@
             location      : Locations.Deku_Tree
         },
         "Deku Tree Final Room Left Front Heart": {  
-            requirements  : [Requirements.Burnable, Requirements.BronzeScale],
+            requirements  : [Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
             location      : Locations.Deku_Tree
         },
         "Deku Tree Final Room Left Back Heart": {  
-            requirements  : [Requirements.Burnable, Requirements.BronzeScale],
+            requirements  : [Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
             location      : Locations.Deku_Tree
         },
         "Deku Tree Final Room Right Heart": {  
-            requirements  : [Requirements.Burnable, Requirements.BronzeScale],
+            requirements  : [Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
             location      : Locations.Deku_Tree
         },
         "Deku Tree MQ Compass Room Heart": {  
@@ -9820,15 +9840,15 @@
             location      : Locations.Deku_Tree
         },
         "Deku Tree MQ Final Room Left Front Heart": {  
-            requirements  : [Requirements.Burnable, Requirements.BronzeScale],
+            requirements  : [Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
             location      : Locations.Deku_Tree
         },
         "Deku Tree MQ Final Room Left Back Heart": {  
-            requirements  : [Requirements.Burnable, Requirements.BronzeScale],
+            requirements  : [Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
             location      : Locations.Deku_Tree
         },
         "Deku Tree MQ Final Room Right Heart": {  
-            requirements  : [Requirements.Burnable, Requirements.BronzeScale],
+            requirements  : [Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
             location      : Locations.Deku_Tree
         },
 
@@ -11848,95 +11868,95 @@
         },
         // MQ
         "Ganon's Castle MQ Water Trial Heart": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Bottle],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Bottle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Light Trial Right Heart": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Ganon_small_keys1, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Ganon_small_keys1, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Light Trial Left Heart": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Ganon_small_keys1, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Ganon_small_keys1, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 3": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 4": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 5": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 6": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 7": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "MQ Scrubs Fairy 8": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Forest Trial Pot 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Instrument, Requirements.Song_Of_Time],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Instrument, Requirements.Song_Of_Time],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Forest Trial Pot 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Instrument, Requirements.Song_Of_Time],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Instrument, Requirements.Song_Of_Time],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Water Trial Pot 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Bottle, Requirements.Ganon_small_keys1, Requirements.Adult_Access],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Bottle, Requirements.Ganon_small_keys1, Requirements.Adult_Access],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Water Trial Pot 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Bottle, Requirements.Ganon_small_keys1, Requirements.Adult_Access],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Bottle, Requirements.Ganon_small_keys1, Requirements.Adult_Access],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Shadow Trial Pot 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Shadow Trial Pot 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Fire Trial Pot 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Strength3, Requirements.Adult_Access],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Strength3, Requirements.Adult_Access],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Fire Trial Pot 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Strength3, Requirements.Adult_Access],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Strength3, Requirements.Adult_Access],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Light Trial Pot 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Ganon_small_keys2, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Ganon_small_keys2, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Light Trial Pot 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Ganon_small_keys2, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Ganon_small_keys2, MultiplePossibleRequirements.GoldSkip, Requirements.Hook_Or_Hover],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Spirit Trial Pot 1": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, Requirements.Bombchu],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, Requirements.Bombchu],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Spirit Trial Pot 2": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, Requirements.Bombchu],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, Requirements.Bombchu],
             location: Locations.Ganon
         },
         // GTG
@@ -12402,13 +12422,15 @@
         },
         "Forest Temple Phantom Ganon Heart Container": 
           {  requirements  : [ MultiplePossibleRequirements.Forest_Basement,
-                                Requirements.Forest_BK
+                                Requirements.Forest_BK,
+                                Requirements.Boss_Soul_PhantomGanon
           ],
               location      : Locations.Phantom_Ganon
         },
         "Phantom Ganon": 
         {  requirements  : [ MultiplePossibleRequirements.Forest_Basement,
-                                Requirements.Forest_BK
+                                Requirements.Forest_BK,
+                                Requirements.Boss_Soul_PhantomGanon
           ],
               location      : Locations.Phantom_Ganon
         },
@@ -12667,7 +12689,7 @@
               location      : Locations.GY_Composer_Grave,
         },
         "Song from Composers Grave": 
-        {  requirements  : "",
+        {  requirements  : [Requirements.Weapon],
               location      : Locations.GY_Composer_Grave,
         },
         "Graveyard Freestanding PoH": 
@@ -12930,7 +12952,7 @@
             location: Locations.Shadow
         },
         "Shadow Temple Bongo Bongo Heart Container": {
-            requirements: "",
+            requirements: [Requirements.Boss_Soul_Bongo],
             location: Locations.Bongo_Bongo
         },
         "Shadow Temple MQ Compass Chest": {
@@ -13038,7 +13060,7 @@
         //     location: Locations.Bongo_Bongo
         // },
         "Bongo Bongo": {
-            requirements: "",
+            requirements: [Requirements.Boss_Soul_Bongo],
             location: Locations.Bongo_Bongo
         },
         "DMT Chest": 
@@ -13311,11 +13333,11 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Boss Room Chest": {
-            requirements: "",
+            requirements: [Requirements.Boss_Soul_KingDodongo],
             location: Locations.King_Dodongo
         },
         "Dodongos Cavern King Dodongo Heart Container": {
-            requirements: [Requirements.Melee_Either, Requirements.Explosive_Or_Strength],
+            requirements: [Requirements.Melee_Either, Requirements.Explosive_Or_Strength, Requirements.Boss_Soul_KingDodongo],
             location: Locations.King_Dodongo
         },
         "Dodongos Cavern MQ Map Chest": {
@@ -13471,7 +13493,7 @@
             location: Locations.Fire
         },
         "Fire Temple Volvagia Heart Container": {
-            requirements: [Requirements.Hammer],
+            requirements: [Requirements.Hammer, Requirements.Boss_Soul_Volvagia],
             location: Locations.Volvagia
         },
         "Fire Temple MQ Near Boss Chest": {
@@ -13543,7 +13565,7 @@
             location: Locations.Fire
         },
         "Volvagia": {
-            requirements: [Requirements.Hammer],
+            requirements: [Requirements.Hammer, Requirements.Boss_Soul_Volvagia],
             location: Locations.Volvagia
         },
         "ZR Open Grotto Chest": 
@@ -13751,11 +13773,11 @@
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly Barinade Heart Container": 
-        {  requirements  : [ Requirements.Boomerang],
+        {  requirements  : [ Requirements.Boomerang, Requirements.Boss_Soul_Barinade],
               location      : Locations.Barinade
         },
         "Barinade": 
-        {  requirements  : [ Requirements.Boomerang],
+        {  requirements  : [ Requirements.Boomerang, Requirements.Boss_Soul_Barinade],
               location      : Locations.Barinade
         },
         // TODO: Implement QPA Hovering
@@ -14128,7 +14150,7 @@
             location: Locations.Water
         },
         "Water Temple Morpha Heart Container": {
-            requirements: "",
+            requirements: [Requirements.Boss_Soul_Morpha],
             location: Locations.Morpha
         },
         "Water Temple MQ Central Pillar Chest": {
@@ -14177,7 +14199,7 @@
             location: Locations.Water
         },
         "Morpha": {
-            requirements: [Requirements.Hookshot, Requirements.Adult_Melee],
+            requirements: [Requirements.Hookshot, Requirements.Adult_Melee, Requirements.Boss_Soul_Morpha],
             location: Locations.Morpha
         },
         // TODO: Implement ways to bypass red rock, include the one with just hookshot
@@ -14364,162 +14386,162 @@
               location      : Locations.DC,
               age           : Ages.Adult
         },
-        "Gerudo Training Grounds Lobby Left Chest": 
+        "Gerudo Training Ground Lobby Left Chest": 
         {  requirements  : [ Requirements.Projectile],
               location      : Locations.GTG
         },
-        "Gerudo Training Grounds Lobby Right Chest": 
+        "Gerudo Training Ground Lobby Right Chest": 
         {  requirements  : [ Requirements.Projectile],
               location      : Locations.GTG
         },
-        "Gerudo Training Grounds Stalfos Chest": {
+        "Gerudo Training Ground Stalfos Chest": {
             requirements: [Requirements.Weapon],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Beamos Chest": {
+        "Gerudo Training Ground Beamos Chest": {
             requirements: [Requirements.Explosive],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Hidden Ceiling Chest": {
+        "Gerudo Training Ground Hidden Ceiling Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Chest1],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Maze Path First Chest": {
+        "Gerudo Training Ground Maze Path First Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Chest2],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Maze Path Second Chest": {
+        "Gerudo Training Ground Maze Path Second Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Chest3],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Maze Path Third Chest": {
+        "Gerudo Training Ground Maze Path Third Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Chest4],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Maze Path Final Chest": {
+        "Gerudo Training Ground Maze Path Final Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Chest5],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Maze Right Central Chest": {
+        "Gerudo Training Ground Maze Right Central Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Maze_Right],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Maze Right Side Chest": {
+        "Gerudo Training Ground Maze Right Side Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Maze_Right],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Underwater Silver Rupee Chest": {
+        "Gerudo Training Ground Underwater Silver Rupee Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Toilet],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Hammer Room Clear Chest": {
+        "Gerudo Training Ground Hammer Room Clear Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Hammer_clear, Requirements.Weapon],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Hammer Room Switch Chest": {
+        "Gerudo Training Ground Hammer Room Switch Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Hammer_clear],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Eye Statue Chest": {
+        "Gerudo Training Ground Eye Statue Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Eye_Statue_Clear, Requirements.Bow],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Near Scarecrow Chest": {
+        "Gerudo Training Ground Near Scarecrow Chest": {
             requirements: [MultiplePossibleRequirements.GTG_Eye_Statue],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Before Heavy Block Chest": {
+        "Gerudo Training Ground Before Heavy Block Chest": {
             requirements: [Requirements.Weapon],
             location: Locations.GTG
         },
         // TODO: Implement heavy block skip and superslide past fire wall
-        "Gerudo Training Grounds Heavy Block First Chest": {
+        "Gerudo Training Ground Heavy Block First Chest": {
             requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Heavy Block Second Chest": {
+        "Gerudo Training Ground Heavy Block Second Chest": {
             requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Heavy Block Third Chest": {
+        "Gerudo Training Ground Heavy Block Third Chest": {
             requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Heavy Block Fourth Chest": {
+        "Gerudo Training Ground Heavy Block Fourth Chest": {
             requirements: [Requirements.Strength2],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds Freestanding Key": {
+        "Gerudo Training Ground Freestanding Key": {
             requirements: [MultiplePossibleRequirements.GTG_Freestanding_Key],
             location: Locations.GTG
         },
         // free
-        "Gerudo Training Grounds MQ Lobby Right Chest": {
+        "Gerudo Training Ground MQ Lobby Right Chest": {
             requirements: "",
             location: Locations.GTG
         },
         // free
-        "Gerudo Training Grounds MQ Lobby Left Chest": {
+        "Gerudo Training Ground MQ Lobby Left Chest": {
             requirements: "",
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ First Iron Knuckle Chest": {
+        "Gerudo Training Ground MQ First Iron Knuckle Chest": {
             requirements: [Requirements.Melee_Either, Requirements.Fire],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Before Heavy Block Chest": {
+        "Gerudo Training Ground MQ Before Heavy Block Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_Before_Strength],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Eye Statue Chest": {
+        "Gerudo Training Ground MQ Eye Statue Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_Eye_Statue],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Flame Circle Chest": {
+        "Gerudo Training Ground MQ Flame Circle Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_Flame_Circle],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Second Iron Knuckle Chest": {
+        "Gerudo Training Ground MQ Second Iron Knuckle Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_Flame_Circle],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Dinolfos Chest": {
+        "Gerudo Training Ground MQ Dinolfos Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_Dinolfos],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Ice Arrows Chest": {
+        "Gerudo Training Ground MQ Ice Arrows Chest": {
             requirements: [MultiplePossibleRequirements.MQ_Ice_Arrow],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Maze Right Central Chest": {
+        "Gerudo Training Ground MQ Maze Right Central Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_GateClip],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Maze Path First Chest": {
+        "Gerudo Training Ground MQ Maze Path First Chest": {
             requirements: "",
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Maze Right Side Chest": {
+        "Gerudo Training Ground MQ Maze Right Side Chest": {
             requirements: "",
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Maze Path Third Chest": {
+        "Gerudo Training Ground MQ Maze Path Third Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_GateClip],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Maze Path Second Chest": {
+        "Gerudo Training Ground MQ Maze Path Second Chest": {
             requirements: "",
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Hidden Ceiling Chest": {
+        "Gerudo Training Ground MQ Hidden Ceiling Chest": {
             requirements: "",
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Underwater Silver Rupee Chest": {
+        "Gerudo Training Ground MQ Underwater Silver Rupee Chest": {
             requirements: [MultiplePossibleRequirements.MQ_GTG_Toilet],
             location: Locations.GTG
         },
-        "Gerudo Training Grounds MQ Heavy Block Chest": {
+        "Gerudo Training Ground MQ Heavy Block Chest": {
             requirements: [Requirements.Fire, Requirements.Adult_Melee, Requirements.Hookshot, Requirements.Strength2],
             location: Locations.GTG
         },
@@ -14622,7 +14644,7 @@
               location      : Locations.Spirit
         },
         "Spirit Temple Twinrova Heart Container": 
-        {  requirements  : [ Requirements.Mirror_Shield, Requirements.Melee],
+        {  requirements  : [ Requirements.Mirror_Shield, Requirements.Melee, Requirements.Boss_Soul_Twinrova],
               location      : Locations.Twinrova
         },
         // Free one
@@ -14729,7 +14751,7 @@
             location: Locations.Spirit
         },
         "Twinrova": 
-        {  requirements  : [ Requirements.Mirror_Shield, Requirements.Melee],
+        {  requirements  : [ Requirements.Mirror_Shield, Requirements.Melee, Requirements.Boss_Soul_Twinrova],
               location      : Locations.Twinrova
         },
         "Market Treasure Chest Game Reward": 
@@ -14999,80 +15021,80 @@
               location      : Locations.Ganon
         },
         "Ganon's Castle MQ Water Trial Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Eye Switch Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Projectile, Requirements.Nuts],
+            requirements: [Requirements.Projectile, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Frozen Eye Switch Chest": {
-            requirements: [Requirements.Adult_Melee, Requirements.Fire_Arrow, Requirements.Nuts, Requirements.Melee_Either],
+            requirements: [Requirements.Fire_Arrow, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Light Trial Lullaby Chest": {
-            requirements: [MultiplePossibleRequirements.GoldSkip, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Nuts, Requirements.Melee_Either],
+            requirements: [MultiplePossibleRequirements.GoldSkip, Requirements.Instrument, Requirements.Zeldas_Lullaby, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Shadow Trial Bomb Flower Chest": {
-            requirements: [Requirements.Nuts, Requirements.Melee_Either, MultiplePossibleRequirements.MQ_Ganon_Shadow_Bomb],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Bomb],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Shadow Trial Eye Switch Chest": {
-            requirements: [Requirements.Nuts, Requirements.Melee_Either, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Golden Gauntlets Chest": {
-            requirements: [Requirements.Nuts, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Melee_Either],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Hammer],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Back Right Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Nuts],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Back Left Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Nuts],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Front Left Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Nuts],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial First Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Hammer, Requirements.Nuts],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Invisible Chest": {
-            requirements: [Requirements.Melee_Either, Requirements.Hammer, Requirements.Bombchu, Requirements.Nuts],
+            requirements: [Requirements.Hammer, Requirements.Bombchu, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Freestanding Key": {
-            requirements: [Requirements.Ranged_Retrieval, Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [Requirements.Ranged_Retrieval, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Right": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center-Left": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center-Right": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Left": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Melee_Either, Requirements.Nuts],
+            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         // TODO: Implement Trial skip
         "Ganon's Tower Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.TrialSkip],
             location: Locations.Ganon
         },
         "Ganon": "Triforce"
@@ -15286,7 +15308,7 @@
 //       console.log(MS_location);
 //       return;
 //     }
-      var debugKey = "Bottom of the Well MQ East Inner Room Freestanding Key";
+      var debugKey = "LH Fishing Pond Entry";
 
       function exploreArea(type) {
             var reqCheck = true;
@@ -15422,6 +15444,7 @@
                                     condCheck = false;
                                     //console.log(key)
                                     type[key]["conditional"].forEach(condition => {
+                                      collectCheck = true;
                                           //console.log(condition);
                                           //console.log(condCheck);
                                           if (!condCheck) {
@@ -15618,6 +15641,7 @@
                                                             //console.log(condCheck);
                                                       })};
                                                       if (condition.collected) {
+                                                        collectCheck = true;
                                                             condition.collected.forEach(coll => {
                                                                   if (inventory.collected.includes(coll)) {
 
@@ -15874,6 +15898,9 @@
             // Adding default entrances
             console.log("adjusting file settings...")
 
+            if (file.settings["Ganon's Trials Count"] == 0) {
+              inventory.requirements.push(Requirements.Trials);
+            }
             // Ganon's BK settings
             if (file.settings["Ganon's Boss Key"].includes("LACS")) {
                   Settings.GanonBKShuffle = false;
@@ -16251,6 +16278,7 @@
                   
             }
         }
+        inventory.requirements.push(Requirements.PriceCheck);
         if (file.settings["Warp Songs"] == "On") {
             var tempValue;
             for (var sphere in file.entrancesMap) {
