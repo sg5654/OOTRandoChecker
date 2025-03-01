@@ -631,7 +631,7 @@
       Cojiro: {explanation: "Requires having Cojiro", related: ["items"], items: ["Cojiro"]},
       Odd_Potion: {explanation: "Requires having the Odd Potion", related: ["items"], items: ["Odd Potion"]},
       Odd_Mushroom: {explanation: "Requires having the Odd Mushroom", related: ["items"], items: ["Odd Mushroom"]},
-      Broken_Sword: {explanation: "Requires having the broken sword", related: ["items"], items: ["Broken Sword"]},
+      Broken_Sword: {explanation: "Requires having the broken sword", related: ["items"], items: ["Broken Sword", "Broken Goron's Sword"]},
       Poacher_Saw: {explanation: "Requires having the Poacher's Saw", related: ["items"], items: ["Poacher's Saw"]},
       Prescription: {explanation: "Requires having the prescription", related: ["items"], items: ["Prescription"]},
       Eyeball_Frog: {explanation: "Requires having the Eyeball Frog", related: ["items"], items: ["Eyeball Frog"]},
@@ -654,7 +654,7 @@
       Blue_Fire_Buying: {explanation: "Can buy Blue Fire", related: ["items"], items: ["Buy Blue Fire"]},
       Blue_Fire: {explanation: "Requires having access to blue fire", unlocked_if_all: ["Blue_Fire_Buying", "Wallet3", "Bottle"]},
       // TODO: Expand this for putaway and damage QPA
-      Cutscene_Item: {explanation: "Has a cutscene item", related: ["items"], unlocked_if: ["Nuts"], items: ["Zelda's Letter", "Magic Bean Pack"]},
+      Cutscene_Item: {explanation: "Has a cutscene item", related: ["items"], unlocked_if: ["Nuts", "Cojiro", "Odd_Potion", "Odd_Mushroom", "Broken_Sword", "Poacher_Saw", "Prescription", "Eyeball_Frog", "Eyedrops", "Claim_Check"], items: ["Magic Bean Pack"]},
       QPA: {explanation: "Requires having access to a means of triggering QPA", unlocked_if_all: ["Stick", "Cutscene_Item"]},
       // TODO: Expand this for any scenario that can give sticks
       Stick_Upgrade: {explanation: "Has stick capacity", related: ["items"], items: ["Progressive Stick Capacity"]},
@@ -4175,7 +4175,7 @@
                   default: "Volvagia"
             },
             "Dodongo's Cavern Boss Door": {
-                  requirements: [MultiplePossibleRequirements.Dodongos_Upper],
+                  requirements: [Requirements.Explosive],
                   location: Locations.Dodongos_Cavern,
                   default: "King Dodongo"
             },
