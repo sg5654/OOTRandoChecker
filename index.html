@@ -56,7 +56,7 @@
         reader.onload = () => {
           try {
             const json = JSON.parse(reader.result);
-            output.textContent = "JSON accepted! parsing...";
+            output.textContent = "JSON accepted! Data has been parsed";
             checkLocations(json);
           } catch (err) {
             output.textContent = 'Error parsing JSON: ' + err.message;
@@ -524,6 +524,7 @@
     }
     // quickscroll comment
     var Requirements = {
+      Scale_Or_Boomerang: {explanation: "Can retrieve items from underwater that are close", unlocked_if: ["Boomerang", "Scale"]},
       Adult_Weapon: {explanation: "Can deal damage as an adult", related: ["items", "ages"], ages: ["Adult"], items: ["Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Child_Weapon: {explanation: "Can deal damage as a child", related: ["items", "ages"], ages: ["Child"], items: ["Kokiri Sword", "Progressive Stick Capacity", "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Trials: {explanation: "Trials are open"},
@@ -3785,10 +3786,13 @@
                   conditional: ""
             },
             "MK Bazaar Entry": 
-            {  requirements  : [Requirements.Child_Access, Requirements.MK_Bazaar_Key],
+            {  requirements  : "",
                 location      : Locations.Market,
                   default: "MK Bazaar",
-                  conditional: "",
+                  conditional: [
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Kokiri_Sword], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.MK_Bazaar_Key], age = undefined, needsAll = true)
+                  ],
                 time          : Times.Day
             },
             "MK Mask Shop Entry": 
@@ -3799,10 +3803,13 @@
                 time          : Times.Day
             },
             "MK Shooting Gallery Entry": 
-            {  requirements  : [Requirements.Child_Access, Requirements.MK_Shooting_Gallery_Key],
+            {  requirements  : "",
                 location      : Locations.Market,
                   default: "MK Shooting Gallery",
-                  conditional: "",
+                  conditional: [
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Kokiri_Sword], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.MK_Shooting_Gallery_Key], age = undefined, needsAll = true)
+                  ],
                 time          : Times.Day
             },
             "MK Bombchu Bowling Entry": 
@@ -7955,7 +7962,7 @@
         location        : Locations.LW    
       },
         "LH Underwater Front Rupee": {
-        requirements    : [Requirements.Scale, Requirements.Child_Access],
+        requirements    : [Requirements.Scale_Or_Boomerang, Requirements.Child_Access],
         location        : Locations.LH    
       },
         "LH Underwater Middle Rupee": {
