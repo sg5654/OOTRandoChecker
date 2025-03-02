@@ -1063,6 +1063,19 @@
     };
 
     const MultiplePossibleRequirements = {
+      Kak_Potion_Shop_Back_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Child_Melee],
+        [Requirements.Child_access, Requirements.Child_Shield, Requirements.Explosive]
+      ],
+      Kak_Shooting_Gallery_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Adult_Shield, Requirements.Bombs, Requirements.Bottle]
+      ],
+      Kak_Bazaar_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Child_Melee]
+      ],
       Bubble: [
                             [ Requirements.Shield, Requirements.Child_Weapon],
                             [ Requirements.Shield, Requirements.Adult_Weapon],
@@ -2146,7 +2159,14 @@
             {
               requirements: [Requirements.OneWayOwl],
               location: Locations.Kakariko,
-              default: "Kak Impa's House Back Entry"
+              default: "Kak Impa's House Back Entry",
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Lake Hylia Warp Pad":
             {
@@ -2554,13 +2574,25 @@
                   requirements: "",
                   location: Locations.Kakariko,
                   default: "Hyrule Field Stairs Exit",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kakariko Southeast Exit":{
                   requirements: "",
                   location: Locations.Kakariko,
                   default: "Graveyard Entrance",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "ZR Raised Open Grotto Entry":{
                   requirements: "",
@@ -3472,62 +3504,107 @@
             {  requirements  : [Requirements.Kak_Carpenter_Boss_House_Key],
                 location      : Locations.Kakariko,
                   default: "Carpenter Boss House",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Skulltula House Entry": 
             {  requirements  : [Requirements.Kak_Skulltula_House_Key],
                 location      : Locations.Kakariko,
                   default: "House of Skulltula",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Impa's House Front Entry": 
             {  requirements  : [Requirements.Kak_Impas_House_Key],
                 location      : Locations.Kakariko,
                   default: "Impa's House Front",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Windmill Entry": 
             {  requirements  : [Requirements.Kak_Windmill_Key],
                 location      : Locations.Kakariko,
                   default: "Windmill",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Bazaar Entry": 
-            {  requirements  : [Requirements.Kak_Bazaar_Key],
+            {  requirements  : [Requirements.Kak_Bazaar_Key, MultiplePossibleRequirements.Kak_Bazaar_Entry],
                 location      : Locations.Kakariko,
                   default: "Kak Bazaar",
-                  conditional: [
-                        new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Stick])
-            ]
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Shooting Gallery Entry": 
-            {  requirements  : [Requirements.Kak_Shooting_Gallery_Key],
+            {  requirements  : [Requirements.Kak_Shooting_Gallery_Key, MultiplePossibleRequirements.Kak_Shooting_Gallery_Entry],
                 location      : Locations.Kakariko,
                   default: "Kak Shooting Gallery",
-                  conditional: [
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Child_Shield, Requirements.Bombs, Requirements.Bottle], age = undefined, needsAll = true)
-                  ]
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kakariko Outside the Well": 
-            {  requirements  : [MultiplePossibleRequirements.Well_Entry],
+            {  requirements  : "",
                 location      : Locations.Kakariko,
                   default:"Bottom of the Well Entrance",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["Kakariko Outside the Well"]),
+                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.Well_Entry])
+                  ]
             },
             // TODO: Implement behaviour for night needing clip
             "Kak Potion Shop Front Entry": 
             {  requirements  : [Requirements.Kak_Potion_Shop_Key],
                 location      : Locations.Kakariko,
                   default: "Kak Potion Shop Front",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Center Grotto Entry": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.Kakariko,
                   default: "Kak Redead Grotto",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Graveyard Outside Temple":
             {
@@ -3754,14 +3831,26 @@
             {  requirements  : "",
                 location      : Locations.Kakariko,
                   default: "Impa's House Back",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kakariko Guard Gate Exit": 
             // TODO: Implement behaviour for gate skip/zelda's letter
             {  requirements  : "",
                 location      : Locations.Kakariko,
                   default: "Death Mountain Trail Bottom Exit",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "HC Storms Grotto Entry": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
@@ -3901,24 +3990,38 @@
             {  requirements  : "",
                 location      : Locations.Kakariko,
                   default: "Kak Open Grotto",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Granny's Potion Shop Entry": 
             {  requirements  : [Requirements.Adult_Access, Requirements.Kak_Granny_Potion_Shop_Key],
                 location      : Locations.Kakariko,
                   default: "Granny's Potion Shop",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Potion Shop Back Entry": 
             // TODO: Implement behaviour for child clip and Adult nighttime clip
-            {  requirements  : [Requirements.Kak_Potion_Shop_Key],
+            {  requirements  : [Requirements.Kak_Potion_Shop_Key, MultiplePossibleRequirements.Kak_Potion_Shop_Back_Entry],
                 location      : Locations.Kakariko,
                   default: "Kak Potion Shop Back",
-                  conditional: [
-                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Melee, Requirements.Child_Access], age = undefined, needsAll = true),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive], age = undefined, needsAll = true)
-                ]
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "OGC Rainbow Bridge Exit": 
             // TODO: Implement behaviour for bridge conditions
