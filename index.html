@@ -25,8 +25,8 @@
 
   <div id="drop-area">Drop your JSON file here</div>
   <pre id="output"></pre>
-  <button onclick=tempTrigger()>next phase</button>
-  <button onclick=tempTriggerLoop()>Go until garuanteed solved/impossible</button>
+  <!-- <button onclick=tempTrigger()>next phase</button> -->
+  <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button>
   <script>
 
     // Select the drop area and output elements
@@ -4305,6 +4305,7 @@
                   default: "Twinrova"
             }
     }
+    const entrancesMapBackup = entrancesMap;
     var itemLocations = {
       // newer
       "GV Freestanding PoH Crate": {
@@ -15276,6 +15277,8 @@
         "Ganon": "Triforce"
       };
 
+      const itemLocationsBackup = itemLocations;
+
       function validateItems(locations) {
             var pass = true;
             var gregModifier = 0;
@@ -16059,15 +16062,21 @@
       var randomizedEntrances = {};
 
       function resetEverything() {
+        solvedState = false;
             inventory.bottleables - [];
-            inventory.Child_start = "",
-            inventory.Adult_start = "",
-            inventory.entered = [],
-            inventory.accessible = [],
-            inventory.requirements = [],
-            inventory.items = [],
-            inventory.ages = [],
-            inventory.collected = []
+            inventory.Child_start = "";
+            inventory.Adult_start = "";
+            inventory.entered = [];
+            inventory.accessible = [];
+            inventory.requirements = [];
+            inventory.items = [];
+            inventory.ages = [];
+            inventory.collected = [];
+            inventory.entered_adult = [];
+            inventory.entered_child = [];
+            inventory.accessible_child = [];
+            inventory.accessible_adult = [];
+            randomizedEntrances = {};
       }
 
       function adjustSettings() {
@@ -16361,6 +16370,9 @@
       }
     function checkLocations(tempFile) {
 
+      itemLocations = { ...itemLocationsBackup};
+      console.log(itemLocations);
+      console.log(itemLocationsBackup);
       file = tempFile;
         resetEverything();
         adjustSettings(file);
