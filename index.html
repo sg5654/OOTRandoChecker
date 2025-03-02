@@ -524,6 +524,8 @@
     }
     // quickscroll comment
     var Requirements = {
+      Adult_Weapon: {explanation: "Can deal damage as an adult", related: ["items", "ages"], ages: ["Adult"], items: ["Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
+      Child_Weapon: {explanation: "Can deal damage as a child", related: ["items", "ages"], ages: ["Child"], items: ["Kokiri Sword", "Progressive Stick Capacity", "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Trials: {explanation: "Trials are open"},
       Kokiri_Sword: {explanation: "Can use kokiri sword", related: ["items"], items: ["Kokiri Sword"]},
       Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Child_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
@@ -598,10 +600,6 @@
       Requiem: {explanation: "Requires having Requiem of Spirit", related: ["items"], items_all: ["Requiem of Spirit", "Ocarina A Button", "Ocarina C Right Button", "Ocarina C Down Button"]},
       Prelude: {explanation: "Requires having Prelude of Light", related: ["items"], items_all: ["Prelude of Light", "Ocarina C Left Button", "Ocarina C Up Button", "Ocarina C Right Button"]},
       Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina"]},
-      Weapon: {   explanation: "Requires having any form of weapon to induce damage",  
-                  related: ["items"], 
-                  items: [    "Kokiri Sword", "Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", 
-                              "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
                   items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Fish"]},
       Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
@@ -633,7 +631,7 @@
       Cojiro: {explanation: "Requires having Cojiro", related: ["items"], items: ["Cojiro"]},
       Odd_Potion: {explanation: "Requires having the Odd Potion", related: ["items"], items: ["Odd Potion"]},
       Odd_Mushroom: {explanation: "Requires having the Odd Mushroom", related: ["items"], items: ["Odd Mushroom"]},
-      Broken_Sword: {explanation: "Requires having the broken sword", related: ["items"], items: ["Broken Sword"]},
+      Broken_Sword: {explanation: "Requires having the broken sword", related: ["items"], items: ["Broken Sword", "Broken Goron's Sword"]},
       Poacher_Saw: {explanation: "Requires having the Poacher's Saw", related: ["items"], items: ["Poacher's Saw"]},
       Prescription: {explanation: "Requires having the prescription", related: ["items"], items: ["Prescription"]},
       Eyeball_Frog: {explanation: "Requires having the Eyeball Frog", related: ["items"], items: ["Eyeball Frog"]},
@@ -656,11 +654,13 @@
       Blue_Fire_Buying: {explanation: "Can buy Blue Fire", related: ["items"], items: ["Buy Blue Fire"]},
       Blue_Fire: {explanation: "Requires having access to blue fire", unlocked_if_all: ["Blue_Fire_Buying", "Wallet3", "Bottle"]},
       // TODO: Expand this for putaway and damage QPA
-      QPA: {explanation: "Requires having access to a means of triggering QPA", related: ["items"], items_all: ["Progressive Stick Capacity", "Buy Deku Stick (1)", "Progressive Nut Capacity", "Buy Deku Nut (5)"]},
+      Cutscene_Item: {explanation: "Has a cutscene item", related: ["items"], unlocked_if: ["Nuts", "Cojiro", "Odd_Potion", "Odd_Mushroom", "Broken_Sword", "Poacher_Saw", "Prescription", "Eyeball_Frog", "Eyedrops", "Claim_Check"], items: ["Magic Bean Pack"]},
+      QPA: {explanation: "Requires having access to a means of triggering QPA", unlocked_if_all: ["Stick", "Cutscene_Item"]},
       // TODO: Expand this for any scenario that can give sticks
-      Stick: {explanation: "Requires having access to deku sticks", related: ["items"], items_all: ["Progressive Stick Capacity", "Buy Deku Stick (1)"]},
+      Stick_Upgrade: {explanation: "Has stick capacity", related: ["items"], items: ["Progressive Stick Capacity"]},
+      Stick: {explanation: "Requires having access to deku sticks", related: ["items"], unlocked_if: ["Stick_Upgrade"], items_all: ["Buy Deku Stick (1)", "Progressive Wallet Upgrade"]},
       // TODO: expand this behaviour to trigger in any situation that can give nuts
-      Nuts: {explanation: 'Requires the use of a deku nut', related: ["items"], items: ["Progressive Nut Capacity"]},
+      Nuts: {explanation: 'Requires the use of a deku nut', related: ["items"], items_all: ["Progressive Nut Capacity", "Buy Deku Nut (5)"]},
       Burnable: {explanation: "Requires the use of any form of fire starting or moving", unlocked_if: ["Bow", "Stick", "QPA", "Fire"]},
       Iron_Boots: {explanation: "Requires the use of the Iron Boots", related: ["items", "ages"], items: ["Iron Boots"], ages: ["Adult"]},
       Hover_boots: {explanation: "Requires the use of the Hover Boots", related: ["items", "ages"], items: ["Hover Boots"], ages: ["Adult"]},
@@ -1063,6 +1063,31 @@
     };
 
     const MultiplePossibleRequirements = {
+      Kak_Potion_Shop_Back_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Child_Melee],
+        [Requirements.Child_access, Requirements.Child_Shield, Requirements.Explosive]
+      ],
+      Kak_Shooting_Gallery_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Adult_Shield, Requirements.Bombs, Requirements.Bottle]
+      ],
+      Kak_Bazaar_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Child_Melee]
+      ],
+      Bubble: [
+                            [ Requirements.Shield, Requirements.Child_Weapon],
+                            [ Requirements.Shield, Requirements.Adult_Weapon],
+                            [ Requirements.Hookshot, Requirements.Adult_Weapon],
+                            [Requirements.Explosive],
+                            [Requirements.Nuts, Requirements.Child_Weapon],
+                            [Requirements.Nuts, Requirements.Adult_Weapon]
+      ],
+      Weapon: [
+        [Requirements.Adult_Access, Requirements.Adult_Weapon],
+        [Requirements.Child_Access, Requirements.Child_Weapon]
+      ],
       Deku_Beyond_Pool: [
         [Requirements.BronzeScale],
         [Requirements.Adult_Access, Requirements.Adult_Shield],
@@ -1090,11 +1115,11 @@
                       [ Requirements.Membership]
 
       ],
-      Twins_GS: [ [Requirements.Hover_boots, Requirements.Weapon],
+      Twins_GS: [ [Requirements.Hover_boots, Requirements.Adult_Weapon],
                   [Requirements.Ranged_Retrieval],
                   [Requirements.Shield, Requirements.Melee]
       ],
-      Theater_GS: [ [Requirements.Bean_Planted, Requirements.Weapon],
+      Theater_GS: [ [Requirements.Bean_Planted, Requirements.Adult_Weapon],
                     [Requirements.Hookshot, Requirements.Bow],
                     [Requirements.Hookshot, Requirements.Bombchu],
                     [Requirements.Longshot],
@@ -1128,26 +1153,30 @@
                           [ Requirements.Slingshot, Requirements.Ranged_Retrieval, Requirements.Song_Of_Time, Requirements.Instrument]
 
       ],
-      Forest_Raised_Island: [ [ Requirements.Hover_boots, Requirements.Weapon],
+      Forest_Raised_Island: [ [ Requirements.Hover_boots, Requirements.Adult_Weapon],
                               [ Requirements.Hookshot, Requirements.BronzeScale],
                               [ Requirements.Hookshot, Requirements.Bow],
                               [ Requirements.Bomb_Hovering_Adult],
                               [ Requirements.Bomb_Hovering_Child, Requirements.Slingshot]
 
       ],
-      Forest_Raised_Island_GS: [  [ Requirements.Hover_boots, Requirements.Weapon],
+      Forest_Raised_Island_GS: [  [ Requirements.Hover_boots, Requirements.Adult_Weapon],
                               [ Requirements.Hookshot, Requirements.BronzeScale],
                               [ Requirements.Hookshot, Requirements.Bow],
                               [ Requirements.Bomb_Hovering_Adult],
                               [ Requirements.Bomb_Hovering_Child, Requirements.Slingshot]
       ],
       Forest_Well_Chest: [  [ Requirements.Hookshot, Requirements.BronzeScale],
-                              [Requirements.Hookshot, Requirements.Bow],
-                            [ Requirements.Weapon]
+                            [ Requirements.Shield, Requirements.Child_Weapon],
+                            [ Requirements.Shield, Requirements.Adult_Weapon],
+                            [ Requirements.Hookshot, Requirements.Adult_Weapon],
+                            [Requirements.Explosive],
+                            [Requirements.Nuts, Requirements.Child_Weapon],
+                            [Requirements.Nuts, Requirements.Adult_Weapon]
       ],
       Forest_Ceiling_Room: [  [ Requirements.Bomb_Hovering],
-                              [ Requirements.Forest_small_keys5, Requirements.Bow, Requirements.Strength1, Requirements.Weapon],
-                              [ Requirements.Hover_boots, Requirements.Explosive, Requirements.Weapon]
+                              [ Requirements.Forest_small_keys5, Requirements.Bow, Requirements.Strength1, Requirements.Adult_Weapon],
+                              [ Requirements.Hover_boots, Requirements.Explosive, Requirements.Adult_Weapon]
       ],
       Forest_Eye_Switch: [  [ Requirements.Forest_small_keys1, Requirements.Projectile, Requirements.Strength1],
                             [ Requirements.Forest_small_keys1, Requirements.Bow, Requirements.Master_Sword],
@@ -1179,7 +1208,12 @@
       ],
       Forest_Well_Items: [
         [Requirements.BronzeScale, Requirements.Adult_Access],
-        [Requirements.Weapon]
+                            [ Requirements.Shield, Requirements.Child_Weapon],
+                            [ Requirements.Shield, Requirements.Adult_Weapon],
+                            [ Requirements.Hookshot, Requirements.Adult_Weapon],
+                            [Requirements.Explosive],
+                            [Requirements.Nuts, Requirements.Child_Weapon],
+                            [Requirements.Nuts, Requirements.Adult_Weapon]
       ],
       Windmill_POH: [ [ Requirements.Boomerang],
                       [ Requirements.Adult_Access]
@@ -1307,7 +1341,8 @@
         [ Requirements.Spirit_small_keys2, Requirements.Strength2],
 
     ],
-    Early_Adult_GS: [ [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Weapon],
+    Early_Adult_GS: [ [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Adult_Weapon],
+                      [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Child_Weapon],
                       [ Requirements.Boomerang]
 
     ],
@@ -1325,12 +1360,14 @@
 
     ],
     Dodongos_Lower: [   [     Requirements.Mudwall_Or_Strength, Requirements.Adult_Access],
-                        [     Requirements.Strength1, Requirements.Weapon],
+                        [     Requirements.Strength1, Requirements.Adult_Weapon, Requirements.Adult_Access],
+                        [ Requirements.Strength1, Requirements.Child_Weapon, Requirements.Child_Access],
                         [     Requirements.Strength1, Requirements.Child_Shield, Requirements.Child_Access],
                         [     Requirements.Bombs, Requirements.Child_Shield, Requirements.Child_Access]
       ],
     Dodongos_Upper: [   [     Requirements.Strength1, Requirements.Adult_Access],
-                        [     Requirements.Mudwall_Or_Strength, Requirements.Weapon, Requirements.Strength1],
+                        [     Requirements.Mudwall_Or_Strength, Requirements.Adult_Weapon, Requirements.Strength1, Requirements.Adult_Access],
+                        [     Requirements.Mudwall_Or_Strength, Requirements.Child_Access, Requirements.Strength1, Requirements.Child_Weapon],
                         [     Requirements.Mudwall_Or_Strength, Requirements.Explosive],
                         [     Requirements.Mudwall_Or_Strength, Requirements.Bow],
                         [     Requirements.Mudwall_Or_Strength, Requirements.Fire]
@@ -1449,10 +1486,11 @@
                                     [Requirements.GTG_small_keys2, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive],
                                     [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Spelldive]
       ],
-      GTG_Hammer_clear: [           [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Weapon],
+      GTG_Hammer_clear: [           [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Adult_Weapon, Requirements.Adult_Access],
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Child_Weapon, Requirements.Child_Access],
                                     [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hover_boots],
                                     [Requirements.Explosive, Requirements.Child_Access],
-                                    [Requirements.Hookshot, Requirements.Weapon]
+                                    [Requirements.Hookshot, Requirements.Adult_Access, Requirements.Adult_Weapon]
 
       ],
       GTG_Eye_Statue: [      [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Bow],
@@ -1461,9 +1499,10 @@
 
       ],
       GTG_Eye_Statue_Clear: [
-                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Weapon],
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Adult_Access, Requirements.Adult_Weapon],
+                                    [Requirements.Explosive, Requirements.Hook_Or_Hover, Requirements.Child_Access, Requirements.Child_Weapon],
                                     [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hover_boots],
-                                    [Requirements.Hookshot, Requirements.Weapon]
+                                    [Requirements.Hookshot, Requirements.Adult_Weapon]
       ],
       GTG_Freestanding_Key: [
             [Requirements.Child_Access, Requirements.Explosive],
@@ -1512,8 +1551,8 @@
                               [Requirements.Explosive_Or_Hammer, Requirements.Slingshot, Requirements.Child_Access]
 
       ],
-      MQ_Spirit_Map_Enemy: [  [Requirements.Dins, Requirements.Weapon, Requirements.Child_Access],
-                              [Requirements.Mirror_Shield, Requirements.Adult_Access, Requirements.Weapon, Requirements.Adult_Shield, Requirements.Master_Sword]
+      MQ_Spirit_Map_Enemy: [  [Requirements.Dins, Requirements.Child_Weapon, Requirements.Child_Access],
+                              [Requirements.Mirror_Shield, Requirements.Adult_Access, Requirements.Adult_Weapon, Requirements.Adult_Shield, Requirements.Master_Sword]
 
       ],
       MQ_Spirit_Hammer_Child: [     [Requirements.Child_Access],
@@ -1525,8 +1564,8 @@
                                     [Requirements.Adult_Access, Requirements.Strength2, Requirements.Spirit_small_keys1, Requirements.Longshot, Requirements.Bomb_Hovering_Adult, Requirements.Bombchu]
 
       ],
-      MQ_Spirit_Child_Climb_North: [[Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys1, Requirements.Weapon],
-                                    [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Spirit_small_keys1, Requirements.Weapon, Requirements.Strength2, Requirements.Longshot]
+      MQ_Spirit_Child_Climb_North: [[Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys1, Requirements.Child_Weapon],
+                                    [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Spirit_small_keys1, Requirements.Adult_Weapon, Requirements.Strength2, Requirements.Longshot]
 
       ],
       MQ_Spirit_Center_Room: [[Requirements.Child_Access, Requirements.Explosive, Requirements.Spirit_small_keys2, Requirements.Projectile],
@@ -1556,8 +1595,8 @@
                               [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield]
 
       ],
-      MQ_GTG_Before_Strength: [     [Requirements.Child_Access, Requirements.Explosive, Requirements.Weapon],
-                                    [Requirements.Adult_Access, Requirements.Hook_Or_Hover, Requirements.Weapon, Requirements.Fire, Requirements.Adult_Melee]
+      MQ_GTG_Before_Strength: [     [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Weapon],
+                                    [Requirements.Adult_Access, Requirements.Hook_Or_Hover, Requirements.Adult_Weapon, Requirements.Fire, Requirements.Adult_Melee]
 
       ],
       MQ_GTG_Eye_Statue: [    [Requirements.Adult_Access, Requirements.Bow, Requirements.Bombs, Requirements.Adult_Melee, Requirements.Adult_Shield],
@@ -1673,14 +1712,14 @@
                               [Requirements.Child_Melee, Requirements.Child_Shield, Requirements.Child_Access]
 
       ],
-      MQ_Forest_Left_Courtyard_Ledge: [   [Requirements.Hookshot, Requirements.Weapon],
+      MQ_Forest_Left_Courtyard_Ledge: [   [Requirements.Hookshot, Requirements.Adult_Weapon],
                                           [Requirements.Bow, Requirements.Hover_boots, Requirements.Bombs],
                                           [Requirements.Bow, Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Adult_Melee],
                                           [Requirements.Slingshot, Requirements.Child_Access, Requirements.Child_Shield, Requirements.Child_Melee],
-                                          [Requirements.Strength1, Requirements.Adult_Access, Requirements.Weapon, Requirements.Forest_small_keys2]
+                                          [Requirements.Strength1, Requirements.Adult_Access, Requirements.Adult_Weapon, Requirements.Forest_small_keys2]
 
       ],
-      MQ_Forest_Left_Courtyard: [   [Requirements.Hookshot, Requirements.Weapon],
+      MQ_Forest_Left_Courtyard: [   [Requirements.Hookshot, Requirements.Adult_Weapon],
                                     [Requirements.Bow],
                                     [Requirements.Slingshot]
 
@@ -1692,19 +1731,19 @@
       ],
       MQ_Forest_Right_Courtyard: [  [Requirements.Bow, Requirements.Hookshot],
                                     [Requirements.Fire_Arrow],
-                                    [Requirements.Strength1, Requirements.Adult_Access, Requirements.Weapon, Requirements.GoldScale, Requirements.Hookshot, Requirements.Forest_small_keys2],
-                                    [Requirements.Strength1, Requirements.Adult_Access, Requirements.Weapon, Requirements.IronBoots, Requirements.Hookshot, Requirements.Forest_small_keys2]
+                                    [Requirements.Strength1, Requirements.Adult_Access, Requirements.Adult_Weapon, Requirements.GoldScale, Requirements.Hookshot, Requirements.Forest_small_keys2],
+                                    [Requirements.Strength1, Requirements.Adult_Access, Requirements.Adult_Weapon, Requirements.IronBoots, Requirements.Hookshot, Requirements.Forest_small_keys2]
 
       ],
-      MQ_Forest_Past_Strength: [    [Requirements.Bow, Requirements.Hookshot, Requirements.Weapon, Requirements.Forest_small_keys2],
-                                    [Requirements.Weapon, Requirements.Strength1, Requirements.Forest_small_keys2]
+      MQ_Forest_Past_Strength: [    [Requirements.Bow, Requirements.Hookshot, Requirements.Forest_small_keys2],
+                                    [Requirements.Adult_Weapon, Requirements.Strength1, Requirements.Forest_small_keys2]
       ],
-      MQ_Forest_Raised_Island_Chest: [    [Requirements.Weapon, Requirements.Strength1, Requirements.Forest_small_keys5, Requirements.Bow],
-                                          [Requirements.Weapon, Requirements.Bow, Requirements.Hookshot, Requirements.Forest_small_keys5],
+      MQ_Forest_Raised_Island_Chest: [    [Requirements.Strength1, Requirements.Forest_small_keys5, Requirements.Bow],
+                                          [Requirements.Bow, Requirements.Hookshot, Requirements.Forest_small_keys5],
                                           [Requirements.Bow, Requirements.Longshot],
                                           [Requirements.Bow, Requirements.Hookshot, Requirements.Adult_Melee, Requirements.Hover_boots],
-                                          [Requirements.Hookshot, Requirements.Weapon, Requirements.GoldScale, Requirements.Hover_boots, Requirements.Adult_Melee],
-                                          [Requirements.Hookshot, Requirements.Weapon, Requirements.IronBoots, Requirements.Hover_boots, Requirements.Adult_Melee],
+                                          [Requirements.Hookshot, Requirements.Adult_Weapon, Requirements.GoldScale, Requirements.Hover_boots],
+                                          [Requirements.Hookshot, Requirements.Adult_Weapon, Requirements.IronBoots, Requirements.Hover_boots],
                                           [Requirements.Fire_Arrow, Requirements.Adult_Melee, Requirements.Hover_boots],
                                           [Requirements.Bomb_Hovering, Requirements.Forest_small_keys2]
 
@@ -1735,7 +1774,7 @@
             [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Strength1],
             [Requirements.Child_Access, Requirements.Bombs, Requirements.Child_Shield],
             [Requirements.Child_Access, Requirements.Explosive_Or_Hammer, Requirements.Child_Melee],
-            [Requirements.Child_Access, Requirements.Strength1, Requirements.Stick, Requirements.Weapon]
+            [Requirements.Child_Access, Requirements.Strength1, Requirements.Stick, Requirements.Child_Weapon]
       ],
       MQ_Dong_Upper: [
             [Requirements.Strength1],
@@ -2120,7 +2159,14 @@
             {
               requirements: [Requirements.OneWayOwl],
               location: Locations.Kakariko,
-              default: "Kak Impa's House Back Entry"
+              default: "Kak Impa's House Back Entry",
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Lake Hylia Warp Pad":
             {
@@ -2528,13 +2574,25 @@
                   requirements: "",
                   location: Locations.Kakariko,
                   default: "Hyrule Field Stairs Exit",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kakariko Southeast Exit":{
                   requirements: "",
                   location: Locations.Kakariko,
                   default: "Graveyard Entrance",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "ZR Raised Open Grotto Entry":{
                   requirements: "",
@@ -3394,7 +3452,7 @@
                   default: "Deku Tree Entrance",
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true),
                               new Conditional(locations = ["KF Outside Deku Tree"]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Weapon], age = undefined, needsAll = true),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Weapon], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Child_Access], age = undefined, needsAll = true)
             
             ],
@@ -3446,62 +3504,107 @@
             {  requirements  : [Requirements.Kak_Carpenter_Boss_House_Key],
                 location      : Locations.Kakariko,
                   default: "Carpenter Boss House",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Skulltula House Entry": 
             {  requirements  : [Requirements.Kak_Skulltula_House_Key],
                 location      : Locations.Kakariko,
                   default: "House of Skulltula",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Impa's House Front Entry": 
             {  requirements  : [Requirements.Kak_Impas_House_Key],
                 location      : Locations.Kakariko,
                   default: "Impa's House Front",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Windmill Entry": 
             {  requirements  : [Requirements.Kak_Windmill_Key],
                 location      : Locations.Kakariko,
                   default: "Windmill",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Bazaar Entry": 
-            {  requirements  : [Requirements.Kak_Bazaar_Key],
+            {  requirements  : [Requirements.Kak_Bazaar_Key, MultiplePossibleRequirements.Kak_Bazaar_Entry],
                 location      : Locations.Kakariko,
                   default: "Kak Bazaar",
-                  conditional: [
-                        new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Stick])
-            ]
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Shooting Gallery Entry": 
-            {  requirements  : [Requirements.Kak_Shooting_Gallery_Key],
+            {  requirements  : [Requirements.Kak_Shooting_Gallery_Key, MultiplePossibleRequirements.Kak_Shooting_Gallery_Entry],
                 location      : Locations.Kakariko,
                   default: "Kak Shooting Gallery",
-                  conditional: [
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Child_Shield, Requirements.Bombs, Requirements.Bottle], age = undefined, needsAll = true)
-                  ]
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kakariko Outside the Well": 
-            {  requirements  : [MultiplePossibleRequirements.Well_Entry],
+            {  requirements  : "",
                 location      : Locations.Kakariko,
                   default:"Bottom of the Well Entrance",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["Kakariko Outside the Well"]),
+                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.Well_Entry])
+                  ]
             },
             // TODO: Implement behaviour for night needing clip
             "Kak Potion Shop Front Entry": 
             {  requirements  : [Requirements.Kak_Potion_Shop_Key],
                 location      : Locations.Kakariko,
                   default: "Kak Potion Shop Front",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Center Grotto Entry": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.Kakariko,
                   default: "Kak Redead Grotto",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Graveyard Outside Temple":
             {
@@ -3728,14 +3831,26 @@
             {  requirements  : "",
                 location      : Locations.Kakariko,
                   default: "Impa's House Back",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kakariko Guard Gate Exit": 
             // TODO: Implement behaviour for gate skip/zelda's letter
             {  requirements  : "",
                 location      : Locations.Kakariko,
                   default: "Death Mountain Trail Bottom Exit",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "HC Storms Grotto Entry": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms],
@@ -3787,7 +3902,7 @@
             {  requirements  : "",
                 location      : Locations.SFM,
                   conditional: [    new Conditional(locations = ["Sacred Forest Meadow Outside Forest Temple"]),
-                                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access, Requirements.Weapon], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access, Requirements.Child_Weapon], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access], age = undefined, needsAll = true)
             ],
@@ -3798,7 +3913,7 @@
                 location      : Locations.SFM,
                   conditional: [new Conditional(locations = ["Sacred Forest Meadow Outside Forest Temple", "SFM Fairy Grotto Entry", "SFM Storms Grotto Entry"]),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)
+                              new Conditional(locations = undefined, requirements = [Requirements.Child_Weapon, Requirements.Child_Access], age = undefined, needsAll = true)
             ],
             default: "SFM Fairy Grotto"
             },
@@ -3807,7 +3922,7 @@
                 location      : Locations.SFM,
                 conditional: [new Conditional(locations = ["Sacred Forest Meadow Outside Forest Temple", "SFM Fairy Grotto Entry", "SFM Storms Grotto Entry"]),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Weapon, Requirements.Child_Access], age = undefined, needsAll = true)
+                              new Conditional(locations = undefined, requirements = [Requirements.Child_Weapon, Requirements.Child_Access], age = undefined, needsAll = true)
             ],
                   default: "SFM Storms Grotto"
             },
@@ -3875,24 +3990,38 @@
             {  requirements  : "",
                 location      : Locations.Kakariko,
                   default: "Kak Open Grotto",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Granny's Potion Shop Entry": 
             {  requirements  : [Requirements.Adult_Access, Requirements.Kak_Granny_Potion_Shop_Key],
                 location      : Locations.Kakariko,
                   default: "Granny's Potion Shop",
-                  conditional: ""
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "Kak Potion Shop Back Entry": 
             // TODO: Implement behaviour for child clip and Adult nighttime clip
-            {  requirements  : [Requirements.Kak_Potion_Shop_Key],
+            {  requirements  : [Requirements.Kak_Potion_Shop_Key, MultiplePossibleRequirements.Kak_Potion_Shop_Back_Entry],
                 location      : Locations.Kakariko,
                   default: "Kak Potion Shop Back",
-                  conditional: [
-                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Melee, Requirements.Child_Access], age = undefined, needsAll = true),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive], age = undefined, needsAll = true)
-                ]
+              conditional: [
+                new Conditional(locations = ["Kak Impa's House Back Entry", "Kakariko Front Gate", "Kakariko Southeast Exit", "Kak Boss House Entry", "Kak Skulltula House Entry", "Kak Impa's House Front Entry",
+                  "Kak Windmill Entry", "Kak Bazaar Entry", "Kak Shooting Gallery Entry", "Kak Potion Shop Front Entry", "Kak Center Grotto Entry", "Kak Impa's House Back Entry", "Kakariko Guard Gate Exit",
+                  "Kak Open Grotto Entry", "Kak Granny's Potion Shop Entry", "Kak Potion Shop Back Entry"
+                ]),
+                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale])
+              ]
             },
             "OGC Rainbow Bridge Exit": 
             // TODO: Implement behaviour for bridge conditions
@@ -4149,7 +4278,7 @@
                   default: "Volvagia"
             },
             "Dodongo's Cavern Boss Door": {
-                  requirements: [MultiplePossibleRequirements.Dodongos_Upper],
+                  requirements: [Requirements.Explosive],
                   location: Locations.Dodongos_Cavern,
                   default: "King Dodongo"
             },
@@ -10422,35 +10551,35 @@
         },
         // MQ
         "Forest Temple MQ Lobby Pot 1": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Lobby Pot 2": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Lobby Pot 3": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Lobby Pot 4": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Lobby Pot 5": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Lobby Pot 6": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Wolfos Pot 1": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Wolfos Pot 2": {  
-            requirements  : [Requirements.Weapon, Requirements.Forest_small_keys1],
+            requirements  : [MultiplePossibleRequirements.Weapon, Requirements.Forest_small_keys1],
             location      : Locations.Forest
         },
         "Forest Temple MQ Upper Stalfos Pot 1": {
@@ -10482,27 +10611,27 @@
             location: Locations.Forest
         },
         "Forest Temple MQ Green Poe Pot 1": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Ceiling_Room],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Ceiling_Room],
             location: Locations.Forest
         },
         "Forest Temple MQ Green Poe Pot 2": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Ceiling_Room],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Ceiling_Room],
             location: Locations.Forest
         },
         "Forest Temple MQ Basement Pot 1": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
             location: Locations.Forest
         },
         "Forest Temple MQ Basement Pot 2": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
             location: Locations.Forest
         },
         "Forest Temple MQ Basement Pot 3": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
             location: Locations.Forest
         },
         "Forest Temple MQ Basement Pot 4": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
             location: Locations.Forest
         },
         // Fire
@@ -10616,11 +10745,11 @@
             location: Locations.Fire
         },
         "MQ Lower Loop Stalfos Room Sun's Song Fairy": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon, Requirements.Instrument, Requirements.Suns_Song],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Instrument, Requirements.Suns_Song],
             location: Locations.Fire
         },
         "MQ Lower Loop Behind Iron Knuckle Sun's Song Fairy": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon, Requirements.Instrument, Requirements.Suns_Song],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Instrument, Requirements.Suns_Song],
             location: Locations.Fire
         },
         "Fire Temple MQ Entrance Pot 1": {
@@ -10704,35 +10833,35 @@
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 1": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 2": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 3": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 4": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 5": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 6": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 7": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Before Mini Boss Pot 8": {
-            requirements: [Requirements.Fire_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         // Water
@@ -10856,15 +10985,15 @@
         },
         // MQ
         "MQ Before Dark Link Pilar Sun's Song Fairy": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon, Requirements.Suns_Song, Requirements.Instrument],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Suns_Song, Requirements.Instrument],
             location: Locations.Water
         },
         "MQ Before Dark Link Left Song of Storms Fairy": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon, Requirements.Song_Of_Storms, Requirements.Instrument],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Song_Of_Storms, Requirements.Instrument],
             location: Locations.Water
         },
         "MQ Before Dark Link Right Sun's Song Fairy": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon, Requirements.Suns_Song, Requirements.Instrument],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Suns_Song, Requirements.Instrument],
             location: Locations.Water
         },
         "Water Temple MQ Lizalfos Hallway West Pot": {
@@ -10900,23 +11029,23 @@
             location: Locations.Water
         },
         "Water Temple MQ Before Dark Link Pot 1": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Water
         },
         "Water Temple MQ Before Dark Link Pot 2": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Water
         },
         "Water Temple MQ Stalfos Pit Middle Pot": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Water
         },
         "Water Temple MQ Stalfos Pit South Pot": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Water
         },
         "Water Temple MQ Stalfos Pit North Pot": {
-            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.BronzeScale, Requirements.Longshot, Requirements.Water_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Water
         },
         "Water Temple MQ After Dark Link Pot 1": {
@@ -11107,11 +11236,11 @@
         },
         // TODO: Expand
         "Spirit Temple MQ Child Gibdo Pot 1": {
-            requirements: [Requirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
+            requirements: [MultiplePossibleRequirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Child Gibdo Pot 2": {
-            requirements: [Requirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
+            requirements: [MultiplePossibleRequirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Child Like Like Pot": {
@@ -11119,19 +11248,19 @@
             location: Locations.Spirit
         },
         "Spirit Temple MQ Child Stalfos Pot 1": {
-            requirements: [Requirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
+            requirements: [MultiplePossibleRequirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Child Stalfos Pot 2": {
-            requirements: [Requirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
+            requirements: [MultiplePossibleRequirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Child Stalfos Pot 3": {
-            requirements: [Requirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
+            requirements: [MultiplePossibleRequirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Child Stalfos Pot 4": {
-            requirements: [Requirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
+            requirements: [MultiplePossibleRequirements.Weapon, Requirements.Bombchu, Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Spirit
         },
         "Spirit Temple MQ Statue 2F Center East Pot": {
@@ -12108,13 +12237,13 @@
         },
         "KF GS Bean Patch": 
           {  requirements  : [ Requirements.Bugs,
-                                Requirements.Weapon,
+                                MultiplePossibleRequirements.Weapon,
                                 Requirements.Child_Access
               ],
               location      : Locations.KF
         },
         "KF GS Know It All House": 
-          {  requirements  : [ Requirements.Weapon, Requirements.Child_Access
+          {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access
               ],
               location      : Locations.KF
         },
@@ -12212,7 +12341,7 @@
               location      : Locations.SFM
         },
         "SFM Wolfos Grotto Chest": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.SFM_Wolfos_Grotto
         },
@@ -12284,17 +12413,17 @@
               location      : Locations.Deku_Tree,
         },
         "Deku Tree GS Basement Gate": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Deku_Tree,
         },
         "Deku Tree GS Basement Vines": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Deku_Tree,
         },
         "Deku Tree GS Compass Room": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Deku_Tree,
         },
@@ -12319,12 +12448,12 @@
               location      : Locations.Deku_Tree,
         },
         "Deku Tree MQ Slingshot Chest": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Deku_Tree,
         },
         "Deku Tree MQ Slingshot Room Back Chest": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Deku_Tree,
         },
@@ -12348,7 +12477,7 @@
               location      : Locations.Deku_Tree,
         },
         "Deku Tree MQ GS Lobby": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Deku_Tree,
         },
@@ -12374,7 +12503,7 @@
               location      : Locations.Forest,
         },
         "Forest Temple First Stalfos Chest": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Forest
         },
@@ -12384,7 +12513,7 @@
               location      : Locations.Forest
         },
         "Forest Temple Map Chest": 
-          {  requirements  : [ Requirements.Weapon
+          {  requirements  : [ MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Forest
         },
@@ -12410,7 +12539,7 @@
         },
         "Forest Temple Floormaster Chest": 
           {  requirements  : [ MultiplePossibleRequirements.Forest_BK,
-                                Requirements.Weapon
+                                MultiplePossibleRequirements.Weapon
           ],
               location      : Locations.Forest
         },
@@ -12482,12 +12611,12 @@
               location      : Locations.Phantom_Ganon
         },
         "Forest Temple MQ First Room Chest": 
-          {  requirements  : [Requirements.Weapon],
+          {  requirements  : [MultiplePossibleRequirements.Weapon],
               location      : Locations.Forest
         },
         "Forest Temple MQ Wolfos Chest": 
         {  requirements  : [ Requirements.Forest_small_keys1,
-                              Requirements.Weapon
+                              MultiplePossibleRequirements.Weapon
         ],
               location      : Locations.Forest
         },
@@ -12520,11 +12649,11 @@
             location: Locations.Forest
         },
         "Forest Temple MQ Falling Ceiling Room Chest": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Ceiling_Room],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Ceiling_Room],
             location: Locations.Forest
         },
         "Forest Temple MQ Basement Chest": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Forest_Basement],
             location: Locations.Forest
         },
         "Forest Temple MQ Redead Chest": {
@@ -12540,7 +12669,7 @@
             location: Locations.Forest
         },
         "Forest Temple MQ GS Block Push Room": {
-            requirements: [Requirements.Forest_small_keys1, Requirements.Weapon],
+            requirements: [Requirements.Forest_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Forest
         },
         "Forest Temple MQ GS Raised Island Courtyard": {
@@ -12736,7 +12865,7 @@
               location      : Locations.GY_Composer_Grave,
         },
         "Song from Composers Grave": 
-        {  requirements  : [Requirements.Weapon],
+        {  requirements  : [MultiplePossibleRequirements.Weapon],
               location      : Locations.GY_Composer_Grave,
         },
         "Graveyard Freestanding PoH": 
@@ -12775,7 +12904,7 @@
               time          : Times.Night
         },
         "Kak GS Watchtower": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.Kakariko,
               time          : Times.Night
         },
@@ -12790,7 +12919,7 @@
               time          : Times.Night
         },
         "Graveyard GS Bean Patch": 
-          {  requirements  : [ Requirements.Weapon, Requirements.Bugs, Requirements.Child_Access],
+          {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Bugs, Requirements.Child_Access],
               location      : Locations.GY
         },
 
@@ -12809,7 +12938,7 @@
               location      : Locations.BOTW
         },
         "Bottom of the Well Compass Chest": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.BOTW
         },
         "Bottom of the Well Center Skulltula Chest": 
@@ -12899,7 +13028,7 @@
             location: Locations.BOTW
         },
         "Bottom of the Well MQ GS Basement": {
-            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.Weapon],
             location: Locations.BOTW
         },
         "Bottom of the Well MQ GS Coffin Room": {
@@ -12907,7 +13036,7 @@
             location: Locations.BOTW
         },
         "Bottom of the Well MQ GS West Inner Room": {
-            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.MQ_BOTW_Center, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.MQ_BOTW_Center, MultiplePossibleRequirements.Weapon],
             location: Locations.BOTW
         },
         "Shadow Temple Map Chest": {
@@ -12927,11 +13056,11 @@
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Visible Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Invisible Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple Falling Spikes Lower Chest": {
@@ -13191,19 +13320,19 @@
               location      : Locations.DMC_Hammer_Grotto
         },
         "DMC GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ Requirements.Bugs, MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.DMC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Death Mountain Crater Outside Temple"])]
         },
         "DMC GS Crate": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.DMC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Death Mountain Crater Upper Exit"])]
         },
         "DMT GS Bean Patch": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Bugs, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Bugs, Requirements.Child_Access],
               location      : Locations.DMT,
               age           : Ages.Child
         },
@@ -13312,7 +13441,7 @@
               location      : Locations.GC_Shop
         },
         "GC GS Center Platform": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Adult_Access],
               location      : Locations.GC,
               age           : Ages.Adult,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
@@ -13360,11 +13489,11 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern GS Vines Above Stairs": {
-            requirements: [MultiplePossibleRequirements.Dodongos_Lower, MultiplePossibleRequirements.Dodongos_Upper, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.Dodongos_Lower, MultiplePossibleRequirements.Dodongos_Upper, MultiplePossibleRequirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern GS Scarecrow": {
-            requirements: [Requirements.Mudwall_Or_Strength, Requirements.Weapon],
+            requirements: [Requirements.Mudwall_Or_Strength, MultiplePossibleRequirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern GS Alcove Above Stairs": {
@@ -13376,7 +13505,7 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern GS Side Room Near Lower Lizalfos": {
-            requirements: [Requirements.Mudwall_Or_Strength, Requirements.Weapon],
+            requirements: [Requirements.Mudwall_Or_Strength, MultiplePossibleRequirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Boss Room Chest": {
@@ -13400,11 +13529,11 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Larvae Room Chest": {
-            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, MultiplePossibleRequirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Torch Puzzle Room Chest": {
-            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, MultiplePossibleRequirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ Under Grave Chest": {
@@ -13440,7 +13569,7 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Larvae Room": {
-            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.MQ_Dong_Upper, Requirements.Burnable, MultiplePossibleRequirements.Weapon],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Back Room": {
@@ -13524,7 +13653,7 @@
             location: Locations.Fire
         },
         "Fire Temple GS Boss Key Loop": {
-            requirements: [Requirements.Weapon, MultiplePossibleRequirements.Fire_Boss_Loop],
+            requirements: [MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Fire_Boss_Loop],
             location: Locations.Fire
         },
         "Fire Temple GS Boulder Maze": {
@@ -13568,7 +13697,7 @@
             location: Locations.Fire
         },
         "Fire Temple MQ Map Room Side Chest": {
-            requirements: [Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.Weapon],
             location: Locations.Fire
         },
         "Fire Temple MQ Map Chest": {
@@ -13678,22 +13807,22 @@
               location      : Locations.ZR_Storms_Grotto
         },
         "ZR GS Ladder": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR GS Tree": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access ],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access ],
               location      : Locations.ZR,
               age           : Ages.Child
         },
         "ZR GS Above Bridge": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Retrieval, Requirements.Adult_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.ZR,
               age           : Ages.Adult
         },
         "ZR GS Near Raised Grottos": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Retrieval, Requirements.Adult_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Ranged_Retrieval, Requirements.Adult_Access],
               location      : Locations.ZR,
               age           : Ages.Adult
         },
@@ -13764,7 +13893,7 @@
               location      : Locations.ZF_Great_Fairy_Fountain,
         },
         "ZD GS Frozen Waterfall": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Adult_Access],
               location      : Locations.ZD,
               age           : Ages.Adult,
               time          : Times.Night
@@ -13783,7 +13912,7 @@
               time          : Times.Night
         },
         "ZF GS Tree": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.ZF,
               age           : Ages.Child
         },
@@ -13796,7 +13925,7 @@
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly Boomerang Chest": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Ranged_Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Ranged_Weapon],
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly Deku Scrub": 
@@ -14044,7 +14173,7 @@
               time          : Times.Night
         },
         "LLR GS Rain Shed": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.LLR,
               age           : Ages.Child,
               time          : Times.Night
@@ -14056,7 +14185,7 @@
               time          : Times.Night
         },
         "LLR GS Tree": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.LLR,
               age           : Ages.Child,
         },
@@ -14111,12 +14240,12 @@
               location      : Locations.LH_Grotto
         },
         "LH GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ Requirements.Bugs, MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.LH,
               age           : Ages.Child
         },
         "LH GS Small Island": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.LH,
               age           : Ages.Child
         },
@@ -14313,35 +14442,35 @@
               age           : Ages.Adult
         },
         "GF GF North F1 Carpenter": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon],
               location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
         ]
         },
         "GF GF North F2 Carpenter": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon],
               location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
         ]
         },
         "GF GF South F1 Carpenter": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon],
               location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
         ]
         },
         "GF GF South F2 Carpenter": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon],
               location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
         ]
         },
         "GF GF Gerudo Membership Card": 
-        {  requirements  : [ Requirements.Weapon, Requirements.GF_small_keys4],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.GF_small_keys4],
               location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -14376,7 +14505,7 @@
               location      : Locations.DC_Grotto
         },
         "GV GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ Requirements.Bugs, MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.GV,
               age           : Ages.Child
         },
@@ -14405,7 +14534,7 @@
               time          : Times.Night
         },
         "GF GS Top Floor": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Adult_Access],
               location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"])
@@ -14419,12 +14548,12 @@
               location      : Locations.HW
         },
         "Colossus GS Bean Patch": 
-        {  requirements  : [ Requirements.Bugs, Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ Requirements.Bugs, MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.DC,
               age           : Ages.Child
         },
         "Colossus GS Hill": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Adult_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Adult_Access],
               location      : Locations.DC,
               age           : Ages.Adult
         },
@@ -14442,7 +14571,7 @@
               location      : Locations.GTG
         },
         "Gerudo Training Ground Stalfos Chest": {
-            requirements: [Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.Weapon],
             location: Locations.GTG
         },
         "Gerudo Training Ground Beamos Chest": {
@@ -14482,7 +14611,7 @@
             location: Locations.GTG
         },
         "Gerudo Training Ground Hammer Room Clear Chest": {
-            requirements: [MultiplePossibleRequirements.GTG_Hammer_clear, Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.GTG_Hammer_clear, MultiplePossibleRequirements.Weapon],
             location: Locations.GTG
         },
         "Gerudo Training Ground Hammer Room Switch Chest": {
@@ -14498,7 +14627,7 @@
             location: Locations.GTG
         },
         "Gerudo Training Ground Before Heavy Block Chest": {
-            requirements: [Requirements.Weapon],
+            requirements: [MultiplePossibleRequirements.Weapon],
             location: Locations.GTG
         },
         // TODO: Implement heavy block skip and superslide past fire wall
@@ -14673,11 +14802,11 @@
               location      : Locations.Spirit
         },
         "Spirit Temple GS Sun on Floor Room": 
-        {  requirements  : [ MultiplePossibleRequirements.Spirit_Central_Room, Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Spirit_Central_Room, MultiplePossibleRequirements.Weapon],
               location      : Locations.Spirit
         },
         "Spirit Temple GS Metal Fence": 
-        {  requirements  : [ MultiplePossibleRequirements.Spirit_Central_Room, MultiplePossibleRequirements.Spirit_Adult_Anubis, Requirements.Spirit_small_keys2, Requirements.Weapon, Requirements.Explosive],
+        {  requirements  : [ MultiplePossibleRequirements.Spirit_Central_Room, MultiplePossibleRequirements.Spirit_Adult_Anubis, Requirements.Spirit_small_keys2, MultiplePossibleRequirements.Weapon, Requirements.Explosive],
               location      : Locations.Spirit
         },
         // TODO: Expand this with spirit hover behaviour
@@ -14972,7 +15101,7 @@
               location      : Locations.HC_Storms_Grotto
         },
         "HC GS Tree": 
-        {  requirements  : [ Requirements.Weapon, Requirements.Child_Access],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon, Requirements.Child_Access],
               location      : Locations.HC,
               age           : Ages.Child
         },
@@ -14990,7 +15119,7 @@
               location      : Locations.OGC
         },
         "Ganon's Castle Forest Trial Chest": 
-        {  requirements  : [ Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.Weapon],
               location      : Locations.Ganon
         },
         "Ganon's Castle Water Trial Left Chest": 
@@ -15043,7 +15172,7 @@
               location      : Locations.Ganon
         },
         "Ganon's Castle Light Trial Invisible Enemies Chest": 
-        {  requirements  : [ MultiplePossibleRequirements.GoldSkip, Requirements.Weapon],
+        {  requirements  : [ MultiplePossibleRequirements.GoldSkip, MultiplePossibleRequirements.Weapon],
               location      : Locations.Ganon
         },
         // TODO: Add OOB hover from ZFG
