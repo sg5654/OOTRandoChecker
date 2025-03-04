@@ -558,7 +558,8 @@
       Kak_Impas_House_Key: {explanation: "Can open the Impa House", related: ["items"], items: ["Impa's House Key", "Skeleton Key"]},
       Adult_Sword: {explanation: "Has a proper adult sword", related: ["items"], items: ["Master Sword", "Biggoron's Sword"]},
       GerudoGuard: {explanation: "Can bypass a Gerudo Guard", related: ["items"], items: ["Gerudo Membership Card", "Progressive Bow"]},
-      GossipFairy: {explanation: "Can Retrieve a fairy from a gossip stone", unlocked_if: ["Zeldas_Lullaby", "Eponas_Song", "Song_Of_Time", "Suns_Song"]},
+      GossipFairy: {explanation: "Can Retrieve a fairy from a gossip stone", unlocked_if: ["Zeldas_Lullaby", "Eponas_Song", "Song_Of_Time"]},
+      GossipFairy_And_Suns: {explanation: "Can Retrieve a fairy from a gossip stone", unlocked_if: ["Zeldas_Lullaby", "Eponas_Song", "Song_Of_Time", "Suns_Song"]},
       BeanSprout: {explanation: "Can retrieve the fairies from bean sprout", unlocked_if_all: ["Child_Access", "Song_Of_Storms", "Beans"]},
       Beans: {explanation: "Has access to beans", related: ["items"], items: ["Magic Bean Pack"]},
       Scale_Or_Iron: {explanation: "Can retrieve silver scale depth items", unlocked_if: ["IronBoots", "Scale"]},
@@ -1180,7 +1181,7 @@
                               [ Requirements.Hover_boots, Requirements.Explosive, Requirements.Adult_Weapon]
       ],
       Forest_Eye_Switch: [  [ Requirements.Forest_small_keys1, Requirements.Projectile, Requirements.Strength1],
-                            [ Requirements.Forest_small_keys1, Requirements.Bow, Requirements.Master_Sword],
+                            [ Requirements.Forest_small_keys1, Requirements.Bow, Requirements.Adult_Sword],
                             [ Requirements.Forest_small_keys1, Requirements.Projectile, Requirements.Bombs],
                             [ Requirements.Hover_boots, Requirements.Projectile, Requirements.Bombs],
                             [ Requirements.Bomb_Hovering, Requirements.Projectile]
@@ -1347,14 +1348,14 @@
                       [ Requirements.Boomerang]
 
     ],
-    ZR_Clear: [   [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Melee],
-                  [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive_Or_Hammer],
-                  [     Requirements.Hover_boots, Requirements.Melee],
-                  [     Requirements.Hover_boots, Requirements.Explosive_Or_Hammer],
-                  [     Requirements.Master_Sword, Requirements.Melee],
-                  [     Requirements.Master_Sword, Requirements.Explosive_Or_Hammer]
+    // ZR_Clear: [   [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Melee],
+    //               [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive_Or_Hammer],
+    //               [     Requirements.Hover_boots, Requirements.Melee],
+    //               [     Requirements.Hover_boots, Requirements.Explosive_Or_Hammer],
+    //               [     Requirements.Master_Sword, Requirements.Melee],
+    //               [     Requirements.Master_Sword, Requirements.Explosive_Or_Hammer]
 
-    ],
+    // ],
     Shadow_Entry: [     [     Requirements.Melee, Requirements.Adult_Access],
                         [     Requirements.Dins],
                         [     Requirements.Fire_Arrow]
@@ -1373,7 +1374,7 @@
                         [     Requirements.Mudwall_Or_Strength, Requirements.Bow],
                         [     Requirements.Mudwall_Or_Strength, Requirements.Fire]
       ],
-      Fire_Boss_Loop: [ [     Requirements.Adult_Shield, Requirements.Master_Sword, Requirements.Fire_small_keys1],
+      Fire_Boss_Loop: [ [     Requirements.Adult_Sword, Requirements.Fire_small_keys1],
                         [     Requirements.Hammer, Requirements.Fire_small_keys1]
       ],
       Fire_Boss_Key: [  [     Requirements.Hookshot, Requirements.Adult_Shield, Requirements.Bombs],
@@ -1386,18 +1387,18 @@
       Gohma_Entrance: [       [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Stick],
                               [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Fire],
                               [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bow],
-                              [Requirements.Master_Sword, Requirements.Adult_Access],
+                              [Requirements.Adult_Sword, Requirements.Adult_Access],
                               [Requirements.Adult_Access, Requirements.Stick]
       ],
-      Bongo_Bongo_Entrance: [ [Requirements.Master_Sword, Requirements.Hover_boots, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
-                              [Requirements.Master_Sword, Requirements.Explosive, Requirements.Adult_Shield, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
+      Bongo_Bongo_Entrance: [ [Requirements.Adult_Sword, Requirements.Hover_boots, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
+                              [Requirements.Adult_Sword, Requirements.Explosive, Requirements.Adult_Shield, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
                               [Requirements.Longshot, Requirements.Bombs, Requirements.Adult_Shield, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
                               [Requirements.Hook_Or_Hover, Requirements.Shadow_small_keys5, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby]
       ],
       Volvagia_Entrance: [    [Requirements.Adult_Access, Requirements.Fire_BK],
                               [Requirements.Child_Shield, Requirements.Explosive, Requirements.Fire_BK]
       ],
-      Freezard_Kill: [        [Requirements.Master_Sword],
+      Freezard_Kill: [        [Requirements.Adult_Sword],
                               [Requirements.Stick],
                               [Requirements.Biggoron_Sword],
                               [Requirements.Explosive]
@@ -1431,7 +1432,7 @@
                                     [Requirements.Adult_Shield, Requirements.Adult_Access],
                                     [Requirements.Child_Shield, Requirements.Explosive]
       ],
-      LW_Bridge_Above: [            [Requirements.Master_Sword],
+      LW_Bridge_Above: [            [Requirements.Adult_Sword],
                                     [Requirements.Hover_boots],
                                     [Requirements.Bean_Planted, Requirements.Adult_Access],
                                     [Requirements.Hookshot],
@@ -1553,7 +1554,7 @@
 
       ],
       MQ_Spirit_Map_Enemy: [  [Requirements.Dins, Requirements.Child_Weapon, Requirements.Child_Access],
-                              [Requirements.Mirror_Shield, Requirements.Adult_Access, Requirements.Adult_Weapon, Requirements.Adult_Shield, Requirements.Master_Sword]
+                              [Requirements.Mirror_Shield, Requirements.Adult_Access, Requirements.Adult_Weapon, Requirements.FP_Item, Requirements.Master_Sword]
 
       ],
       MQ_Spirit_Hammer_Child: [     [Requirements.Child_Access],
@@ -1683,8 +1684,7 @@
 
       ],
       MQ_Ice_Cavern_Entry: [  [Requirements.Ranged_Weapon],
-                              [Requirements.Master_Sword],
-                              [Requirements.Biggoron_Sword],
+                              [Requirements.Adult_Sword],
                               [Requirements.Stick, Requirements.Adult_Access]
 
       ],
@@ -1860,6 +1860,11 @@
       Deku_Back: [
         [Requirements.Child_Access],
         [Requirements.Adult_Access, Requirements.Bow]
+      ],
+      Jabu_Octo_Pots: [
+        [Requirements.Boomerang],
+        [Requirements.Bomb_Hovering],
+        [Requirements.Explosive, Requirements.Hover_boots]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -8675,7 +8680,7 @@
         location        : Locations.DMT
       },
         "ToT Left Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.TOT_Enrance
       },
         "ToT Left Gossip Stone Big Fairy": {
@@ -8683,7 +8688,7 @@
         location        : Locations.TOT_Enrance
       },
         "ToT Left Center Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.TOT_Enrance
       },
         "ToT Left Center Gossip Stone Big Fairy": {
@@ -8691,7 +8696,7 @@
         location        : Locations.TOT_Enrance
       },
         "ToT Right Center Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.TOT_Enrance
       },
         "ToT Right Center Gossip Stone Big Fairy": {
@@ -8699,7 +8704,7 @@
         location        : Locations.TOT_Enrance
       },
         "ToT Right Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.TOT_Enrance
       },
         "ToT Right Gossip Stone Big Fairy": {
@@ -8721,7 +8726,7 @@
         ]
       },
         "DMT Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.DMT,
         conditional     : [
             new Conditional(locations = ["Death Mountain Trail Top Exit"])
@@ -8735,7 +8740,7 @@
         ]
       },
         "Col Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.DC
       },
         "Col Gossip Stone Big Fairy": {
@@ -8744,7 +8749,7 @@
       },
       // TODO: Implement ledge behaviour
         "GV Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.GV
       },
         "GV Gossip Stone Big Fairy": {
@@ -8788,7 +8793,7 @@
         ]
       },
         "HC Malon Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument, Requirements.Child_Access],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.HC
       },
         "HC Malon Gossip Stone Big Fairy": {
@@ -8796,7 +8801,7 @@
         location        : Locations.HC
       },
         "HC Rock Wall Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument, Requirements.Child_Access],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.HC
       },
         "HC Rock Wall Gossip Stone Big Fairy": {
@@ -8804,7 +8809,7 @@
         location        : Locations.HC
       },
         "HC Storms Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument, Requirements.Mudwall],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument, Requirements.Mudwall],
         location        : Locations.HC_Storms_Grotto
       },
         "HC Storms Grotto Gossip Stone Big Fairy": {
@@ -8836,7 +8841,7 @@
         location        : Locations.KF
       },
         "KF Storms Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.KF_Storms_Grotto
       },
         "KF Storms Gossip Stone Big Fairy": {
@@ -8844,7 +8849,7 @@
         location        : Locations.KF_Storms_Grotto
       },
         "LH Lab Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.LH,
         conditional     : [
             new Conditional(locations = ["Lake Hylia North Exit"])
@@ -8858,7 +8863,7 @@
         ]
       },
         "LH Southeast Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.LH,
         conditional     : [
             new Conditional(locations = ["Lake Hylia North Exit"])
@@ -8872,7 +8877,7 @@
         ]
       },
         "LH Southwest Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.LH,
         conditional     : [
             new Conditional(locations = ["Lake Hylia North Exit"])
@@ -8979,7 +8984,7 @@
       },
       // TODO: Add behaviour for child stone skip
         "ZR Near Grottos Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.ZR
       },
         "ZR Near Grottos Gossip Stone Big Fairy": {
@@ -8987,7 +8992,7 @@
         location        : Locations.ZR
       },
         "ZR Near Domain Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.ZR
       },
         "ZR Near Domain Gossip Stone Big Fairy": {
@@ -8995,7 +9000,7 @@
         location        : Locations.ZR
       },
         "HF Cow Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument, Requirements.Fire],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument, Requirements.Fire],
         location        : Locations.HF_Cow_Grotto
       },
         "HF Cow Grotto Gossip Stone Big Fairy": {
@@ -9003,7 +9008,7 @@
         location        : Locations.HF_Cow_Grotto
       },
         "HF Near Market Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.HF_Near_Market_Grotto
       },
         "HF Near Market Gossip Stone Big Fairy": {
@@ -9011,7 +9016,7 @@
         location        : Locations.HF_Near_Market_Grotto
       },
         "HF Southeast Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.HF_SE_Grotto
       },
         "HF Southeast Gossip Stone Big Fairy": {
@@ -9019,7 +9024,7 @@
         location        : Locations.HF_SE_Grotto
       },
         "HF Open Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.HF_Open_Grotto
       },
         "HF Open Grotto Gossip Stone Big Fairy": {
@@ -9027,7 +9032,7 @@
         location        : Locations.HF_Open_Grotto
       },
         "Kak Open Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.Kak_Open_Grotto
       },
         "Kak Open Grotto Gossip Stone Big Fairy": {
@@ -9035,7 +9040,7 @@
         location        : Locations.Kak_Open_Grotto
       },
         "ZR Open Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.ZR_Open_Grotto
       },
         "ZR Open Grotto Gossip Stone Big Fairy": {
@@ -9043,7 +9048,7 @@
         location        : Locations.ZR_Open_Grotto
       },
         "LW Near Shortcuts Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.LW_Near_Shortcuts_Grotto
       },
         "LW Near Shortcuts Gossip Stone Big Fairy": {
@@ -9051,7 +9056,7 @@
         location        : Locations.LW_Near_Shortcuts_Grotto
       },
         "DMT Storms Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.DMT_Storms_Grotto
       },
         "DMT Storms Grotto Gossip Stone Big Fairy": {
@@ -9059,7 +9064,7 @@
         location        : Locations.DMT_Storms_Grotto
       },
         "DMC Upper Grotto Gossip Stone Fairy": {
-        requirements    : [Requirements.GossipFairy, Requirements.Instrument],
+        requirements    : [Requirements.GossipFairy_And_Suns, Requirements.Instrument],
         location        : Locations.DMC_Upper_Grotto
       },
         "DMC Upper Grotto Gossip Stone Big Fairy": {
@@ -10054,7 +10059,7 @@
             location      : Locations.Dodongos_Cavern
         },
         "DC Gossip Stone Fairy": {  
-            requirements  : [Requirements.Mudwall_Or_Strength, Requirements.Instrument, Requirements.GossipFairy],
+            requirements  : [Requirements.Mudwall_Or_Strength, Requirements.Instrument, Requirements.GossipFairy_And_Suns],
             location      : Locations.Dodongos_Cavern
         },
         "DC Gossip Stone Big Fairy": {  
@@ -10183,7 +10188,7 @@
             location      : Locations.Dodongos_Cavern
         },
         "DC MQ Gossip Stone Fairy": {  
-            requirements  : [Requirements.Mudwall_Or_Strength, Requirements.Instrument, Requirements.GossipFairy],
+            requirements  : [Requirements.Mudwall_Or_Strength, Requirements.Instrument, Requirements.GossipFairy_And_Suns],
             location      : Locations.Dodongos_Cavern
         },
         "DC MQ Gossip Stone Big Fairy": {  
@@ -10335,25 +10340,24 @@
             requirements  : [Requirements.Ranged_Weapon],
             location      : Locations.Jabu
         },
-        // TODO: Extend this beyond boomerang
         "Jabu Jabus Belly Two Octorok Pot 1": {  
-            requirements  : [Requirements.Boomerang],
+            requirements  : [MultiplePossibleRequirements.Jabu_Octo_Pots],
             location      : Locations.Jabu
         },
         "Jabu Jabus Belly Two Octorok Pot 2": {  
-            requirements  : [Requirements.Boomerang],
+            requirements  : [MultiplePossibleRequirements.Jabu_Octo_Pots],
             location      : Locations.Jabu
         },
         "Jabu Jabus Belly Two Octorok Pot 3": {  
-            requirements  : [Requirements.Boomerang],
+            requirements  : [MultiplePossibleRequirements.Jabu_Octo_Pots],
             location      : Locations.Jabu
         },
         "Jabu Jabus Belly Two Octorok Pot 4": {  
-            requirements  : [Requirements.Boomerang],
+            requirements  : [MultiplePossibleRequirements.Jabu_Octo_Pots],
             location      : Locations.Jabu
         },
         "Jabu Jabus Belly Two Octorok Pot 5": {  
-            requirements  : [Requirements.Boomerang],
+            requirements  : [MultiplePossibleRequirements.Jabu_Octo_Pots],
             location      : Locations.Jabu
         },
         "Jabu Jabus Belly Barinade Pot 1": {  
@@ -10873,6 +10877,7 @@
             location: Locations.Fire
         },
         // Water
+        // TODO: Expand behaviour for river
         "Water Temple River Heart 1": {
             requirements: [Requirements.Water_small_keys2, Requirements.Hookshot, Requirements.BronzeScale, Requirements.Song_Of_Time, Requirements.Instrument, Requirements.Adult_Access],
             location: Locations.Water
@@ -12880,11 +12885,19 @@
         {  requirements  : [ MultiplePossibleRequirements.GY_POH],
               location      : Locations.GY,
         },
-        // TODO: Expand thos
         "Graveyard Dampe Race Freestanding PoH": 
         {  requirements  : "",
               location      : Locations.GY_Dampes_Grave,
-              conditional     : [new Conditional(locations = ["Windmill"])]
+              conditional     : [
+                new Conditional(locations = ["Windmill"], requirements = [Requirements.Adult_Access], age = undefined, needsAll = true),
+                // TODO: Find video reference for this
+                new Conditional(locations = ["Windmill"], requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                new Conditional(locations = ["Windmill"], requirements = [Requirements.Boomerang], age = undefined, needsAll = true),
+                new Conditional(locations = ["Dampe's Grave"], requirements = [Requirements.Adult_Access, Requirements.Bombs], age = undefined, needsAll = true),
+                new Conditional(locations = ["Dampe's Grave"], requirements = [Requirements.Adult_Access, Requirements.Song_Of_Time, Requirements.Instrument], age = undefined, needsAll = true),
+                new Conditional(locations = ["Dampe's Grave"], requirements = [Requirements.Child_Access, Requirements.Bombs, Requirements.Child_Shield], age = undefined, needsAll = true),
+              ]
+
         },
         "Graveyard Dampe Gravedigging Tour": 
           {  requirements  : [Requirements.Child_Access, Requirements.Wallet0],
