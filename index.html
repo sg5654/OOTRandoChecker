@@ -3474,7 +3474,7 @@
                 location      : Locations.LH,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.BronzeScale], age = undefined, needsAll = true),
                               new Conditional(locations = ["LH Fishing Pond Entry"]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale], age = undefined, needsAll = false, collected = ["Morpha"]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale], age = undefined, needsAll = true, collected = ["Morpha"]),
                               new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Instrument], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Bean_Planted, Requirements.Adult_Access], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
@@ -15507,7 +15507,7 @@
 //       console.log(MS_location);
 //       return;
 //     }
-      var debugKey = "LH Fishing Pond Entry";
+      var debugKey = "TEMP_PLACEHOLDER";
 
       function exploreArea(type) {
             var reqCheck = true;
@@ -15545,6 +15545,7 @@
                               // if (type[key]["location"].name == "Deku Tree") {
                               //       console.log("PLEASE");
                               // }
+                              innerMultCheck = false;
                               reqCheck = true;
                               multCheck = true;
                               condCheck = true;
@@ -15636,6 +15637,7 @@
                                     })
                               }
                               if (type[key].conditional) {
+                                  
 
                                     // if (key == "GC Maze Center Chest") {
                                     //       console.log("entering conditional");
@@ -15643,15 +15645,21 @@
                                     condCheck = false;
                                     //console.log(key)
                                     type[key]["conditional"].forEach(condition => {
+                                    
                                       collectCheck = true;
                                           //console.log(condition);
                                           //console.log(condCheck);
                                           if (!condCheck) {
+                                            if (key == debugKey) {
+                                                console.log("entering this condition:");
+                                                console.log(condition);
+                                              }
                                                 needsAllCheck = true;
+                                                if (key == debugKey) {
+                                                  console.log("Needs all?");
+                                                  console.log(condition.needsAll);
+                                                }
                                                 if (condition.needsAll) {
-                                                      if (key == debugKey) {
-                                                            //console.log("condition needs all");
-                                                      }
                                                       needsAllCheck = true;
                                                       if (condition.locations) {
                                                             //console.log(condition.locations);
@@ -15661,14 +15669,20 @@
                                                                   }
                                                                   else {
                                                                         needsAllCheck = false;
+                                                                        condCheck = false;
                                                             }
                                                             });
                                                             //console.log(condCheck);
                                                       }
                                                       if (condition.requirements) {
-                                                            // console.log(condition);
+                                                            
                                                             condition.requirements.forEach(element => {
+                                                              if (key == debugKey) {
+                                                              console.log("Checking requirements:");
+                                                              console.log(element);
+                                                            }
                                                               if (element.explanation) {
+                                                                
                                                                     if (inventory.requirements.includes(element)) {
                                                                           if (element == Requirements.Adult_Access) {
                                                                                 if (inventory.entered_adult.includes(type[key]["location"].name)) {
@@ -15686,16 +15700,30 @@
                                                                     }
                                                                     else {
                                                                           needsAllCheck = false;
+                                                                          condCheck = false;
+                                                                    }
+                                                                    if (key == debugKey) {
+                                                                      console.log("State after Single Req");
+                                                                      console.log(condCheck);
                                                                     }
                                                               }
                                                               // mult req
                                                               else {
                                                                     //console.log("multReq");
                                                                     element.forEach(requirementList => {
+                                                                      if (key == debugKey) {
+                                                                        console.log("Checking Multi Req:");
+                                                                        console.log(requirementList);
+                                                                        console.log(innerMultCheck);
+                                                                      }
                                                                           if (!innerMultCheck) {
+                                                                            innerMultCheck = true;
                                                                                 requirementList.forEach(requirement => {
-                                                                                      innerMultCheck = true;
                                                                                       // console.log(requirement);
+                                                                                      if (key == debugKey) {
+                                                                                        console.log("Current requirement:");
+                                                                                        console.log(requirement);
+                                                                                      }
                                                                                       if (inventory.requirements.includes(requirement)) {
                                                                                             if (requirement == Requirements.Adult_Access) {
                                                                                                   if (!inventory.entered_adult.includes(type[key]["location"].name)) {
@@ -15707,6 +15735,10 @@
                                                                                                         innerMultCheck = false;
                                                                                                   }
                                                                                             }
+                                                                                            if (key == debugKey) {
+                                                                                              console.log("Passed age check?:");
+                                                                                              console.log(innerMultCheck);
+                                                                                            }
                                                                                       }
                                                                                       else {
                                                                                             //console.log("unmatched");
@@ -15714,21 +15746,34 @@
                                                                                       }
                                                                                 })
                                                                           }
+                                                                        if (key == debugKey) {
+                                                                          console.log("State after multireq");
+                                                                          console.log(innerMultCheck);
+                                                                        }
                                                                     })
                                                                     condCheck = innerMultCheck;
                                                                     needsAllCheck = innerMultCheck;
+
                                                               }
                                                             
                                                             //console.log(condCheck);
                                                       })};
+                                                      if (key == debugKey) {
+                                                        console.log("Does condition have collection check?");
+                                                        console.log(condition.collected);
+                                                      }
                                                       if (condition.collected) {
                                                             condition["collected"].forEach(coll => {
+                                                                if (key == debugKey) {
+                                                                  console.log("Collected entered");
+                                                                }
                                                                   if (inventory.collected.includes(coll)) {
 
                                                                   }
                                                                   else {
                                                                         collectCheck = false;
                                                                         needsAllCheck = false;
+                                                                        condCheck = false;
                                                                   }
                                                             })
                                                       }
