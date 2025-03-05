@@ -601,7 +601,8 @@
       Nocturne: {explanation: "Requires having Nocturne of Shadow", related: ["items"], items_all: ["Nocturne of Shadow", "Ocarina C Left Button", "Ocarina C Right Button", "Ocarina A Button", "Ocarina C Down Button"]},
       Requiem: {explanation: "Requires having Requiem of Spirit", related: ["items"], items_all: ["Requiem of Spirit", "Ocarina A Button", "Ocarina C Right Button", "Ocarina C Down Button"]},
       Prelude: {explanation: "Requires having Prelude of Light", related: ["items"], items_all: ["Prelude of Light", "Ocarina C Left Button", "Ocarina C Up Button", "Ocarina C Right Button"]},
-      Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina"]},
+      Bomb_OI: {explanation: "Requires being able to perform bomb OI", unlocked_if_all: ["Bombs", "Cutscene_Item"]},
+      Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina", "Bomb_OI"]},
       Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
                   items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Fish"]},
       Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
@@ -1065,6 +1066,56 @@
     };
 
     const MultiplePossibleRequirements = {
+      HBA_Access: [
+        [Requirements.Membership],
+        [Requirements.Adult_Access, Requirements.Adult_Melee]
+      ],
+      ZF_Hidden_Cave: [
+        [Requirements.Explosive, Requirements.Strength2, Requirements.Adult_Access],
+        [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Sword]
+      ],
+      DMT_GS_Near_Kak: [
+        [Requirements.Explosive_Or_Hammer],
+        [Requirements.Adult_Access, Requirements.Adult_Sword, Requirements.Adult_Shield]
+      ],
+      Ice_Cavern_GS_POH: [
+        [Requirements.Ranged_Retrieval],
+        [Requirements.Child_Access, Requirements.Child_Melee, Requirements.Child_Shield]
+      ],
+      LLR_Freestanding_POH: [
+        [Requirements.Child_Access],
+        [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Adult_Melee]
+      ],
+      Tektite_POH: [
+        [Requirements.Gold_Scale_Or_Iron],
+        [Requirements.Child_Access, Requirements.Boomerang, Requirements.Bombchu, Requirements.BronzeScale]
+      ],
+      Ice_Cavern_Freestanding_POH: [
+        [Requirements.Bottle],
+        [Requirements.Blue_Fire],
+        [Requirements.Adult_Access, Requirements.Bombs, Requirements.Shield, Requirements.Adult_Sword]
+      ],
+      Jabu_Compass: [
+        [Requirements.Boomerang],
+        [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bombs]
+      ],
+      ZD_Shortcut_Entry: [
+        [Requirements.Adult_access, Requirements.BronzeScale],
+        [Requirements.Child_Access, Requirements.BronzeScale, Requirements.Child_Melee],
+        [Requirements.Child_Access, Requirements.Scale]
+      ],
+      ZR_Shortcut_Entry: [
+        [Requirements.Adult_Access, Requirements.BronzeScale],
+        [Requirements.Scale]
+      ],
+      Granny_Entry: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Bombchu, Requirements.Child_Shield]
+      ],
+      GY_Royal_Tomb_Entry: [
+        [Requirements.Instrument, Requirements.Zeldas_Lullaby],
+        [Requirements.Adult_Access, Requirements.Hover_boots, Requirements.Master_Sword, Requirements.Adult_Shield]
+      ],
       Kak_Potion_Shop_Back_Entry: [
         [Requirements.Adult_Access],
         [Requirements.Child_Access, Requirements.Child_Melee],
@@ -1271,7 +1322,8 @@
 
       ],
       LabDive: [  [ Requirements.Hookshot, Requirements.Iron_Boots],
-                  [ Requirements.GoldScale]
+                  [ Requirements.GoldScale],
+                  [Requirements.Adult_Access, Requirements.Adult_Melee, Requirements.Adult_Shield, Requirements.Cutscene_Item]
 
       ],
       LabWall: [  [ Requirements.Melee],
@@ -1311,17 +1363,20 @@
     // TODO: Override the unloading version
     GoldSkip: [ [ Requirements.Strength3],
                 [ Requirements.Bombs, Requirements.Adult_Access],
-                [ Requirements.Explosive, Requirements.Shield],
+                [ Requirements.Bombchu, Requirements.Child_Access, Requirements.Child_Shield],
                 [ Requirements.Bombchu, Requirements.Adult_Access]
     ],
     Spirit_Child_Side: [  [ Requirements.Child_Access],
-                          [ Requirements.Adult_Access, Requirements.Hover_boots]
+                          [ Requirements.Adult_Access, Requirements.Master_Sword, Requirements.Adult_Shield, Requirements.FP_Item],
+                          [ Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield, Requirements.Hover_boots]
     ],
     Spirit_Central_Room: [  [ Requirements.Child_Access, Requirements.Spirit_small_keys1, Requirements.Explosive],
                             [ Requirements.Adult_Access, Requirements.Spirit_small_keys1, Requirements.Master_Sword, Requirements.FP_Item],
+                            [ Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield],
                             [ Requirements.Adult_Access, Requirements.Spirit_small_keys1, Requirements.Strength2]
     ],
     Early_Adult: [  [ Requirements.Adult_Access, Requirements.Master_Sword, Requirements.FP_Item, Requirements.Adult_Shield],
+                    [ Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield],
                     [ Requirements.Adult_Access, Requirements.Hover_boots],
                     [ Requirements.Adult_Access, Requirements.Strength2],
                     [ Requirements.Child_Access, Requirements.Spirit_small_keys2, Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Melee]
@@ -1343,9 +1398,10 @@
         [ Requirements.Spirit_small_keys2, Requirements.Strength2],
 
     ],
-    Early_Adult_GS: [ [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Adult_Weapon],
-                      [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Child_Weapon],
-                      [ Requirements.Boomerang]
+    Early_Adult_GS: [ [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Adult_Weapon, Requirements.Adult_Access],
+                      [ Requirements.Instrument, Requirements.Song_Of_Time, Requirements.Child_Weapon, Requirements.Child_Access],
+                      [ Requirements.Boomerang],
+                      [ Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hookshot]
 
     ],
     // ZR_Clear: [   [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Melee],
@@ -1404,15 +1460,17 @@
                               [Requirements.Explosive]
       ],
       Ice_Cavern_Back: [      [Requirements.Adult_Access],
-                              [Requirements.Bomb_Hovering_Child]
+                              [Requirements.Explosive, Requirements.Child_Access, Requirements.Child_Shield]
       ],
-      Ice_Cavern_Blue_Fire_Skip: [  [Requirements.Melee_Either],
+      Ice_Cavern_Blue_Fire_Skip: [  [Requirements.Adult_Melee, Requirements.Adult_Access],
+                                    [Requirements.Child_Melee, Requirements.Child_Access],
                                     [Requirements.Blue_Fire, Requirements.Bottle],
                                     [Requirements.Explosive, Requirements.Shield]
       ],
       DMC_Great_Fairy_Fountain: [   [Requirements.Hover_boots, Requirements.Adult_Melee],
                                     [Requirements.Explosive, Requirements.Child_Access, Requirements.Child_Shield],
                                     [Requirements.Explosive, Requirements.Adult_Access, Requirements.Adult_Shield],
+                                    [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Sword],
                                     [Requirements.Hammer]
       ],
       // SOH doesn't support child weirdslide
@@ -1527,7 +1585,7 @@
             [Requirements.Adult_Access, Requirements.IronBoots, Requirements.Hookshot, Requirements.Instrument, Requirements.Zeldas_Lullaby]
       ],
       Water_Cracked_Wall: [
-            [Requirements.Adult_Access, Requirements.Bombchu, Requirements.Hookshot, Requirements.IronBoots],
+            [Requirements.Adult_Access, Requirements.Hookshot, Requirements.IronBoots],
             [Requirements.Adult_Access, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive],
             [Requirements.Child_Access, Requirements.Spelldive, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive]
       ],
@@ -2085,7 +2143,9 @@
 
     const adultOnlyEntrances = [
       // new
-      "Kak Granny's Potion Shop Entry",
+
+      // No longer adult only with child clip
+      //"Kak Granny's Potion Shop Entry",
       "GY Near-Ledge Grave Entry",
       "OGC Rainbow Bridge Exit",
       "OGC Behind Pillar",
@@ -2407,11 +2467,12 @@
                   location: Locations.GC,
                   conditional: [
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bow], age = undefined, needsAll = true),
-                                    new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Zeldas_Lullaby], age = undefined, needsAll = true),
-                                    new Conditional(locations = undefined, requirements = [Requirements.Explosive, Requirements.Child_Shield], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Child_Access], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Child_Shield], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Strength1], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Fire], age = undefined, needsAll = true),
                                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Sword], age = undefined, needsAll = true),
                                     new Conditional(locations = ["Goron City Darunia's Room Backdoor"])
                               ],
                               default: "Death Mountain Crater Bridge Exit"
@@ -2610,12 +2671,15 @@
                     new Conditional(locations = undefined, requirements = [Requirements.Adult_Access])
                   ]
             },
-            // TODO: Expand
             "Zora's Domain Underwater Shortcut":{
-                  requirements: [Requirements.Scale],
+                  requirements: [MultiplePossibleRequirements.ZD_Shortcut_Entry],
                   location: Locations.ZD,
                   default: "Lake Hylia Underwater Shortcut",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
+                  ]
             },
             "Hyrule Field Drawbridge Exit":{
                   requirements: "",
@@ -3286,12 +3350,17 @@
                   default: "Shield Grave",
                   conditional: ""
             },
-            // TODO: Implement skips for Zelda's Lullaby
+            // TODO: Implement more skips for Zelda's Lullaby (with explosives)
             "GY Royal Family's Tomb Entry": 
-            {  requirements  : [Requirements.Zeldas_Lullaby, Requirements.Instrument],
+            {  requirements  : [MultiplePossibleRequirements.GY_Royal_Tomb_Entry],
                 location      : Locations.GY,
                   default: "Royal Family's Tomb",
-                  conditional: ""
+                  conditional: [
+                    new Conditional(locations = undefined, requirements = [Requirements.Zeldas_Lullaby, Requirements.Instrument]),
+                    new Conditional(locations = ["Graveyard Outside Temple"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Shield, Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
+                  ]
             },
             "GY Near-Tomb Grave Entry": 
             {  requirements  : "",
@@ -3424,8 +3493,9 @@
                     new Conditional(locations = undefined, requirements = [Requirements.Explosive_Or_Hammer])
                   ]
             },
+            // Free entry now that child can clip past
             "Death Mountain Trail Outside Dodongo's Cavern": 
-            {  requirements  : [MultiplePossibleRequirements.Dodongos_Entry],
+            {  requirements  : "",
                 location      : Locations.DMT,
                   default: "Dodongo's Cavern Entrance",
                   conditional: ""
@@ -3687,8 +3757,8 @@
                   ]
             },
             "Zora's River Underwater Shortcut": 
-            // TODO: Implement behaviour for clips, unloading and diving
-            {  requirements  : [Requirements.Scale],
+            // TODO: Update behaviour for bomb clips
+            {  requirements  : [MultiplePossibleRequirements.ZR_Shortcut_Entry],
                 location      : Locations.ZR,
                   default: "Lost Woods Underwater Shortcut",
                   conditional: [
@@ -3736,9 +3806,11 @@
             "Gerudo Fortress Gate Exit": 
             {  requirements  : "",
                 location      : Locations.GF,
-                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress Gate Exit"])],
-                              default: "Haunted Wasteland East Exit"
+                  conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership, Requirements.Child_Access]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bombs]),
+                              new Conditional(locations = ["Gerudo Fortress Gate Exit"])
+                            ],
+                  default: "Haunted Wasteland East Exit"
             },
             "GC Shop Entry": 
             {  requirements  : "",
@@ -3907,7 +3979,8 @@
                   default: "Zora's River Waterfall Exit",
                   conditional: [
                     new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering])
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
                   ]
             },
             "Sacred Forest Meadow Outside Forest Temple": 
@@ -4011,7 +4084,7 @@
               ]
             },
             "Kak Granny's Potion Shop Entry": 
-            {  requirements  : [Requirements.Adult_Access, Requirements.Kak_Granny_Potion_Shop_Key],
+            {  requirements  : [Requirements.Kak_Granny_Potion_Shop_Key, MultiplePossibleRequirements.Granny_Entry],
                 location      : Locations.Kakariko,
                   default: "Granny's Potion Shop",
               conditional: [
@@ -4055,7 +4128,8 @@
                   default: "Zora Shop",
                   conditional: [
                     new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering])
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
                   ]
             },
             "ZD Island Grotto Entry": 
@@ -4064,7 +4138,8 @@
                   default: "ZD Storms Grotto",
                   conditional: [
                     new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"], requirements = [Requirements.BronzeScale], age = undefined, needsAll = true),
-                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering])
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
                   ]
             },
             "Lost Woods Tunnel Shortcut": 
@@ -4165,7 +4240,8 @@
                         new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Melee], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true),
+                        new Conditional(lcoations = undefined, requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
                   ],
                   default: "Gerudo Fortress East Exit"
             },
@@ -4178,7 +4254,8 @@
                         new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Melee], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true),
+                        new Conditional(lcoations = undefined, requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
                   ],
                   default: "Carpenters' Tent"
             },
@@ -4186,12 +4263,13 @@
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
                 location      : Locations.GV,
                   conditional: [
-                        new Conditional(locations = ["GV Fortress Side -> Gerudo Fortress", "GV Fortress Side -> GV Carpenter Tent", "GV Fortress Side -> GV Storms Grotto"]),
+                        new Conditional(locations = ["Gerudo Valley West Exit", "GV Carpenters' Tent Entry", "GV Behind Tent Grotto Entry"]),
                         new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true),
+                        new Conditional(lcoations = undefined, requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
                   ],
                   default: "GV Storms Grotto"
             },
@@ -4204,7 +4282,10 @@
             "Impa's House Back":
             {  requirements  : "",
                 location      : Locations.Kak_Impas_House,
-                  conditional: [new Conditional(locations = ["Impa's House Back"])],
+                  conditional: [
+                    new Conditional(locations = ["Impa's House Back"]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access])
+                  ],
                   default: "Kak Impa's House Back Entry"
             },
             "Forest Temple Entrance":
@@ -4262,7 +4343,7 @@
                         new Conditional(locations = ["Zora's Domain Behind King Zora"]),
                         new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Stick, Requirements.BronzeScale], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Bombchu, Requirements.BronzeScale], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Melee, Requirements.BronzeScale], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Adult_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Rutos_Letter, Requirements.Child_Access], age = undefined, needsAll = true)
             ]
             },
@@ -4310,7 +4391,7 @@
                   location: Locations.Deku_Tree,
                   default: "Gohma"
             },
-            // TODO: Add conditonal for statue skip
+            // TODO: Add conditonal for statue skip, including EPG for child
             "Spirit Temple Boss Door": {
                   requirements: [Requirements.Spirit_BK],
                   location: Locations.Spirit,
@@ -4397,6 +4478,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Range Crate 2":
@@ -4406,6 +4488,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Range Crate 3":
@@ -4415,6 +4498,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Range Crate 4":
@@ -4424,6 +4508,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Range Crate 5":
@@ -4433,6 +4518,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Range Crate 6":
@@ -4442,6 +4528,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Range Crate 7":
@@ -4451,6 +4538,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Near Archery Start Crate 1":
@@ -4460,6 +4548,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Near Archery Start Crate 2":
@@ -4469,6 +4558,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Left End Crate 1":
@@ -4478,6 +4568,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Left End Crate 2":
@@ -4487,6 +4578,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Right End Crate 1":
@@ -4496,6 +4588,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Archery Right End Crate 2":
@@ -4505,6 +4598,7 @@
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Child_Access], age = undefined, needsAll = true),
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Membership], age = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements =  [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
         ]
       },
         "GF Kitchen Crate 1":
@@ -4816,6 +4910,7 @@
         location      : Locations.Jabu
       },
       // TODO: Expand
+      // TODO: Expand for Child Behaviour
         "Fire Temple After Hammer Small Crate 1":
       {
         requirements  : [Requirements.Hammer, Requirements.Fire_small_keys6],
@@ -6347,6 +6442,7 @@
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
+      // TODO: Implement Doom Jump for DC
         "Dodongo's Cavern First Bridge Grass":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.Dodongos_Upper],
@@ -9942,7 +10038,7 @@
       },
       // TODO: Expand this behaviour
         "ZF Hidden Cave Pot 1": {
-        requirements    : [Requirements.Adult_Access, Requirements.Strength2, Requirements.Explosive],
+        requirements    : [MultiplePossibleRequirements.ZF_Hidden_Cave],
         location        : Locations.ZF,
         conditional     : [
             new Conditional(locations = ["Zora's Fountain Tunnel Exit"])
@@ -11345,6 +11441,7 @@
             location: Locations.Spirit
         },
         // Shadow
+        // TODO: Implement Void Warp Behaviour
         "Shadow Temple Invisible Blades Left Heart": {
             requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_SOTBlock, Requirements.Explosive, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
@@ -12124,6 +12221,7 @@
             requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
             location: Locations.Ganon
         },
+        // TODO: Expand for strength clip
         "Ganons Castle MQ Fire Trial Pot 1": {
             requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Strength3, Requirements.Adult_Access],
             location: Locations.Ganon
@@ -13060,6 +13158,7 @@
             requirements: [MultiplePossibleRequirements.MQ_BOTW_Entry, MultiplePossibleRequirements.MQ_BOTW_Center, MultiplePossibleRequirements.Weapon],
             location: Locations.BOTW
         },
+        // TODO: Expand Shadow Behaviour, expand for child vine clip
         "Shadow Temple Map Chest": {
             requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, Requirements.Melee_Either],
             location: Locations.Shadow
@@ -13358,7 +13457,7 @@
               age           : Ages.Child
         },
         "DMT GS Near Kak": 
-        {  requirements  : [ Requirements.Explosive_Or_Hammer],
+        {  requirements  : [ MultiplePossibleRequirements.DMT_GS_Near_Kak],
               location      : Locations.DMT
         },
         "DMT GS Above Dodongos Cavern": 
@@ -13942,7 +14041,7 @@
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly Compass Chest": 
-        {  requirements  : [ Requirements.Boomerang],
+        {  requirements  : [ MultiplePossibleRequirements.Jabu_Compass],
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly Boomerang Chest": 
@@ -14055,7 +14154,7 @@
             location: Locations.Ice_Cavern
         },
         "Ice Cavern Freestanding PoH": {
-            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip],
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip, MultiplePossibleRequirements.Ice_Cavern_Freestanding_POH],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern GS Push Block Room": {
@@ -14067,7 +14166,7 @@
             location: Locations.Ice_Cavern
         },
         "Ice Cavern GS Heart Piece Room": {
-            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip, Requirements.Ranged_Retrieval],
+            requirements: [MultiplePossibleRequirements.Freezard_Kill, MultiplePossibleRequirements.Ice_Cavern_Blue_Fire_Skip, MultiplePossibleRequirements.Ice_Cavern_GS_POH],
             location: Locations.Ice_Cavern
         },
         "Ice Cavern MQ Iron Boots Chest": {
@@ -14125,7 +14224,7 @@
               age           : Ages.Child
         },
         "HF Tektite Grotto Freestanding PoH": 
-        {  requirements  : [ Requirements.Gold_Scale_Or_Iron],
+        {  requirements  : [ MultiplePossibleRequirements.Tektite_POH],
               location      : Locations.HF_Tektite_Grotto
         },
         "HF Deku Scrub Grotto": 
@@ -14155,7 +14254,7 @@
               age           : Ages.Child
         },
         "LLR Freestanding PoH": 
-        {  requirements  : [Requirements.Child_Access],
+        {  requirements  : [MultiplePossibleRequirements.LLR_Freestanding_POH],
               location      : Locations.LLR_Tower,
               age           : Ages.Child
         },
@@ -14549,7 +14648,7 @@
               conditional: [new Conditional(locations = ["Gerudo Valley West Exit"])]
         },
         "GF GS Archery Range": 
-        {  requirements  : [ Requirements.Ranged_Retrieval, Requirements.Membership, Requirements.Adult_Access],
+        {  requirements  : [ Requirements.Ranged_Retrieval, MultiplePossibleRequirements.HBA_Access, Requirements.Adult_Access],
               location      : Locations.GF,
               age           : Ages.Adult,
               time          : Times.Night
