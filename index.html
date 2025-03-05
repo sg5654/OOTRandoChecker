@@ -1066,6 +1066,35 @@
     };
 
     const MultiplePossibleRequirements = {
+      Shadow_After_Wind: [
+        [Requirements.Adult_Access, Requirements.Adult_Sword, Requirements.Adult_Shield, Requirements.Shadow_small_keys1],
+        [Requirements.Child_Access, Requirements.Bombchu, Requirements.Shadow_small_keys1, Requirements.Child_Shield],
+        [Requirements.Child_Access, Requirements.Bomb_Hovering_Child, Requirements.Shadow_small_keys3],
+        [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Shadow_small_keys3],
+        [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult, Requirements.Shadow_small_keys3],
+        [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Longshot, Requirements.Bombs, Requirements.Shadow_small_keys1]
+      ],
+      Shadow_Redead_Pot_Entry: [
+        [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult],
+        [Requirements.Child_Access, Requirements.Bomb_Hovering_Child],
+        [Requirements.Adult_Access, Requirements.Hookshot]
+      ],
+      Shadow_GS_Falling_Spikes: [
+        [Requirements.Adult_Access, Requirements.Hover_boots],
+        [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Adult_Melee],
+        [Requirements.Ranged_Retrieval, Requirements.Adult_Access],
+        [Requirements.Ranged_Retrieval, Requirements.Child_Access]
+      ],
+      Shadow_Ship_GS: [
+        [Requirements.Adult_Access, Requirements.Adult_Sword, Requirements.Adult_Shield, Requirements.Hover_boots],
+        [Requirements.Adult_Access, Requirements.Adult_Sword, Requirements.Adult_Shield, Requirements.Instrument, Requirements.Longshot],
+        [Requirements.Child_Access, Requirements.Bombchu],
+        [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult]
+      ],
+      Shadow_Silver_Rupees: [
+        [Requirements.Adult_Access],
+        [Requirements.Child_Access, Requirements.Bomb_Hovering_Child]
+      ],
       HBA_Access: [
         [Requirements.Membership],
         [Requirements.Adult_Access, Requirements.Adult_Melee]
@@ -1449,7 +1478,10 @@
       Bongo_Bongo_Entrance: [ [Requirements.Adult_Sword, Requirements.Hover_boots, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
                               [Requirements.Adult_Sword, Requirements.Explosive, Requirements.Adult_Shield, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
                               [Requirements.Longshot, Requirements.Bombs, Requirements.Adult_Shield, Requirements.Shadow_small_keys1, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
-                              [Requirements.Hook_Or_Hover, Requirements.Shadow_small_keys5, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby]
+                              [Requirements.Hook_Or_Hover, Requirements.Shadow_small_keys5, Requirements.Shadow_BK, Requirements.Instrument, Requirements.Zeldas_Lullaby],
+                              // Made irrelevant by HESS variant but eh
+                              [Requirements.Adult_Access, Requirements.Master_Sword, Requirements.Adult_Shield, Requirements.Hover_boots, Requirements.Bombchu],
+                              [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Explosive, Requirements.Hover_boots]
       ],
       Volvagia_Entrance: [    [Requirements.Adult_Access, Requirements.Fire_BK],
                               [Requirements.Child_Shield, Requirements.Explosive, Requirements.Fire_BK]
@@ -1884,14 +1916,16 @@
       ],
       Shadow_SOTBlock: [
         [Requirements.Adult_Access, Requirements.Instrument, Requirements.Song_Of_Time],
-        [Requirements.Bomb_Hovering_Adult],
-        [Requirements.Bomb_Hovering_Child]
+        [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access],
+        [Requirements.Bomb_Hovering_Child, Requirements.Child_Access]
       ],
       Shadow_Ship_Area: [
         [Requirements.Adult_Access, Requirements.Adult_Sword, Requirements.Adult_Shield],
+        [Requirements.Child_Access, Requirements.Bombchu],
         [Requirements.Child_Access, Requirements.Bomb_Hovering_Child, Requirements.Shadow_small_keys4],
         [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Shadow_small_keys4],
-        [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult, Requirements.Shadow_small_keys4]
+        [Requirements.Adult_Access, Requirements.Bomb_Hovering_Adult, Requirements.Shadow_small_keys4],
+        [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Longshot, Requirements.Bombs]
       ],
       BOTW_Drain_Or_Swim: [
         [Requirements.Zeldas_Lullaby, Requirements.Instrument],
@@ -2772,7 +2806,7 @@
                   default: "Zora's Domain Behind King Zora",
                   conditional: [
                         new Conditional(locations = ["ZF Great Fairy Entry", "Zora's Fountain Outside Jabu Jabu", "Zora's Fountain Tunnel Exit"]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Hover_boots]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Hover_boots], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
                               new Conditional(locations = undefined, requirements = [Requirements.BronzeScale])
                   ]
@@ -11576,11 +11610,11 @@
             location: Locations.Shadow
         },
         "Shadow Temple MQ Scarecrow Near Ship North Heart": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Instrument, Requirements.Longshot],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_GS],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Scarecrow Near Ship South Heart": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Instrument, Requirements.Longshot],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_GS],
             location: Locations.Shadow
         },
         "Shadow Temple MQ After Ship Upper Left Heart": {
@@ -13172,7 +13206,7 @@
             location: Locations.Shadow
         },
         "Shadow Temple Early Silver Rupee Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Silver_Rupees],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Blades Visible Chest": {
@@ -13200,51 +13234,51 @@
             location: Locations.Shadow
         },
         "Shadow Temple Wind Hint Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_After_Wind],
             location: Locations.Shadow
         },
         "Shadow Temple After Wind Enemy Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_After_Wind],
             location: Locations.Shadow
         },
         "Shadow Temple After Wind Hidden Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_After_Wind, Requirements.Explosive],
             location: Locations.Shadow
         },
         "Shadow Temple Spike Walls Left Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument],
             location: Locations.Shadow
         },
         "Shadow Temple Boss Key Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument],
             location: Locations.Shadow
         },
         "Shadow Temple Invisible Floormaster Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple Freestanding Key": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys2, MultiplePossibleRequirements.Shadow_Redead_Pot_Entry, Requirements.Explosive_Or_Strength],
             location: Locations.Shadow
         },
         "Shadow Temple GS Single Giant Pot": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys2, MultiplePossibleRequirements.Weapon, MultiplePossibleRequirements.Shadow_Redead_Pot_Entry],
             location: Locations.Shadow
         },
         "Shadow Temple GS Falling Spikes Room": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, MultiplePossibleRequirements.Shadow_GS_Falling_Spikes, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple GS Triple Giant Pot": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple GS Like Like Room": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple GS Near Ship": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_GS],
             location: Locations.Shadow
         },
         "Shadow Temple Bongo Bongo Heart Container": {
