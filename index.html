@@ -25,7 +25,7 @@
 
   <div id="drop-area">Drop your JSON file here</div>
   <pre id="output"></pre>
-  <!-- <button onclick=tempTrigger()>next phase</button> -->
+  <button onclick=tempTrigger()>next phase</button>
   <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button>
   <script>
 
@@ -71,6 +71,7 @@
     var file;
     var inventory = {
 
+      triforce_goal: 0,
       bottleables: [],
       Bottle_unlocked : false,
       Child_access : false,
@@ -524,6 +525,7 @@
     }
     // quickscroll comment
     var Requirements = {
+      Longshot_Or_Hover: {explanation: "Can retrieve items that are very high up", unlocked_if: ["Bomb_Hovering", "Longshot"]},
       Scale_Or_Boomerang: {explanation: "Can retrieve items from underwater that are close", unlocked_if: ["Boomerang", "Scale"]},
       Adult_Weapon: {explanation: "Can deal damage as an adult", related: ["items", "ages"], ages: ["Adult"], items: ["Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Child_Weapon: {explanation: "Can deal damage as a child", related: ["items", "ages"], ages: ["Child"], items: ["Kokiri Sword", "Progressive Stick Capacity", "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
@@ -1957,6 +1959,10 @@
         [Requirements.Boomerang],
         [Requirements.Bomb_Hovering],
         [Requirements.Explosive, Requirements.Hover_boots]
+      ],
+      SOTAgeDependant: [
+        [Requirements.Child_Access],
+        [Requirements.Adult_Access, Requirements.Song_Of_Time, Requirements.Instrument]
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -3841,7 +3847,7 @@
             {  requirements  : "",
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership, Requirements.Child_Access]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bombs]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Melee]),
                               new Conditional(locations = ["Gerudo Fortress Gate Exit"])
                             ],
                   default: "Haunted Wasteland East Exit"
@@ -13202,7 +13208,7 @@
             location: Locations.Shadow
         },
         "Shadow Temple Compass Chest": {
-            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate],
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Melee_Either],
             location: Locations.Shadow
         },
         "Shadow Temple Early Silver Rupee Chest": {
@@ -13286,51 +13292,51 @@
             location: Locations.Bongo_Bongo
         },
         "Shadow Temple MQ Compass Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, Requirements.Explosive, Requirements.Shadow_small_keys1, Requirements.Melee_Either],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Hover Boots Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, Requirements.Explosive, Requirements.Shadow_small_keys1, Requirements.Melee_Either, MultiplePossibleRequirements.SOTAgeDependant, Requirements.Projectile],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Early Gibdos Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Melee_Either],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Map Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Silver_Rupees],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Beamos Silver Rupees Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Longshot_Or_Hover],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Falling Spikes Switch Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Falling Spikes Lower Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Falling Spikes Upper Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Invisible Spikes Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys2],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Longshot_Or_Hover, Requirements.Bow],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Spike Walls Left Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Longshot_Or_Hover, Requirements.Bow],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Stalfos Room Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Longshot_Or_Hover, Requirements.Bow],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Invisible Blades Invisible Chest": {
@@ -13342,7 +13348,7 @@
             location: Locations.Shadow
         },
         "Shadow Temple MQ Bomb Flower Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, MultiplePossibleRequirements.Shadow_Ship_Area, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Longshot_Or_Hover, Requirements.Bow],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Wind Hint Chest": {
@@ -15552,6 +15558,19 @@
                   console.log("Ganon's Soul hasn't been found");
             }
 
+            if (inventory.triforce_goal > 0) {
+              var tempCount = inventory.items.filter(e => {
+                e == "Triforce Piece"
+              }).length
+              console.log("Triforce pieces: " + tempCount);
+              if (tempCount >= inventory.triforce_goal) {
+                pass = true;
+              }
+              else {
+                pass = false;
+              }
+            }
+
             if (!pass) {
                   output.textContent = "Seed cannot be completed with current steps"
             }
@@ -16275,12 +16294,16 @@
             inventory.accessible_child = [];
             inventory.accessible_adult = [];
             randomizedEntrances = {};
+            inventory.triforce_goal = 0;
       }
 
       function adjustSettings() {
             // Adding default entrances
             console.log("adjusting file settings...")
 
+            if (file.settings["Triforce Hunt"] == "On") {
+              inventory.triforce_goal = file.settings["Triforce Hunt Required Pieces"];
+            } 
             if (file.settings["Ganon's Trials Count"] == 0) {
               inventory.requirements.push(Requirements.Trials);
             }
