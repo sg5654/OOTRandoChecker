@@ -1,3 +1,5 @@
+-CURRENTLY DEPRECATED-
+
 Early version of a logic checker for the SOH version of OOTR.
 
 This version has a button to take steps through the logic. This is temporary for debug purposes.
