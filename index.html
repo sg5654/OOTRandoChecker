@@ -23,10 +23,18 @@
 </head>
 <body>
 
+<<<<<<< Updated upstream
   <div id="drop-area">Drop your JSON file here</div>
   <pre id="output"></pre>
   <!-- <button onclick=tempTrigger()>next phase</button> -->
   <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button>
+=======
+  <!-- <div id="drop-area">Drop your JSON file here</div> -->
+  <pre id="output">This program is currently outdated and should not be used</pre>
+  <!-- <button onclick=tempTrigger()>next phase</button> -->
+  <!-- <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button> -->
+  <!-- <button id="reLoopButton">Temp</button> -->
+>>>>>>> Stashed changes
   <script>
 
     // Select the drop area and output elements
@@ -109,12 +117,13 @@
       tokensNeeded: 0
     }
     class Conditional {
-      constructor(locations, requirements, age, needsAll, collected) {
+      constructor(locations, requirements, age, needsAll, collected, skip) {
             this.locations = locations;
             this.requirements = requirements;
             this.age = age;
             this.needsAll = needsAll;
             this.collected = collected;
+            this.skip = skip
       }
     }
 
@@ -528,7 +537,7 @@
       Adult_Weapon: {explanation: "Can deal damage as an adult", related: ["items", "ages"], ages: ["Adult"], items: ["Master Sword", "Giant's Knife", "Progressive Stick Capacity", "Biggoron's Sword", "Progressive Bow", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Child_Weapon: {explanation: "Can deal damage as a child", related: ["items", "ages"], ages: ["Child"], items: ["Kokiri Sword", "Progressive Stick Capacity", "Progressive Slingshot", "Megaton Hammer", "Progressive Bomb Bag", "Progressive Bombchu"]},
       Trials: {explanation: "Trials are open"},
-      Kokiri_Sword: {explanation: "Can use kokiri sword", related: ["items"], items: ["Kokiri Sword"]},
+      Kokiri_Sword: {explanation: "Can use kokiri sword", related: ["items", "ages"], items: ["Kokiri Sword"], ages: ["Child"]},
       Grassable_Child: {explanation: "Can cut grass as child", unlocked_if: ["Child_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
       Grassable_Adult: {explanation: "Can cut grass as adult", unlocked_if: ["Adult_Melee", "Bombs", "Bombchu", "Boomerang", "Strength1"]},
       Bean_Or_Hover: {explanation: "Can reach bean specific locations", unlocked_if: ["Bean_Planted", "Bomb_Hovering"]},
@@ -556,7 +565,7 @@
       MK_Shooting_Gallery_Key: {explanation: "Can open the Market Shooting Gallery", related: ["items"], items: ["Market Shooting Gallery Key", "Skeleton Key"]},
       MK_Richard_House_Key: {explanation: "Can open the Richard House", related: ["items"], items: ["Richard's House Key", "Skeleton Key"]},
       Kak_Impas_House_Key: {explanation: "Can open the Impa House", related: ["items"], items: ["Impa's House Key", "Skeleton Key"]},
-      Adult_Sword: {explanation: "Has a proper adult sword", related: ["items"], items: ["Master Sword", "Biggoron's Sword"]},
+      Adult_Sword: {explanation: "Has a proper adult sword", related: ["items", "ages"], items: ["Master Sword", "Biggoron's Sword"], ages: ["Adult"]},
       GerudoGuard: {explanation: "Can bypass a Gerudo Guard", related: ["items"], items: ["Gerudo Membership Card", "Progressive Bow"]},
       GossipFairy: {explanation: "Can Retrieve a fairy from a gossip stone", unlocked_if: ["Zeldas_Lullaby", "Eponas_Song", "Song_Of_Time"]},
       GossipFairy_And_Suns: {explanation: "Can Retrieve a fairy from a gossip stone", unlocked_if: ["Zeldas_Lullaby", "Eponas_Song", "Song_Of_Time", "Suns_Song"]},
@@ -706,7 +715,7 @@
       Hook_Or_Hover: {explanation: "Requires you to either pull yourself with hookshot or hover", unlocked_if: ["Hookshot", "Bomb_Hovering"]},
       Weird_Egg: {explanation: 'Requires you to have weird egg', related: ["items"], items: ["Weird Egg"]},
       Bottle: {explanation: "Requires you to have a bottle", related: ["items"], items: ["Bottle with Blue Fire", "Bottle with Blue Potion"]},
-      Fire_Arrow: {explanation: "Requires having fire arrows", related: ["items"], items_all: ["Fire Arrow", "Progressive Bow", "Progressive Magic Meter"]},
+      Fire_Arrow: {explanation: "Requires having fire arrows", related: ["items", "ages"], items_all: ["Fire Arrow", "Progressive Bow", "Progressive Magic Meter"], ages: ["Adult"]},
       Mirror_Shield: {explanation: "Requires having a Mirror Shield", related: ["items", "ages"], items: ["Mirror Shield"], ages: ["Adult"]},
       Master_Sword: {explanation: "Master Sword", related: ["items", "ages"], items: ["Master Sword"], ages: ["Adult"]},
       Light_Arrow: {explanation: "Requires having Light arrows", related: ["items", "ages"], items: ["Light Arrow", "Progressive Magic Meter", "Progressive Bow"], ages: ["Adult"]},
@@ -1066,6 +1075,19 @@
     };
 
     const MultiplePossibleRequirements = {
+      Grassable_Market: [
+        [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        [Requirements.Child_Access, Requirements.Strength1]
+      ],
+      Spirit_Trial_Rupees: [
+        [Requirements.Child_Access, Requirements.Bomb_Hovering_Child],
+        [Requirements.Adult_Access, Requirements.Adult_Melee],
+        [Requirements.Adult_Access, Requirements.Hookshot]
+      ],
+      Bombchu_Or_Weirdshot: [
+        [Requirements.Adult_Access, Requirements.Hookshot, Requirements.Bombs, Requirements.Adult_Shield],
+        [Requirements.Bombchu]
+      ],
       Shadow_After_Wind: [
         [Requirements.Adult_Access, Requirements.Adult_Sword, Requirements.Adult_Shield, Requirements.Shadow_small_keys1],
         [Requirements.Child_Access, Requirements.Bombchu, Requirements.Shadow_small_keys1, Requirements.Child_Shield],
@@ -1181,6 +1203,12 @@
         [Requirements.Adult_Melee, Requirements.Adult_Access],
         [Requirements.Child_Melee, Requirements.Child_Access],
         [Requirements.Explosive]
+      ],
+      Armos: [
+        [Requirements.Explosive],
+        [Requirements.Stick],
+        [Requirements.Adult_Sword, Requirements.Adult_Access],
+        [Requirements.Hammer]
       ],
       Dodongos_Entry: [
         [Requirements.Adult_Access],
@@ -1856,9 +1884,14 @@
                                     [Requirements.Explosive, Requirements.Adult_Shield],
                                     [Requirements.Explosive, Requirements.Child_Shield]
       ],
-      Fire_Temple_Upper_Maze: [     [Requirements.Fire_small_keys5, Requirements.Adult_Access],
+      Fire_Temple_Upper_Maze: [     [Requirements.Fire_small_keys5, Requirements.Adult_Access, Requirements.Ranged_Weapon],
                                     [Requirements.Fire_small_keys3, Requirements.Adult_Access, Requirements.Bombs],
                                     [Requirements.Fire_small_keys3, Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Melee]
+      ],
+      Fire_Temple_Flame_Maze: [
+                                    [Requirements.Fire_small_keys6, Requirements.Adult_Access, Requirements.Ranged_Weapon],
+                                    [Requirements.Fire_small_keys4, Requirements.Adult_Access, Requirements.Bombs],
+                                    [Requirements.Fire_small_keys4, Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Melee]
       ],
       MQ_Dong_BombBag: [
             [Requirements.Adult_Access],
@@ -2206,8 +2239,157 @@
 
     var errorState = false;
 
-    var conditionalEntrances = {
-      
+    const DifficultyModifiers = {
+      frame_perfect_inputs: 2,
+      hovering: 3,
+      specialized_hovering: 5,
+      ess: 2,
+      lengthy: 1,
+      precise_movement: 2,
+      buffering: 1,
+      weird_setup: 2,
+      equipswap: 3,
+      long_reset: 2,
+      megaflip: 2,
+      hess: 5,
+      timed: 2,
+      uneven_floor: 2,
+      cramped_camera: 1,
+      weirdshot_bombs: 6,
+      weirdshot_bombchu: 8
+
+    }
+    // Tricks and Glitches
+    const Skips = {
+      DMC_Great_Fairy_Hover_Bombs_Child: {
+        difficulty: DifficultyModifiers.hovering + DifficultyModifiers.timed,
+        source: "https://youtu.be/hxivax1Q9OE",
+        requirements: [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Child_Melee, Requirements.Bombs]
+      },
+      DMC_Great_Fairy_Hover_Bombs_Adult: {
+        difficulty: DifficultyModifiers.hovering + DifficultyModifiers.timed,
+        source: "https://youtu.be/sWUHRGnqL-A",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Adult_Melee, Requirements.Bombs]
+      },
+      DMC_Great_Fairy_Hover_Bombchu_Child: {
+        diffuclty: DifficultyModifiers.specialized_hovering + DifficultyModifiers.weird_setup + DifficultyModifiers.timed,
+        source: "https://youtu.be/SbD5e6BRbQY",
+        requirements: [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Child_Melee, Requirements.Bombchu]
+      },
+      DMC_Great_Fairy_Hover_Bombchu_Adult: {
+        diffuclty: DifficultyModifiers.specialized_hovering + DifficultyModifiers.weird_setup + DifficultyModifiers.timed,
+        source: "https://youtu.be/l7m_MhoGG4M",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Adult_Melee, Requirements.Bombchu]
+      },
+      DMC_Great_Fairy_Superslide_Child: {
+        difficulty: DifficultyModifiers.frame_perfect_inputs + DifficultyModifiers.cramped_camera + DifficultyModifiers.timed,
+        source: "https://youtu.be/GjskkNecb0s",
+        requirements: [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Bombs]
+      },
+      DMC_Great_Fairy_Superslide_Adult: {
+        difficulty: DifficultyModifiers.frame_perfect_inputs + DifficultyModifiers.cramped_camera + DifficultyModifiers.timed,
+        source: "https://youtu.be/dyDxnY6zI10",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bombs]
+      },
+      DMC_Great_Fairy_HESS_Child: {
+        difficulty: DifficultyModifiers.hess + DifficultyModifiers.timed,
+        source: "https://youtu.be/4smzzfnrycw",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bombchu]
+      },
+      DMC_Great_Fairy_HESS_Adult: {
+        difficulty: DifficultyModifiers.hess + DifficultyModifiers.timed,
+        source: "https://youtu.be/lRE38etFyjM",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Bombchu]
+      },
+      DMC_Great_Fairy_Hoverboost_Melee: {
+        difficulty: DifficultyModifiers.buffering + DifficultyModifiers.timed,
+        source: "https://youtu.be/uNC-nNS1VkM",
+        requirements: [Requirements.Adult_Melee, Requirements.Hover_boots, Requirements.Adult_Access]
+      },
+      DMC_Great_Fairy_Hoverboost_Bombs: {
+        difficulty: DifficultyModifiers.buffering + DifficultyModifiers.timed,
+        source: "https://youtu.be/88HoYhGZWPE",
+        requirements: [Requirements.Hover_boots, Requirements.Bombs, Requirements.Adult_Access]
+      },
+      DMC_Great_Fairy_Hoverboost_Bombchu: {
+        difficulty: DifficultyModifiers.buffering + DifficultyModifiers.timed,
+        source: "https://youtu.be/aML9XDfmGQM",
+        requirements: [Requirements.Hover_boots, Requirements.Bombchu, Requirements.Adult_Access]
+      },
+      DMC_Hammer_EquipSwap: {
+        difficulty: DifficultyModifiers.equipswap,
+        source: "https://youtu.be/vOuxYC5v6vM",
+        requirements: [Requirements.Child_Access, Requirements.Hammer]
+      },
+      // Not easier or resource saving as far as I know
+      // DMC_Great_Fairy_Bean_Hover: {
+        
+      // }
+      DMC_Upper_To_Lower_Itemless: {
+        difficulty: DifficultyModifiers.precise_movement + DifficultyModifiers.timed + DifficultyModifiers.lengthy,
+        source: "https://youtu.be/tYjX_5qXayc",
+        requirements: [Requirements.Adult_Access]
+      },
+      DMC_Upper_To_Lower_Megaflip_Child: {
+        difficulty: DifficultyModifiers.megaflip + DifficultyModifiers.timed,
+        source: "https://youtu.be/Hl1pCs2dDhc",
+        requirements: [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive]
+      },
+      DMC_Upper_To_Lower_Megaflip_Adult: {
+        difficulty: DifficultyModifiers.megaflip + DifficultyModifiers.timed,
+        source: "https://youtu.be/CUXUQEWUCqM",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Explosive]
+      },
+      DMC_Upper_To_Lower_Hoverboots: {
+        difficulty: DifficultyModifiers.precise_movement + DifficultyModifiers.timed,
+        source: "https://youtu.be/ee0O9PMtmE0",
+        requirements: [Requirements.Adult_Access, Requirements.Hover_boots]
+      },
+      DMC_Hammer_Grotto_Weirdslide_Bombs_Adult: {
+        difficulty: DifficultyModifiers.weirdshot_bombs+ DifficultyModifiers.timed,
+        source: "https://youtu.be/beY7GkTCHfs",
+        requirements: [Requirements.Adult_Access, Requirements.FP_Item, Requirements.Adult_Shield, Requirements.Bombs]
+      },
+      DMC_Hammer_Grotto_Weirdslide_Bombchu_Adult: {
+        difficulty: DifficultyModifiers.weirdshot_bombchu + DifficultyModifiers.timed,
+        source: "https://youtu.be/Oz0ltNgHBic",
+        requirements: [Requirements.Adult_Access, Requirements.FP_Item, Requirements.Adult_Shield, Requirements.Bombchu]
+      },
+      DMC_freestanding_POH_Hoverboots: {
+        difficulty: DifficultyModifiers.weirdshot_bombchu + DifficultyModifiers.timed,
+        source: "https://youtu.be/ofc1cbvqye8",
+        requirements: [Requirements.Adult_Access, Requirements.FP_Item, Requirements.Adult_Shield, Requirements.Bombchu]
+      },
+      DMC_freestanding_POH_Megaflip_Child: {
+        difficulty: DifficultyModifiers.megaflip + DifficultyModifiers.timed,
+        source: "https://youtu.be/f7ULq3xXkUo",
+        requirements: [Requirements.Child_Access, Requirements.FP_Item, Requirements.Adult_Shield, Requirements.Explosive]
+      },
+      DMC_freestanding_POH_Megaflip_Adult: {
+        difficulty: DifficultyModifiers.megaflip + DifficultyModifiers.timed,
+        source: "https://youtu.be/wgOL_hhUY-E",
+        requirements: [Requirements.Adult_Access, Requirements.FP_Item, Requirements.Adult_Shield, Requirements.Explosive]
+      },
+      DMC_Lower_To_Central_Potpush: {
+        difficulty: DifficultyModifiers.weird_setup + DifficultyModifiers.ess + DifficultyModifiers.precise_movement + DifficultyModifiers.buffering + DifficultyModifiers.timed,
+        source: "https://youtu.be/bVjN00fPchw",
+        requirements: [Requirements.Adult_Access, Requirements.Adult_Shield]
+      },
+      DMC_Upper_To_Central_Far_Platform: {
+        difficulty: DifficultyModifiers.timed,
+        source: "https://youtu.be/fz5En4A7kP8",
+        requirements: [Requirements.Adult_Access]
+      },
+      DMC_Central_To_Lower_Hoverboots: {
+        difficulty: DifficultyModifiers.timed,
+        source: "https://youtu.be/ba7P1CcQTT0",
+        requirements: [Requirements.Adult_Access, Requirements.Hover_boots]
+      },
+      DMT_Lower_To_Upper_Hoverboots: {
+        difficulty: DifficultyModifiers.precise_movement + DifficultyModifiers.weird_setup,
+        source: "https://youtu.be/gX393hxIgW4",
+        requirements: [Requirements.Adult_Access, Requirements.Hover_boots]
+      }
     }
     var entrancesMap = {
             // "Sacred Forest Meadow -> Minuet of Forest Warp": {
@@ -2416,7 +2598,43 @@
                                     new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
                                     new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
                   ],
-                  default: "DMC Great Fairy Fountain"
+                  default: "DMC Great Fairy Fountain",
+                  vanilla: {
+                    requirements: [Requirements.Hammer, Requirements.Adult_Access],
+                    conditional: [
+                        new Conditional(locations = [  "DMC Hammer Grotto Entry",
+                                                                  "DMC Great Fairy Entry",
+                                                                  "Death Mountain Crater Bridge Exit"]),
+                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [Requirements.Adult_Access, Requirements.Hookshot], age = undefined, needsall = true)
+                    ]
+                  },
+                  tricks: {
+                    requirements: [
+                      [Skips.DMC_Hammer_EquipSwap],
+                      [Skips.DMC_Great_Fairy_Hover_Bombs_Child],
+                      [Skips.DMC_Great_Fairy_Hover_Bombs_Adult],
+                      [Skips.DMC_Great_Fairy_Hover_Bombchu_Child],
+                      [Skips.DMC_Great_Fairy_Hover_Bombchu_Adult],
+                      [Skips.DMC_Great_Fairy_Superslide_Child],
+                      [Skips.DMC_Great_Fairy_Superslide_Adult],
+                      [Skips.DMC_Great_Fairy_HESS_Child],
+                      [Skips.DMC_Great_Fairy_HESS_Adult],
+                      [Skips.DMC_Great_Fairy_Hoverboost_Melee],
+                      [Skips.DMC_Great_Fairy_Hoverboost_Bombs],
+                      [Skips.DMC_Great_Fairy_Hoverboost_Bombchu]
+                    ],
+                    conditional: [
+                      new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = Skips.DMC_Central_To_Lower_Hoverboots.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = Skips.DMC_Upper_To_Lower_Hoverboots.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["DMC Upper Grotto Entry"], requirements = Skips.DMC_Upper_To_Lower_Hoverboots.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = Skips.DMC_Upper_To_Lower_Itemless.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["DMC Upper Grotto Entry"], requirements = Skips.DMC_Upper_To_Lower_Itemless.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = Skips.DMC_Upper_To_Lower_Megaflip_Child.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["DMC Upper Grotto Entry"], requirements = Skips.DMC_Upper_To_Lower_Megaflip_Child.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = Skips.DMC_Upper_To_Lower_Megaflip_Adult.requirements, age = undefined, needsall = true),
+                      new Conditional(locations = ["DMC Upper Grotto Entry"], requirements = Skips.DMC_Upper_To_Lower_Megaflip_Adult.requirements, age = undefined, needsall = true),
+                    ]
+                  }
             },
             "Death Mountain Trail Top Exit": 
             {
@@ -2428,7 +2646,23 @@
                   ]),
                   new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])
             ],
-            default: "Death Mountain Crater Upper Exit"
+            default: "Death Mountain Crater Upper Exit",
+            vanilla: {
+              conditional: [
+                  new Conditional(locations = [     "Death Mountain Trail Top Exit",
+                                                                  "DMT Boulder Grotto Entry",
+                                                                  "DMT Great Fairy Entry",
+                  ]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Explosive]),
+                  new Conditional(locations = undefined, requirements = [Requirements.Hammer, Requirements.Adult_Access])
+                ]
+            },
+            tricks: {
+              conditional: [
+                new Conditional(locations = undefined, requirements = [Skips.DMT_Lower_To_Upper_Hoverboots.requirements], age = undefined, needsAll = false, collected = undefined, skips = [Skips.DMT_Lower_To_Upper_Hoverboots]),
+                new Conditional(locations = undefined, requirements = [Skips.DMC_Hammer_EquipSwap.requirements], age = undefined, needsAll = false, collected = undefined, skips = [Skips.DMC_Hammer_EquipSwap])
+              ]
+            }
             },
             "DMC Hammer Grotto Entry": 
             {
@@ -3901,7 +4135,7 @@
                 location      : Locations.Market,
                   default: "MK Bazaar",
                   conditional: [
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Kokiri_Sword], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
                     new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.MK_Bazaar_Key], age = undefined, needsAll = true)
                   ],
                 time          : Times.Day
@@ -3918,7 +4152,7 @@
                 location      : Locations.Market,
                   default: "MK Shooting Gallery",
                   conditional: [
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Kokiri_Sword], age = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
                     new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.MK_Shooting_Gallery_Key], age = undefined, needsAll = true)
                   ],
                 time          : Times.Day
@@ -4947,12 +5181,12 @@
       // TODO: Expand for Child Behaviour
         "Fire Temple After Hammer Small Crate 1":
       {
-        requirements  : [Requirements.Hammer, Requirements.Fire_small_keys6],
+        requirements  : [Requirements.Hammer, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
         location      : Locations.Fire
       },
         "Fire Temple After Hammer Small Crate 2":
       {
-        requirements  : [Requirements.Hammer, Requirements.Fire_small_keys6],
+        requirements  : [Requirements.Hammer, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
         location      : Locations.Fire
       },
         "Spirit Temple Before Child Climb Small Crate 1":
@@ -5357,42 +5591,42 @@
       },
         "Market Grass 1":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 2":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 3":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 4":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 5":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 6":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 7":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Market Grass 8":
       {
-        requirements  : [Requirements.Child_Access, Requirements.Kokiri_Sword],
+        requirements  : [Requirements.Child_Access, MultiplePossibleRequirements.Grassable_Market],
         location      : Locations.Market
       },
         "Near Storms Grotto Grass 1":
@@ -10842,35 +11076,35 @@
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Left Pot 1": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Left Pot 2": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Left Pot 3": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Left Pot 4": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Right Pot 1": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Right Pot 2": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Right Pot 3": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Flame Maze Right Pot 4": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys6],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         // MQ
@@ -12095,11 +12329,11 @@
             location: Locations.Ganon
         },
         "Ganons Castle Spirit Trial Pot 1": {
-            requirements: [Requirements.Hook_Or_Hover, Requirements.Bombchu, Requirements.Bow, Requirements.Light_Or_Mirror],
+            requirements: [MultiplePossibleRequirements.Spirit_Trial_Rupees, MultiplePossibleRequirements.Bombchu_Or_Weirdshot, Requirements.Bow, Requirements.Light_Or_Mirror],
             location: Locations.Ganon
         },
         "Ganons Castle Spirit Trial Pot 2": {
-            requirements: [Requirements.Hook_Or_Hover, Requirements.Bombchu, Requirements.Bow, Requirements.Light_Or_Mirror],
+            requirements: [MultiplePossibleRequirements.Spirit_Trial_Rupees, MultiplePossibleRequirements.Bombchu_Or_Weirdshot, Requirements.Bow, Requirements.Light_Or_Mirror],
             location: Locations.Ganon
         },
         "Ganons Castle Light Trial Boulder Pot 1": {
@@ -12273,11 +12507,11 @@
             location: Locations.Ganon
         },
         "Ganons Castle MQ Spirit Trial Pot 1": {
-            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, Requirements.Bombchu],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, MultiplePossibleRequirements.Bombchu_Or_Weirdshot],
             location: Locations.Ganon
         },
         "Ganons Castle MQ Spirit Trial Pot 2": {
-            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, Requirements.Bombchu],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, Requirements.Hammer, Requirements.Bow, Requirements.Light_Or_Mirror, MultiplePossibleRequirements.Bombchu_Or_Weirdshot],
             location: Locations.Ganon
         },
         // GTG
@@ -12434,19 +12668,19 @@
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
         },
         "LW Deku Scrub Near Deku Theater Right":
-          {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Child_Access
+          {  requirements  : [ Requirements.Scrubbable, Requirements.Child_Access, Requirements.PriceCheck
           ],
               location      : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
         },
         "LW Deku Scrub Near Deku Theater Left": 
-          {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Child_Access
+          {  requirements  : [ Requirements.Scrubbable, Requirements.Child_Access, Requirements.PriceCheck
           ],
               location      : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
         },
         "LW Deku Scrub Near Bridge": 
-          {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Child_Access
+          {  requirements  : [ Requirements.Scrubbable, Requirements.Child_Access, Requirements.PriceCheck
           ],
               location      : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
@@ -13627,7 +13861,7 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Deku Scrub Lobby": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Mudwall_Or_Strength],
+            requirements: [Requirements.Scrubbable, Requirements.Mudwall_Or_Strength, Requirements.PriceCheck],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern Deku Scrub Side Room Near Dodongos": {
@@ -13789,16 +14023,16 @@
         },
         // TODO: Expand
         "Fire Temple Compass Chest": {
-            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, Requirements.Fire_small_keys4],
+            requirements: [MultiplePossibleRequirements.Fire_Temple_Upper_Maze, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         // TODO: Expand
         "Fire Temple Highest Goron Chest": {
-            requirements: [Requirements.Hammer, Requirements.Fire_small_keys6],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         "Fire Temple Megaton Hammer Chest":{
-            requirements: [Requirements.Hammer, Requirements.Fire_small_keys6],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.Fire_Temple_Flame_Maze],
             location: Locations.Fire
         },
         // TODO: Expand
@@ -14083,7 +14317,7 @@
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly Deku Scrub": 
-        {  requirements  : [ Requirements.Scrubbable, Requirements.PriceCheck, Requirements.Ranged_Weapon],
+        {  requirements  : [ Requirements.Scrubbable, Requirements.Ranged_Weapon, Requirements.PriceCheck],
               location      : Locations.Jabu
         },
         "Jabu Jabus Belly GS Lobby Basement Lower": 
@@ -15293,12 +15527,12 @@
               location      : Locations.Ganon
         },
         "Ganon's Castle Spirit Trial Crystal Switch Chest": 
-        {  requirements  : [ Requirements.Hook_Or_Hover, Requirements.Melee],
+        {  requirements  : [ MultiplePossibleRequirements.Spirit_Trial_Rupees, MultiplePossibleRequirements.Bombchu_Or_Weirdshot],
               location      : Locations.Ganon
         },
         // TODO: Add weirdshot implementation
         "Ganon's Castle Spirit Trial Invisible Chest": 
-        {  requirements  : [ Requirements.Hook_Or_Hover, Requirements.Bombchu],
+        {  requirements  : [ MultiplePossibleRequirements.Spirit_Trial_Rupees, MultiplePossibleRequirements.Bombchu_Or_Weirdshot],
               location      : Locations.Ganon
         },
         "Ganon's Castle Light Trial First Left Chest": 
@@ -15351,78 +15585,78 @@
               location      : Locations.Ganon
         },
         "Ganon's Castle MQ Water Trial Chest": {
-            requirements: [MultiplePossibleRequirements.IronKnuckle],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Eye Switch Chest": {
-            requirements: [Requirements.Projectile, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Projectile, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Frozen Eye Switch Chest": {
-            requirements: [Requirements.Fire_Arrow, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Fire_Arrow, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Light Trial Lullaby Chest": {
-            requirements: [MultiplePossibleRequirements.GoldSkip, Requirements.Instrument, Requirements.Zeldas_Lullaby, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [MultiplePossibleRequirements.GoldSkip, Requirements.Instrument, Requirements.Zeldas_Lullaby, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Shadow Trial Bomb Flower Chest": {
-            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Bomb],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos, MultiplePossibleRequirements.MQ_Ganon_Shadow_Bomb],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Shadow Trial Eye Switch Chest": {
-            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos, MultiplePossibleRequirements.MQ_Ganon_Shadow_Eye],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Golden Gauntlets Chest": {
-            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Hammer],
+            requirements: [MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, Requirements.Hammer, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Back Right Chest": {
-            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Back Left Chest": {
-            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Sun Front Left Chest": {
-            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.MQ_Ganon_Spirit_Sun, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial First Chest": {
-            requirements: [Requirements.Hammer, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Spirit Trial Invisible Chest": {
-            requirements: [Requirements.Hammer, Requirements.Bombchu, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Hammer, MultiplePossibleRequirements.Bombchu_Or_Weirdshot, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Forest Trial Freestanding Key": {
-            requirements: [Requirements.Ranged_Retrieval, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Ranged_Retrieval, MultiplePossibleRequirements.Armos, MultiplePossibleRequirements.IronKnuckle],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Right": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Scrubbable, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos, Requirements.PriceCheck],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center-Left": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Scrubbable, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos, Requirements.PriceCheck],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Scrubbable, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos, Requirements.PriceCheck],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Center-Right": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Scrubbable, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos, Requirements.PriceCheck],
             location: Locations.Ganon
         },
         "Ganon's Castle MQ Deku Scrub Left": {
-            requirements: [Requirements.Scrubbable, Requirements.PriceCheck, MultiplePossibleRequirements.IronKnuckle],
+            requirements: [Requirements.Scrubbable, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos,Requirements.PriceCheck],
             location: Locations.Ganon
         },
-        // TODO: Implement Trial skip
+        // TODO: Find some way to ensure this is correct on MQ
         "Ganon's Tower Boss Key Chest": {
             requirements: [MultiplePossibleRequirements.TrialSkip],
             location: Locations.Ganon
@@ -15553,13 +15787,40 @@
             }
 
             if (!pass) {
-                  output.textContent = "Seed cannot be completed with current steps"
+                  // output.textContent = "Seed cannot be completed with current steps"
+                  if (inventory.entered_child.length == lastEnteredChild && 
+                      inventory.entered_adult.length == lastEnteredAdult &&
+                      inventory.accessible_child.length == lastAccessibleChild && 
+                      inventory.accessible_adult.length == lastAccessibleAdult &&
+                      inventory.items.length == lastItems
+                    ) 
+                      {
+                        stuckCounter++
+                      }
+
+                      else {
+                        stuckCounter = 0;
+                      }
             }
             else {
                   output.textContent = "Seed is beatable"
                   solvedState = true;
             }
+            lastEnteredChild = inventory.entered_child.length;
+            lastEnteredAdult = inventory.entered_adult.length;
+            lastAccessibleChild = inventory.accessible_child.length;
+            lastAccessibleAdult = inventory.accessible_adult.length;
+            lastItems = inventory.items.length
+            loopCounter++;
       }
+
+      var lastEnteredChild = 0;
+      var lastEnteredAdult = 0;
+      var lastAccessibleChild = 0;
+      var lastAccessibleAdult = 0;
+      var lastItems = 0;
+      var loopCounter = 0;
+      var stuckCounter = 0;
 //     function validateItems(locations) {
 //       var light_arrow_location;
 //       var magic_location1;
@@ -16147,9 +16408,9 @@
                                     // console.log("to be added:" + tempName);
                                     //console.log(accessibleList[index]);
                                     if (!accessibleList[index].includes(tempName)) {
-                                          console.log("Adding to accessible " + tempName);
+                                          //console.log("Adding to accessible " + tempName);
                                           accessibleList[index].push(tempName);
-                                          console.log(entrancesMap[tempName]);
+                                          //console.log(entrancesMap[tempName]);
                                           if (entrancesMap[tempName].location[0]) {
                                                 //console.log("castle grounds");
                                                 //console.log(entrancesMap[tempName].location[0]);
@@ -16176,7 +16437,7 @@
                               // console.log(randomizedEntrances[key]);
                               //  console.log(valueName);
                               if (randomizedEntrances[key] == valueName) {
-                                    console.log(key);
+                                    //console.log(key);
                                     if (!accessibleList[index].includes(key)) {
                                           accessibleList[index].push(key);
                                           //console.log(entrancesMap);
@@ -16210,13 +16471,15 @@
       var solvedState = false;
       function tempTriggerLoop() {
             //console.log("temptriggerloop");
-            for (var i = 0; i < 100; i++) {
+            while (!solvedState && stuckCounter < 5) {
                   //console.log(solvedState);
                   if (solvedState) {
                         break;
                   }
                   //console.log("temptrigger");
                   tempTrigger()
+                  console.log("Stuck Counter: " + stuckCounter);
+                  console.log("Loop Counter: " + loopCounter);
             }
             if (!solvedState) {
                   
@@ -16226,7 +16489,7 @@
                   console.log(entrancesMap);
                   console.log(itemLocations);
                   console.log(inventory);
-                  validateItems();
+                  //validateItems();
                   output.textContent = "Seed is impossible. See console for reasons"
             }
       }
@@ -16260,6 +16523,8 @@
       var randomizedEntrances = {};
 
       function resetEverything() {
+        stuckCounter = 0;
+        loopCounter = 0;
         solvedState = false;
             inventory.bottleables - [];
             inventory.Child_start = "";
@@ -16683,6 +16948,7 @@
             }
         }
         inventory.requirements.push(Requirements.PriceCheck);
+        console.log(file.locations);
         if (file.settings["Warp Songs"] == "On") {
             var tempValue;
             for (var sphere in file.entrancesMap) {
@@ -17038,7 +17304,7 @@
       }
       // Hard reject for interior
       if (entrance && entrance.name == "Interior" || entrance.name == "Blue Warp") {
-        console.log("rejecting interior")
+        //console.log("rejecting interior")
         return;
       }
       var accesibleList = [];
@@ -17053,8 +17319,8 @@
       }
       // for (var index in enteredList) {
 
-      console.log("UNLOCKING ENTRANCE");
-      console.log(entrance);
+      //console.log("UNLOCKING ENTRANCE");
+      //console.log(entrance);
       if (entrance.name == "Outside Ganon's Castle" && enteredList[index] == inventory.entered_child) {
           if (!enteredList[index].includes("Hyrule Castle")) {
           enteredList[index].push("Hyrule Castle");
@@ -17097,8 +17363,8 @@
                                                 else {
                                                       if (inventory.ages.includes("Child")) {
                                                             inventory.ages.push("Adult");
-                                                            console.log(entrance);
-                                                            console.log(inventory.Adult_start);
+                                                            //console.log(entrance);
+                                                            //console.log(inventory.Adult_start);
                                                             inventory.entered_adult.push(entrance.name);
                                                             inventory.entered_adult.push(entrancesMap[inventory.Adult_start]["location"].name);
                                                       }
