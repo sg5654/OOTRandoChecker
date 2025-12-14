@@ -28,7 +28,9 @@
   <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button>
   <!-- <div id="drop-area">Drop your JSON file here</div> -->
   <pre id="output">This program is possible outdated and is not entirely reliable. There are also still plenty of logic checks missing.</pre>
-  <!-- <button onclick=tempTrigger()>next phase</button> -->
+  <input type="checkbox" id="devModeCB" name="Enable Dev Mode" onChange="ToggleDevButtons()">Dev mode<br><br>
+  <button onclick=tempTrigger()  class="Devmode" hidden>next phase</button><br><br>
+  <button id="testingButton" onclick=unitTestingLoop() class="Devmode" hidden>Run test cases</button>
   <!-- <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button> -->
   <!-- <button id="reLoopButton">Temp</button> -->
   <script>
@@ -61,6 +63,7 @@
           try {
             const json = JSON.parse(reader.result);
             output.textContent = "JSON accepted! Data has been parsed";
+            resetEverything();
             checkLocations(json);
           } catch (err) {
             output.textContent = 'Error parsing JSON: ' + err.message;
@@ -115,13 +118,29 @@
       tokensNeeded: 0
     }
     class Conditional {
-      constructor(locations, requirements, age, needsAll, collected, skip) {
+      constructor(locations, requirements, age, needsAll, collected, skip, access) {
             this.locations = locations;
             this.requirements = requirements;
             this.age = age;
             this.needsAll = needsAll;
             this.collected = collected;
-            this.skip = skip
+            this.skip = skip;
+            this.access = access;
+      }
+    }
+
+    function ToggleDevButtons() {
+      console.log(document.getElementsByClassName("Devmode"));
+      var list = document.getElementsByClassName("Devmode");
+      if (document.getElementById("devModeCB").checked) {
+          for (var index in list) {
+            list[index].hidden = false;
+          }
+        }
+      else {
+        for (var index in list) {
+            list[index].hidden = true;
+          }
       }
     }
 
@@ -617,6 +636,9 @@
       Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
       Bomb_Hovering_Child: {explanation: "Requires being able to bomb hover as child", unlocked_if_all: ["Bombs", "Child_Access", "Child_Shield", "Child_Melee"]},
       Bomb_Hovering_Adult: {explanation: "Requires being able to bomb hover as adult", unlocked_if_all: ["Bombs", "Adult_Access", "Adult_Shield", "Adult_Melee"]},
+      Bombchu_Hovering: {explanation: "Requires being able to bombchu hover", unlocked_if: ["Bombchu_Hovering_Child", "Bombchu_Hovering_Adult"]},
+      Bombchu_Hovering_Child: {explanation: "Requires being able to bombchu hover as child", unlocked_if_all: ["Bombchu", "Child_Access", "Child_Shield", "Child_Melee"]},
+      Bombchu_Hovering_Adult: {explanation: "Requires being able to bombchu hover as adult", unlocked_if_all: ["Bombchu", "Adult_Access", "Adult_Shield", "Adult_Melee"]},
       Hookshot: {explanation: "Requires having a hookshot available", related: ["items", "ages"], items: ["Progressive Hookshot"], ages: ["Adult"]},
       Ranged_Retrieval: {explanation: "Requires having a boomerang, hookshot or bomb hovering without any specificity", unlocked_if: ["Boomerang", "Hookshot", "Bomb_Hovering"]},
       Hover_boots: {explanation: "Requires having Hover Boots", related: ["items"], items: ["Hover Boots"]},
@@ -1144,7 +1166,7 @@
       Ice_Cavern_Freestanding_POH: [
         [Requirements.Bottle],
         [Requirements.Blue_Fire],
-        [Requirements.Adult_Access, Requirements.Bombs, Requirements.Shield, Requirements.Adult_Sword]
+        [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield, Requirements.Adult_Sword]
       ],
       Jabu_Compass: [
         [Requirements.Boomerang],
@@ -1181,8 +1203,8 @@
         [Requirements.Child_Access, Requirements.Child_Melee]
       ],
       Bubble: [
-                            [ Requirements.Shield, Requirements.Child_Weapon],
-                            [ Requirements.Shield, Requirements.Adult_Weapon],
+                            [ Requirements.Child_Shield, Requirements.Child_Weapon],
+                            [ Requirements.Adult_Shield, Requirements.Adult_Weapon],
                             [ Requirements.Hookshot, Requirements.Adult_Weapon],
                             [Requirements.Explosive],
                             [Requirements.Nuts, Requirements.Child_Weapon],
@@ -1216,9 +1238,9 @@
       ],
       HF_Cow_Grotto: [  [ Requirements.Hammer],
                         [ Requirements.Explosive, Requirements.Child_Access],
-                        [ Requirements.Explosive, Requirements.Hookshot, Requirements.Shield],
-                        [ Requirements.Explosive, Requirements.Bow, Requirements.Shield],
-                        [ Requirements.Explosive, Requirements.Slingshot, Requirements.Shield]
+                        [ Requirements.Explosive, Requirements.Hookshot, Requirements.Adult_Shield],
+                        [ Requirements.Explosive, Requirements.Bow, Requirements.Adult_Shield],
+                        [ Requirements.Explosive, Requirements.Slingshot, Requirements.Child_Shield]
 
       ],
       GTG_Entrance: [ [ Requirements.Child_Access],
@@ -1277,8 +1299,8 @@
                               [ Requirements.Bomb_Hovering_Child, Requirements.Slingshot]
       ],
       Forest_Well_Chest: [  [ Requirements.Hookshot, Requirements.BronzeScale],
-                            [ Requirements.Shield, Requirements.Child_Weapon],
-                            [ Requirements.Shield, Requirements.Adult_Weapon],
+                            [ Requirements.Child_Shield, Requirements.Child_Weapon],
+                            [ Requirements.Adult_Shield, Requirements.Adult_Weapon],
                             [ Requirements.Hookshot, Requirements.Adult_Weapon],
                             [Requirements.Explosive],
                             [Requirements.Nuts, Requirements.Child_Weapon],
@@ -1439,7 +1461,8 @@
                     [ Requirements.Child_Access, Requirements.Spirit_small_keys2, Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Melee]
 
     ],
-    Early_Adult_Right: [  [ Requirements.Melee],
+    Early_Adult_Right: [  [ Requirements.Adult_Melee, Requirements.Adult_Access ],
+                          [ Requirements.Child_Melee, Requirements.Child_Access ],
                           [ Requirements.Shield, Requirements.Explosive],
                           [ Requirements.Hover_boots]
 
@@ -1469,7 +1492,7 @@
     //               [     Requirements.Master_Sword, Requirements.Explosive_Or_Hammer]
 
     // ],
-    Shadow_Entry: [     [     Requirements.Melee, Requirements.Adult_Access],
+    Shadow_Entry: [     [     Requirements.Adult_Melee, Requirements.Adult_Access],
                         [     Requirements.Dins],
                         [     Requirements.Fire_Arrow]
 
@@ -1782,6 +1805,7 @@
       MQ_Water_GS_River: [    [Requirements.Longshot, Requirements.Fire],
                               [Requirements.Bomb_Hovering_Adult, Requirements.Ranged_Retrieval, Requirements.Fire]
       ],
+      // TODO: figure out what the fuck this even was, This cannot be correct
       MQ_Water_Freestanding: [[Requirements.Hover_boots, Requirements.Adult_Melee],
                               [Requirements.Longshot, Requirements.Adult_Melee],
                               [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Melee],
@@ -2038,6 +2062,7 @@
       LH: {name: "Lake Hylia", type: LocationType.Overworld},
       // Conditional:
       //    Crossing bridge
+      // TODO: Figure out what the hell this accessible system was meant to be
       GV: {name: "Gerudo Valley", related: ["accessible_adult", "accessible_child"], accessible:["Gerudo Valley -> Hyrule Field"] ,bottleables: ["Bugs"], linkedLocation: ["LH"], type: LocationType.Overworld},
       // Conditional:
       //    Gate
@@ -3024,7 +3049,8 @@
                         new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Bomb_Hovering_Adult, Requirements.Eponas_Song]),
                         new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true)
+                        new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult])
                   ],
                   default: "Hyrule Field Rocky Path"
             },
@@ -4144,14 +4170,9 @@
                   conditional: ""
             },
             "MK Bazaar Entry": 
-            {  requirements  : "",
+            {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  default: "MK Bazaar",
-                  conditional: [
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.MK_Bazaar_Key], age = undefined, needsAll = true)
-                  ],
-                time          : Times.Day
+                  default: "MK Bazaar"
             },
             "MK Mask Shop Entry": 
             {  requirements  : [Requirements.Child_Access, Requirements.MK_Mask_Shop_Key],
@@ -4161,14 +4182,9 @@
                 time          : Times.Day
             },
             "MK Shooting Gallery Entry": 
-            {  requirements  : "",
+            {  requirements  : [Requirements.Child_Access],
                 location      : Locations.Market,
-                  default: "MK Shooting Gallery",
-                  conditional: [
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
-                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.MK_Shooting_Gallery_Key], age = undefined, needsAll = true)
-                  ],
-                time          : Times.Day
+                  default: "MK Shooting Gallery"
             },
             "MK Bombchu Bowling Entry": 
             {  requirements  : [Requirements.Child_Access, Requirements.MK_Bombchu_Bowling_Key],
@@ -4517,12 +4533,12 @@
                 location      : Locations.GV,
                   conditional: [
                         new Conditional(locations = ["Gerudo Valley West Exit", "GV Carpenters' Tent Entry", "GV Behind Tent Grotto Entry"]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Melee], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true),
-                        new Conditional(lcoations = undefined, requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access, Requirements.Bombchu], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
                   ],
                   default: "Gerudo Fortress East Exit"
             },
@@ -4531,12 +4547,12 @@
                 location      : Locations.GV,
                 conditional: [
                         new Conditional(locations = ["Gerudo Valley West Exit", "GV Carpenters' Tent Entry", "GV Behind Tent Grotto Entry"]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Melee], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true),
-                        new Conditional(lcoations = undefined, requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access, Requirements.Bombchu], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
                   ],
                   default: "Carpenters' Tent"
             },
@@ -4545,12 +4561,12 @@
                 location      : Locations.GV,
                   conditional: [
                         new Conditional(locations = ["Gerudo Valley West Exit", "GV Carpenters' Tent Entry", "GV Behind Tent Grotto Entry"]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true),
-                        new Conditional(lcoations = undefined, requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Eponas_Song, Requirements.Instrument, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Hookshot, Requirements.Adult_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access, Requirements.Bombchu], age = undefined, needsAll = true),
+                        new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Shield], age = undefined, needsAll = true)
                   ],
                   default: "GV Deku Scrub Grotto"
             },
@@ -4560,6 +4576,7 @@
                   default: "Kak Center Grotto Entry",
                   conditional: ""
             },
+            // TODO: Implement night time check for child
             "Impa's House Back":
             {  requirements  : "",
                 location      : Locations.Kak_Impas_House,
@@ -4678,96 +4695,208 @@
                   location: Locations.Spirit,
                   default: "Twinrova"
             },
+            // Entrance Below GS
             "TH Dead End Cell": {
               requirements: "",
-              location: Locations.TH_Dead_End_Cell,
-              default: "GF Near GS"
+              location: Locations.GF,
+              default: "GF Below GS"
             },
+            // Entrance F1 left side
+            // Entrance Bottom, left of GTG
             "TH Steep Slope Cell": {
               requirements: "",
-              location: Locations.TH_Steep_Slope_Cell,
+              location: Locations.GF,
               default: "GF Bottom of Lower Vines"
             },
+            // Entrance closest to Jail on bottom
+            // Entrance left of center as well
             "TH 1 Torch Cell":{
               requirements: "",
-              location: Locations.TH_1_Torch_Cell,
-              default: "GF Near Grotto"
-            },
-            "TH Break Room": {
-              requirements: "",
-              location: Locations.TH_Break_Room,
-              default: "GF Below Chest"
-            },
-            "TH Break Room Corridor": {
-              requirements: "",
-              location: Locations.TH_Break_Room,
-              default: "GF Above Jail"
-            },
-            "TH Double Cell": {
-              requirements: "",
-              location: Locations.TH_Double_Cell,
-              default: "GF Top of Lower Vines"
-            },
-            "TH Kitchen Corridor": {
-              requirements: "",
-              location: Locations.TH_Kitchen,
-              default: "GF Near Grotto" // GF Above GTG as well
-            },
-            "TH Kitchen By Corridor": {
-              requirements: "",
-              location: Locations.TH_Kitchen,
-              default: "GF Top of Lower Vines"
-            },
-            "TH Kitchen Opposite Corridor": {
-              requirements: "",
-              location: Locations.TH_Kitchen,
+              location: Locations.GF,
               default: "GF Outskirts"
             },
+            // Entrance below chest
+            "TH Break Room": {
+              requirements: "",
+              location: Locations.GF,
+              default: "GF Below Chest"
+            },
+            // Entrance Above Jail
+            "TH Break Room Corridor": {
+              requirements: "",
+              location: Locations.GF,
+              default: "GF Above Jail"
+            },
+            // Entrance most south of vines
+            // Entrance above GTG
+            "TH Double Cell": {
+              requirements: "",
+              location: Locations.GF,
+              default: "GF Top of Lower Vines"
+            },
+            // Entrance F1 left of Above GTG
+            // Center Entrance in middle
+            "TH Kitchen Corridor": {
+              requirements: "",
+              location: Locations.GF,
+              default: "GF Near Grotto" 
+            },
+            // Entrance F2 left of top of vines
+            "TH Kitchen By Corridor": {
+              requirements: "",
+              location: Locations.GF,
+              default: "GF Top of Lower Vines"
+            },
+            // Entrance all the way up top leading to vines
+            "TH Kitchen Opposite Corridor": {
+              requirements: "",
+              location: Locations.GF,
+              default: "GF Near GS"
+            },
+            // TH Kitchen Corridor, middle
             "GF Above GTG": {
               requirements: "",
-              location: Locations.GF,
-              default: "TH Steep Slope Cell"
-            },
-            "GF Outskirts": {
-              requirements: "",
-              location: Locations.GF,
-              default: "TH Kitchen Opposite Corridor"
-            },
-            "GF Near Grotto": {
-              requirements: "",
-              location: Locations.GF,
-              default: "TH 1 Torch Cell"
-            },
-            "GF Below Chest": {
-              requirements: "",
-              location: Locations.GF,
-              default: "TH Break Room"
-            },
-            "GF Above Jail": {
-              requirements: "",
-              location: Locations.GF,
-              default: "TH Break Room Corridor"
-            },
-            "GF Bottom of Lower Vines": {
-              requirements: "",
-              location: Locations.GF,
+              location: Locations.TH_Kitchen,
               default: "TH Kitchen Corridor"
             },
+            // 1 Torch Entrance
+            "GF Outskirts": {
+              requirements: "",
+              location: Locations.TH_1_Torch_Cell,
+              default: "TH 1 Torch Cell"
+            },
+            // TH Kitchen Corridor
+            "GF Near Grotto": {
+              requirements: "",
+              location: Locations.TH_Kitchen,
+              default: "TH Kitchen Corridor"
+            },
+            // Break Room from below
+            "GF Below Chest": {
+              requirements: "",
+              location: Locations.TH_Break_Room,
+              default: "TH Break Room"
+            },
+            // Break Room From jail
+            "GF Above Jail": {
+              requirements: "",
+              location: Locations.TH_Break_Room,
+              default: "TH Break Room Corridor"
+            },
+            // TH Steep Slope Cell
+            "GF Bottom of Lower Vines": {
+              requirements: "",
+              location: Locations.TH_Steep_Slope_Cell,
+              default: "TH Steep Slope Cell"
+            },
+            // Double Cell
             "GF Top of Lower Vines": {
               requirements: "",
-              location: Locations.GF,
-              default: "TH Kitchen By Corridor"
+              location: Locations.TH_Double_Cell,
+              default: "TH Double Cell"
             },
+            // TH Kitchen Opposite Corridor
             "GF Near GS": {
               requirements: "",
-              location: Locations.GF,
-              default: "TH Dead End Cell"
+              location: Locations.TH_Kitchen,
+              default: "TH Kitchen Opposite Corridor"
             },
+            // Dead end Cell
             "GF Below GS": {
               requirements: "",
-              location: Locations.GF,
+              location: Locations.TH_Dead_End_Cell,
               default: "TH Dead End Cell"
             }
+            // "TH Dead End Cell": {
+            //   requirements: "",
+            //   location: Locations.TH_Dead_End_Cell,
+            //   default: "GF Near GS"
+            // },
+            // "TH Steep Slope Cell": {
+            //   requirements: "",
+            //   location: Locations.TH_Steep_Slope_Cell,
+            //   default: "GF Bottom of Lower Vines"
+            // },
+            // "TH 1 Torch Cell":{
+            //   requirements: "",
+            //   location: Locations.TH_1_Torch_Cell,
+            //   default: "GF Near Grotto"
+            // },
+            // "TH Break Room": {
+            //   requirements: "",
+            //   location: Locations.TH_Break_Room,
+            //   default: "GF Below Chest"
+            // },
+            // "TH Break Room Corridor": {
+            //   requirements: "",
+            //   location: Locations.TH_Break_Room,
+            //   default: "GF Above Jail"
+            // },
+            // "TH Double Cell": {
+            //   requirements: "",
+            //   location: Locations.TH_Double_Cell,
+            //   default: "GF Top of Lower Vines"
+            // },
+            // "TH Kitchen Corridor": {
+            //   requirements: "",
+            //   location: Locations.TH_Kitchen,
+            //   default: "GF Near Grotto" // GF Above GTG as well
+            // },
+            // "TH Kitchen By Corridor": {
+            //   requirements: "",
+            //   location: Locations.TH_Kitchen,
+            //   default: "GF Top of Lower Vines"
+            // },
+            // "TH Kitchen Opposite Corridor": {
+            //   requirements: "",
+            //   location: Locations.TH_Kitchen,
+            //   default: "GF Outskirts"
+            // },
+            // "GF Above GTG": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Steep Slope Cell"
+            // },
+            // "GF Outskirts": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Kitchen Opposite Corridor"
+            // },
+            // "GF Near Grotto": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH 1 Torch Cell"
+            // },
+            // "GF Below Chest": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Break Room"
+            // },
+            // "GF Above Jail": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Break Room Corridor"
+            // },
+            // "GF Bottom of Lower Vines": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Kitchen Corridor"
+            // },
+            // "GF Top of Lower Vines": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Kitchen By Corridor"
+            // },
+            // "GF Near GS": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Dead End Cell"
+            // },
+            // "GF Below GS": {
+            //   requirements: "",
+            //   location: Locations.GF,
+            //   default: "TH Dead End Cell"
+            // }
     }
     const entrancesMapBackup = entrancesMap;
     var itemLocations = {
@@ -4776,35 +4905,52 @@
         requirements  : "",
         location      : Locations.GV,
           conditional: [new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Adult_Shield, Requirements.Adult_Access, Requirements.Explosive], age = undefined, needsAll = true),
-                  new Conditional(locations = undefined, requirements = [Requirements.Child_Access]),
+                  new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
                   new Conditional(locations = undefined, requirements = [Requirements.Longshot]),
-                  new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true)
+                  new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee], age = undefined, needsAll = true),
+                  new Conditional(locations = undefined, requirements = [Requirements.Bombchu_Hovering]),
             ]
       },
         "GV Near Cow Crate":
       {
         requirements  : [Requirements.Child_Access],
-        location      : Locations.GV
+        location      : Locations.GV,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+        ]
       },
+      // Technically no conditionals because of itemless chicken skip
       "GV Near Bridge Crate 1": {
         requirements  : [Requirements.Child_Access],
-        location      : Locations.GV
+        location      : Locations.GV,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+        ]
       },
       "GV Near Bridge Crate 2": {
         requirements  : [Requirements.Child_Access],
-        location      : Locations.GV
+        location      : Locations.GV,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+        ]
       },
       "GV Near Bridge Crate 3": {
         requirements  : [Requirements.Child_Access],
-        location      : Locations.GV
+        location      : Locations.GV,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+        ]
       },
       "GV Near Bridge Crate 4": {
         requirements  : [Requirements.Child_Access],
-        location      : Locations.GV
+        location      : Locations.GV,
+        conditional   : [
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+        ]
       },
         "GF Above Jail Crate":
       {
-        requirements  : "",
+        requirements  : [Requirements.Adult_Access],
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements = [Requirements.Hookshot], age = Ages.Adult, needsAll = true),
@@ -5617,10 +5763,9 @@
         requirements  : [Requirements.Child_Access],
         location      : Locations.HF
       },
-      // Pretty sure this was a mistake in the build and this should be the fishing pond
         "HF Pond Song of Storms Fairy": {
           requirements: [Requirements.Instrument, Requirements.Song_Of_Storms],
-          location    : Locations.Fishing_Hole
+          location    : Locations.HF
       },
         "HC HC GS Tree":
       {
@@ -5819,47 +5964,56 @@
         "LW Near Shortcuts Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Near Shortcuts Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Near Shortcuts Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW After Mido Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods North Exit"])]
       },
         "LW After Mido Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods North Exit"])]
       },
         "LW After Mido Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods North Exit"])]
       },
         "LW Near SFM Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods North Exit"])]
       },
         "LW Near SFM Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods North Exit"])]
       },
         "LW Near SFM Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
-        location      : Locations.LW
+        location      : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods North Exit"])]
       },
         "Market Market Grass 1":
       {
@@ -7289,17 +7443,17 @@
             requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
-        "Fire Temple MQ Lizalfos Maze Lower 1":
+        "Fire Temple MQ Lizalfos Maze Lower Crate 1":
         {
             requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
-        "Fire Temple MQ Lizalfos Maze Lower 2":
+        "Fire Temple MQ Lizalfos Maze Lower Crate 2":
         {
             requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
         },
-        "Fire Temple MQ Lizalfos Maze Lower 3":
+        "Fire Temple MQ Lizalfos Maze Lower Crate 3":
         {
             requirements: [Requirements.Hammer, Requirements.Fire, Requirements.Fire_small_keys2, Requirements.Hookshot],
             location: Locations.Fire
@@ -7724,49 +7878,50 @@
             requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
             location: Locations.Water
         },
+        // TODO: Add Proper behaviour for ledge clip skip into this room
         "Water Temple MQ Triple Torch Room Submerged Crate 1":
         {
-            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Submerged Crate 2":
         {
-            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Submerged Crate 3":
         {
-            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Submerged Crate 4":
         {
-            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Submerged Crate 5":
         {
-            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Submerged Crate 6":
         {
-            requirements: [Requirements.Adult_Access, Requirements.IronBoots],
+            requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Gate Crate 1":
         {
-            requirements: [MultiplePossibleRequirements.MQ_Water_Triple],
+            requirements: [MultiplePossibleRequirements.MQ_Water_Triple, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Gate Crate 2":
         {
-            requirements: [MultiplePossibleRequirements.MQ_Water_Triple],
+            requirements: [MultiplePossibleRequirements.MQ_Water_Triple, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple MQ Triple Torch Room Gate Crate 3":
         {
-            requirements: [MultiplePossibleRequirements.MQ_Water_Triple],
+            requirements: [MultiplePossibleRequirements.MQ_Water_Triple, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Spirit Temple MQ Statue Crate 1":
@@ -7957,257 +8112,257 @@
         },
 
 
-        "MQ Deku Tree Lobby Grass 1":
+        "Deku Tree MQ Lobby Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Lobby Grass 2":
+        "Deku Tree MQ Lobby Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Lobby Grass 3":
+        "Deku Tree MQ Lobby Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Lobby Grass 4":
+        "Deku Tree MQ Lobby Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Lobby Grass 5":
+        "Deku Tree MQ Lobby Grass 5":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Lobby Grass 6":
+        "Deku Tree MQ Lobby Grass 6":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Lobby Grass 7":
+        "Deku Tree MQ Lobby Grass 7":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Slingshot Grass 1":
+        "Deku Tree MQ Slingshot Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Slingshot Grass 2":
+        "Deku Tree MQ Slingshot Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Slingshot Grass 3":
+        "Deku Tree MQ Slingshot Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Slingshot Grass 4":
+        "Deku Tree MQ Slingshot Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 1":
+        "Deku Tree MQ Before Compass Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 2":
+        "Deku Tree MQ Before Compass Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 3":
+        "Deku Tree MQ Before Compass Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 4":
+        "Deku Tree MQ Before Compass Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 5":
+        "Deku Tree MQ Before Compass Grass 5":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 6":
+        "Deku Tree MQ Before Compass Grass 6":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Compass Grass 7":
+        "Deku Tree MQ Before Compass Grass 7":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Compass Grass 1":
+        "Deku Tree MQ Compass Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Compass Grass 2":
+        "Deku Tree MQ Compass Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Compass Grass 3":
+        "Deku Tree MQ Compass Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Compass Grass 4":
+        "Deku Tree MQ Compass Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, Requirements.Projectile],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Lower Grass 1":
+        "Deku Tree MQ Basement Lower Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Lower Grass 2":
+        "Deku Tree MQ Basement Lower Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Lower Grass 3":
+        "Deku Tree MQ Basement Lower Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Lower Grass 4":
+        "Deku Tree MQ Basement Lower Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Upper Grass 1":
+        "Deku Tree MQ Basement Upper Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Upper Grass 2":
+        "Deku Tree MQ Basement Upper Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Basement Upper Grass 3":
+        "Deku Tree MQ Basement Upper Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Spike Roller Front Grass 1":
+        "Deku Tree MQ Spike Roller Front Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Spike Roller Front Grass 2":
+        "Deku Tree MQ Spike Roller Front Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Spike Roller Front Grass 3":
+        "Deku Tree MQ Spike Roller Front Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Spike Roller Back Grass 1":
+        "Deku Tree MQ Spike Roller Back Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Spike Roller Back Grass 2":
+        "Deku Tree MQ Spike Roller Back Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Torches Grass 1":
+        "Deku Tree MQ Torches Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Torches Grass 2":
+        "Deku Tree MQ Torches Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Torches Grass 3":
+        "Deku Tree MQ Torches Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Torches Grass 4":
+        "Deku Tree MQ Torches Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Larvae Grass 1":
+        "Deku Tree MQ Larvae Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Larvae Grass 2":
+        "Deku Tree MQ Larvae Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Graves Grass 1":
+        "Deku Tree MQ Graves Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Graves Grass 2":
+        "Deku Tree MQ Graves Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Graves Grass 3":
+        "Deku Tree MQ Graves Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Graves Grass 4":
+        "Deku Tree MQ Graves Grass 4":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Graves Grass 5":
+        "Deku Tree MQ Graves Grass 5":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Back Grass 1":
+        "Deku Tree MQ Back Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Back Grass 2":
+        "Deku Tree MQ Back Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Back Grass 3":
+        "Deku Tree MQ Back Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, MultiplePossibleRequirements.MQ_Deku_Beyond_Switch],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Boss Grass 1":
+        "Deku Tree MQ Before Boss Grass 1":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Boss Grass 2":
+        "Deku Tree MQ Before Boss Grass 2":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
       },
-        "MQ Deku Tree Before Boss Grass 3":
+        "Deku Tree MQ Before Boss Grass 3":
       {
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Burnable, MultiplePossibleRequirements.Deku_Beyond_Pool],
         location      : Locations.Deku_Tree 
@@ -8583,39 +8738,48 @@
       },
         "LW Boulder Rupee": {
         requirements    : [Requirements.Explosive_Or_Hammer_Or_Boomerang],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 1": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 2": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 3": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 4": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 5": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 6": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]    
       },
         "LW Underwater Shortcut Rupee 7": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW    ,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Underwater Shortcut Rupee 8": {
         requirements    : [Requirements.Scale_Or_Iron],
-        location        : Locations.LW    
+        location        : Locations.LW    ,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LH Underwater Front Rupee": {
         requirements    : [Requirements.Scale_Or_Boomerang, Requirements.Child_Access],
@@ -8838,10 +9002,10 @@
         ]
       },
         "DMC Distant Platform Red Rupee": {
-        requirements    : [Requirements.Child_Access],
+        requirements    : [Requirements.Adult_Access],
         location        : Locations.DMC,
         conditional     : [
-            new Conditional(locations = ["Death Mountain Crater Outside Temple"])
+            new Conditional(locations = ["Death Mountain Crater Upper Exit"])
         ]
       },
         "DMC Distant Platform Rupee 1": {
@@ -9201,51 +9365,81 @@
       // TODO: Add conditional for bottom exit without bombs
         "ZR Bean Sprout Fairy 1": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.ZR
+        location        : Locations.ZR,
+        conditional     : [
+          new Conditional(locations = ["ZR Raised Open Grotto Entry"]),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.Explosive_Or_Hammer], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true)
+        ]
       },
         "ZR Bean Sprout Fairy 2": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.ZR
+        location        : Locations.ZR,
+        conditional     : [
+          new Conditional(locations = ["ZR Raised Open Grotto Entry"]),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.Explosive_Or_Hammer], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true)
+        ]
       },
         "ZR Bean Sprout Fairy 3": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.ZR
+        location        : Locations.ZR,
+        conditional     : [
+          new Conditional(locations = ["ZR Raised Open Grotto Entry"]),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.Explosive_Or_Hammer], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true)
+        ]
       },
         "KF Bean Sprout Fairy 1": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.KF
+        location        : Locations.KF,
+        conditional     : [
+          new Conditional(locations = ["Kokiri Forest Lower Exit"])
+        ]
       },
         "KF Bean Sprout Fairy 2": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.KF
+        location        : Locations.KF,
+        conditional     : [
+          new Conditional(locations = ["Kokiri Forest Lower Exit"])
+        ]
       },
         "KF Bean Sprout Fairy 3": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.KF
+        location        : Locations.KF,
+        conditional     : [
+          new Conditional(locations = ["Kokiri Forest Lower Exit"])
+        ]
       },
         "LW Bean Sprout Near Bridge Fairy 1": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Bridge Fairy 2": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Bridge Fairy 3": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Theatre Fairy 1": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Theatre Fairy 2": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Theatre Fairy 3": {
         requirements    : [Requirements.BeanSprout, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
       // TODO: Add conditional for fishing pond exit
         "LH Bean Sprout Fairy 1": {
@@ -9543,11 +9737,13 @@
       },
         "LW Gossip Stone Fairy": {
         requirements    : [Requirements.GossipFairy, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Gossip Stone Big Fairy": {
         requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "SFM Maze Lower Gossip Stone Fairy": {
         requirements    : [Requirements.GossipFairy, Requirements.Instrument],
@@ -9745,7 +9941,8 @@
       },
         "LW Shortcuts Song of Storms Fairy": {
         requirements    : [Requirements.Song_Of_Storms, Requirements.Instrument],
-        location        : Locations.LW
+        location        : Locations.LW,
+              conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "GF Kitchen Sun's Song Fairy": {
         requirements    : [Requirements.Suns_Song, Requirements.Instrument],
@@ -11450,11 +11647,11 @@
             requirements: [Requirements.Hammer, Requirements.Fire_small_keys1],
             location: Locations.Fire
         },
-        "MQ Lower Loop Stalfos Room Sun's Song Fairy": {
+        "Fire Temple MQ Lower Loop Stalfos Room Sun's Song Fairy": {
             requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Instrument, Requirements.Suns_Song],
             location: Locations.Fire
         },
-        "MQ Lower Loop Behind Iron Knuckle Sun's Song Fairy": {
+        "Fire Temple MQ Lower Loop Behind Iron Knuckle Sun's Song Fairy": {
             requirements: [Requirements.Fire_small_keys1, MultiplePossibleRequirements.Weapon, Requirements.Instrument, Requirements.Suns_Song],
             location: Locations.Fire
         },
@@ -13886,11 +14083,11 @@
             location: Locations.Shadow
         },
         "Shadow Temple MQ Boss Key Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Spike Walls Left Chest": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple MQ Stalfos Room Chest": {
@@ -13942,11 +14139,11 @@
             location: Locations.Shadow
         },
         "Shadow Temple MQ GS After Ship": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         "Shadow Temple MQ GS Near Boss": {
-            requirements: "",
+            requirements: [MultiplePossibleRequirements.Shadow_Temple_Entrance, MultiplePossibleRequirements.Shadow_Temple_Front_Gate, Requirements.Shadow_small_keys1, Requirements.Zeldas_Lullaby, Requirements.Instrument, MultiplePossibleRequirements.Weapon],
             location: Locations.Shadow
         },
         // "Shadow Temple Bongo Bongo Heart Container": {
@@ -14084,7 +14281,7 @@
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
         },
         "GC Rolling Goron as Child": 
-        {  requirements  : [ Requirements.Explosive, Requirements.Child_Access],
+        {  requirements  : [ Requirements.Explosive_Or_Strength, Requirements.Child_Access],
               location      : Locations.GC,
               age           : Ages.Child,
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
@@ -14096,11 +14293,13 @@
               conditional   : [new Conditional(locations = ["Goron City Upper Exit"])]
         },
         "GC Darunias Joy": 
-        // TODO: Implement behaviour for coming from different entrances
         {  requirements  : [ Requirements.Instrument, Requirements.Sarias_Song, Requirements.Child_Access],
               location      : Locations.GC,
               age           : Ages.Child,
-              conditional   : [new Conditional(locations = ["Goron City Darunia's Room Backdoor"])]
+              conditional   : [
+                new Conditional(locations = ["Goron City Darunia's Room Backdoor"]),
+                new Conditional(locations = ["Goron City Upper Exit"], requirements = [Requirements.Child_Shield, Requirements.Explosive], ages = undefined, needsAll = true)
+            ]
         },
         "GC Pot Freestanding PoH":
         {  requirements  : [ Requirements.Explosive_Or_Strength, Requirements.Child_Access],
@@ -14282,7 +14481,7 @@
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Scrub Room": {
-            requirements: [MultiplePossibleRequirements.MQ_Dong_BombBag],
+            requirements: [MultiplePossibleRequirements.MQ_Dong_BombBag, Requirements.Ranged_Retrieval],
             location: Locations.Dodongos_Cavern
         },
         "Dodongos Cavern MQ GS Song of Time Block Room": {
@@ -14725,6 +14924,7 @@
             requirements: [Requirements.Slingshot, Requirements.Child_Access],
             location: Locations.Jabu
         },
+        // TODO: Improve logic, stick isn't alwasy a necessity
         "Jabu Jabus Belly MQ Cow": {
             requirements: [Requirements.Slingshot, Requirements.Child_Access, Requirements.Explosive, Requirements.Boomerang, Requirements.Stick],
             location: Locations.Jabu
@@ -15000,7 +15200,7 @@
             requirements: [MultiplePossibleRequirements.Water_Ruto_hallway, Requirements.Zeldas_Lullaby, Requirements.Instrument, Requirements.Burnable],
             location: Locations.Water
         },
-        // Improve this logic
+        // TODO: Improve this logic
         "Water Temple Dragon Chest": {
             requirements: [Requirements.Adult_Access, Requirements.Ranged_Weapon],
             location: Locations.Water
@@ -15030,7 +15230,7 @@
             location: Locations.Water
         },
         "Water Temple GS Behind Gate": {
-            requirements: [MultiplePossibleRequirements.Water_GS_Behind_Gate],
+            requirements: [MultiplePossibleRequirements.Water_GS_Behind_Gate, Requirements.BronzeScale],
             location: Locations.Water
         },
         "Water Temple GS Falling Platform Room": {
@@ -15119,7 +15319,6 @@
         {  requirements  : "",
               location      : Locations.GV
         },
-        // TODO: Add ways for adult to get this
         "GV Crate Freestanding PoH": 
         {  requirements  : "",
               location      : Locations.GV,
@@ -15570,6 +15769,7 @@
             location: Locations.Spirit
         },
         // Technically no requirements for either age
+        // TODO: fact check this shit, I must've been drunk
         "Spirit Temple MQ Map Chest": {
             requirements: "",
             location: Locations.Spirit
@@ -15866,7 +16066,6 @@
         {  requirements  : [ MultiplePossibleRequirements.Spirit_Trial_Rupees, MultiplePossibleRequirements.Bombchu_Or_Weirdshot],
               location      : Locations.Ganon
         },
-        // TODO: Add weirdshot implementation
         "Ganon's Castle Spirit Trial Invisible Chest": 
         {  requirements  : [ MultiplePossibleRequirements.Spirit_Trial_Rupees, MultiplePossibleRequirements.Bombchu_Or_Weirdshot],
               location      : Locations.Ganon
@@ -16003,6 +16202,28 @@
       const itemLocationsBackup = itemLocations;
 
       function validateItems(locations) {
+
+            if (file.testMode == true) {
+              if (stuckCounter < 5) {
+                stuckCounter++;
+                return;
+              }
+              console.log(inventory);
+              if (inventory.items.includes("WINNER!")) {
+                solvedState = true;
+              }
+              else {
+                solvedState = false;
+              }
+              if (currentTestCaseGoal == solvedState) {
+                console.log("Test case " + testCaseIndex + " succeeded!");
+              }
+              else {
+                throw new Error("Test case " + testCaseIndex + " failed!");
+              }
+              solvedState = true;
+              return;
+            }
             var pass = true;
             var gregModifier = 0;
             
@@ -16036,15 +16257,15 @@
             var medallions = ["Light Medallion", "Forest Medallion", "Fire Medallion", "Water Medallion", "Shadow Medallion", "Spirit Medallion"];
             var rewards = stones.concat(medallions);
             var tempList = [];
-            console.log(bosses);
-            console.log(stones);
-            console.log(medallions);
-            console.log(rewards);
-            console.log(bosses.includes("Barinade's Bossroom"));
+            //console.log(bosses);
+            //console.log(stones);
+            //console.log(medallions);
+            //console.log(rewards);
+            //console.log(bosses.includes("Barinade's Bossroom"));
             tempList = inventory.entered_child.filter(e => bosses.includes(e)).concat(inventory.entered_adult.filter(e => bosses.includes(e)));
             tempList = [...new Set(tempList)];
-            console.log(tempList);
-            console.log(Settings.bossesNeeded - gregModifier);
+            //console.log(tempList);
+            //console.log(Settings.bossesNeeded - gregModifier);
             // TODO: expand to check hammer, boomerang, ranged wep etc
             if (Settings.bossesNeeded) {
                   // tempList = inventory.entered.filter(e => bosses.includes(e));
@@ -16092,7 +16313,8 @@
                   if (totalRewards.length < (Settings.rewardsNeeded - gregModifier)) {
                         pass = false;
                         console.log("Not enough rewards were collected");
-                        console.log(gregModifier);
+                        console.log("Greg found?");
+                        console.log(gregModifier ? true : false);
                         console.log(totalRewards);
                   }
             }
@@ -16247,6 +16469,7 @@
 
       // Explores a given area to unlock checks based on current requirements and access
       function exploreArea(type) {
+        //console.log("Entering ExploreArea");
         try {
         DebugLastArea = "ExploreArea Setup";
             var reqCheck = true;
@@ -16258,6 +16481,7 @@
             var collectCheck = true;
             var enteredList = [];
             var accessibleList = [];
+            var accessCheck = true;
             if (inventory.ages.includes("Adult")) {
                   enteredList.push(inventory.entered_adult);
                   accessibleList.push(inventory.accessible_adult);
@@ -16382,6 +16606,10 @@
                                     })
                               }
                               if (type[key].conditional) {
+                                if (key == debugKey) {
+                                  console.log("Checking conditional:");
+                                  console.log(type[key].conditional);
+                                }
                                   
 
                                     // if (key == "GC Maze Center Chest") {
@@ -16419,6 +16647,10 @@
                                                             });
                                                             //console.log(condCheck);
                                                       }
+                                                      if (key == debugKey) {
+                                                          console.log("State after Location Req");
+                                                          console.log(needsAllCheck);
+                                                        }
                                                       if (condition.requirements) {
                                                             
                                                             condition.requirements.forEach(element => {
@@ -16433,11 +16665,19 @@
                                                                                 if (inventory.entered_adult.includes(type[key]["location"].name)) {
                                                                                       condCheck = true;
                                                                                 }
+                                                                                if (key == debugKey) {
+                                                                                        console.log("Adult Access was checked: ");
+                                                                                        console.log(condCheck);
+                                                                                      }
                                                                           }
                                                                           else if (element == Requirements.Child_Access) {
                                                                                 if (inventory.entered_child.includes(type[key]["location"].name)) {
                                                                                       condCheck = true;
                                                                                 }
+                                                                                if (key == debugKey) {
+                                                                                        console.log("Child Access was checked: ");
+                                                                                        console.log(condCheck);
+                                                                                      }
                                                                           }
                                                                           else {
                                                                                 condCheck = true;
@@ -16446,10 +16686,14 @@
                                                                     else {
                                                                           needsAllCheck = false;
                                                                           condCheck = false;
+                                                                          if (key == debugKey) {
+                                                                            console.log("Requirement not found:");
+                                                                            console.log(element);
+                                                                          }
                                                                     }
                                                                     if (key == debugKey) {
                                                                       console.log("State after Single Req");
-                                                                      console.log(condCheck);
+                                                                      console.log(needsAllCheck);
                                                                     }
                                                               }
                                                               // mult req
@@ -16498,6 +16742,10 @@
                                                                     })
                                                                     condCheck = innerMultCheck;
                                                                     needsAllCheck = innerMultCheck;
+                                                                    if (key == debugKey) {
+                                                                      console.log("State after Mult Req");
+                                                                      console.log(needsAllCheck);
+                                                                    }
 
                                                               }
                                                             
@@ -16505,7 +16753,7 @@
                                                       })};
                                                       if (key == debugKey) {
                                                         console.log("Does condition have collection check?");
-                                                        console.log(condition.collected);
+                                                        console.log(condition.collected ? true : false);
                                                       }
                                                       if (condition.collected) {
                                                             condition["collected"].forEach(coll => {
@@ -16513,7 +16761,7 @@
                                                                   console.log("Collected entered");
                                                                 }
                                                                   if (inventory.collected.includes(coll)) {
-
+                                                                    condCheck = true;
                                                                   }
                                                                   else {
                                                                         collectCheck = false;
@@ -16522,14 +16770,58 @@
                                                                   }
                                                             })
                                                       }
+                                                      if (key == debugKey) {
+                                                        console.log("State after Collection Check");
+                                                        console.log(needsAllCheck);
+                                                        console.log("Does condition have age check?");
+                                                        console.log(condition.ages ? true : false);
+                                                      }
                                                       if (condition.age) {
-                                                            if (inventory.ages.includes(condition["age"])) {
+                                                            if (inventory.ages.includes(condition.age)) {
 
                                                             }
                                                             else {
                                                                   ageCheck = false;
                                                                   needsAllCheck = false;
                                                             }
+                                                      }
+                                                      if (key == debugKey) {
+                                                        console.log("State after Ages Check");
+                                                        console.log(needsAllCheck);
+                                                        console.log("Does condition have access check?");
+                                                        console.log(condition.access ? true : false);
+                                                      }
+                                                      if (condition.access) {
+                                                        if (key == debugKey) {
+                                                          console.log(condition.access);
+                                                        }
+                                                        accessCheck = false;
+                                                        if (condition.age) {
+                                                          if (condition.age == Ages.Child) {
+                                                            if (inventory.accessible_child.includes(condition.access)) {
+                                                              accessCheck = true;
+                                                              condCheck = true;
+                                                            }
+                                                            else {
+                                                              condCheck = false;
+                                                              needsAllCheck = false;
+                                                            }
+                                                          }
+                                                          else if (condition.age == Ages.Adult) {
+                                                            if (inventory.accessible_adult.includes(condition.access)) {
+                                                              accessCheck = true;
+                                                              condCheck = true;
+                                                            }
+                                                            else {
+                                                              condCheck = false;
+                                                              needsAllCheck = false;
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                      if (key == debugKey) {
+                                                        console.log("State after Access Check");
+                                                        console.log(needsAllCheck);
                                                       }
                                                       if (!needsAllCheck) {
                                                         condCheck = false;
@@ -16648,6 +16940,21 @@
                                                                   ageCheck = false;
                                                             }
                                                       }
+                                                      if (condition.access) {
+                                                        accessCheck = false;
+                                                        if (condition.age) {
+                                                          if (condition.age == Ages.Child) {
+                                                            if (inventory.accessible_child.includes(condition.access)) {
+                                                              accessCheck = true;
+                                                            }
+                                                          }
+                                                          else if (condition.age == Ages.Adult) {
+                                                            if (inventory.accessible_adult.includes(condition.access)) {
+                                                              accessCheck = true;
+                                                            }
+                                                          }
+                                                        }
+                                                      }
                                                 }
                                                 
                                           }
@@ -16668,17 +16975,29 @@
                                     console.log(ageCheck);
                                     console.log(collectCheck);
                                     console.log(needsAllCheck);
+                                    console.log(accessCheck);
                               }
-                              if (reqCheck && condCheck && ageCheck && collectCheck) {
+                              if (reqCheck && condCheck && ageCheck && collectCheck && accessCheck && needsAllCheck) {
+                                //console.log("Adding item or entrance "+ key);
                                     if (type == entrancesMap) {
-                                          // console.log("adding" + key);
+                                          //console.log("adding" + key);
                                           if (!accessibleList[listIndex].includes(key)) {
                                                 accessibleList[listIndex].push(key);
                                           }
                                           //delete entrancesMap[key];
                                     }
                                     if (type == itemLocations) {
+                                      // console.log("Adding itemLocations: " + key);
+                                      // console.log(key);
+                                      // console.log(file);
+                                      // console.log(file.locations);
+                                      // console.log(file.locations[key]);
+                                      // console.log(file.locations.key);
+                                      // console.log(file["locations"][key]);
+                                      // console.log(file["locations"]);
                                           if (file.locations[key]) {
+                                            // console.log("Passed condition of key existing");
+                                            // console.log(file.locations[key]);
                                                 if (!inventory.collected.includes(key)) {
                                                       inventory.collected.push(key);
                                                 }
@@ -16691,7 +17010,7 @@
                                                 else {
                                                             inventory.items.push(file.locations[key]);
                                                 }
-                                                delete itemLocations[key];
+                                                //delete itemLocations[key];
                                                 delete file.locations[key];
                                           }
                                           else {
@@ -16810,7 +17129,46 @@
                                           }
                                           else if (!enteredList[index].includes(entrancesMap[tempName]["location"].name)) {
                                                 //enteredList[index].push(entrancesMap[tempName]["location"].name);
-                                                unlockEntrance(entrancesMap[tempName]["location"], index);
+                                                console.log(key);
+                                                if (entrancesMap[key].requirements.includes(Requirements.Child_Access)) {
+                                                  console.log("Attempting to unlock " + key + " for Child");
+                                                  console.log(index);
+                                                  console.log(enteredList.length);
+                                                  if (enteredList.length > 1) {
+                                                    if (index == 0) {
+                                                      console.log("Constituted current list is child");
+                                                      unlockEntrance(entrancesMap[tempName]["location"], index);
+                                                    }
+                                                    else {
+                                                      console.log("Constituted current list is adult, rejected");
+                                                    }
+                                                  }
+                                                  else {
+                                                    if (inventory.ages.includes("Child")) {
+                                                      console.log("Constituted current list is child");
+                                                      unlockEntrance(entrancesMap[tempName]["location"], index);
+                                                    }
+                                                    else {
+                                                      console.log("Constituted current list is adult, rejected");
+                                                    }
+                                                  }
+                                                }
+                                                else if (entrancesMap[key].requirements.includes(Requirements.Adult_Access)) {
+                                                   console.log("Attempting to unlock " + key + " for Adult");
+                                                  if (enteredList.length > 1) {
+                                                    if (index == 1) {
+                                                      unlockEntrance(entrancesMap[tempName]["location"], index);
+                                                    }
+                                                  }
+                                                  else {
+                                                    if (inventory.ages.includes("Adult")) {
+                                                      unlockEntrance(entrancesMap[tempName]["location"], index);
+                                                    }
+                                                  }
+                                                }
+                                                else {
+                                                  unlockEntrance(entrancesMap[tempName]["location"], index);
+                                                }
                                           }      
                                           //delete randomizedEntrances[key];
                                     }
@@ -16838,7 +17196,44 @@
                                           }
                                           else if (!enteredList[index].includes(entrancesMap[key]["location"].name)) {
                                                 //enteredList[index].push(entrancesMap[key]["location"].name);
-                                                unlockEntrance(entrancesMap[key]["location"], index);
+                                               console.log(valueName);
+                                                if (entrancesMap[valueName].requirements.includes(Requirements.Child_Access)) {
+                                                   console.log("Attempting to unlock " + valueName + " for Child");
+                                                  if (enteredList.length > 1) {
+                                                    if (index == 0) {
+                                                      console.log("Constituted current list is child");
+                                                      unlockEntrance(entrancesMap[key]["location"], index);
+                                                    }
+                                                    else {
+                                                      console.log("Constituted current list is adult, rejected");
+                                                    }
+                                                  }
+                                                  else {
+                                                    if (inventory.ages.includes("Child")) {
+                                                      console.log("Constituted current list is child");
+                                                      unlockEntrance(entrancesMap[key]["location"], index);
+                                                    }
+                                                    else {
+                                                      console.log("Constituted current list is adult, rejected");
+                                                    }
+                                                  }
+                                                }
+                                                else if (entrancesMap[valueName].requirements.includes(Requirements.Adult_Access)) {
+                                                  console.log("Attempting to unlock " + valueName + " for Adult");
+                                                  if (enteredList.length > 1) {
+                                                    if (index == 1) {
+                                                      unlockEntrance(entrancesMap[key]["location"], index);
+                                                    }
+                                                  }
+                                                  else {
+                                                    if (inventory.ages.includes("Adult")) {
+                                                      unlockEntrance(entrancesMap[key]["location"], index);
+                                                    }
+                                                  }
+                                                }
+                                                else {
+                                                  unlockEntrance(entrancesMap[key]["location"], index);
+                                                }
                                           }                                         
                                           //delete randomizedEntrances[key];
                                     }
@@ -16871,10 +17266,89 @@
       }
 
       var solvedState = false;
+      var testCaseIndex = 0;
+      var currentTestCaseGoal;
+      
+
+      function unitTestingLoop() {
+        var testCases = file.testCases;
+        testCaseIndex  = 0;
+        debugKey = file["testCaseLocation"];
+        // console.log("Unit Testin Loop triggered, current file:");
+        // console.log(file);
+        for (var cases in testCases) {
+          resetEverything();
+          
+          testCaseIndex++;
+          // console.log("Entering new testcase: ");
+          // console.log(cases);
+          // console.log("Current TestCase:");
+          // console.log(testCases[cases]);
+          file.entrancesMap = testCases[cases]["entrancesMap"];
+          file.locations = testCases[cases]["locations"];
+          // console.log("Current TestCase Locations:");
+          // console.log(testCases[cases]["locations"]);
+          // console.log(file.locations);
+          inventory.ages = testCases[cases]["ages"] ?? [];
+          inventory.items = testCases[cases]["items"] ?? [];
+          inventory.collected = ["Link's Pocket"];
+          inventory.accessible_child = testCases[cases]["accessible_child"] ?? [];
+          inventory.accessible_adult = testCases[cases]["accessible_adult"] ?? [];
+          inventory.entered_child = testCases[cases]["entered_child"] ?? [];
+          inventory.entered_adult = testCases[cases]["entered_adult"] ?? [];
+          console.log(file);
+          console.log(entrancesMap);
+          
+
+          // push entered since json files won't have access
+          // console.log("Child locations to be added");
+          // console.log(testCases[cases]["entered_child"]);
+          // for (var name in testCases[cases]["entered_child"]) {
+          //   for (var location in Locations) {
+          //     console.log("Comparing:");
+          //     console.log(Locations[location].name);
+          //     console.log(testCases[cases]["entered_child"][name]);
+          //     if (Locations[location].name == testCases[cases]["entered_child"][name]) {
+          //       inventory.entered_child.push(Locations[location]);
+          //     }
+          //   }
+          // }
+          // console.log("Adult locations to be added:");
+          // console.log(testCases[cases]["entered_adult"]);
+          // for (var name in testCases[cases]["entered_adult"]) {
+          //   for (var location in Locations) {
+          //     console.log("Comparing:");
+          //     console.log(Locations[location].name);
+          //     console.log(testCases[cases]["entered_adult"][name]);
+          //     if (Locations[location].name == testCases[cases]["entered_adult"][name]) {
+          //       inventory.entered_adult.push(Locations[location]);
+          //     }
+          //   }
+          // }
+          // console.log("Current inventory:");
+          // console.log(inventory);
+          currentTestCaseGoal = testCases[cases].goal;
+          //console.log(currentTestCaseGoal);
+          tempTriggerLoop();
+          
+        }
+        console.log("Finished running test cases!");
+        
+      }
       function tempTriggerLoop() {
             if (validateFile(file)) {
               alert("Errors were found, cancelling functionality, Please send you seed over to me so I can fix :)");
               return;
+            }
+            if (file.testMode && file.entrancesMap["sphere 00"]) {
+              console.log("Attempting to adjust entrancesMap");
+              for (var sphere in file.entrancesMap) {
+                for (var key in file.entrancesMap[sphere]) {
+                  console.log(file.entrancesMap[sphere][key]);
+                  randomizedEntrances[key] = file.entrancesMap[sphere][key];
+                }
+              }
+              console.log(randomizedEntrances);
             }
             //console.log("temptriggerloop");
             while (!solvedState && stuckCounter < 10) {
@@ -16884,20 +17358,21 @@
                   }
                   //console.log("temptrigger");
                   tempTrigger()
-                  console.log("Stuck Counter: " + stuckCounter);
-                  console.log("Loop Counter: " + loopCounter);
+                  // console.log("Stuck Counter: " + stuckCounter);
+                  // console.log("Loop Counter: " + loopCounter);
             }
             if (!solvedState) {
                   
                   
-                  console.log(file);
-                  console.log(randomizedEntrances);
-                  console.log(entrancesMap);
-                  console.log(itemLocations);
-                  console.log(inventory);
+                  // console.log(file);
+                  // console.log(randomizedEntrances);
+                  // console.log(entrancesMap);
+                  // console.log(itemLocations);
+                  // console.log(inventory);
                   //validateItems();
-                  output.textContent = "Seed is impossible. See console for reasons"
+                  output.textContent = "Seed is (very likely) impossible. See console for reasons"
             }
+            console.log(inventory);
       }
       function tempTrigger() {
             // checkCurrentAvailableItems(tempFileStorage);
@@ -16917,10 +17392,10 @@
             inventory.entered_child.sort();
             inventory.requirements.sort();
 
-            console.log(file);
-            console.log(randomizedEntrances);
-            console.log(entrancesMap);
-            console.log(itemLocations);
+            // console.log(file);
+            // console.log(randomizedEntrances);
+            // console.log(entrancesMap);
+            // console.log(itemLocations);
             console.log(inventory);
             validateItems();
       }
@@ -16931,6 +17406,9 @@
       // Validation function to quickly figure out errors
       // Returns a bool for errors found
       function validateFile(file) {
+        if (file.testMode == true) {
+          return;
+        }
         var errorsFound = false;
 
         if (!file) {
@@ -16971,6 +17449,7 @@
       }
 
       function resetEverything() {
+        console.log("resetting...");
         try {
           stuckCounter = 0;
           loopCounter = 0;
@@ -16989,6 +17468,7 @@
             inventory.accessible_child = [];
             inventory.accessible_adult = [];
             randomizedEntrances = {};
+            itemLocations = itemLocationsBackup;
         }
         catch (e) {
           console.log("Error found in reset function: ");
@@ -17001,6 +17481,11 @@
 
       function adjustSettings() {
         try {
+
+            // Unit testing check
+            if (file.testMode == true) {
+              return;
+            }
             // Adding default entrances
             console.log("adjusting file settings...")
 
@@ -17179,7 +17664,7 @@
                         console.log("Overworld isn't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Overworld) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance
@@ -17191,7 +17676,7 @@
                         console.log("Owl drops aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrance == "DMT Owl Flight -> Kak Impas Rooftop" || entrance == "LH Owl Flight -> Hyrule Field") {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance.default;
@@ -17208,7 +17693,7 @@
                         console.log("Ganon isn't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location == Locations["Ganon"]) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance    
@@ -17221,7 +17706,7 @@
                         console.log("Interiors aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Interior) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance
@@ -17233,7 +17718,7 @@
                         console.log("Grottos aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Grotto) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance
@@ -17246,13 +17731,13 @@
                         for (entrance in entrancesMap) {
                               //console.log(entrance);
                               if (entrancesMap[entrance].location == Locations["Ganon"]) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance
                               }
                               if (entrancesMap[entrance].location.type == LocationType.Dungeon) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance
@@ -17263,7 +17748,7 @@
                     console.log("Thieves Hideout isn't randomized");
                     for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.TH) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                         randomizedEntrances[entrance] = tempEntrance;
                         randomizedEntrances[tempEntrance] = entrance
@@ -17276,7 +17761,7 @@
                         console.log("Boss rooms aren't randomized");
                         for (entrance in entrancesMap) {
                               if (entrancesMap[entrance].location.type == LocationType.Boss) {
-                                    console.log("match found: " + entrance);
+                                    //console.log("match found: " + entrance);
                                     var tempEntrance = entrancesMap[entrance].default;
                                     randomizedEntrances[entrance] = tempEntrance;
                                     randomizedEntrances[tempEntrance] = entrance
@@ -17318,11 +17803,14 @@
     function checkLocations(tempFile) {
 
       itemLocations = { ...itemLocationsBackup};
-      console.log(itemLocations);
-      console.log(itemLocationsBackup);
+      //console.log(itemLocations);
+      //console.log(itemLocationsBackup);
       file = tempFile;
-        resetEverything();
+        //resetEverything();
         adjustSettings(file);
+        if (file.testMode == true) {
+          return;
+        }
         // console.log(locations);
 
         // Ganon Castle check
@@ -17354,8 +17842,8 @@
                     //     console.log(randomizedEntrances["Adult Spawn"]);
                         inventory.Child_start = randomizedEntrances[key].replace("from" , '->');
                         inventory.accessible_child.push(inventory.Child_start);
-                        console.log(inventory.Child_start);
-                        console.log(randomizedEntrances[inventory.Child_start]);
+                        //console.log(inventory.Child_start);
+                        //console.log(randomizedEntrances[inventory.Child_start]);
                         if (inventory.Child_start == "Temple of Time Warp Pad") {
                           inventory.ages.push("Adult");
                           inventory.accessible_adult.push(randomizedEntrances["Adult Spawn"]);
@@ -17437,7 +17925,7 @@
             }
         }
         inventory.requirements.push(Requirements.PriceCheck);
-        console.log(file.locations);
+        //console.log(file.locations);
 
         debugLastArea = "Check Warp Song Locations";
         // Check warp song locations

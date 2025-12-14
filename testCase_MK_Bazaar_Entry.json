@@ -1,0 +1,102 @@
+{
+    "testMode": true,
+    "testCaseLocation": "GV Freestanding PoH Crate",
+    "testCases": {
+        "case1": {
+            "entrancesMap": {
+                "sphere 00": {
+                    "MK Bazaar Entry": "LLR Tower"
+                }
+            },
+            "locations": {
+                "LLR Freestanding PoH": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Market"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": true
+        },
+        "case2": {
+            "entrancesMap": {
+                "sphere 00": {
+                    "MK Bazaar Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Adult"],
+            "entered_child": [
+                "Market"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": false
+        },
+        "case3": {
+            "entrancesMap": {
+                "sphere 00": {
+                    "MK Bazaar Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Market"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": false
+        },
+        "case4": {
+            "entrancesMap": {
+                "sphere 00": {
+                    "MK Bazaar Entry": "Windmill"
+                }
+            },
+            "locations": {
+                "Kak Windmill Freestanding PoH": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Market"
+            ],
+            "entered_adult": [
+                "Market"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": false
+        }
+    }
+}

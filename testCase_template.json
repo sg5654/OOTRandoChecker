@@ -1,0 +1,17 @@
+{
+    "testMode": true,
+    "testCaseLocation": "GV Freestanding PoH Crate",
+    "testCases": {
+        "case1": {
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+
+            },
+            "goal": true
+        }
+    }
+}

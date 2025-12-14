@@ -1,0 +1,199 @@
+{
+    "testMode": true,
+    "testCaseLocation": "GV Near Cow Crate",
+    "testCases": {
+        "case1": {
+            "ages": ["Adult", "Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case2": {
+            "ages": ["Adult", "Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+         "case3": {
+            "ages": ["Adult", "Child"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+         "case4": {
+            "ages": ["Adult", "Child"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+         "case5": {
+            "ages": ["Adult", "Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+         "case6": {
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+         "case7": {
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case8": {
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Lake Hylia"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        }
+
+    }
+}

@@ -1,0 +1,579 @@
+{
+    "testMode": true,
+    "testCaseLocation": "GV Freestanding PoH Crate",
+    "startingEntrance": "Gerudo Valley West Exit",
+    "testCases": {
+        "case1": {
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case2": {
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case3": {
+            "items": ["Progressive Hookshot"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case4": {
+            "items": ["Progressive Hookshot", "Progressive Hookshot"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case5": {
+            "items": ["Progressive Hookshot", "Progressive Hookshot"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Lake Hylia"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Lake Hylia North Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case6": {
+            "ages": ["Child"],
+            "entered_child": [
+                "Lake Hylia"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Lake Hylia North Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case7": {
+            "items": ["Progressive Bomb Bag", "Buy Hylian Shield", "Progressive Wallet"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case8": {
+            "items": ["Progressive Bomb Bag", "Buy Hylian Shield"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case9": {
+            "items": ["Progressive Bomb Bag", "Hylian Shield"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case10": {
+            "items": ["Hylian Shield", "Progressive Bombchu"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case11": {
+            "items": ["Buy Hylian Shield", "Progressive Bombchu"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case12": {
+            "items": ["Buy Hylian Shield", "Progressive Bombchu", "Progressive Wallet"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case13": {
+            "items": ["Deku Shield", "Progressive Bombchu"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case14": {
+            "items": ["Mirror Shield", "Progressive Bombchu"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case15": {
+            "items": ["Hylian Shield", "Progressive Bombchu"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley East Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case16": {
+            "items": ["Master Sword", "Hover Boots"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley East Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case17": {
+            "items": ["Biggoron's Sword", "Hover Boots"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley East Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case18": {
+            "items": ["Progressive Stick Capacity", "Hover Boots"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley East Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case19": {
+            "items": ["Kokiri Sword", "Hover Boots"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Gerudo Valley East Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case20": {
+            "items": ["Progressive Hookshot", "Progressive Hookshot"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case21": {
+            "items": ["Kokiri Sword", "Hover Boots"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case22": {
+            "items": ["Kokiri Sword", "Progressive Bomb Bag", "Deku Shield"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        },
+         "case23": {
+            "items": ["Progressive Bombchu", "Giant's Knife", "Hylian Shield"],
+            "ages": ["Adult"],
+            "entered_child": [
+                
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Freestanding PoH Crate": "WINNER!"
+            },
+            "goal": true
+        }
+    }
+}
