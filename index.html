@@ -4473,6 +4473,7 @@
             "LW Shortcuts Grotto Entry": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.LW,
+                alias         : ["LW Tunnel Grotto Entry"],
                 conditional: [    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.LW_Bridge_Escape]),
                                   new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Bombs, Requirements.Adult_Shield], age = undefined, needsAll = true),
                                   new Conditional(locations = ["Lost Woods Underwater Shortcut", "Lost Woods Tunnel Shortcut", "Lost Woods South Exit", "LW Shortcuts Grotto Entry", "Lost Woods Underwater Shortcut"]),
@@ -17101,6 +17102,7 @@
             debugValues = {};
             for (var index in accessibleList) {
               debugValues.index = index;
+              debugValues.accessibleLength = accessibleList.length;
               debugValues.accessibleList = accessibleList;
 
                   //console.log(accessibleList[index]);
@@ -17295,9 +17297,19 @@
             console.log("Last known debug area: " + debugLastArea)
             console.log("last known values that caused an error:");
             console.log(debugValues);
+
+            // Shitty solution, but it helps
+            debugValues.hardCrash = false;
+          }
+          // For debug output since js console isn't that great
+          if (debugValues.hardCrash) {
+            console.log(file);
+            console.log(inventory);
+            throw new Error("Hard Crash");
           }
       }
 
+      
       var solvedState = false;
       var testCaseIndex = 0;
       var currentTestCaseGoal;
@@ -17465,12 +17477,38 @@
         }
         else {
           for (var key in file.entrancesMap["sphere 00"]) {
-            if (entrancesMap[key]!= undefined) {
+            if (entrancesMap[key]!= undefined && entrancesMap[file.entrancesMap["sphere 00"][key]] != undefined) {
 
             }
             else {
-              console.error("Entrance location not found: -> " + key);
-              errorsFound = true;
+
+              // TODO: Fix up Alias behaviour. I still need to come up with a system to properly replace the area name to be the one I want
+              var aliasPassFlag = false;
+              for (var index in entrancesMap) {
+                if (entrancesMap[index].alias) {
+                  if (entrancesMap[index].alias.includes(key)) {
+                    aliasPassFlag = true;
+                    console.log(index);
+                    file.entrancesMap["sphere 00"][index] = file.entrancesMap["sphere 00"][key];
+                    randomizedEntrances[index] = file.entrancesMap["sphere 00"][key];
+                    delete file.entrancesMap["sphere 00"][key];
+                    delete randomizedEntrances[key];
+                  }
+                  else if (entrancesMap[index].alias.includes(file.entrancesMap["sphere 00"][key])) {
+                    aliasPassFlag = true;
+                    console.log(index);
+                    randomizedEntrances[key] = index;
+                    file.entrancesMap["sphere 00"][key] = index;
+                  }
+                }
+              }
+              if (!aliasPassFlag) {
+                console.error("Entrance location not found: -> " + key);
+                errorsFound = true;
+              }
+              else {
+                console.log("UPDATED FILE ALIAS WITH INTERNAL STRUCTURE NAME");
+              }
             }
           }
         }
@@ -17483,7 +17521,7 @@
             errorsFound = true;
           }
         }
-        
+        console.log(file);
         return errorsFound;
 
       }
