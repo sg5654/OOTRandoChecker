@@ -1,9 +1,13 @@
 
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Check That Seed</title>
+
   <style>
     #drop-area {
       width: 300px;
@@ -22,17 +26,23 @@
   </style>
 </head>
 <body>
+
+  <!-- Drop Location, will trigger code when dropped through listener -->
   <div id="drop-area">Drop your JSON file here</div>
+
+  <!-- Main output, acts as a mini-console -->
   <pre id="output"></pre>
-  <!-- <button onclick=tempTrigger()>next phase</button> -->
+
   <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button>
-  <!-- <div id="drop-area">Drop your JSON file here</div> -->
+
+  <!-- TODO: Remove or beautify this -->
   <pre id="output">This program is possible outdated and is not entirely reliable. There are also still plenty of logic checks missing.</pre>
+
+  <!-- Shitty Dev solution so I don't have to keep commenting this out -->
   <input type="checkbox" id="devModeCB" name="Enable Dev Mode" onChange="ToggleDevButtons()">Dev mode<br><br>
   <button onclick=tempTrigger()  class="Devmode" hidden>next phase</button><br><br>
   <button id="testingButton" onclick=unitTestingLoop() class="Devmode" hidden>Run test cases</button>
-  <!-- <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button> -->
-  <!-- <button id="reLoopButton">Temp</button> -->
+
   <script>
 
     // Select the drop area and output elements
@@ -63,6 +73,8 @@
           try {
             const json = JSON.parse(reader.result);
             output.textContent = "JSON accepted! Data has been parsed";
+
+            // Base Reset was moved here since it's the first action
             resetEverything();
             checkLocations(json);
           } catch (err) {
@@ -75,9 +87,15 @@
         output.textContent = 'Please drop a valid JSON file.';
       }
     });
+
+    // TODO: Move these to relevant spot
     var debugLastArea = "?";
     var debugValues = {};
+
+    // main JSON file reference
     var file;
+
+    // Base inventory structure, keeps track of everything Link should be able to do, equip and access
     var inventory = {
 
       bottleables: [],
@@ -101,13 +119,17 @@
     };
 
 
+    // improvised Enum for Ages
     const Ages = {
       Adult: ("Adult"),
       Child: ("Child"),
       Both:  ("Available for either age")
     }
 
+    // TODO: Is this still needed? this might be outdated
     var GanonBKLACS = [0,1,2,3,4,5,6,7,8,9]
+
+    // Rando Shuffle Settings
     var Settings = {
       LACS: ["Default", GanonBKLACS],
       GanonBKShuffle: true,
@@ -117,6 +139,18 @@
       rewardsNeeded: 0,
       tokensNeeded: 0
     }
+
+    // Base structure for defining Conditions related to being able to use certain entrances or obtain item checks
+    // Locations      : Array of possible locations, any of them will suffice
+    // Requirements   : Array of needed Requirements. Default to any of collection if NeedsAll is not defined
+    // TODO: Implement Age into Access variable
+    // Age            : Will check for a specific age being unlocked
+    // NeedsAll       : If true, every defined variable in the condition needs to be deemed true
+    // Collected      : Checks inventory for a specific location check being done
+    // TODO: Implement this
+    // Skip           : To be implemented system for referencing glitches
+    // TODO: Expand this and remove Age
+    // Access         : Bandaid solution for fixing up Child and Adult Access since this code had issues. Needs to be expanded
     class Conditional {
       constructor(locations, requirements, age, needsAll, collected, skip, access) {
             this.locations = locations;
@@ -129,6 +163,7 @@
       }
     }
 
+    // Hides and Shows relevant Dev stuff
     function ToggleDevButtons() {
       console.log(document.getElementsByClassName("Devmode"));
       var list = document.getElementsByClassName("Devmode");
@@ -144,6 +179,7 @@
       }
     }
 
+    // Internal reference cheat sheet, Should be deleted eventually
     var vanillaMap = {
             "Zora's Domain Entrance": "Zora's River Waterfall Exit",
             "HF Southeast Grotto": "HF Southeast Boulder Grotto Entry",
@@ -548,7 +584,15 @@
             // "Shadow Temple Boss Entryway -> Shadow Temple Boss Room": "Spirit Temple Boss Room from Spirit Temple Boss Entryway",
             // "Spirit Temple Boss Entryway -> Spirit Temple Boss Room": "Dodongos Cavern Boss Room from Dodongos Cavern Boss Entryway"
     }
-    // quickscroll comment
+
+    // Requirement structure, the solver uses this for basically all of its internal logic structuring.
+    // explanation    : Defines what this requirement is meant to allow
+    // Related        : What part of the inventory should be checked to unlock this requirement
+    // Items          : If related contains items, this can be defined to look for a specific name
+    // Unlocked_If    : Will immediately unlock if any of the Requirement Names included are already in inventory
+    // Unlocked_If_All: Same as unlocked if but acts as an AND gate rather than an OR
+    // Ages           : Will check if the relevant age has been unlocked
+    // Count          : Will check the amount of instances in inventory and compare to this. This was mainly for a shitty solution to dealing with having multiple keys in dungeons
     var Requirements = {
       INACCESSIBLE: {explanation: "Currently unknown on how to be collected", related: ["items"], items: ["INACCESSIBLE"]},
       Bomb_Flower: {explanation: "Can explode a bomb flower", unlocked_if: ["Explosive", "Bow"]},
@@ -1096,6 +1140,9 @@
                               
     };
 
+    // List of Requirement combinations that build up specific skips in areas
+    // This will eventually probably be completely implemented into the Skips List
+    // This list allows me to List several possible options for getting past an obstacle without it clogging up the base data set or re-using code
     const MultiplePossibleRequirements = {
       Grassable_Market: [
         [Requirements.Child_Access, Requirements.Kokiri_Sword],
@@ -1484,14 +1531,6 @@
                       [ Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Hookshot]
 
     ],
-    // ZR_Clear: [   [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Melee],
-    //               [     Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Explosive_Or_Hammer],
-    //               [     Requirements.Hover_boots, Requirements.Melee],
-    //               [     Requirements.Hover_boots, Requirements.Explosive_Or_Hammer],
-    //               [     Requirements.Master_Sword, Requirements.Melee],
-    //               [     Requirements.Master_Sword, Requirements.Explosive_Or_Hammer]
-
-    // ],
     Shadow_Entry: [     [     Requirements.Adult_Melee, Requirements.Adult_Access],
                         [     Requirements.Dins],
                         [     Requirements.Fire_Arrow]
@@ -1556,6 +1595,7 @@
                                     [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Sword],
                                     [Requirements.Hammer]
       ],
+      // TODO: Fact check this
       // SOH doesn't support child weirdslide
       Hammer_Or_Weirdslide: [       [Requirements.Hammer],
                                     [Requirements.Explosive, Requirements.Adult_Shield, Requirements.FP_Item]
@@ -2024,6 +2064,8 @@
       // ]
 
     }
+
+    // List to keep track of what sort of area we're dealing with. Helpful for implementing mixed entrances
     const LocationType = {
       Grotto: ("This area is a grotto"),
       Overworld: ("This area exists in the overworld"),
@@ -2036,8 +2078,8 @@
       TH: ("This area is a part of the Thieve's Hideout")
     }
 
-        // Now I just need to figure out how the fuck I'm ever going to implement this, this is going to sucks.
-        var Locations = {
+        // List of every location, including interiors. This is needed for entrance rando. Also includes certain data about the location
+      var Locations = {
       Kak_Redead_Grotto: {name: "Kak Redead Grotto", type: LocationType.Grotto},
       TOT: {name: "Temple of Time", unlocksAges: true, type: LocationType.TOT},
       KF: {name: "Kokiri Forest", type: LocationType.Overworld},
@@ -2208,12 +2250,14 @@
       BlueWarp: {name: "Blue Warp", type: LocationType.Boss}
     };
 
+    // TODO: Implement 
     const Times = {
       Night: ("Only available at night"),
       Day: ("Only available at day"),
       Both: ("Time doesn't matter")
     }
 
+    // Used for initial check, this was how the entire program started. Effectively useless now
     const childOnlyEntrances = [
         // new
 
@@ -2270,8 +2314,10 @@
 
     ];
 
+    // TODO: Move or remove this
     var errorState = false;
 
+    // My attempted solution at difficulty judgement for skips. TBD
     const DifficultyModifiers = {
       frame_perfect_inputs: 2,
       hovering: 3,
@@ -2293,6 +2339,7 @@
 
     }
     // Tricks and Glitches
+    // TODO: Finish this and implement (This will take fucking forever)
     const Skips = {
       DMC_Great_Fairy_Hover_Bombs_Child: {
         difficulty: DifficultyModifiers.hovering + DifficultyModifiers.timed,
@@ -2424,6 +2471,12 @@
         requirements: [Requirements.Adult_Access, Requirements.Hover_boots]
       }
     }
+
+    // The giant map of all Base Entrances, including data required to unlock and what it can unlock
+    // Requirements   : Base requirements that are expected to always be needed, regardless of skips
+    // Location       : What location are we in?
+    // Default        : Default Entrance this leads to
+    // Conditional    : Used for additional logic to deal with obstacles that aren't always relevant. I.E. The rocks in GC, the gate in GF
     var entrancesMap = {
             // "Sacred Forest Meadow -> Minuet of Forest Warp": {
             //       requirements: [Requirements.OneWayOwl],
@@ -3586,7 +3639,7 @@
                   default: "KF Storms Grotto",
                   conditional: ""
             },
-            // Needs Bronze Scale if child
+            // Needs Bronze Scale if child (Assuming coming from fishing pond)
             "Lake Hylia North Exit": 
             {  requirements  : "",
                 location      : Locations.LH,
@@ -3608,7 +3661,7 @@
             ],
             default: "Zora's Domain Underwater Shortcut",
             },
-            // Needs Bronze Scale if child
+            // Needs Bronze Scale if child (Assuming coming from fishing pond)
             "LH Lab Entry": 
             {  requirements  : "",
                 location      : Locations.LH,
@@ -3627,11 +3680,17 @@
                   default: "Water Temple Entrance",
                   conditional: ""
             },
+            // TODO: Implement Bronze Scale behaviour for fishing pond
             "LH Grave Grotto Entry": 
             {  requirements  : "",
                 location      : Locations.LH,
                   default: "LH Deku Scrub Grotto",
-                  conditional: ""
+                  conditional: [
+                        new Conditional(locations = ["Lake Hylia North Exit", "LH Grave Grotto Entry", "Lake Hylia Outside Temple", "LH Lab Entry"]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Adult_Access]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child]),
+                        new Conditional(locations = undefined, requirements = [Requirements.BronzeScale])
+                  ]
             },
             "HF Near Market Boulder Grotto": 
             {  requirements  : "",
@@ -3646,14 +3705,17 @@
                   default: "Shield Grave",
                   conditional: ""
             },
-            // TODO: Implement more skips for Zelda's Lullaby (with explosives)
+            // TODO: Check what the fuck the hookshot thing was about, update with more relevant new skips
+            // Old requirements: [MultiplePossibleRequirements.GY_Royal_Tomb_Entry]
+            // Seems I implemented this into conditionals
             "GY Royal Family's Tomb Entry": 
-            {  requirements  : [MultiplePossibleRequirements.GY_Royal_Tomb_Entry],
+            {  requirements  : "",
                 location      : Locations.GY,
                   default: "Royal Family's Tomb",
                   conditional: [
                     new Conditional(locations = undefined, requirements = [Requirements.Zeldas_Lullaby, Requirements.Instrument]),
-                    new Conditional(locations = ["Graveyard Outside Temple"]),
+                    // This one isn't consistent on SOH, removing for now
+                    //new Conditional(locations = ["Graveyard Outside Temple"]),
                     new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
                     new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Adult_Shield, Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true)
                   ]
@@ -3683,19 +3745,6 @@
                   default: "Kakariko Southeast Exit",
                   conditional: ""
             },
-            // New version doesn't really work with this and I'm not entirely sure how to implement this
-            // "ToT Entrance -> Market": 
-            // {  requirements  : "",
-            //     location      : Locations.TOT_Enrance,
-            //       default: "Market -> ToT Entrance",
-            //       conditional: ""
-            // },
-            // "ToT Entrance -> Temple of Time":
-            // {  requirements  : "",
-            //     location      : Locations.TOT_Enrance,
-            //       default: "Temple of Time -> ToT Entrance",
-            //       conditional: ""
-            // },
             "Hyrule Field Wooded Exit": 
             {  requirements  : "",
                 location      : Locations.HF,
@@ -3795,6 +3844,7 @@
                   ]
             },
             // Free entry now that child can clip past
+            // TODO: Fact check this
             "Death Mountain Trail Outside Dodongo's Cavern": 
             {  requirements  : "",
                 location      : Locations.DMT,
@@ -3808,18 +3858,21 @@
                   conditional: ""
             },
             // No longer any requirement for entry
+            //TODO: Update these conditionals, this is horribly outdated
             "GF Outside Training Ground": 
             {  requirements  : "",
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Ground Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
+                              new Conditional(locations = ["Gerudo Fortress East Exit"])
+                  ],
                               default: "Gerudo Training Ground Entrance"
             },
             "GF Storms Grotto Entry": 
             {  requirements  : [ Requirements.Instrument, Requirements.Song_Of_Storms, Requirements.Adult_Access],
                 location      : Locations.GF,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Membership]),
-                              new Conditional(locations = ["Gerudo Fortress -> GV Fortress Side", "Gerudo Fortress -> Gerudo Training Ground Entryway", "Gerudo Fortress -> GF Storms Grotto"])],
+                              new Conditional(locations = ["Gerudo Fortress East Exit"],)
+                  ],
                               default: "GF Fairy Grotto"
             },
             "KF Outside Deku Tree": 
@@ -4059,6 +4112,7 @@
             },
             "Zora's River Underwater Shortcut": 
             // TODO: Update behaviour for bomb clips
+            // TODO: Update Requirements VS Conditionals, I think these are outdated
             {  requirements  : [MultiplePossibleRequirements.ZR_Shortcut_Entry],
                 location      : Locations.ZR,
                   default: "Lost Woods Underwater Shortcut",
@@ -4808,98 +4862,13 @@
               location: Locations.TH_Dead_End_Cell,
               default: "TH Dead End Cell"
             }
-            // "TH Dead End Cell": {
-            //   requirements: "",
-            //   location: Locations.TH_Dead_End_Cell,
-            //   default: "GF Near GS"
-            // },
-            // "TH Steep Slope Cell": {
-            //   requirements: "",
-            //   location: Locations.TH_Steep_Slope_Cell,
-            //   default: "GF Bottom of Lower Vines"
-            // },
-            // "TH 1 Torch Cell":{
-            //   requirements: "",
-            //   location: Locations.TH_1_Torch_Cell,
-            //   default: "GF Near Grotto"
-            // },
-            // "TH Break Room": {
-            //   requirements: "",
-            //   location: Locations.TH_Break_Room,
-            //   default: "GF Below Chest"
-            // },
-            // "TH Break Room Corridor": {
-            //   requirements: "",
-            //   location: Locations.TH_Break_Room,
-            //   default: "GF Above Jail"
-            // },
-            // "TH Double Cell": {
-            //   requirements: "",
-            //   location: Locations.TH_Double_Cell,
-            //   default: "GF Top of Lower Vines"
-            // },
-            // "TH Kitchen Corridor": {
-            //   requirements: "",
-            //   location: Locations.TH_Kitchen,
-            //   default: "GF Near Grotto" // GF Above GTG as well
-            // },
-            // "TH Kitchen By Corridor": {
-            //   requirements: "",
-            //   location: Locations.TH_Kitchen,
-            //   default: "GF Top of Lower Vines"
-            // },
-            // "TH Kitchen Opposite Corridor": {
-            //   requirements: "",
-            //   location: Locations.TH_Kitchen,
-            //   default: "GF Outskirts"
-            // },
-            // "GF Above GTG": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Steep Slope Cell"
-            // },
-            // "GF Outskirts": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Kitchen Opposite Corridor"
-            // },
-            // "GF Near Grotto": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH 1 Torch Cell"
-            // },
-            // "GF Below Chest": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Break Room"
-            // },
-            // "GF Above Jail": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Break Room Corridor"
-            // },
-            // "GF Bottom of Lower Vines": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Kitchen Corridor"
-            // },
-            // "GF Top of Lower Vines": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Kitchen By Corridor"
-            // },
-            // "GF Near GS": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Dead End Cell"
-            // },
-            // "GF Below GS": {
-            //   requirements: "",
-            //   location: Locations.GF,
-            //   default: "TH Dead End Cell"
-            // }
+
     }
+
+    // Used for resetting, Should've just made a shadow copy
     const entrancesMapBackup = entrancesMap;
+
+    // Giant fucking list of every item check and its requirements, including MQ
     var itemLocations = {
       // newer
       "GV Freestanding PoH Crate": {
@@ -4920,7 +4889,7 @@
           new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
         ]
       },
-      // Technically no conditionals because of itemless chicken skip
+      // Technically no conditionals (outside of boulder spawn) because of itemless chicken skip
       "GV Near Bridge Crate 1": {
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
@@ -5240,13 +5209,12 @@
           new Conditional(locations = ["Gerudo Fortress East Exit"])
         ]
       },
+      // TODO: ????? Update these to use the new randomiser structure for TH entrances
         "GF Double Cell Right Crate":
       {
         requirements  : [Requirements.GerudoGuard],
         location      : Locations.TH_Steep_Slope_Cell,
-        conditional   : [
-          new Conditional(locations = ["TH "])
-        ]
+        conditional   : ""
       },
         "Wasteland Before Quicksand Crate":
       {
@@ -7879,7 +7847,7 @@
             requirements: [MultiplePossibleRequirements.MQ_Water_Freestanding],
             location: Locations.Water
         },
-        // TODO: Add Proper behaviour for ledge clip skip into this room
+        // TODO: Add Proper behaviour for ledge clip skip into this room... and add this for every fucking room
         "Water Temple MQ Triple Torch Room Submerged Crate 1":
         {
             requirements: [Requirements.Adult_Access, Requirements.IronBoots, Requirements.BronzeScale],
@@ -8503,7 +8471,6 @@
         requirements  : [MultiplePossibleRequirements.Grassable, Requirements.Child_Access, Requirements.Ranged_Weapon],
         location      : Locations.BOTW 
       },
-      // new
       "Market ToT Master Sword":
       {
         requirements  : "",
@@ -15770,7 +15737,7 @@
             location: Locations.Spirit
         },
         // Technically no requirements for either age
-        // TODO: fact check this shit, I must've been drunk
+        // TODO: fact check this shit, I must've been drunk or this might be outdated
         "Spirit Temple MQ Map Chest": {
             requirements: "",
             location: Locations.Spirit
@@ -16192,7 +16159,7 @@
             requirements: [Requirements.Scrubbable, MultiplePossibleRequirements.IronKnuckle, MultiplePossibleRequirements.Armos,Requirements.PriceCheck],
             location: Locations.Ganon
         },
-        // TODO: Find some way to ensure this is correct on MQ
+        // TODO: Find some way to ensure this is correct on MQ (Conditional IG? Will need to implement an MQ check into it somehow)
         "Ganon's Castle Tower Boss Key Chest": {
             requirements: [MultiplePossibleRequirements.TrialSkip],
             location: Locations.Ganon
@@ -16201,11 +16168,14 @@
       };
 
       const itemLocationsBackup = itemLocations;
+
+      // Recent addition, Used for outputting lock reasons
       var lockedReasons = [];
       var lockedReasons_Rewards_Reason = "";
       var lockedReasons_Rewards = 0;
       var lockedReasons_Rewards_Needed = 0;
 
+      // Checks current gamestate to see what is left to collect
       function validateItems(locations) {
 
             if (file.testMode == true) {
@@ -16411,6 +16381,7 @@
             loopCounter++;
       }
 
+      // Looping behaviour constraints to avoid endless loops
       var lastEnteredChild = 0;
       var lastEnteredAdult = 0;
       var lastAccessibleChild = 0;
@@ -17068,10 +17039,12 @@
           }
       }
 
+      // TODO: Either start on this or remove it
       function newUpdateRequirements() {
 
       }
 
+      // TODO: ???
       var queued = ""
 
       // Attempts to unlock new areas
@@ -17315,6 +17288,7 @@
       var currentTestCaseGoal;
       
 
+      // Button response function used for unit testing
       function unitTestingLoop() {
         var testCases = file.testCases;
         testCaseIndex  = 0;
@@ -17380,6 +17354,8 @@
         console.log("Finished running test cases!");
         
       }
+
+      // Current implementation for looping behaviour to iterate the gameplay loop
       function tempTriggerLoop() {
             if (validateFile(file)) {
               alert("Errors were found, cancelling functionality, Please send you seed over to me so I can fix :)");
@@ -17426,6 +17402,8 @@
             }
             console.log(inventory);
       }
+
+      // Individual iterations of gameplay loop
       function tempTrigger() {
             // checkCurrentAvailableItems(tempFileStorage);
             // checkCurrentlyAvailableLocations(tempFileStorage);
@@ -17526,6 +17504,7 @@
 
       }
 
+      // Resets all base variables so a refresh isn't required
       function resetEverything() {
         console.log("resetting...");
         try {
@@ -17557,6 +17536,7 @@
         
       }
 
+      // Attempts to fill in the blanks if certain settings aren't on, as well as dynamically adjust locations and items as needed
       function adjustSettings() {
         try {
 
@@ -17882,6 +17862,9 @@
             console.log("last known values that caused an error:");
           }
       }
+
+    // Outdated function for checking Ganon and TOT. 
+    // TODO: Remove the price check behaviour from this and put it into adjustSettings
     function checkLocations(tempFile) {
 
       itemLocations = { ...itemLocationsBackup};
@@ -18097,6 +18080,7 @@
     }
 
 
+    // Attemps to update the current listed requirements, based off of inventory state
     function updateRequirements() {
       for (var requirement in Requirements) {
             //console.log("Checking requirement...");
@@ -18316,6 +18300,7 @@
                         }
       }
     }
+    // Outdated shit
     function ganonCastleLocationCheck() {
       try {
       for (let key in randomizedEntrances) {
@@ -18368,6 +18353,7 @@
     }
 
 
+    // Extra logic for unlocking entrances, especially relevant for Castle Grounds. Also unlocks bottleables and other specific resources that are area specific
     function unlockEntrance(entrance, index) {
       // Hard reject for Water Temple if no Bronze Scale
       //console.log(entrance);
