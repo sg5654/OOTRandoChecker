@@ -1,0 +1,232 @@
+{
+    "testMode": true,
+    "testCaseLocation": "GV Near Bridge Crate 1",
+    "startingEntrance": "Gerudo Valley West Exit",
+    "testCases": {
+        "case1": {
+            "items": [],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": true
+        },
+        "case2": {
+            "items": [],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Gerudo Valley East Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": true
+        },
+        "case3": {
+            "items": [],
+            "ages": ["Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Gerudo Valley West Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": false
+        },
+        "case4": {
+            "items": [],
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": false
+        },
+        "case5": {
+            "items": ["Deku Shield", "Kokiri Sword", "Progressive Bombchu"],
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": false
+        },
+        "case6": {
+            "items": ["Deku Shield", "Megaton Hammer", "Progressive Bomb Bag"],
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": true
+        },
+        "case7": {
+            "items": ["Hylian Shield", "Kokiri Sword", "Progressive Bomb Bag"],
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": false
+        },
+        "case8": {
+            "items": ["Deku Shield", "Master Sword", "Progressive Bomb Bag"],
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": false
+        },
+        "case9": {
+            "items": ["Deku Shield", "Kokiri Sword", "Progressive Bomb Bag"],
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                "Gerudo Valley West Exit"
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Bridge Crate 1": "WINNER!"
+            },
+            "goal": true
+        }
+    }
+}

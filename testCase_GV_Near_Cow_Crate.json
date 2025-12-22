@@ -193,7 +193,280 @@
                 "GV Near Cow Crate": "WINNER!"
             },
             "goal": false
-        }
+        },
+        "case9": {
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
 
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case10": {
+            "items": ["Deku Shield"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+                "Gerudo Valley"
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case11": {
+            "items": ["Deku Shield", "Progressive Bombchu"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case12": {
+            "items": ["Deku Shield", "Progressive Bomb Bag"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case13": {
+            "items": ["Kokiri Sword"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case14": {
+            "items": ["Progressive Bomb Bag"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case15": {
+            "items": ["Progressive Stick Capacity"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case16": {
+            "items": ["Buy Deku Stick (1)"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        },
+        "case17": {
+            "items": ["Progressive Stick Capacity"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case18": {
+            "items": ["Megaton Hammer"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": true
+        },
+        "case19": {
+            "items": ["Master Sword"],
+            "ages": ["Child"],
+            "entered_child": [
+                "Gerudo Valley"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "GV Silver Rock Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "entrancesMap": {
+                "sphere 00": {
+
+                }
+            },
+            "locations": {
+                "GV Near Cow Crate": "WINNER!"
+            },
+            "goal": false
+        }
     }
 }

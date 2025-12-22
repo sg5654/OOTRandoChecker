@@ -736,6 +736,7 @@
       QPA: {explanation: "Requires having access to a means of triggering QPA", unlocked_if_all: ["Stick", "Cutscene_Item"]},
       // TODO: Expand this for any scenario that can give sticks
       Stick_Upgrade: {explanation: "Has stick capacity", related: ["items"], items: ["Progressive Stick Capacity"]},
+      // TODO: Fix this for different settings related to stick capacity
       Stick: {explanation: "Requires having access to deku sticks", related: ["items"], unlocked_if: ["Stick_Upgrade"], items_all: ["Buy Deku Stick (1)", "Progressive Wallet Upgrade"]},
       // TODO: expand this behaviour to trigger in any situation that can give nuts
       Nuts: {explanation: 'Requires the use of a deku nut', related: ["items"], items_all: ["Progressive Nut Capacity", "Buy Deku Nut (5)"]},
@@ -4871,6 +4872,9 @@
     // Giant fucking list of every item check and its requirements, including MQ
     var itemLocations = {
       // newer
+
+
+      // Unit Tested
       "GV Freestanding PoH Crate": {
         requirements  : "",
         location      : Locations.GV,
@@ -4881,41 +4885,52 @@
                   new Conditional(locations = undefined, requirements = [Requirements.Bombchu_Hovering]),
             ]
       },
+      // Unit Tested
         "GV Near Cow Crate":
       {
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive], ages = Ages.Child, needsAll = true),
+          // TODO: Record jumpslash recoil from Silver Rock
+          // TODO: Implement this for Waterfall POH and other lower Child checks
+          new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], ages = Ages.Child, needsAll = true)
         ]
       },
       // Technically no conditionals (outside of boulder spawn) because of itemless chicken skip
+
+      // Unit Tested
       "GV Near Bridge Crate 1": {
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
       "GV Near Bridge Crate 2": {
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
       "GV Near Bridge Crate 3": {
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
       "GV Near Bridge Crate 4": {
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit")
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
         "GF Above Jail Crate":
@@ -16526,6 +16541,7 @@
                               needsAllCheck = true;
                               ageCheck = true;
                               collectCheck = true;
+                              accessCheck = true;
                               // if (key == "Deku Tree Boss Entryway -> Deku Tree Boss Room") {
                               //       console.log("WEEWOO KEY");
                               //       console.log(type[key]);
@@ -16624,6 +16640,7 @@
                                     //console.log(key)
                                     type[key]["conditional"].forEach(condition => {
                                     
+                                      accessCheck = true;
                                       collectCheck = true;
                                           //console.log(condition);
                                           //console.log(condCheck);
@@ -16945,6 +16962,10 @@
                                                                   ageCheck = false;
                                                             }
                                                       }
+                                                      if (key == debugKey) {
+                                                        console.log("Does Conditional have Access Check: ");
+                                                        console.log(condition.access ? true : false)
+                                                      }
                                                       if (condition.access) {
                                                         accessCheck = false;
                                                         if (condition.age) {
@@ -16974,13 +16995,22 @@
                               // console.log(needsAllCheck);
                               if (key == debugKey) {
                                     console.log("conclusion: ");
+                                    console.log("\n");
+                                    console.log("Requirement Check: ");
                                     console.log(reqCheck);
+                                    console.log("Multiple Requirement Check: ");
                                     console.log(multCheck);
+                                    console.log("Conditional Check: ");
                                     console.log(condCheck);
+                                    console.log("Ages Check: ");
                                     console.log(ageCheck);
+                                    console.log("Collected Check: ");
                                     console.log(collectCheck);
+                                    console.log("NeedsAll Check: ");
                                     console.log(needsAllCheck);
+                                    console.log("Access Check: ");
                                     console.log(accessCheck);
+                                    
                               }
                               if (reqCheck && condCheck && ageCheck && collectCheck && accessCheck && needsAllCheck) {
                                 //console.log("Adding item or entrance "+ key);
