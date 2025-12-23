@@ -97,7 +97,7 @@
                 "Death Mountain Crater Upper Exit"
             ],
             "accessible_adult": [
-                
+
             ],
             "goal": false
         },
@@ -148,6 +148,406 @@
             ],
             "accessible_adult": [
                 
+            ],
+            "goal": false
+        },
+        "case7": {
+            "items": ["Megaton Hammer"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "goal": true
+        },
+        "case8": {
+            "items": ["Megaton Hammer"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Death Mountain Crater Outside Temple"
+            ],
+            "goal": false
+        },
+        "case9": {
+            "items": ["Megaton Hammer", "Hover Boots"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Death Mountain Crater Outside Temple"
+            ],
+            "goal": true
+        },
+        "case10": {
+            "items": ["Hover Boots"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "goal": false
+        },
+        "case11": {
+            "items": ["Hover Boots", "Biggoron's Sword"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "goal": true
+        },
+        "case12": {
+            "items": ["Hover Boots", "Giant's Knife"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "goal": true
+        },
+        "case13": {
+            "items": ["Deku Shield", "Progressive Stick Capacity"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "goal": false
+        },
+        "case14": {
+            "items": ["Deku Shield", "Progressive Stick Capacity", "Progressive Bomb Bag"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "goal": false
+        },
+        "case15": {
+            "items": ["Deku Shield", "Progressive Stick Capacity", "Progressive Bomb Bag"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                "DMC Hammer Grotto Entry"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": true
+        },
+        "case16": {
+            "items": ["Deku Shield", "Progressive Bomb Bag"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                "Death Mountain Crater Upper Exit"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": true
+        },
+        "case17": {
+            "items": ["Deku Shield", "Progressive Bomb Bag"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                "Death Mountain Crater Upper Exit"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": true
+        },
+        "case18": {
+            "items": ["Deku Shield", "Progressive Bomb Bag", "Kokiri Sword"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                
+            ],
+            "accessible_child": [
+                "Death Mountain Crater Upper Exit"
+            ],
+            "accessible_adult": [
+                
+            ],
+            "goal": true
+        },
+        "case19": {
+            "items": ["Megaton Hammer", "Progressive Hookshot"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                
+            ],
+            "accessible_adult": [
+                "Death Mountain Crater Outside Temple"
+            ],
+            "goal": true
+        },
+        "case20": {
+            "items": ["Megaton Hammer", "Magic Bean Pack"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                "Death Mountain Crater Outside Temple"
+            ],
+            "accessible_adult": [
+                "Death Mountain Crater Outside Temple"
+            ],
+            "goal": true
+        },
+        "case21": {
+            "items": ["Megaton Hammer", "Magic Bean Pack"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                "Death Mountain Crater Upper Exit"
+            ],
+            "accessible_adult": [
+                "Death Mountain Crater Outside Temple"
+            ],
+            "goal": false
+        },
+        "case22": {
+            "items": ["Progressive Bomb Bag", "Master Sword", "Magic Bean Pack"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "DMC Great Fairy Entry": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Crater"
+            ],
+            "entered_adult": [
+                "Death Mountain Crater"
+            ],
+            "accessible_child": [
+                "Death Mountain Crater Bridge Exit"
+            ],
+            "accessible_adult": [
+                "Death Mountain Crater Outside Temple"
             ],
             "goal": false
         }

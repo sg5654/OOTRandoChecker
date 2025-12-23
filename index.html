@@ -175,14 +175,15 @@ Things I don't plan on adding but might:
     // TODO: Expand this and remove Age
     // Access         : Bandaid solution for fixing up Child and Adult Access since this code had issues. Needs to be expanded
     class Conditional {
-      constructor(locations, requirements, age, needsAll, collected, skip, access) {
+      constructor(locations, requirements, age, needsAll, access, collected, skip) {
             this.locations = locations;
             this.requirements = requirements;
             this.age = age;
             this.needsAll = needsAll;
+            this.access = access;
             this.collected = collected;
             this.skip = skip;
-            this.access = access;
+            
       }
     }
 
@@ -743,7 +744,7 @@ Things I don't plan on adding but might:
       Talon_Woken: {explanation: "Requires having used the Weird Egg to wake up Talon", related: ["items", "ages", "entered"], items: ["Weird Egg"], ages: ["Child"], stages: ["Hyrule Castle"]},
       // TODO: Figure out how to ensure we have access to the location I guess? This one sucks
       Bean_Planted: {   explanation: "Requires having had a bean planted in the nearest soft soil", related: ["items", "ages"], 
-                        items: ["Magic Bean Pack"], ages: ["Child, Adult"]},
+                        items: ["Magic Bean Pack"], ages: ["Child", "Adult"]},
       Bombchu: {explanation: "Requires having a bombchu", related: ["items"], items: ["Progressive Bombchu"]},
       Bombs: {explanation: "Requires having bomb bag", related: ["items"], items: ["Progressive Bomb Bag"]},
       Explosive: {explanation: "Requires having any form of explosive", unlocked_if: ["Bombs", "Bombchu"]},
@@ -1613,12 +1614,6 @@ Things I don't plan on adding but might:
                                     [Requirements.Blue_Fire, Requirements.Bottle],
                                     [Requirements.Explosive, Requirements.Shield]
       ],
-      DMC_Great_Fairy_Fountain: [   [Requirements.Hover_boots, Requirements.Adult_Melee],
-                                    [Requirements.Explosive, Requirements.Child_Access, Requirements.Child_Shield],
-                                    [Requirements.Explosive, Requirements.Adult_Access, Requirements.Adult_Shield],
-                                    [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Sword],
-                                    [Requirements.Hammer]
-      ],
       // TODO: Fact check this
       // SOH doesn't support child weirdslide
       // .... or does it? dundundun
@@ -1630,8 +1625,7 @@ Things I don't plan on adding but might:
       ],
       DMC_Central_To_Lower: [       [Requirements.Hover_boots, Requirements.Adult_Access],
                                     [Requirements.Hookshot, Requirements.Adult_Access],
-                                    [Requirements.Hook_Or_Hover],
-                                    [Requirements.Bean_Planted, Requirements.Adult_Access]
+                                    [Requirements.Hook_Or_Hover]
       ],
       DMC_Lower_To_Central: [       [Requirements.Hookshot],
                                     [Requirements.Hover_boots],
@@ -2710,13 +2704,20 @@ Things I don't plan on adding but might:
             },
 
             // Start of actual locations
+
+            // Unit Tested
             "DMC Great Fairy Entry": 
             {
-                  requirements: [MultiplePossibleRequirements.DMC_Great_Fairy_Fountain],
+                  requirements: "",
                   location: Locations.DMC,
-                  conditional: [    new Conditional(locations = [  "DMC Hammer Grotto Entry",
-                                                                  "DMC Great Fairy Entry",
-                                                                  "Death Mountain Crater Bridge Exit"])
+                  conditional: [    
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Hover_boots, Requirements.Adult_Melee, Requirements.Adult_Access], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Bridge Exit"),   
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Hover_boots, Requirements.Explosive, Requirements.Adult_Access], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Bridge Exit"),   
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Explosive, Requirements.Child_Access, Requirements.Child_Shield], age = Ages.Child, needsall = true, access = "Death Mountain Crater Bridge Exit"),   
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Explosive, Requirements.Adult_Access, Requirements.Adult_Shield], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Bridge Exit"),   
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Hammer, Requirements.Child_Access], age = Ages.Child, needsall = true, access = "Death Mountain Crater Bridge Exit"),     
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Hammer, Requirements.Adult_Access], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Bridge Exit"),            
+                                    new Conditional(locations = ["Death Mountain Crater Bridge Exit"], requirements = [Requirements.Bombs, Requirements.Adult_Access, Requirements.Adult_Sword], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Bridge Exit")                            
                                     //,
                                     //new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
                                     //new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
@@ -2782,8 +2783,8 @@ Things I don't plan on adding but might:
             },
             tricks: {
               conditional: [
-                new Conditional(locations = undefined, requirements = [Skips.DMT_Lower_To_Upper_Hoverboots.requirements], age = undefined, needsAll = false, collected = undefined, skips = [Skips.DMT_Lower_To_Upper_Hoverboots]),
-                new Conditional(locations = undefined, requirements = [Skips.DMC_Hammer_EquipSwap.requirements], age = undefined, needsAll = false, collected = undefined, skips = [Skips.DMC_Hammer_EquipSwap])
+                new Conditional(locations = undefined, requirements = [Skips.DMT_Lower_To_Upper_Hoverboots.requirements], age = undefined, needsAll = false, access = undefined, collected = undefined, skips = [Skips.DMT_Lower_To_Upper_Hoverboots]),
+                new Conditional(locations = undefined, requirements = [Skips.DMC_Hammer_EquipSwap.requirements], age = undefined, needsAll = false, access = undefined, collected = undefined, skips = [Skips.DMC_Hammer_EquipSwap])
               ]
             }
             },
@@ -2999,6 +3000,7 @@ Things I don't plan on adding but might:
                   location: Locations.Interior,
                   default: "Temple of Time Entrance"
             },
+            // Anchor Point for conditionals
             "Death Mountain Crater Upper Exit":{
                   requirements: "",
                   location: Locations.DMC,
@@ -3007,8 +3009,8 @@ Things I don't plan on adding but might:
                                                                   "Death Mountain Crater Bridge Exit",
                                                                   "Death Mountain Crater Upper Exit",
                                                                   "DMC Upper Grotto Entry"]),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, collected = undefined, skip = undefined, access = "Death Mountain Crater Outside Temple"),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsAll = true, collected = undefined, skip = undefined, access = "Death Mountain Crater Outside Temple")
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, access = "Death Mountain Crater Outside Temple"),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsAll = true, access = "Death Mountain Crater Outside Temple")
                   ],
                   default: "Death Mountain Trail Top Exit"
             },
@@ -3188,16 +3190,18 @@ Things I don't plan on adding but might:
             ],
             default: "Kokiri Forest Upper Exit"
             },
+            // Anchor Point for conditionals
             "Death Mountain Crater Bridge Exit": {
                   requirements: "",
                   location: Locations.DMC,
                   conditional: [    new Conditional(locations = [  "DMC Hammer Grotto Entry", 
                                                                   "DMC Great Fairy Entry", 
                                                                   "Death Mountain Crater Bridge Exit"]),
-                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Access], age = Ages.Child, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Upper Exit"),
-                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Adult_Access], age = Ages.Adult, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Upper Exit"),
-                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Outside Temple"),
-                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Outside Temple")
+                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Access], age = Ages.Child, needsall = true, access = "Death Mountain Crater Upper Exit"),
+                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Adult_Access], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Upper Exit"),
+                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsall = true, access = "Death Mountain Crater Outside Temple"),
+                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsall = true, access = "Death Mountain Crater Outside Temple"),
+                                    new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Child_Access, Requirements.Beans], age = Ages.Child, needsall = true, access = "Death Mountain Crater Outside Temple")
                   ],
                   default: "Goron City Darunia's Room Backdoor"
             },
@@ -3702,7 +3706,7 @@ Things I don't plan on adding but might:
             {  requirements  : "",
                 location      : Locations.LH,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.BronzeScale], age = undefined, needsAll = true),
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale], age = undefined, needsAll = true, collected = ["Morpha"] ),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale], age = undefined, needsAll = true, access = undefined, collected = ["Morpha"] ),
                               new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Shield, Requirements.Explosive], age = undefined, needsAll = true)
             ],
             default: "Zora's Domain Underwater Shortcut",
@@ -3944,7 +3948,7 @@ Things I don't plan on adding but might:
                 location      : Locations.LH,
                   conditional: [new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.BronzeScale], age = undefined, needsAll = true),
                               new Conditional(locations = ["LH Fishing Pond Entry"]),
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale], age = undefined, needsAll = true, collected = ["Morpha"]),
+                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.BronzeScale], age = undefined, needsAll = true, access = undefined, collected = ["Morpha"]),
                               new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Instrument], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Bean_Planted, Requirements.Adult_Access], age = undefined, needsAll = true),
                               new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult], age = undefined, needsAll = true)
@@ -4348,13 +4352,14 @@ Things I don't plan on adding but might:
                   default: "OGC Great Fairy Fountain",
                   conditional: ""
             },
+            // Anchor Point for Conditionals
             "Death Mountain Crater Outside Temple": 
             {  requirements  : "",
                 location      : Locations.DMC,
                   conditional: [    new Conditional(locations = [ 
                                                                   "Death Mountain Crater Outside Temple"]),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Bridge Exit"),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central, Requirements.Child_Access], age = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Bridge Exit")
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, access = "Death Mountain Crater Bridge Exit"),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central, Requirements.Child_Access], age = Ages.Child, needsAll = true, access = "Death Mountain Crater Bridge Exit")
                   ],
                   default: "Fire Temple Entrance"
             },
@@ -4949,7 +4954,7 @@ Things I don't plan on adding but might:
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, access = "Gerudo Valley East Exit"),
           new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Explosive], ages = Ages.Child, needsAll = true),
           // TODO: Record jumpslash recoil from Silver Rock
           // TODO: Implement this for Waterfall POH and other lower Child checks
@@ -4963,7 +4968,7 @@ Things I don't plan on adding but might:
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, access = "Gerudo Valley East Exit"),
           new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
@@ -4971,7 +4976,7 @@ Things I don't plan on adding but might:
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, access = "Gerudo Valley East Exit"),
           new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
@@ -4979,7 +4984,7 @@ Things I don't plan on adding but might:
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, access = "Gerudo Valley East Exit"),
           new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
@@ -4987,7 +4992,7 @@ Things I don't plan on adding but might:
         requirements  : [Requirements.Child_Access],
         location      : Locations.GV,
         conditional   : [
-          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Gerudo Valley East Exit"),
+          new Conditional(locations = ["Gerudo Valley East Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, access = "Gerudo Valley East Exit"),
           new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Bomb_Hovering_Child], ages = Ages.Child, needsAll = true)
         ]
       },
@@ -5463,15 +5468,19 @@ Things I don't plan on adding but might:
       // TODO: Silver on top of this
         "GC Maze Crate":
       {
-        requirements  : [Requirements.Explosive_Or_Hammer],
-        location      : Locations.GC
+        requirements  : "",
+        location      : Locations.GC,
+        conditional   : [
+          new Conditional(locations = undefined, requirements = [Requirements.Explosive_Or_Hammer]),
+          new Conditional(locations = ["Goron City Upper Exit"], requirements = [Requirements.Strength2, Requirements.Adult_Access], ages = Ages.Adult, needsAll = true, access = "Goron City Upper Exit")
+        ]
       },
         "DMC Crate":
       {
         requirements  : [Requirements.Child_Access],
         location      : Locations.DMC,
         conditional   : [
-          new Conditional(locations = ["Death Mountain Crater Upper Exit"])
+          new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Child_Access], ages = Ages.Child, needsAll = true, )
         ]
       },
         "LLR Near Tree Crate":
