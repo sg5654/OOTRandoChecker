@@ -35,13 +35,36 @@
 
   <button id="startButton" onclick=tempTriggerLoop()>Solve seed</button>
 
+  <br>
+  <br>
   <!-- TODO: Remove or beautify this -->
-  <pre id="output">This program is possible outdated and is not entirely reliable. There are also still plenty of logic checks missing.</pre>
+  <pre>
+This program is possibly outdated and is not entirely reliable. There are also still plenty of logic checks missing. 
+Estimated amount of tricks and logic implemented is about 92%</pre>
 
+<br>
   <!-- Shitty Dev solution so I don't have to keep commenting this out -->
   <input type="checkbox" id="devModeCB" name="Enable Dev Mode" onChange="ToggleDevButtons()">Dev mode<br><br>
   <button onclick=tempTrigger()  class="Devmode" hidden>next phase</button><br><br>
   <button id="testingButton" onclick=unitTestingLoop() class="Devmode" hidden>Run test cases</button>
+
+    <pre>Currently the following list of (non-exhaustive) features are not yet implemented:
+
+    - Boss Key Skips
+    - Child Weirslide/Weirdshot
+    - Child Hookshot
+    - Adult Slingshot
+    - Child Bow
+    - Bunny Hood extended jump
+    - Unloaded Actors from filling Heap stack (Not reliably replicatable on SOH)
+    - Other miscellaneous niche tricks
+
+Things I don't plan on adding but might:
+
+    - Wrong Warps
+    - SRM
+    - RBA
+  </pre>
 
   <script>
 
