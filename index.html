@@ -700,7 +700,7 @@ Things I don't plan on adding but might:
       Instrument: {explanation: "Requires being able to play an instrument", unlocked_if: ["Bugs", "Ocarina", "Bomb_OI"]},
       Bugs: {     explanation: "Requires having a bottle of bugs", related: ["items", "bottleables"], bottleables: ["Bugs"], 
                   items: ["Bottle with Blue Potion", "Bottle with Blue Fire", "Empty Bottle", "Bottle with Bugs", "Bottle with Poe", "Bottle with Fish"]},
-      Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
+      Bomb_Hovering: {explanation: "Requires being able to bomb hover", unlocked_if_all: ["Bomb_Hovering_Child", "Bomb_Hovering_Adult"]},
       Bomb_Hovering_Child: {explanation: "Requires being able to bomb hover as child", unlocked_if_all: ["Bombs", "Child_Access", "Child_Shield", "Child_Melee"]},
       Bomb_Hovering_Adult: {explanation: "Requires being able to bomb hover as adult", unlocked_if_all: ["Bombs", "Adult_Access", "Adult_Shield", "Adult_Melee"]},
       Bombchu_Hovering: {explanation: "Requires being able to bombchu hover", unlocked_if: ["Bombchu_Hovering_Child", "Bombchu_Hovering_Adult"]},
@@ -1621,6 +1621,7 @@ Things I don't plan on adding but might:
       ],
       // TODO: Fact check this
       // SOH doesn't support child weirdslide
+      // .... or does it? dundundun
       Hammer_Or_Weirdslide: [       [Requirements.Hammer],
                                     [Requirements.Explosive, Requirements.Adult_Shield, Requirements.FP_Item]
       ],
@@ -2078,6 +2079,15 @@ Things I don't plan on adding but might:
         [Requirements.Boomerang],
         [Requirements.Bomb_Hovering],
         [Requirements.Explosive, Requirements.Hover_boots]
+      ],
+      Water_Temple_Main_Level_2_Pots: [
+        [Requirements.Boomerang],
+        [Requirements.IronBoots, Requirements.Bow, Requirements.Adult_Access],
+        [Requirements.Slingshot, Requirements.Child_Access, Requirements.Scale],
+        [Requirements.Scale, Requirements.Bow, Requirements.Adult_Access],
+        [Requirements.IronBoots, Requirements.Hookshot, Requirements.Adult_Access],
+        [Requirements.Scale, Requirements.Bow, Requirements.Adult_Access],
+        [Requirements.BronzeScale, Requirements.Instrument, Requirements.Zeldas_Lullaby, Requirements.Adult_Access],
       ]
                   
       // Dodongos_Back: [  [     Requirements.Bombchu],
@@ -2698,15 +2708,18 @@ Things I don't plan on adding but might:
               location: Locations.BlueWarp,
               default: "Twinrova Blue Warp"
             },
+
+            // Start of actual locations
             "DMC Great Fairy Entry": 
             {
                   requirements: [MultiplePossibleRequirements.DMC_Great_Fairy_Fountain],
                   location: Locations.DMC,
                   conditional: [    new Conditional(locations = [  "DMC Hammer Grotto Entry",
                                                                   "DMC Great Fairy Entry",
-                                                                  "Death Mountain Crater Bridge Exit"]),
-                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
-                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
+                                                                  "Death Mountain Crater Bridge Exit"])
+                                    //,
+                                    //new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
+                                    //new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
                   ],
                   default: "DMC Great Fairy Fountain",
                   vanilla: {
@@ -2780,9 +2793,10 @@ Things I don't plan on adding but might:
                   location: Locations.DMC,
                   conditional: [    new Conditional(locations = [  "DMC Hammer Grotto Entry",
                                                                   "DMC Great Fairy Entry",
-                                                                  "Death Mountain Crater Bridge Exit"]),
-                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
-                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
+                                                                  "Death Mountain Crater Bridge Exit"])
+                                                                  ,
+                                    //new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
+                                    //new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
                   ],
                   default: "DMC Deku Scrub Grotto",
             },
@@ -2993,7 +3007,8 @@ Things I don't plan on adding but might:
                                                                   "Death Mountain Crater Bridge Exit",
                                                                   "Death Mountain Crater Upper Exit",
                                                                   "DMC Upper Grotto Entry"]),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, collected = undefined, skip = undefined, access = "Death Mountain Crater Outside Temple"),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsAll = true, collected = undefined, skip = undefined, access = "Death Mountain Crater Outside Temple")
                   ],
                   default: "Death Mountain Trail Top Exit"
             },
@@ -3125,8 +3140,8 @@ Things I don't plan on adding but might:
                         new Conditional(locations = ["Gerudo Valley East Exit"]),
                         new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Hookshot, Requirements.Bomb_Hovering_Adult, Requirements.Eponas_Song]),
-                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child]),
                         new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Hover_boots, Requirements.Explosive], age = undefined, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child]),
                         new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult])
                   ],
                   default: "Hyrule Field Rocky Path"
@@ -3179,8 +3194,10 @@ Things I don't plan on adding but might:
                   conditional: [    new Conditional(locations = [  "DMC Hammer Grotto Entry", 
                                                                   "DMC Great Fairy Entry", 
                                                                   "Death Mountain Crater Bridge Exit"]),
-                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [MultiplePossibleRequirements.DMC_Upper_To_Lower], age = undefined, needsall = true),
-                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower], age = undefined, needsall = true)
+                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Explosive, Requirements.Child_Shield, Requirements.Child_Access], age = Ages.Child, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Upper Exit"),
+                                    new Conditional(locations = ["Death Mountain Crater Upper Exit"], requirements = [Requirements.Adult_Access], age = Ages.Adult, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Upper Exit"),
+                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Outside Temple"),
+                                    new Conditional(locations = ["Death Mountain Crater Outside Temple"], requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsall = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Outside Temple")
                   ],
                   default: "Goron City Darunia's Room Backdoor"
             },
@@ -3604,9 +3621,14 @@ Things I don't plan on adding but might:
             {  requirements  : "",
                 location      : Locations.GV,
                   default: "Lake Hylia North Exit",
-                  conditional: [new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
-                              new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive, Requirements.Adult_Shield], age = undefined, needsAll = true),
-                                    new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield], age = undefined, needsAll = true)
+                  conditional: [  new Conditional(locations = ["Gerudo Valley West Exit"], requirements = [Requirements.Child_Access], age = undefined, needsAll = true),
+                                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive, Requirements.Adult_Shield], age = undefined, needsAll = true),
+                                new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield], age = undefined, needsAll = true),
+                                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Explosive, Requirements.Hover_boots], age = undefined, needsAll = true),
+                                new Conditional(locations = undefined, requirements = [Requirements.Adult_Access, Requirements.Adult_Melee, Requirements.Hover_boots], age = undefined, needsAll = true),
+                                new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Melee], age = undefined, needsAll = true),
+                                new Conditional(locations = ["GV Silver Rock Grotto Entry"], requirements = [Requirements.Adult_Access, Requirements.Adult_Melee], age = undefined, needsAll = true),
+                                new Conditional(locations = undefined, requirements = [Requirements.BronzeScale])
                   ]
             },
             "Castle Grounds South Exit":
@@ -4119,8 +4141,10 @@ Things I don't plan on adding but might:
                                                                   "DMC Great Fairy Entry", 
                                                                   "Death Mountain Crater Bridge Exit",
                                                                   "Death Mountain Crater Upper Exit",
-                                                                  "DMC Upper Grotto Entry"]),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower])
+                                                                  "DMC Upper Grotto Entry"])
+                                    //,
+                                    //new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, collected = undefined, skip = undefined, access = "Death Mountain Crater Outside Temple"),
+                                    //new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Central_To_Lower, Requirements.Child_Access], age = Ages.Child, needsAll = true, collected = undefined, skip = undefined, access = "Death Mountain Crater Outside Temple")
                   ],
                   default: "DMC Upper Grotto"
             },
@@ -4329,7 +4353,8 @@ Things I don't plan on adding but might:
                 location      : Locations.DMC,
                   conditional: [    new Conditional(locations = [ 
                                                                   "Death Mountain Crater Outside Temple"]),
-                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central])
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central, Requirements.Adult_Access], age = Ages.Adult, needsAll = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Bridge Exit"),
+                                    new Conditional(locations = undefined, requirements = [MultiplePossibleRequirements.DMC_Lower_To_Central, Requirements.Child_Access], age = Ages.Child, needsAll = true, collected = undefined, skips = undefined, access = "Death Mountain Crater Bridge Exit")
                   ],
                   default: "Fire Temple Entrance"
             },
@@ -4354,7 +4379,11 @@ Things I don't plan on adding but might:
                   default: "Zora's River Waterfall Exit",
                   conditional: [
                     new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = ["ZD Island Grotto Entry"], requirements = [Requirements.BronzeScale, Requirements.Child_Access], age = Ages.Child, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access], ages = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access], ages = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bombchu_Hovering_Adult, Requirements.Adult_Access], ages = undefined, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bombchu_Hovering_Child, Requirements.Child_Access], ages = undefined, needsAll = true),
                     new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
                   ]
             },
@@ -4503,7 +4532,9 @@ Things I don't plan on adding but might:
                   default: "Zora Shop",
                   conditional: [
                     new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"]),
-                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = ["ZD Island Grotto Entry"], requirements = [Requirements.BronzeScale, Requirements.Child_Access], age = Ages.Child, needsAll = true),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access]),
                     new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
                   ]
             },
@@ -4513,7 +4544,8 @@ Things I don't plan on adding but might:
                   default: "ZD Fairy Grotto",
                   conditional: [
                     new Conditional(locations = ["Zora's Domain Entrance", "ZD Shop Entry", "Zora's Domain Underwater Shortcut"], requirements = [Requirements.BronzeScale], age = undefined, needsAll = true),
-                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access]),
+                    new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access]),
                     new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Explosive, Requirements.Child_Shield])
                   ]
             },
@@ -4721,7 +4753,10 @@ Things I don't plan on adding but might:
                         new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Stick, Requirements.BronzeScale], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Child_Access, Requirements.Child_Shield, Requirements.Bombchu, Requirements.BronzeScale], age = undefined, needsAll = true),
                         new Conditional(locations = undefined, requirements = [Requirements.Adult_Access], age = undefined, needsAll = true),
-                        new Conditional(locations = undefined, requirements = [Requirements.Rutos_Letter, Requirements.Child_Access], age = undefined, needsAll = true)
+                        new Conditional(locations = undefined, requirements = [Requirements.Rutos_Letter, Requirements.Child_Access], age = undefined, needsAll = true),
+                        new Conditional(locations = ["ZD Island Grotto Entry"], requirements = [Requirements.BronzeScale, Requirements.Child_Access, Requirements.Rutos_Letter], age = Ages.Child, needsAll = true),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access]),
+                        new Conditional(locations = undefined, requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access])
             ]
             },
             "Guard House":
@@ -4962,7 +4997,8 @@ Things I don't plan on adding but might:
         location      : Locations.GF,
         conditional   : [
           new Conditional(locations = ["Gerudo Fortress East Exit"], requirements = [Requirements.Hookshot], age = Ages.Adult, needsAll = true),
-          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements = [Requirements.Bomb_Hovering], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements = [Requirements.Bomb_Hovering_Adult, Requirements.Adult_Access], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Gerudo Fortress East Exit"], requirements = [Requirements.Bomb_Hovering_Child, Requirements.Child_Access], ages = undefined, needsAll = true),
           new Conditional(locations = ["GF Above Jail"])
         ]
       },
@@ -9370,164 +9406,167 @@ Things I don't plan on adding but might:
       },
       // TODO: Add conditional for bottom exit without bombs
         "ZR Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.ZR,
         conditional     : [
           new Conditional(locations = ["ZR Raised Open Grotto Entry"]),
           new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.Explosive_Or_Hammer], ages = undefined, needsAll = true),
-          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true)
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Kokiri_Sword, Requirements.Child_Access], ages = undefined, needsAll = true)
         ]
       },
         "ZR Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.ZR,
         conditional     : [
           new Conditional(locations = ["ZR Raised Open Grotto Entry"]),
           new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.Explosive_Or_Hammer], ages = undefined, needsAll = true),
-          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true)
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Kokiri_Sword, Requirements.Child_Access], ages = undefined, needsAll = true)
         ]
       },
         "ZR Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.ZR,
         conditional     : [
           new Conditional(locations = ["ZR Raised Open Grotto Entry"]),
           new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.Explosive_Or_Hammer], ages = undefined, needsAll = true),
-          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true)
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Stick, Requirements.Child_Access], ages = undefined, needsAll = true),
+          new Conditional(locations = ["Zora's River Lower Exit"], requirements = [Requirements.BronzeScale, Requirements.Kokiri_Sword, Requirements.Child_Access], ages = undefined, needsAll = true)
         ]
       },
         "KF Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.KF,
         conditional     : [
           new Conditional(locations = ["Kokiri Forest Lower Exit"])
         ]
       },
         "KF Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.KF,
         conditional     : [
           new Conditional(locations = ["Kokiri Forest Lower Exit"])
         ]
       },
         "KF Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.KF,
         conditional     : [
           new Conditional(locations = ["Kokiri Forest Lower Exit"])
         ]
       },
         "LW Bean Sprout Near Bridge Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Bridge Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Bridge Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Theatre Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Theatre Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
         "LW Bean Sprout Near Theatre Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LW,
               conditional: [new Conditional(locations = ["Lost Woods South Exit"])]
       },
       // TODO: Add conditional for fishing pond exit
         "LH Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LH
       },
         "LH Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LH
       },
         "LH Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.LH
       },
       // TODO: Add behaviour for ledge exit
         "GV Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.GV
       },
         "GV Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.GV
       },
         "GV Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.GV
       },
         "Colossus Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.DC
       },
         "Colossus Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.DC
       },
         "Colossus Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.DC
       },
         "Graveyard Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.GY
       },
         "Graveyard Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.GY
       },
         "Graveyard Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.GY
       },
         "DMC Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.DMC,
         conditional     : [
             new Conditional(locations = ["Death Mountain Crater Outside Temple"])
         ]
       },
         "DMC Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.DMC,
         conditional     : [
             new Conditional(locations = ["Death Mountain Crater Outside Temple"])
         ]
       },
         "DMC Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Child_Access],
         location        : Locations.DMC,
         conditional     : [
             new Conditional(locations = ["Death Mountain Crater Outside Temple"])
         ]
       },
         "DMT Bean Sprout Fairy 1": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Explosive_Or_Strength],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Explosive_Or_Strength, Requirements.Child_Access],
         location        : Locations.DMT
       },
         "DMT Bean Sprout Fairy 2": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Explosive_Or_Strength],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Explosive_Or_Strength, Requirements.Child_Access],
         location        : Locations.DMT
       },
         "DMT Bean Sprout Fairy 3": {
-        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Explosive_Or_Strength],
+        requirements    : [Requirements.BeanSprout, Requirements.Instrument, Requirements.Explosive_Or_Strength, Requirements.Child_Access],
         location        : Locations.DMT
       },
         "Market ToT Left Gossip Stone Fairy": {
@@ -11792,16 +11831,18 @@ Things I don't plan on adding but might:
             location: Locations.Water
         },
         "Water Temple Main Level 2 Pot 1": {
-            requirements: [Requirements.Water_small_keys2, Requirements.Hookshot, Requirements.BronzeScale, Requirements.Song_Of_Time, Requirements.Instrument, Requirements.Adult_Access],
+            requirements: [MultiplePossibleRequirements.Water_Temple_Main_Level_2_Pots],
             location: Locations.Water,
             conditional : [
               new Conditional(locations = ["Water Temple Boss Door"]),
               new Conditional(locations = undefined, requirements = [Requirements.BronzeScale, Requirements.Longshot, Requirements.Adult_Access], age = undefined, needsAll = true),
-              new Conditional(locations = undefined, requirements = [Requirements.BronzeScale, Requirements.Bomb_Hovering])
+              new Conditional(locations = undefined, requirements = [Requirements.BronzeScale, Requirements.Bomb_Hovering]),
+              new Conditional(locations = undefined, requirements = [Requirements.Bombchu_Hovering_Adult]),
+              new Conditional(locations = undefined, requirements = [Requirements.Bombchu_Hovering_Child])
             ]
         },
         "Water Temple Main Level 2 Pot 2": {
-            requirements: [Requirements.Water_small_keys2, Requirements.Hookshot, Requirements.BronzeScale, Requirements.Song_Of_Time, Requirements.Instrument, Requirements.Adult_Access],
+            requirements: [MultiplePossibleRequirements.Water_Temple_Main_Level_2_Pots],
             location: Locations.Water,
             conditional : [
               new Conditional(locations = ["Water Temple Boss Door"]),
@@ -16525,6 +16566,7 @@ Things I don't plan on adding but might:
             var enteredList = [];
             var accessibleList = [];
             var accessCheck = true;
+            var locationCheck = true;
             if (inventory.ages.includes("Adult")) {
                   enteredList.push(inventory.entered_adult);
                   accessibleList.push(inventory.accessible_adult);
@@ -16534,6 +16576,10 @@ Things I don't plan on adding but might:
                   accessibleList.push(inventory.accessible_child);
             }
 
+            if (file.testMode) {
+              console.log(enteredList);
+              console.log(accessibleList);
+            }
             debuglastArea = "Check every listindex in entered areas";
             // Check every listindex in entered areas
             debugValues.enteredList = enteredList;
@@ -16578,14 +16624,14 @@ Things I don't plan on adding but might:
                               if (type[key].requirements) {
                                     type[key].requirements.forEach(element => {
                                           // single req
-                                          if (key == debugKey) {
+                                          if (file.testMode) {
                                             console.log("!!!");
                                             console.log("Entering debug key")
                                           }
                                           // console.log(type[key]);
                                           // console.log(key);
                                           if (element.explanation) {
-                                              if (key == debugKey) {
+                                              if (file.testMode) {
                                               console.log("Single Req");
                                               console.log(element);
                                             }
@@ -16618,7 +16664,7 @@ Things I don't plan on adding but might:
                                                       if (!multCheck && reqCheck) {
                                                             multCheck = true;
                                                             requirementList.forEach(requirement => {
-                                                              if (key == debugKey) {
+                                                              if (file.testMode) {
                                                                       console.log("multi check")
                                                                       console.log(requirement);
                                                                     }
@@ -16650,7 +16696,7 @@ Things I don't plan on adding but might:
                                     })
                               }
                               if (type[key].conditional) {
-                                if (key == debugKey) {
+                                if (file.testMode) {
                                   console.log("Checking conditional:");
                                   console.log(type[key].conditional);
                                 }
@@ -16665,41 +16711,43 @@ Things I don't plan on adding but might:
                                     
                                       accessCheck = true;
                                       collectCheck = true;
+                                      locationCheck = true;
                                           //console.log(condition);
                                           //console.log(condCheck);
                                           if (!condCheck) {
-                                            if (key == debugKey) {
+                                            if (file.testMode) {
                                                 console.log("entering this condition:");
                                                 console.log(condition);
                                               }
                                                 needsAllCheck = true;
-                                                if (key == debugKey) {
+                                                if (file.testMode) {
                                                   console.log("Needs all?");
                                                   console.log(condition.needsAll);
                                                 }
                                                 if (condition.needsAll) {
-                                                      needsAllCheck = true;
+                                                      // needsAllCheck = true;
                                                       if (condition.locations) {
                                                             //console.log(condition.locations);
                                                             condition.locations.forEach(entrance => {
                                                                   if (accessibleList[listIndex].includes(entrance)) {
-                                                                        condCheck = true;
+                                                                        //condCheck = true;
                                                                   }
                                                                   else {
                                                                         needsAllCheck = false;
-                                                                        condCheck = false;
+                                                                        locationCheck = false;
+                                                                        //condCheck = false;
                                                             }
                                                             });
                                                             //console.log(condCheck);
                                                       }
-                                                      if (key == debugKey) {
+                                                      if (file.testMode) {
                                                           console.log("State after Location Req");
                                                           console.log(needsAllCheck);
                                                         }
                                                       if (condition.requirements) {
                                                             
                                                             condition.requirements.forEach(element => {
-                                                              if (key == debugKey) {
+                                                              if (file.testMode) {
                                                               console.log("Checking requirements:");
                                                               console.log(element);
                                                             }
@@ -16708,35 +16756,41 @@ Things I don't plan on adding but might:
                                                                     if (inventory.requirements.includes(element)) {
                                                                           if (element == Requirements.Adult_Access) {
                                                                                 if (inventory.entered_adult.includes(type[key]["location"].name)) {
-                                                                                      condCheck = true;
+                                                                                      //condCheck = true;
                                                                                 }
-                                                                                if (key == debugKey) {
+                                                                                else {
+                                                                                  needsAllCheck = false;
+                                                                                }
+                                                                                if (file.testMode) {
                                                                                         console.log("Adult Access was checked: ");
-                                                                                        console.log(condCheck);
+                                                                                        console.log(needsAllCheck);
                                                                                       }
                                                                           }
                                                                           else if (element == Requirements.Child_Access) {
                                                                                 if (inventory.entered_child.includes(type[key]["location"].name)) {
-                                                                                      condCheck = true;
+                                                                                      //condCheck = true;
                                                                                 }
-                                                                                if (key == debugKey) {
+                                                                                else {
+                                                                                  needsAllCheck = false;
+                                                                                }
+                                                                                if (file.testMode) {
                                                                                         console.log("Child Access was checked: ");
-                                                                                        console.log(condCheck);
+                                                                                        console.log(needsAllCheck);
                                                                                       }
                                                                           }
                                                                           else {
-                                                                                condCheck = true;
+                                                                                //condCheck = true;
                                                                           }
                                                                     }
                                                                     else {
                                                                           needsAllCheck = false;
-                                                                          condCheck = false;
-                                                                          if (key == debugKey) {
+                                                                          //condCheck = false;
+                                                                          if (file.testMode) {
                                                                             console.log("Requirement not found:");
                                                                             console.log(element);
                                                                           }
                                                                     }
-                                                                    if (key == debugKey) {
+                                                                    if (file.testMode) {
                                                                       console.log("State after Single Req");
                                                                       console.log(needsAllCheck);
                                                                     }
@@ -16744,8 +16798,9 @@ Things I don't plan on adding but might:
                                                               // mult req
                                                               else {
                                                                     //console.log("multReq");
+                                                                    innerMultCheck = false;
                                                                     element.forEach(requirementList => {
-                                                                      if (key == debugKey) {
+                                                                      if (file.testMode) {
                                                                         console.log("Checking Multi Req:");
                                                                         console.log(requirementList);
                                                                         console.log(innerMultCheck);
@@ -16754,7 +16809,7 @@ Things I don't plan on adding but might:
                                                                             innerMultCheck = true;
                                                                                 requirementList.forEach(requirement => {
                                                                                       // console.log(requirement);
-                                                                                      if (key == debugKey) {
+                                                                                      if (file.testMode) {
                                                                                         console.log("Current requirement:");
                                                                                         console.log(requirement);
                                                                                       }
@@ -16769,7 +16824,7 @@ Things I don't plan on adding but might:
                                                                                                         innerMultCheck = false;
                                                                                                   }
                                                                                             }
-                                                                                            if (key == debugKey) {
+                                                                                            if (file.testMode) {
                                                                                               console.log("Passed age check?:");
                                                                                               console.log(innerMultCheck);
                                                                                             }
@@ -16780,14 +16835,17 @@ Things I don't plan on adding but might:
                                                                                       }
                                                                                 })
                                                                           }
-                                                                        if (key == debugKey) {
-                                                                          console.log("State after multireq");
-                                                                          console.log(innerMultCheck);
-                                                                        }
+                                                                        // if (file.testMode) {
+                                                                        //   console.log("State after multireq");
+                                                                        //   console.log(innerMultCheck);
+                                                                        // }
                                                                     })
-                                                                    condCheck = innerMultCheck;
-                                                                    needsAllCheck = innerMultCheck;
-                                                                    if (key == debugKey) {
+                                                                    //condCheck = innerMultCheck;
+                                                                    if (!innerMultCheck) {
+                                                                      needsAllCheck = false;
+                                                                    }
+                                                                    
+                                                                    if (file.testMode) {
                                                                       console.log("State after Mult Req");
                                                                       console.log(needsAllCheck);
                                                                     }
@@ -16796,26 +16854,26 @@ Things I don't plan on adding but might:
                                                             
                                                             //console.log(condCheck);
                                                       })};
-                                                      if (key == debugKey) {
+                                                      if (file.testMode) {
                                                         console.log("Does condition have collection check?");
                                                         console.log(condition.collected ? true : false);
                                                       }
                                                       if (condition.collected) {
                                                             condition["collected"].forEach(coll => {
-                                                                if (key == debugKey) {
+                                                                if (file.testMode) {
                                                                   console.log("Collected entered");
                                                                 }
                                                                   if (inventory.collected.includes(coll)) {
-                                                                    condCheck = true;
+                                                                    //condCheck = true;
                                                                   }
                                                                   else {
                                                                         collectCheck = false;
                                                                         needsAllCheck = false;
-                                                                        condCheck = false;
+                                                                        //condCheck = false;
                                                                   }
                                                             })
                                                       }
-                                                      if (key == debugKey) {
+                                                      if (file.testMode) {
                                                         console.log("State after Collection Check");
                                                         console.log(needsAllCheck);
                                                         console.log("Does condition have age check?");
@@ -16830,14 +16888,14 @@ Things I don't plan on adding but might:
                                                                   needsAllCheck = false;
                                                             }
                                                       }
-                                                      if (key == debugKey) {
+                                                      if (file.testMode) {
                                                         console.log("State after Ages Check");
                                                         console.log(needsAllCheck);
                                                         console.log("Does condition have access check?");
                                                         console.log(condition.access ? true : false);
                                                       }
                                                       if (condition.access) {
-                                                        if (key == debugKey) {
+                                                        if (file.testMode) {
                                                           console.log(condition.access);
                                                         }
                                                         accessCheck = false;
@@ -16845,26 +16903,26 @@ Things I don't plan on adding but might:
                                                           if (condition.age == Ages.Child) {
                                                             if (inventory.accessible_child.includes(condition.access)) {
                                                               accessCheck = true;
-                                                              condCheck = true;
+                                                              //condCheck = true;
                                                             }
                                                             else {
-                                                              condCheck = false;
+                                                              //condCheck = false;
                                                               needsAllCheck = false;
                                                             }
                                                           }
                                                           else if (condition.age == Ages.Adult) {
                                                             if (inventory.accessible_adult.includes(condition.access)) {
                                                               accessCheck = true;
-                                                              condCheck = true;
+                                                              //condCheck = true;
                                                             }
                                                             else {
-                                                              condCheck = false;
+                                                              //condCheck = false;
                                                               needsAllCheck = false;
                                                             }
                                                           }
                                                         }
                                                       }
-                                                      if (key == debugKey) {
+                                                      if (file.testMode) {
                                                         console.log("State after Access Check");
                                                         console.log(needsAllCheck);
                                                       }
@@ -16882,15 +16940,48 @@ Things I don't plan on adding but might:
                                                       // if (key == "GC Maze Center Chest") {
                                                       //       console.log(condition);
                                                       // }
+                                                      if (file.testMode) {
+                                                        console.log("NeedsAll was false, checking each condition part");
+                                                      }
                                                       if (condition.locations) {
                                                             // if (key == "GC Maze Center Chest") {
                                                             //       console.log(condition.locations);
                                                             //       console.log(enteredList[listIndex]);
                                                             //}
                                                             // console.log(condition);
+                                                            if (file.testMode) {
+                                                              console.log("Checking location....")
+
+                                                              console.log("Current Age:");
+                                                              if (accessibleList.length > 1) {
+                                                                if (listIndex == 0) {
+                                                                  console.log("Adult, index 0");
+                                                                  console.log(inventory.accessible_adult);
+                                                                }
+                                                                else {
+                                                                  console.log("Child, index 1");
+                                                                  console.log(inventory.accessible_child);
+                                                                }
+                                                              }
+                                                              else {
+                                                                if (inventory.ages.includes("Adult")) {
+                                                                  console.log("Adult, only in list");
+                                                                  console.log(inventory.accessible_adult);
+                                                                }
+                                                                else {
+                                                                  console.log("Child, only in list");
+                                                                  console.log(inventory.accessible_child);
+                                                                }
+                                                              }
+                                                              console.log(accessibleList[listIndex]);
+
+                                                              
+                                                            }
+                                                            locationCheck = false;
                                                             condition.locations.forEach(entrance => {
                                                                   if (accessibleList[listIndex].includes(entrance)) {
                                                                         condCheck = true;
+                                                                        locationCheck = true;
                                                                         // if (key == "GC Maze Center Chest") {
                                                                         //                               console.log("You got it!");
                                                                         //                         }
@@ -16899,6 +16990,12 @@ Things I don't plan on adding but might:
 
                                                             }
                                                             });
+                                                            if (file.testMode) {
+                                                              console.log("State after Individual location check:");
+                                                              console.log(locationCheck);
+
+                                                              
+                                                            }
                                                             //console.log(condCheck);
                                                       }
                                                       if (condition.requirements) {
@@ -16934,6 +17031,7 @@ Things I don't plan on adding but might:
                                                             // mult req
                                                             else {
                                                                   //console.log("multReq");
+                                                                  innerMultCheck = false;
                                                                   element.forEach(requirementList => {
                                                                         if (!innerMultCheck) {
                                                                               requirementList.forEach(requirement => {
@@ -16985,7 +17083,7 @@ Things I don't plan on adding but might:
                                                                   ageCheck = false;
                                                             }
                                                       }
-                                                      if (key == debugKey) {
+                                                      if (file.testMode) {
                                                         console.log("Does Conditional have Access Check: ");
                                                         console.log(condition.access ? true : false)
                                                       }
@@ -17016,7 +17114,7 @@ Things I don't plan on adding but might:
                               // console.log(ageCheck);
                               // console.log(collectCheck);
                               // console.log(needsAllCheck);
-                              if (key == debugKey) {
+                              if (file.testMode) {
                                     console.log("conclusion: ");
                                     console.log("\n");
                                     console.log("Requirement Check: ");
@@ -17025,6 +17123,8 @@ Things I don't plan on adding but might:
                                     console.log(multCheck);
                                     console.log("Conditional Check: ");
                                     console.log(condCheck);
+                                    console.log("Location Check: ");
+                                    console.log(locationCheck);
                                     console.log("Ages Check: ");
                                     console.log(ageCheck);
                                     console.log("Collected Check: ");
@@ -17036,6 +17136,10 @@ Things I don't plan on adding but might:
                                     
                               }
                               if (reqCheck && condCheck && ageCheck && collectCheck && accessCheck && needsAllCheck) {
+                                if (file.testMode) {
+                                  console.log('Accepted! unlocking the following item:\n');
+                                  console.log(key);
+                                }
                                 //console.log("Adding item or entrance "+ key);
                                     if (type == entrancesMap) {
                                           //console.log("adding" + key);
@@ -17349,7 +17453,11 @@ Things I don't plan on adding but might:
         // console.log("Unit Testin Loop triggered, current file:");
         // console.log(file);
         for (var cases in testCases) {
+          console.clear();
           resetEverything();
+          if (inventory.accessible_child.length > 0) {
+            console.error("RESET FUNCTION DIDNT WORK");
+          }
           
           testCaseIndex++;
           // console.log("Entering new testcase: ");
@@ -17560,6 +17668,7 @@ Things I don't plan on adding but might:
       // Resets all base variables so a refresh isn't required
       function resetEverything() {
         console.log("resetting...");
+        
         try {
           stuckCounter = 0;
           loopCounter = 0;
@@ -18425,6 +18534,14 @@ Things I don't plan on adding but might:
         //console.log("rejecting interior")
         return;
       }
+
+      if (file.testMode == true) {
+        console.log("UNLOCKING ENTRANCE");
+        console.log(entrance);
+        console.log([...inventory.accessible_child]);
+        console.log([...inventory.accessible_adult]);
+      }
+
       var accesibleList = [];
       var enteredList = [];
       if (inventory.ages.includes("Child")) {
@@ -18437,8 +18554,8 @@ Things I don't plan on adding but might:
       }
       // for (var index in enteredList) {
 
-      //console.log("UNLOCKING ENTRANCE");
-      //console.log(entrance);
+      
+      
       if (entrance.name == "Outside Ganon's Castle" && enteredList[index] == inventory.entered_child) {
           if (!enteredList[index].includes("Hyrule Castle")) {
           enteredList[index].push("Hyrule Castle");
