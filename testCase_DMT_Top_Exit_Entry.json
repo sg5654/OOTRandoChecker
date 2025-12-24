@@ -1,0 +1,231 @@
+{
+    "testMode": true,
+    "testCaseLocation": "HF Near Market Boulder Grotto",
+    "testCases": {
+        "case1": {
+            "items": [],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "accessible_adult": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "goal": false
+        },
+        "case2": {
+            "items": ["Hover Boots"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "accessible_adult": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "goal": true
+        },
+        "case3": {
+            "items": ["Hover Boots"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+
+            ],
+            "accessible_child": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "accessible_adult": [
+
+            ],
+            "goal": false
+        },
+        "case4": {
+            "items": ["Progressive Bomb Bag"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "accessible_adult": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "goal": true
+        },
+        "case5": {
+            "items": ["Megaton Hammer"],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "accessible_adult": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "goal": true
+        },
+        "case6": {
+            "items": [],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "DMT Boulder Grotto Entry"
+            ],
+            "accessible_adult": [
+                "DMT Boulder Grotto Entry"
+            ],
+            "goal": true
+        },
+        "case7": {
+            "items": [],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "HF Near Market Boulder Grotto"
+                }
+            },
+            "locations": {
+                "HF Near Market Grotto Chest": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "DMT Great Fairy Entry"
+            ],
+            "accessible_adult": [
+                "DMT Great Fairy Entry"
+            ],
+            "goal": true
+        },
+        "case8": {
+            "items": [],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "LLR Tower"
+                }
+            },
+            "locations": {
+                "LLR Freestanding PoH": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "accessible_adult": [
+                "DMT Great Fairy Entry"
+            ],
+            "goal": false
+        },
+        "case9": {
+            "items": [],
+            "entrancesMap": {
+                "sphere 00": {
+                    "Death Mountain Trail Top Exit": "LLR Tower"
+                }
+            },
+            "locations": {
+                "LLR Freestanding PoH": "WINNER!"
+            },
+            "ages": ["Child", "Adult"],
+            "entered_child": [
+                "Death Mountain Trail"
+            ],
+            "entered_adult": [
+                "Death Mountain Trail"
+            ],
+            "accessible_child": [
+                "DMT Great Fairy Entry"
+            ],
+            "accessible_adult": [
+                "Death Mountain Trail Bottom Exit"
+            ],
+            "goal": true
+        }
+    }
+}

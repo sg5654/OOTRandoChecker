@@ -2760,15 +2760,19 @@ Things I don't plan on adding but might:
                     ]
                   }
             },
+
+            // Unit Tested
+            // Anchor Point for DMT
             "Death Mountain Trail Top Exit": 
             {
                   requirements: "",
                   location: Locations.DMT,
-                  conditional: [new Conditional(locations = [     "Death Mountain Trail Top Exit",
+                  conditional: [new Conditional(locations = [     
                                                                   "DMT Boulder Grotto Entry",
                                                                   "DMT Great Fairy Entry",
                   ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])
+                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Adult_Access], age = Ages.Adult, needsAll = true),
+                  new Conditional(locations = undefined, requirements = [Requirements.Explosive_Or_Hammer])
             ],
             default: "Death Mountain Crater Upper Exit",
             vanilla: {
@@ -4193,21 +4197,19 @@ Things I don't plan on adding but might:
             "DMT Boulder Grotto Entry": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.DMT,
-                  conditional: [new Conditional(locations = [     "Death Mountain Trail Top Exit",
-                                                                  "DMT Cow Grotto Entry",
-                                                                  "DMT Great Fairy Entry"
-                  ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                  conditional: [
+                    new Conditional(locations = [     "Death Mountain Trail Top Exit"
+                  ])
+            ],
                   default: "DMT Cow Grotto"
             },
             "DMT Great Fairy Entry": 
             {  requirements  : [ Requirements.Explosive_Or_Hammer],
                 location      : Locations.DMT,
-                conditional: [new Conditional(locations = [     "Death Mountain Trail Top Exit",
-                                                                  "DMT Cow Grotto Entry",
-                                                                  "DMT Great Fairy Entry"
-                  ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                conditional: [
+                  new Conditional(locations = [     "Death Mountain Trail Top Exit"
+                  ])
+            ],
                   default: "DMT Great Fairy Fountain"
             },
             "Gerudo Fortress Gate Exit": 
@@ -4435,11 +4437,10 @@ Things I don't plan on adding but might:
             "DMT Owl Flight": 
             {  requirements  : [Requirements.Child_Access],
                 location      : Locations.DMT,
-                conditional: [new Conditional(locations = [     "Death Mountain Trail Top Exit",
-                                                                  "DMT Cow Grotto Entry",
-                                                                  "DMT Great Fairy Entry"
-                  ]),
-                  new Conditional(locations = undefined, requirements = [Requirements.Hover_boots, Requirements.Explosive_Or_Hammer])],
+                conditional: [
+                  new Conditional(locations = [     "Death Mountain Trail Top Exit"
+                  ])
+            ],
                   default: "Kak Impa's House Back Entry"
             },
             "Colossus Great Fairy Entry": 
@@ -16565,6 +16566,7 @@ Things I don't plan on adding but might:
         //console.log("Entering ExploreArea");
         try {
         DebugLastArea = "ExploreArea Setup";
+            var currentAge = "Child";
             var reqCheck = true;
             var multCheck = true;
             var condCheck = true;
@@ -16593,6 +16595,22 @@ Things I don't plan on adding but might:
             // Check every listindex in entered areas
             debugValues.enteredList = enteredList;
             for (var listIndex in enteredList) {
+              if (enteredList.length > 1) {
+                if (listIndex == 0) {
+                  currentAge = Ages.Child;
+                }
+                else {
+                  currentAge = Ages.Adult
+                }
+              }
+              else {
+                if (inventory.ages.includes("Child")) {
+                  currentAge = Ages.Child;
+                }
+                else {
+                  currentAge =Ages.Adult;
+                }
+              }
                   // console.log("explore area stuff");
                   // console.log(enteredList);
                   // console.log(listIndex);
@@ -16646,17 +16664,23 @@ Things I don't plan on adding but might:
                                             }
                                                 if (inventory.requirements.includes(element)) {
                                                       if (element == Requirements.Adult_Access) {
-                                                            if (!inventory.entered_adult.includes(type[key]["location"].name)) {
-                                                                  reqCheck = false;
+                                                          if (currentAge == Ages.Child) {
+                                                            // Reject
+                                                          }
+                                                           else if (!inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                              reqCheck = false;
                                                             }
                                                       }
                                                       else if (element == Requirements.Child_Access) {
                                                         // if (key == "MK Guard House Child Pot 26") {
                                                         //   console.log(type[key]["location"].name);
                                                         // }
-                                                            if (!inventory.entered_child.includes(type[key]["location"].name)) {
-                                                                  reqCheck = false;
-                                                            }
+                                                        if (currentAge == Ages.Adult) {
+                                                          //Reject
+                                                        }
+                                                        else if (!inventory.entered_child.includes(type[key]["location"].name)) {
+                                                          reqCheck = false;
+                                                        }
                                                       }
                                                 }
                                                 else {
@@ -16679,12 +16703,12 @@ Things I don't plan on adding but might:
                                                                     }
                                                                   if (inventory.requirements.includes(requirement)) {
                                                                     
-                                                                        if (requirement == Requirements.Adult_Access) {
+                                                                        if (requirement == Requirements.Adult_Access && currentAge == Ages.Adult) {
                                                                               if (!inventory.entered_adult.includes(type[key]["location"].name)) {
                                                                                     multCheck = false;
                                                                               }
                                                                         }
-                                                                        else if (requirement == Requirements.Child_Access) {
+                                                                        else if (requirement == Requirements.Child_Access && currentAge == Ages.Child) {
                                                                               if (!inventory.entered_child.includes(type[key]["location"].name)) {
                                                                                     multCheck = false;
                                                                               }
@@ -16763,7 +16787,7 @@ Things I don't plan on adding but might:
                                                               if (element.explanation) {
                                                                 
                                                                     if (inventory.requirements.includes(element)) {
-                                                                          if (element == Requirements.Adult_Access) {
+                                                                          if (element == Requirements.Adult_Access && currentAge == Ages.Adult) {
                                                                                 if (inventory.entered_adult.includes(type[key]["location"].name)) {
                                                                                       //condCheck = true;
                                                                                 }
@@ -16775,7 +16799,7 @@ Things I don't plan on adding but might:
                                                                                         console.log(needsAllCheck);
                                                                                       }
                                                                           }
-                                                                          else if (element == Requirements.Child_Access) {
+                                                                          else if (element == Requirements.Child_Access && currentAge == Ages.Child) {
                                                                                 if (inventory.entered_child.includes(type[key]["location"].name)) {
                                                                                       //condCheck = true;
                                                                                 }
@@ -16823,12 +16847,12 @@ Things I don't plan on adding but might:
                                                                                         console.log(requirement);
                                                                                       }
                                                                                       if (inventory.requirements.includes(requirement)) {
-                                                                                            if (requirement == Requirements.Adult_Access) {
+                                                                                            if (requirement == Requirements.Adult_Access && currentAge == Ages.Adult) {
                                                                                                   if (!inventory.entered_adult.includes(type[key]["location"].name)) {
                                                                                                         innerMultCheck = false;
                                                                                                   }
                                                                                             }
-                                                                                            else if (requirement == Requirements.Child_Access) {
+                                                                                            else if (requirement == Requirements.Child_Access && currentAge == Ages.Child) {
                                                                                                   if (!inventory.entered_child.includes(type[key]["location"].name)) {
                                                                                                         innerMultCheck = false;
                                                                                                   }
@@ -16909,7 +16933,7 @@ Things I don't plan on adding but might:
                                                         }
                                                         accessCheck = false;
                                                         if (condition.age) {
-                                                          if (condition.age == Ages.Child) {
+                                                          if (condition.age == Ages.Child && currentAge == Ages.Child) {
                                                             if (inventory.accessible_child.includes(condition.access)) {
                                                               accessCheck = true;
                                                               //condCheck = true;
@@ -16919,7 +16943,7 @@ Things I don't plan on adding but might:
                                                               needsAllCheck = false;
                                                             }
                                                           }
-                                                          else if (condition.age == Ages.Adult) {
+                                                          else if (condition.age == Ages.Adult && currentAge == Ages.Adult) {
                                                             if (inventory.accessible_adult.includes(condition.access)) {
                                                               accessCheck = true;
                                                               //condCheck = true;
@@ -17016,22 +17040,19 @@ Things I don't plan on adding but might:
                                                             condition["requirements"].forEach(element => {
                                                             if (element.explanation) {
                                                                   if (inventory.requirements.includes(element)) {
-                                                                        if (element == Requirements.Adult_Access) {
-                                                                                                if (inventory.entered_adult.includes(type[key]["location"].name)) {
-                                                                                                      condCheck = true;
-                                                                                                }
-                                                                                          }
-                                                                                          else if (element == Requirements.Child_Access) {
-                                                                                                if (inventory.entered_child.includes(type[key]["location"].name)) {
-                                                                                                      condCheck = true;
-                                                                                                }
-                                                                                          }
-                                                                                          else {
-                                                                                                condCheck = true;
-                                                                                                // if (key == "GC Maze Center Chest") {
-                                                                                                //       console.log("you got it");
-                                                                                                // }
-                                                                                          }
+                                                                        if (element == Requirements.Adult_Access && currentAge == Ages.Adult) {
+                                                                            if (inventory.entered_adult.includes(type[key]["location"].name)) {
+                                                                              condCheck = true;
+                                                                            }
+                                                                        }
+                                                                        else if (element == Requirements.Child_Access && currentAge == Ages.Child) {
+                                                                          if (inventory.entered_child.includes(type[key]["location"].name)) {
+                                                                            condCheck = true;
+                                                                          }
+                                                                        }
+                                                                        else {
+                                                                          condCheck = true;
+                                                                        }
                                                                   }
                                                                   else {
 
@@ -17047,12 +17068,12 @@ Things I don't plan on adding but might:
                                                                                     innerMultCheck = true;
                                                                                     //console.log(requirement);
                                                                                     if (inventory.requirements.includes(requirement)) {
-                                                                                          if (requirement == Requirements.Adult_Access) {
+                                                                                          if (requirement == Requirements.Adult_Access && currentAge == Ages.Adult) {
                                                                                                 if (!inventory.entered_adult.includes(type[key]["location"].name)) {
                                                                                                       innerMultCheck = false;
                                                                                                 }
                                                                                           }
-                                                                                          else if (requirement == Requirements.Child_Access) {
+                                                                                          else if (requirement == Requirements.Child_Access && currentAge == Ages.Child) {
                                                                                                 if (!inventory.entered_child.includes(type[key]["location"].name)) {
                                                                                                       innerMultCheck = false;
                                                                                                 }
@@ -17145,14 +17166,15 @@ Things I don't plan on adding but might:
                                     
                               }
                               if (reqCheck && condCheck && ageCheck && collectCheck && accessCheck && needsAllCheck) {
-                                if (file.testMode) {
-                                  console.log('Accepted! unlocking the following item:\n');
-                                  console.log(key);
-                                }
+                                
                                 //console.log("Adding item or entrance "+ key);
                                     if (type == entrancesMap) {
                                           //console.log("adding" + key);
                                           if (!accessibleList[listIndex].includes(key)) {
+                                            if (file.testMode) {
+                                              console.log('Accepted! unlocking the following item:\n');
+                                              console.log(key);
+                                            }
                                                 accessibleList[listIndex].push(key);
                                           }
                                           //delete entrancesMap[key];
@@ -17170,6 +17192,10 @@ Things I don't plan on adding but might:
                                             // console.log("Passed condition of key existing");
                                             // console.log(file.locations[key]);
                                                 if (!inventory.collected.includes(key)) {
+                                                  if (file.testMode) {
+                                                    console.log('Accepted! unlocking the following item:\n');
+                                                    console.log(key);
+                                                  }
                                                       inventory.collected.push(key);
                                                 }
                                                 
