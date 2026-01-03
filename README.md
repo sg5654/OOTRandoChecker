@@ -1,7 +1,7 @@
 An extremely detailed logic checker for the SOH version of OOTR.
 
 This project is not currently fully done but is still fully functional. 
-This program will parse JSON from a randomizer spoiler log, apply the items and entrances to their new locations and then attempt to play through the seed as if it were a player.
+This program will parse JSON from a randomizer spoiler log, apply the items and entrances to their new locations and then attempt to play through the seed as if it were a player with perfect skill, being able to do every trick that I am aware of existing (and that is currently implemented)
 This allows me to keep track of what is possible throughout every step of logic, and makes it trivial to determine a dead end in the loop.
 
 The project's logic is ever-expanding. I am currently working on transforming the raw logic data into a proper searchable list for giving proper user feedback, along with example footage for every trick.
